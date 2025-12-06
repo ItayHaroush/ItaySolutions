@@ -149,7 +149,7 @@ const Hero = ({ scrollToSection }) => {
 
                     <div className="hero-stats">
                         <div className="stat-item" data-aos="fade-up" data-aos-delay="200">
-                            <span className="stat-number">8+</span>
+                            <span className="stat-number">10+</span>
                             <span className="stat-label">פרוייקטים</span>
                         </div>
                         <div className="stat-item" data-aos="fade-up" data-aos-delay="300">
@@ -407,7 +407,7 @@ const Portfolio = () => {
             image: 'assets/images/fulllogo_nobuffer.jpeg',
             description: 'אתר תדמית לעסק בניה ובנייה עם עיצוב מודרני ותגובותי.',
             technologies: ['HTML5', 'React', 'Node.js', 'CSS3', 'JavaScript'],
-            link: 'https://www-hzh6.vercel.app/',
+            link: 'https://www.binalb.com/',
             github: '#',
             featured: true,
         },
@@ -522,6 +522,32 @@ const Portfolio = () => {
             date: '2023',
             link: '#',
             skills: ['Frontend', 'UX/UI', 'Mobile First', 'Accessibility']
+        },
+        {
+            id: 16,
+            title: 'Linoy H Teaching Website',
+            category: 'websites',
+            type: 'project',
+            image: 'assets/images/logoLinoy.png',
+            description: 'אתר תדמית למורה פרטית עם עיצוב נקי ותגובותי',
+            technologies: ['HTML5', 'CSS3', 'JavaScript', 'React'],
+            link: 'https://linoy-app.vercel.app/',
+            github: '#',
+            isExternal: true,
+            featured: true
+        },
+        {
+            id: 17,
+            title: 'Bar Ben Abu Website',
+            category: 'websites',
+            type: 'project',
+            image: 'assets/images/barLogo.png',
+            description: 'אתר תדמית לאדריכל בר בן אבו עם עיצוב מודרני ותגובותי.',
+            technologies: ['HTML5', 'CSS3', 'JavaScript', 'React'],
+            link: 'https://bar-app-self.vercel.app/',
+            github: '#',
+            isExternal: true,
+            featured: true
         }
 
     ];
@@ -664,11 +690,11 @@ const Portfolio = () => {
                 {/* סטטיסטיקות מעודכנות */}
                 <div className="portfolio-stats" data-aos="fade-up">
                     <div className="stat-item">
-                        <span className="stat-number">8</span>
+                        <span className="stat-number">10</span>
                         <span className="stat-label">פרוייקטים</span>
                     </div>
                     <div className="stat-item">
-                        <span className="stat-number">8</span>
+                        <span className="stat-number">10</span>
                         <span className="stat-label">תעודות הסמכה</span>
                     </div>
                     <div className="stat-item">
