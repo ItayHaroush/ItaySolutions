@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="הצעות מחיר שקופות והוגנות לפיתוח אתרים ואפליקציות - Itay Solutions">
+    <meta name="keywords" content="הצעת מחיר, פיתוח אתרים, מחירון, איתי הרוש, Itay Solutions">
+    <meta name="author" content="Itay Haroush | Itay Solutions">
+    
+    <title>הצעות מחיר - Itay Solutions | איתי הרוש</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/itaySolutionsLogoIconOrange.png" type="image/png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- BoxIcons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <!-- Main CSS - loaded first so we can override -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #f59e0b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            --border-radius-sm: 0.375rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            --border-radius-full: 9999px;
+            --transition-fast: 150ms ease;
+            --transition-normal: 300ms ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rubik', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .landing-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .landing-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: var(--spacing-3xl) var(--spacing-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .landing-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .landing-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            text-decoration: none;
+        }
+
+        .brand-logo i,
+        .brand-logo img {
+            font-size: 3rem;
+            background: white;
+            color: var(--primary-color);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .brand-logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .brand-logo h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+
+        .header-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .header-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .landing-main {
+            flex: 1;
+            padding: var(--spacing-3xl) var(--spacing-xl);
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .section-intro h2 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-md);
+            font-weight: 700;
+        }
+
+        .section-intro p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .landing-footer {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+            padding: var(--spacing-2xl) var(--spacing-xl);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-contact {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: var(--spacing-md) !important;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: 1rem;
+            opacity: 0.9;
+            white-space: nowrap;
+        }
+
+        .footer-contact-item i {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .footer-cta {
+            margin: var(--spacing-xl) 0;
+        }
+
+        .btn-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-2xl);
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: var(--border-radius-full);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity var(--transition-fast);
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            z-index: 2000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #25D366;
+            color: white;
+            box-shadow: var(--shadow-xl);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .whatsapp-float i {
+            font-size: 2rem;
+        }
+
+        .whatsapp-float:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .footer-copyright {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .brand-logo {
+                flex-direction: column;
+            }
+
+            .brand-logo h1 {
+                font-size: 1.8rem;
+            }
+
+            .header-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-intro h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container">
+        <!-- Header -->
+        <header class="landing-header" data-aos="fade-down">
+            <div class="header-content">
+                <div class="brand-logo">
+                    <img src="assets/images/itaySolutionsLogoIconOrange.png" alt="Itay Solutions Logo">
+                    <h1>Itay Solutions</h1>
+                </div>
+                <h2 class="header-subtitle">איתי הרוש | פיתוח אתרים ואפליקציות מקצועי</h2>
+                <p class="header-description">
+                    הצעות מחיר שקופות, תחרותיות והוגנות - ללא הפתעות. 
+                    כל מה שצריך לדעת כדי לבחור את הפתרון הדיגיטלי המושלם לעסק שלכם
+                </p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="landing-main">
+            <div class="section-intro" data-aos="fade-up">
+                <h2>📊 מחירון שירותים</h2>
+                <p>בחרו את החבילה המתאימה לצרכים שלכם - מחירים ברורים ושקופים</p>
+            </div>
+
+            <!-- Pricing Component will be injected here -->
+            <div id="pricing-container"></div>
+
+            <!-- Contact Component will be injected here -->
+            <div id="contact-container" style="margin-top: var(--spacing-3xl);"></div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="landing-footer" data-aos="fade-up">
+            <div class="footer-content">
+                <h3 style="font-size: 2rem; margin-bottom: var(--spacing-lg);">מעוניינים להתחיל?</h3>
+                <p style="font-size: 1.1rem; margin-bottom: var(--spacing-xl); opacity: 0.9;">
+                    בואו נדבר על הפרויקט שלכם ונמצא את הפתרון המושלם
+                </p>
+
+                <div class="footer-cta">
+                    <a href="https://wa.me/972547466508?text=היי%20איתי!%20אני%20מעוניין%20לקבל%20הצעת%20מחיר" class="btn-contact" target="_blank" rel="noopener noreferrer">
+                        <i class='bx bxl-whatsapp'></i>
+                        דברו איתי בוואטסאפ
+                    </a>
+                </div>
+
+                <div class="footer-contact">
+                    <div class="footer-contact-item">
+                        <i class='bx bxl-whatsapp'></i>
+                        <span>054-746-6508</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class='bx bx-envelope'></i>
+                        <span>itayyharoush@gmail.com</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class='bx bxl-linkedin'></i>
+                        <span>Itay Haroush</span>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">חזרה לאתר הראשי</a>
+                    <a href="index.html#services" class="footer-link">השירותים שלי</a>
+                    <a href="index.html#portfolio" class="footer-link">פרויקטים</a>
+                </div>
+
+                <div class="footer-copyright">
+                    <p>&copy; 2026 Itay Solutions - איתי הרוש. כל הזכויות שמורות.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
+    <!-- Pricing Component -->
+    <script type="text/babel" src="assets/js/PricingQuote.js"></script>
+
+    <!-- Contact Component (copied from main app) -->
+    <script type="text/babel">
+        const Contact = () => {
+            const [formData, setFormData] = React.useState({
+                name: '',
+                email: '',
+                phone: '',
+                subject: '',
+                message: ''
+            });
+
+            React.useEffect(() => {
+                const checkWhatsApp = () => {
+                    const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                    const hasWhatsApp = isMobile || navigator.userAgent.includes('WhatsApp');
+
+                    console.log('📱 Device info:', {
+                        isMobile,
+                        hasWhatsApp,
+                        userAgent: navigator.userAgent
+                    });
+
+                    return { isMobile, hasWhatsApp };
+                };
+
+                window.deviceInfo = checkWhatsApp();
+            }, []);
+
+            const handleInputChange = (e) => {
+                setFormData({
+                    ...formData,
+                    [e.target.name]: e.target.value
+                });
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+
+                console.log('🔍 Form submitted with data:', formData);
+
+                if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+                    alert('⚠️ אנא מלאו את כל השדות החובה המסומנים ב-*');
+                    return;
+                }
+
+                const message = `🌟 *פנייה חדשה מהאתר!*
+
+👤 *פרטים אישיים:*
+• שם: ${formData.name}
+• אימייל: ${formData.email}
+${formData.phone ? `• טלפון: ${formData.phone}` : ''}
+
+🎯 *פרטי הפרוייקט:*
+• נושא: ${formData.subject}
+• תיאור: ${formData.message}
+
+💼 *בקשה:*
+מעוניין לקבל הצעת מחיר מקצועית.
+אשמח לייעוץ ופגישה! 
+
+תודה 🚀`;
+
+                const phoneNumber = '972547466508';
+                console.log('📱 WhatsApp number:', phoneNumber);
+                console.log('💬 Message to send:', message);
+
+                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                console.log('🔗 WhatsApp URL:', whatsappURL);
+
+                const confirmSend = confirm(`📱 האם ברצונכם לשלוח את ההודעה לוואטסאפ?
+    
+ההודעה תישלח ל: +${phoneNumber}
+    
+לחצו "אישור" לפתיחת וואטסאפ או "ביטול" לעריכה.`);
+
+                if (confirmSend) {
+                    try {
+                        const opened = window.open(whatsappURL, '_blank');
+
+                        if (opened) {
+                            console.log('✅ WhatsApp opened successfully');
+
+                            setTimeout(() => {
+                                const success = confirm(`✅ וואטסאפ נפתח בהצלחה!
+                    
+🔔 חשוב: אל תשכחו ללחוץ על כפתור השליחה בוואטסאפ!
+                    
+האם ברצונכם לנקות את הטופס?`);
+
+                                if (success) {
+                                    setFormData({
+                                        name: '',
+                                        email: '',
+                                        phone: '',
+                                        subject: '',
+                                        message: ''
+                                    });
+                                    console.log('🧹 Form cleared');
+                                }
+                            }, 1000);
+
+                        } else {
+                            throw new Error('Failed to open WhatsApp');
+                        }
+
+                    } catch (error) {
+                        console.error('❌ Error opening WhatsApp:', error);
+
+                        navigator.clipboard.writeText(`Message: ${message}\nPhone: +${phoneNumber}`).then(() => {
+                            alert(`⚠️ לא ניתן לפתוח וואטסאפ אוטומטית.
+                
+📋 הפרטים הועתקו ללוח!
+📱 פתחו וואטסאפ ידנית ושלחו ל: +${phoneNumber}`);
+                        }).catch(() => {
+                            alert(`⚠️ לא ניתן לפתוח וואטסאפ אוטומטית.
+                
+📱 אנא פנו ישירות:
+טלפון: +${phoneNumber}
+אימייל: itay666@icloud.com`);
+                        });
+                    }
+                }
+            };
+
+            const contactMethods = [
+                {
+                    icon: 'bxl-whatsapp',
+                    title: '💬 וואטסאפ - תגובה מהירה',
+                    info: 'קבלו הצעת מחיר תוך 24 שעות',
+                    link: 'https://wa.me/+972547466508?text=היי איתי! אני מעוניין לשמוע על שירותי הפיתוח שלך',
+                    color: '#25D366'
+                },
+                {
+                    icon: 'bx-phone',
+                    title: '📞 שיחת ייעוץ חינמית',
+                    info: 'חייג עכשיו לשיחת ייעוץ',
+                    link: 'tel:+972547466508',
+                    color: '#4f46e5'
+                },
+                {
+                    icon: 'bx-envelope',
+                    title: '📧 אימייל עסקי',
+                    info: 'itayyharoush@gmail.com',
+                    link: 'mailto:itayyharoush@gmail.com?subject=פנייה עסקית - פיתוח',
+                    color: '#EA4335'
+                },
+                {
+                    icon: 'bxl-linkedin',
+                    title: '💼 רשת מקצועית',
+                    info: 'חיבור עסקי ב-LinkedIn',
+                    link: 'https://www.linkedin.com/in/itay-haroush-94710b229/?originalSubdomain=il',
+                    color: '#0A66C2'
+                },
+                {
+                    icon: 'bxl-github',
+                    title: '🐙 GitHub - קוד פתוח',
+                    info: 'צפו בפרוייקטים שלי ב-GitHub',
+                    link: 'https://github.com/itayHaroush',
+                    color: '#171515'
+                }
+            ];
+
+            return (
+                <section id="contact" className="contact">
+                    <div className="container">
+                        <div className="contact-content">
+                            <div className="contact-info" data-aos="fade-right">
+                                <div className="contact-intro">
+                                    <h3>🚀 מוכנים להגדיל את העסק?</h3>
+                                    <p>
+                                        <strong>קבלו הצעת מחיר מקצועית ללא התחייבות תוך 24 שעות!</strong>
+                                        <br /><br />
+                                        🎯 יעוץ חינם לבחירת הפתרון המתאים<br />
+                                        💰 מחירים הוגנים ושקופים<br />
+                                        ⚡ מסירה מהירה ואמינה<br />
+                                        🛠️ תמיכה מלאה לאחר המסירה
+                                    </p>
+                                </div>
+
+                                <div className="contact-methods">
+                                    {contactMethods.map((method, index) => (
+                                        <a
+                                            key={index}
+                                            href={method.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="contact-method"
+                                            data-aos="fade-up"
+                                            data-aos-delay={index * 100}
+                                        >
+                                            <div className="method-icon" style={{ backgroundColor: method.color }}>
+                                                <i className={`bx ${method.icon}`}></i>
+                                            </div>
+                                            <div className="method-info">
+                                                <h4>{method.title}</h4>
+                                                <p>{method.info}</p>
+                                            </div>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="section-header" data-aos="fade-up">
+                                <h2>בואו ניצור קשר</h2>
+                                <p>מוכנים להפוך את הרעיון שלכם למציאות? אשמח לשמוע על הפרוייקט שלכם</p>
+
+                                <form className="contact-form" onSubmit={handleSubmit} data-aos="fade-left">
+                                    <div className="form-group">
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            placeholder="השם שלך *"
+                                            value={formData.name}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className="form-row">
+                                        <div className="form-group">
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                placeholder="כתובת אימייל *"
+                                                value={formData.email}
+                                                onChange={handleInputChange}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <input
+                                                type="tel"
+                                                name="phone"
+                                                placeholder="מספר טלפון"
+                                                value={formData.phone}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group">
+                                        <input
+                                            type="text"
+                                            name="subject"
+                                            placeholder="נושא הפרוייקט *"
+                                            value={formData.subject}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <textarea
+                                            name="message"
+                                            placeholder="ספרו לי על הפרוייקט שלכם... *"
+                                            rows="6"
+                                            value={formData.message}
+                                            onChange={handleInputChange}
+                                            required
+                                        ></textarea>
+                                    </div>
+
+                                    <button type="submit" className="btn btn-primary btn-full">
+                                        <i className='bx bx-send'></i>
+                                        שלח הודעה
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+    </script>
+    
+    <script type="text/babel">
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+        });
+
+        // Render Pricing Component
+        const container = document.getElementById('pricing-container');
+        const root = ReactDOM.createRoot(container);
+        root.render(<PricingQuote />);
+
+        // Render Contact Component
+        const contactContainer = document.getElementById('contact-container');
+        if (contactContainer) {
+            const contactRoot = ReactDOM.createRoot(contactContainer);
+            contactRoot.render(<Contact />);
+        }
+    </script>
+
+    <!-- Floating WhatsApp Button -->
+    <a
+        href="https://wa.me/972547466508?text=היי%20איתי!%20אני%20מעוניין%20לקבל%20הצעת%20מחיר"
+        class="whatsapp-float"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="פתח וואטסאפ"
+    >
+        <i class='bx bxl-whatsapp'></i>
+    </a>
+</body>
+</html>

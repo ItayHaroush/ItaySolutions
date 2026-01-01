@@ -1611,8 +1611,23 @@ p {
     line-height: 1.6;
 }
 
-background: #1e293b;
-border-color: var(--primary-color);
+.pricing-cta .btn-pricing {
+    width: auto;
+    padding: var(--spacing-md) var(--spacing-2xl);
+    font-size: 1.1rem;
+}
+
+/* Track Card */
+.track-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-xl);
+    transition: all var(--transition-normal);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .track-card.highlight {
