@@ -100,16 +100,10 @@ const PricingQuote = () => {
     ];
 
     const handleSelectPricing = (id) => {
-        // גלילה ישירה לטופס יצירת הקשר
         setTimeout(() => {
-            const contactForm = document.querySelector('.contact-form');
-            if (contactForm) {
-                contactForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                // מיקוד בשדה הראשון של הטופס
-                const firstInput = contactForm.querySelector('input[name="name"]');
-                if (firstInput) {
-                    setTimeout(() => firstInput.focus(), 500);
-                }
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }, 100);
     };
