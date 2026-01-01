@@ -134,7 +134,7 @@ const PricingQuote = () => {
                             data-aos-delay={index * 100}
                         >
                             {pricing.popular && <span className="popular-badge">⭐ הכי פופולרי</span>}
-                            
+
                             <div className="pricing-header">
                                 <div className="pricing-icon">
                                     <i className={`bx ${pricing.icon}`}></i>
@@ -162,7 +162,7 @@ const PricingQuote = () => {
                                 ))}
                             </ul>
 
-                            <button 
+                            <button
                                 className="btn-pricing"
                                 onClick={() => handleSelectPricing(pricing.id)}
                             >
@@ -184,13 +184,13 @@ const PricingQuote = () => {
                             </p>
                         </div>
                     </div>
-                    
+
                     <div className="note-card">
                         <i className='bx bx-gift'></i>
                         <div className="note-content">
                             <h4>🎁 מה כלול בכל חבילה?</h4>
                             <p>
-                                כל החבילות כוללות: ייעוץ ותכנון, קוד נקי ומסודר, הדרכה בסיסית, 
+                                כל החבילות כוללות: ייעוץ ותכנון, קוד נקי ומסודר, הדרכה בסיסית,
                                 <strong> אחריות לתקופת האחריות הנקובה ותמיכה טכנית.</strong>
                             </p>
                         </div>
@@ -201,7 +201,7 @@ const PricingQuote = () => {
                         <div className="note-content">
                             <h4>💳 תנאי תשלום גמישים</h4>
                             <p>
-                                50% מקדמה בתחילת הפרויקט, 
+                                50% מקדמה בתחילת הפרויקט,
                                 <strong> 50% יתרה עם מסירת העבודה.</strong> אפשרות לפריסת תשלומים בפרויקטים גדולים.
                             </p>
                         </div>

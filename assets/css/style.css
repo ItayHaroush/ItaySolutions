@@ -1401,7 +1401,7 @@ p {
     z-index: 0;
 }
 
-.pricing-card > * {
+.pricing-card>* {
     position: relative;
     z-index: 1;
 }
@@ -1564,7 +1564,7 @@ p {
     transform: translateY(-4px);
 }
 
-.note-card > i {
+.note-card>i {
     font-size: 2rem;
     color: var(--primary-color);
     flex-shrink: 0;
@@ -1610,8 +1610,9 @@ p {
     margin-bottom: var(--spacing-xl);
     line-height: 1.6;
 }
-    background: #1e293b;
-    border-color: var(--primary-color);
+
+background: #1e293b;
+border-color: var(--primary-color);
 }
 
 .track-card.highlight {
