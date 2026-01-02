@@ -149,7 +149,7 @@ const Hero = ({ scrollToSection }) => {
 
                     <div className="hero-stats">
                         <div className="stat-item" data-aos="fade-up" data-aos-delay="200">
-                            <span className="stat-number">10+</span>
+                            <span className="stat-number">11+</span>
                             <span className="stat-label">פרוייקטים</span>
                         </div>
                         <div className="stat-item" data-aos="fade-up" data-aos-delay="300">
@@ -552,7 +552,21 @@ const Portfolio = () => {
             github: '#',
             isExternal: true,
             featured: true
+        },
+        {
+            id: 18,
+            title: 'Itay Solutions App Weather',
+            category: 'applications',
+            type: 'project',
+            image: 'assets/images/logoAppWeather.png',
+            description: 'אפליקציית מזג אוויר פשוטה המציגה תחזית יומית לשבוע עם עיצוב מודרני ותגובותי.',
+            technologies: ['HTML5', 'CSS3', 'JavaScript', 'React', 'API Integration'],
+            link: 'https://web2026-sandy.vercel.app',
+            github: '#',
+            isExternal: true,
+            featured: true
         }
+
 
     ];
 
@@ -694,7 +708,7 @@ const Portfolio = () => {
                 {/* סטטיסטיקות מעודכנות */}
                 <div className="portfolio-stats" data-aos="fade-up">
                     <div className="stat-item">
-                        <span className="stat-number">10</span>
+                        <span className="stat-number">11</span>
                         <span className="stat-label">פרוייקטים</span>
                     </div>
                     <div className="stat-item">
@@ -702,7 +716,7 @@ const Portfolio = () => {
                         <span className="stat-label">תעודות הסמכה</span>
                     </div>
                     <div className="stat-item">
-                        <span className="stat-number">5</span>
+                        <span className="stat-number">6</span>
                         <span className="stat-label">פרוייקטים פעילים</span>
                     </div>
                     <div className="stat-item">
