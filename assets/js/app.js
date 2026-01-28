@@ -52,6 +52,7 @@ const App = () => {
             <Hero scrollToSection={scrollToSection} />
             <Services />
             <Portfolio />
+            <CertificatesCarousel />
             <PricingQuote />
             <Contact />
             <Footer />
@@ -75,6 +76,7 @@ const Header = ({ isMenuOpen, setIsMenuOpen, activeSection, scrollToSection }) =
         { id: 'home', label: 'בית', icon: 'bx-home' },
         { id: 'services', label: 'שירותים', icon: 'bx-briefcase' },
         { id: 'portfolio', label: 'פרוייקטים', icon: 'bx-folder' },
+        { id: 'certificates', label: 'תעודות', icon: 'bx-medal' },
         { id: 'pricing', label: 'הצעת מחיר', icon: 'bx-calculator' },
         { id: 'contact', label: 'צור קשר', icon: 'bx-message' }
     ];
@@ -143,7 +145,7 @@ const Hero = ({ scrollToSection }) => {
                         <span className="cursor">|</span>
                     </h2>
                     <p style={{ color: 'white' }}>
-                        🚀 מפתח Full Stack מקצועי עם מעל 3 שנות ניסיון בפיתוח פתרונות דיגיטליים מתקדמים.
+                        <i className="fas fa-rocket"></i> מפתח Full Stack מקצועי עם מעל 3 שנות ניסיון בפיתוח פתרונות דיגיטליים מתקדמים.
                         מתמחה ביצירת אתרים ואפליקציות שמניבות תוצאות עסקיות מדידות ומשפרות את חוויית המשתמש.
                     </p>
 
@@ -230,15 +232,16 @@ const Services = () => {
     const services = [
         {
             icon: 'bx-building-house',
-            title: '🏢 אתרי תדמית לעסקים',
+            title: '<i class="fas fa-building"></i> אתרי תדמית לעסקים',
             description: 'אתרים מקצועיים שמייצגים את העסק שלך ומביאים לקוחות חדשים',
             features: ['עיצוב מותאם למותג', 'SEO מובנה להופעה בגוגל', 'מותאם לכל המכשירים', 'מערכת ניהול תוכן פשוטה'],
-            exampleLink: 'https://www-hzh6.vercel.app/',
-            exampleName: 'בינה לבנייה'
+            exampleLink: '#',
+            exampleName: 'בינה לבנייה',
+            linkDisabled: true
         },
         {
             icon: 'bx-id-card',
-            title: '💳 אתר כרטיס ביקור',
+            title: '<i class="fas fa-credit-card"></i> אתר כרטיס ביקור',
             description: 'אתר מינימליסטי להצגת פרטי התקשרות, מיקום, קישורים לרשתות חברתיות וטופס יצירת קשר מהיר',
             features: ['עיצוב ממוקד וקליל', 'מותאם למובייל', 'קישור מהיר לוואטסאפ', 'טופס יצירת קשר פשוט', 'קישורים לרשתות חברתיות'],
             exampleLink: '',
@@ -246,19 +249,19 @@ const Services = () => {
         },
         {
             icon: 'bx-envelope',
-            title: '📧 דפי נחיתה + ניוזלטר',
+            title: '<i class="fas fa-envelope"></i> דפי נחיתה + ניוזלטר',
             description: 'פתרון מושלם לעסקים קטנים, רופאים, מכוני יופי ומאמני כושר - להמרת גולשים ללקוחות',
             features: ['דף נחיתה ממיר', 'מערכת ניוזלטר אוטומטית', 'טפסי הרשמה חכמים', 'אינטגרציה עם רשתות חברתיות']
         },
         {
             icon: 'bx-mobile',
-            title: '📱 אפליקציות מובייל',
+            title: '<i class="fas fa-mobile-alt"></i> אפליקציות מובייל',
             description: 'פיתוח אפליקציות מותאמות אישית למובייל עם חוויית משתמש מעולה',
             features: ['פיתוח Native ו-Cross-Platform', 'UI/UX מותאם למובייל', 'אינטגרציה עם API', 'בדיקות איכות קפדניות'],
         },
         {
             icon: 'bx-wrench',
-            title: '🔧 שירות תחזוקה שוטפת',
+            title: '<i class="fas fa-wrench"></i> שירות תחזוקה שוטפת',
             description: 'שמירה על האתר שלך מעודכן, מאובטח ומהיר לאורך זמן',
             features: ['עדכוני אבטחה שוטפים', 'גיבויים אוטומטיים', 'תמיכה טכנית מתמשכת', 'שיפורים ואופטימיזציה']
         }
@@ -284,11 +287,14 @@ const Services = () => {
                             <div className="service-icon">
                                 <i className={`bx ${service.icon}`}></i>
                             </div>
-                            <h3>{service.title}</h3>
+                            <h3 dangerouslySetInnerHTML={{ __html: service.title }}></h3>
                             <p>
                                 {service.description}
-                                {service.exampleLink && (
+                                {service.exampleLink && !service.linkDisabled && (
                                     <> - כמו <a href={service.exampleLink} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'underline' }}>{service.exampleName}</a></>
+                                )}
+                                {service.exampleLink && service.linkDisabled && (
+                                    <> - כמו <span style={{ color: 'var(--text-secondary)', textDecoration: 'line-through', cursor: 'not-allowed' }}>{service.exampleName}</span></>
                                 )}
                                 {service.exampleLinks && (
                                     <> - כמו {service.exampleLinks.map((link, i) => (
@@ -328,9 +334,8 @@ const Portfolio = () => {
         }
     }, [activeFilter]);
 
-    // הפרוייקטים והתעודות האמיתיים שלך
-    const portfolioItems = [
-        // 🚀 פרוייקטים (ממוספרים 1-4 כמו בדף הקיים)
+    // פרוייקטים - אתרים, משחקים, אפליקציות בלבד
+    const projects = [
         {
             id: 1,
             title: 'Portfolio Website',
@@ -374,14 +379,46 @@ const Portfolio = () => {
             status: '',
             date: '2025',
             skills: ['MySQL', 'PHP', 'APIs', 'Async Programming']
+        },
+        {
+            id: 19,
+            title: 'ChefSync IL 2.0',
+            category: 'applications',
+            type: 'project',
+            image: 'assets/images/ChefSyncIL.png',
+            description: 'גרסה 2.0 משופרת של אפליקציית ChefSync IL עם ממשק מודרני ופיצ\'רים מתקדמים',
+            technologies: ['React', 'Node.js', 'MySQL', 'PHP', 'API Development'],
+            link: 'https://chefsyncil.great-site.net',
+            github: '#',
+            featured: true,
+            status: 'new',
+            date: '2026',
+            skills: ['MySQL', 'PHP', 'APIs', 'Modern UI/UX'],
+            isExternal: true
+        },
+        {
+            id: 20,
+            title: 'TakeEat App',
+            category: 'applications',
+            type: 'project',
+            image: 'assets/images/takeEatLogo.jpeg',
+            description: 'אפליקציה להזמנת אוכל עם ממשק משתמש מודרני ופיצ\'רים מתקדמים',
+            technologies: ['React', 'Node.js', 'MySQL', 'PHP', 'Laravel', 'API Development'],
+            link: 'https://takeeat.co.il',
+            github: '#',
+            featured: true,
+            status: 'new',
+            date: '2026',
+            skills: ['MySQL', 'PHP', 'APIs', 'Modern UI/UX'],
+            isExternal: true
 
         },
         {
             id: 4,
-            title: 'React Portfolio',
+            title: 'Itay Solutions Portfolio',
             category: 'websites',
             type: 'project',
-            image: 'assets/images/logo.jpeg',
+            image: 'assets/images/itaySolutionsLogoIconOrange.png',
             description: 'פורטפוליו מתקדם זה עם React, אנימציות ועיצוב responsive מודרני.',
             technologies: ['React', 'CSS Grid', 'JavaScript ES6+', 'Mobile First'],
             link: 'https://itayharoush.github.io/Portfolio/index.html',
@@ -389,11 +426,9 @@ const Portfolio = () => {
             featured: true,
 
         },
-
-        // 🏆 תעודות הסמכה (כפי שמופיעות באנימציה)
         {
             id: 5,
-            title: 'Itay ContactApp ',
+            title: 'ContactApp',
             category: 'websites',
             type: 'project',
             image: 'assets/images/logoContactApp.png',
@@ -411,9 +446,10 @@ const Portfolio = () => {
             image: 'assets/images/fulllogo_nobuffer.jpeg',
             description: 'אתר תדמית לעסק בניה ובנייה עם עיצוב מודרני ותגובותי.',
             technologies: ['HTML5', 'React', 'Node.js', 'CSS3', 'JavaScript'],
-            link: 'https://www.binalb.com/',
+            // link: 'https://www.binalb.com/',
             github: '#',
             featured: true,
+            linkDisabled: true
         },
         {
             id: 7,
@@ -426,20 +462,7 @@ const Portfolio = () => {
             link: 'https://itayharoush.github.io/PacmanGame/',
             github: 'https://github.com/itayHaroush/PacmanGame',
             featured: true,
-            isExternal: true,
-
-        },
-        {
-            id: 8,
-            title: 'React Development Certificate',
-            category: 'certificates',
-            type: 'certificate',
-            image: 'assets/images/React.jpg',
-            description: 'תעודת הסמכה בפיתוח עם React, JSX, Hooks ו-State Management',
-            issuer: 'אקדמיה דיגיטלית',
-            date: '2024',
-            link: '#',
-            skills: ['React', 'JSX', 'Hooks', 'State Management']
+            isExternal: true
         },
         {
             id: 9,
@@ -447,85 +470,11 @@ const Portfolio = () => {
             category: 'applications',
             type: 'project',
             image: 'assets/images/MyLearn.jpg',
-            description: ' אפליקציית למידה מתקדמת עם תכנים אינטראקטיביים ומערכת דירוג לסרטונים לפי משתמשים.',
+            description: 'אפליקציית למידה מתקדמת עם תכנים אינטראקטיביים ומערכת דירוג לסרטונים לפי משתמשים.',
             technologies: ['HTML5', 'CSS3', 'JavaScript'],
             link: '#',
             github: '#',
-            status: 'coming-soon',
-        },
-        {
-            id: 10,
-            title: 'CSS Mastery Certificate',
-            category: 'certificates',
-            type: 'certificate',
-            image: 'assets/images/Css.jpg',
-            description: 'הסמכה מקצועית ב-CSS, עיצוב רספונסיבי ו-UX/UI',
-            issuer: 'מכללה טכנולוגית',
-            date: '2025',
-            link: '#',
-            skills: ['CSS', 'Responsive Design', 'UX/UI']
-        },
-        {
-            id: 11,
-            title: 'Java Induction Certificate',
-            category: 'certificates',
-            type: 'certificate',
-            image: 'assets/images/Java.jpg',
-            description: 'הסמכה מקצועית ב-Java, פיתוח אפליקציות ו-API',
-            issuer: 'מכללה טכנולוגית',
-            date: '2025',
-            link: '#',
-            skills: ['Java', 'API Development', 'OOP']
-        },
-        {
-            id: 12,
-            title: 'TypeScript Basics Certificate',
-            category: 'certificates',
-            type: 'certificate',
-            image: 'assets/images/TypeScript.jpg',
-            description: 'הסמכה בסיסית ב-TypeScript, טיפוסי נתונים ופיתוח מודולרי',
-            issuer: 'מכללה טכנולוגית',
-            date: '2025',
-            link: '#',
-            skills: ['TypeScript', 'Data Types', 'Modular Development']
-        },
-        {
-
-            id: 13,
-            title: 'Web Development Certificate',
-            category: 'certificates',
-            type: 'certificate',
-            image: 'assets/images/Html.jpg',
-            description: 'תעודת הסמכה בפיתוח אתרים - HTML, CSS, JavaScript וטכנולוגיות web מודרניות',
-            issuer: 'מכון טכנולוגי מתקדם',
-            date: '2024',
-            link: '#',
-            skills: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design']
-
-        },
-        {
-            id: 14,
-            title: 'JavaScript Advanced Certificate',
-            category: 'certificates',
-            type: 'certificate',
-            image: 'assets/images/javaScript.jpg',
-            description: 'הסמכה מתקדמת ב-JavaScript, DOM manipulation ופיתוח אפליקציות אינטראקטיביות',
-            issuer: 'פלטפורמת קודינג מקוונת',
-            date: '2024',
-            link: '#',
-            skills: ['ES6+', 'DOM', 'APIs', 'Async Programming']
-        },
-        {
-            id: 15,
-            title: 'Frontend Development Certificate',
-            category: 'certificates',
-            type: 'certificate',
-            image: 'assets/images/FrontEndDevelopment.jpg',
-            description: 'הסמכה מקצועית בפיתוח Frontend, עיצוב רספונסיבי ו-UX/UI',
-            issuer: 'מכללה טכנולוגית',
-            date: '2023',
-            link: '#',
-            skills: ['Frontend', 'UX/UI', 'Mobile First', 'Accessibility']
+            status: 'coming-soon'
         },
         {
             id: 16,
@@ -555,7 +504,7 @@ const Portfolio = () => {
         },
         {
             id: 18,
-            title: 'Itay Solutions App Weather',
+            title: 'App Weather',
             category: 'applications',
             type: 'project',
             image: 'assets/images/logoAppWeather.png',
@@ -566,31 +515,88 @@ const Portfolio = () => {
             isExternal: true,
             featured: true
         }
+    ];
 
-
+    // תעודות הסמכה - רשימה נפרדת לקרוסלה
+    const certificates = [
+        {
+            id: 8,
+            title: 'React Development',
+            image: 'assets/images/React.jpg',
+            issuer: 'אקדמיה דיגיטלית',
+            date: '2024',
+            skills: ['React', 'JSX', 'Hooks', 'State Management']
+        },
+        {
+            id: 10,
+            title: 'CSS Mastery',
+            image: 'assets/images/Css.jpg',
+            issuer: 'מכללה טכנולוגית',
+            date: '2025',
+            skills: ['CSS', 'Responsive Design', 'UX/UI']
+        },
+        {
+            id: 11,
+            title: 'Java Development',
+            image: 'assets/images/Java.jpg',
+            issuer: 'מכללה טכנולוגית',
+            date: '2025',
+            skills: ['Java', 'API Development', 'OOP']
+        },
+        {
+            id: 12,
+            title: 'TypeScript Basics',
+            image: 'assets/images/TypeScript.jpg',
+            issuer: 'מכללה טכנולוגית',
+            date: '2025',
+            skills: ['TypeScript', 'Data Types']
+        },
+        {
+            id: 13,
+            title: 'Web Development',
+            image: 'assets/images/Html.jpg',
+            issuer: 'מכון טכנולוגי מתקדם',
+            date: '2024',
+            skills: ['HTML5', 'CSS3', 'JavaScript']
+        },
+        {
+            id: 14,
+            title: 'JavaScript Advanced',
+            image: 'assets/images/javaScript.jpg',
+            issuer: 'פלטפורמת קודינג מקוונת',
+            date: '2024',
+            skills: ['ES6+', 'DOM', 'APIs']
+        },
+        {
+            id: 15,
+            title: 'Frontend Development',
+            image: 'assets/images/FrontEndDevelopment.jpg',
+            issuer: 'מכללה טכנולוגית',
+            date: '2023',
+            skills: ['Frontend', 'UX/UI', 'Mobile First']
+        }
     ];
 
     const categories = [
         { id: 'all', label: 'הכל', icon: 'bx-grid-alt' },
         { id: 'websites', label: 'אתרים', icon: 'bx-world' },
         { id: 'games', label: 'משחקים', icon: 'bx-joystick' },
-        { id: 'applications', label: 'אפליקציות', icon: 'bx-mobile' },
-        { id: 'certificates', label: 'תעודות הסמכה', icon: 'bx-medal' }
+        { id: 'applications', label: 'אפליקציות', icon: 'bx-mobile' }
     ];
 
     // חישוב הפריטים המסוננים - תלוי רק ב-activeFilter
-    const filteredItems = activeFilter === 'all'
-        ? portfolioItems
-        : portfolioItems.filter(item => item.category === activeFilter);
+    const filteredProjects = activeFilter === 'all'
+        ? projects
+        : projects.filter(item => item.category === activeFilter);
 
     return (
         <section id="portfolio" className="portfolio section">
             <div className="container">
                 <div className="section-header" data-aos="fade-up">
                     <span className="section-subtitle">עבודות שלי</span>
-                    <h2 className="section-title">הפרוייקטים ותעודות ההסמכה שלי</h2>
+                    <h2 className="section-title">הפרוייקטים שלי</h2>
                     <p className="section-description">
-                        אוסף הפרוייקטים שפיתחתי במהלך הלימודים, בנוסף לתעודות ההסמכה שרכשתי
+                        אוסף הפרוייקטים שפיתחתי - אתרים, אפליקציות ומשחקים
                     </p>
                 </div>
 
@@ -610,10 +616,10 @@ const Portfolio = () => {
 
                 {/* רשת הפרוייקטים */}
                 <div className="portfolio-grid">
-                    {filteredItems.map((item, index) => (
+                    {filteredProjects.map((item, index) => (
                         <div
                             key={item.id}
-                            className={`portfolio-item ${item.type === 'certificate' ? 'certificate-item' : 'project-item'} ${item.featured ? 'featured' : ''}`}
+                            className={`portfolio-item project-item ${item.featured ? 'featured' : ''}`}
                             data-aos="fade-up"
                             data-aos-delay={index * 100}
                         >
@@ -628,44 +634,31 @@ const Portfolio = () => {
                                 {/* תגיות מיוחדות */}
                                 {item.featured && <span className="featured-badge">מומלץ</span>}
                                 {item.status === 'coming-soon' && <span className="coming-soon-badge">בקרוב</span>}
-                                {item.type === 'certificate' && <span className="certificate-badge">תעודה</span>}
+                                {item.status === 'new' && <span className="new-badge">חדש</span>}
 
                                 <div className="portfolio-overlay">
                                     <div className="portfolio-actions">
-                                        {item.type === 'certificate' ? (
+                                        <a
+                                            href={item.link}
+                                            className="action-btn view-btn"
+                                            title="צפה בפרוייקט"
+                                            target={item.isExternal ? "_blank" : "_self"}
+                                            rel={item.isExternal ? "noopener noreferrer" : ""}
+                                        >
+                                            <i className='bx bx-link-external'></i>
+                                            <span>צפה בפרוייקט</span>
+                                        </a>
+                                        {item.github !== '#' && (
                                             <a
-                                                href={item.link}
-                                                className="action-btn view-btn"
-                                                title="צפה בתעודה"
+                                                href={item.github}
+                                                className="action-btn github-btn"
+                                                title="קוד ב-GitHub"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                             >
-                                                <i className='bx bx-show'></i>
-                                                <span>צפה בתעודה</span>
+                                                <i className='bx bxl-github'></i>
+                                                <span>GitHub</span>
                                             </a>
-                                        ) : (
-                                            <>
-                                                <a
-                                                    href={item.link}
-                                                    className="action-btn view-btn"
-                                                    title="צפה בפרוייקט"
-                                                    target={item.isExternal ? "_blank" : "_self"}
-                                                    rel={item.isExternal ? "noopener noreferrer" : ""}
-                                                >
-                                                    <i className='bx bx-link-external'></i>
-                                                    <span>צפה בפרוייקט</span>
-                                                </a>
-                                                {item.github !== '#' && (
-                                                    <a
-                                                        href={item.github}
-                                                        className="action-btn github-btn"
-                                                        title="קוד ב-GitHub"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                    >
-                                                        <i className='bx bxl-github'></i>
-                                                        <span>GitHub</span>
-                                                    </a>
-                                                )}
-                                            </>
                                         )}
                                     </div>
                                 </div>
@@ -674,32 +667,11 @@ const Portfolio = () => {
                             <div className="portfolio-content">
                                 <h3 className="portfolio-title">{item.title}</h3>
                                 <p className="portfolio-description">{item.description}</p>
-
-                                {item.type === 'certificate' ? (
-                                    <div className="certificate-info">
-                                        <div className="issuer">
-                                            <i className='bx bx-building'></i>
-                                            <span>{item.issuer}</span>
-                                        </div>
-                                        <div className="date">
-                                            <i className='bx bx-calendar'></i>
-                                            <span>{item.date}</span>
-                                        </div>
-                                        {item.skills && (
-                                            <div className="skills">
-                                                {item.skills.map((skill, skillIndex) => (
-                                                    <span key={skillIndex} className="skill-tag">{skill}</span>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                ) : (
-                                    <div className="technologies">
-                                        {item.technologies.map((tech, techIndex) => (
-                                            <span key={techIndex} className="tech-tag">{tech}</span>
-                                        ))}
-                                    </div>
-                                )}
+                                <div className="technologies">
+                                    {item.technologies.map((tech, techIndex) => (
+                                        <span key={techIndex} className="tech-tag">{tech}</span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -708,18 +680,146 @@ const Portfolio = () => {
                 {/* סטטיסטיקות מעודכנות */}
                 <div className="portfolio-stats" data-aos="fade-up">
                     <div className="stat-item">
-                        <span className="stat-number">11</span>
+                        <span className="stat-number">{projects.length}</span>
                         <span className="stat-label">פרוייקטים</span>
                     </div>
                     <div className="stat-item">
-                        <span className="stat-number">10</span>
+                        <span className="stat-number">{projects.filter(p => p.category === 'websites').length}</span>
+                        <span className="stat-label">אתרים</span>
+                    </div>
+                    <div className="stat-item">
+                        <span className="stat-number">{projects.filter(p => p.category === 'applications').length}</span>
+                        <span className="stat-label">אפליקציות</span>
+                    </div>
+                    <div className="stat-item">
+                        <span className="stat-number">{projects.filter(p => p.featured).length}</span>
+                        <span className="stat-label">פרוייקטים מומלצים</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// Certificates Carousel Component - קרוסלה אינפיניטית לתעודות
+const CertificatesCarousel = () => {
+    const certificatesData = [
+        {
+            id: 8,
+            title: 'React Development',
+            image: 'assets/images/React.jpg',
+            issuer: 'אקדמיה דיגיטלית',
+            date: '2024',
+            skills: ['React', 'JSX', 'Hooks']
+        },
+        {
+            id: 10,
+            title: 'CSS Mastery',
+            image: 'assets/images/Css.jpg',
+            issuer: 'מכללה טכנולוגית',
+            date: '2025',
+            skills: ['CSS', 'Responsive']
+        },
+        {
+            id: 11,
+            title: 'Java Development',
+            image: 'assets/images/Java.jpg',
+            issuer: 'מכללה טכנולוגית',
+            date: '2025',
+            skills: ['Java', 'OOP']
+        },
+        {
+            id: 12,
+            title: 'TypeScript Basics',
+            image: 'assets/images/TypeScript.jpg',
+            issuer: 'מכללה טכנולוגית',
+            date: '2025',
+            skills: ['TypeScript']
+        },
+        {
+            id: 13,
+            title: 'Web Development',
+            image: 'assets/images/Html.jpg',
+            issuer: 'מכון טכנולוגי',
+            date: '2024',
+            skills: ['HTML5', 'CSS3']
+        },
+        {
+            id: 14,
+            title: 'JavaScript Advanced',
+            image: 'assets/images/javaScript.jpg',
+            issuer: 'פלטפורמת קודינג',
+            date: '2024',
+            skills: ['ES6+', 'APIs']
+        },
+        {
+            id: 15,
+            title: 'Frontend Development',
+            image: 'assets/images/FrontEndDevelopment.jpg',
+            issuer: 'מכללה טכנולוגית',
+            date: '2023',
+            skills: ['Frontend', 'UX/UI']
+        }
+    ];
+
+    // כפילת התעודות פי 3 לקרוסלה רציפה
+    const duplicatedCertificates = [...certificatesData, ...certificatesData, ...certificatesData];
+
+    return (
+        <section id="certificates" className="certificates-section">
+            <div className="container">
+                <div className="section-header" data-aos="fade-up">
+                    <span className="section-subtitle">הכשרות והסמכות</span>
+                    <h2 className="section-title">תעודות ההסמכה שלי</h2>
+                    <p className="section-description">
+                        אוסף התעודות וההסמכות המקצועיות שרכשתי במהלך הדרך
+                    </p>
+                </div>
+
+                <div className="certificates-carousel-wrapper" data-aos="fade-up" data-aos-delay="100">
+                    <div className="certificates-carousel">
+                        {duplicatedCertificates.map((cert, index) => (
+                            <div key={`${cert.id}-${index}`} className="certificate-card">
+                                <div className="certificate-image">
+                                    <img src={cert.image} alt={cert.title} />
+                                    <div className="certificate-overlay">
+                                        <i className='bx bx-medal'></i>
+                                    </div>
+                                </div>
+                                <div className="certificate-info">
+                                    <h3>{cert.title}</h3>
+                                    <div className="issuer">
+                                        <i className='bx bx-building'></i>
+                                        <span>{cert.issuer}</span>
+                                    </div>
+                                    <div className="date">
+                                        <i className='bx bx-calendar'></i>
+                                        <span>{cert.date}</span>
+                                    </div>
+                                    <div className="skills">
+                                        {cert.skills.map((skill, skillIndex) => (
+                                            <span key={skillIndex} className="skill-tag">{skill}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="certificates-stats" data-aos="fade-up">
+                    <div className="stat-item">
+                        <i className='bx bx-medal'></i>
+                        <span className="stat-number">{certificatesData.length}</span>
                         <span className="stat-label">תעודות הסמכה</span>
                     </div>
                     <div className="stat-item">
-                        <span className="stat-number">6</span>
-                        <span className="stat-label">פרוייקטים פעילים</span>
+                        <i className='bx bx-code-alt'></i>
+                        <span className="stat-number">10+</span>
+                        <span className="stat-label">טכנולוגיות</span>
                     </div>
                     <div className="stat-item">
+                        <i className='bx bx-trending-up'></i>
                         <span className="stat-number">100%</span>
                         <span className="stat-label">מחויבות ללמידה</span>
                     </div>
@@ -776,7 +876,7 @@ const Contact = () => {
         }
 
         // יצירת הודעת וואטסאפ מפורטת
-        const message = `🌟 *פנייה חדשה מהאתר!*
+        const message = `⭐ *פנייה חדשה מהאתר!*
 
 👤 *פרטים אישיים:*
 • שם: ${formData.name}
@@ -865,35 +965,35 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
     const contactMethods = [
         {
             icon: 'bxl-whatsapp',
-            title: '💬 וואטסאפ - תגובה מהירה',
+            title: '<i class="fas fa-comment-dots"></i> וואטסאפ - תגובה מהירה',
             info: 'קבלו הצעת מחיר תוך 24 שעות',
             link: 'https://wa.me/+972547466508?text=היי איתי! אני מעוניין לשמוע על שירותי הפיתוח שלך',
             color: '#25D366'
         },
         {
             icon: 'bx-phone',
-            title: '📞 שיחת ייעוץ חינמית',
+            title: '<i class="fas fa-phone"></i> שיחת ייעוץ חינמית',
             info: 'חייג עכשיו לשיחת ייעוץ',
             link: 'tel:+972547466508',
             color: '#4f46e5'
         },
         {
             icon: 'bx-envelope',
-            title: '📧 אימייל עסקי',
+            title: '<i class="fas fa-envelope"></i> אימייל עסקי',
             info: 'itayyharoush@gmail.com',
             link: 'mailto:itayyharoush@gmail.com?subject=פנייה עסקית - פיתוח',
             color: '#EA4335'
         },
         {
             icon: 'bxl-linkedin',
-            title: '💼 רשת מקצועית',
+            title: '<i class="fas fa-briefcase"></i> רשת מקצועית',
             info: 'חיבור עסקי ב-LinkedIn',
             link: 'https://www.linkedin.com/in/itay-haroush-94710b229/?originalSubdomain=il',
             color: '#0A66C2'
         },
         {
             icon: 'bxl-github',
-            title: '🐙 GitHub - קוד פתוח',
+            title: '<i class="fab fa-github"></i> GitHub - קוד פתוח',
             info: 'צפו בפרוייקטים שלי ב-GitHub',
             link: 'https://github.com/itayHaroush',
             color: '#171515'
@@ -908,11 +1008,11 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                 <div className="contact-content">
                     <div className="contact-info" data-aos="fade-right">
                         <div className="contact-intro">
-                            <h3>🚀 מוכנים להגדיל את העסק?</h3>
+                            <h3 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-rocket"></i> מוכנים להגדיל את העסק?' }}></h3>
                             <p>
                                 <strong>קבלו הצעת מחיר מקצועית ללא התחייבות תוך 24 שעות!</strong>
                                 <br /><br />
-                                🎯 יעוץ חינם לבחירת הפתרון המתאים<br />
+                                <i className="fas fa-bullseye"></i> יעוץ חינם לבחירת הפתרון המתאים<br />
                                 💰 מחירים הוגנים ושקופים<br />
                                 ⚡ מסירה מהירה ואמינה<br />
                                 🛠️ תמיכה מלאה לאחר המסירה
@@ -934,7 +1034,7 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                                         <i className={`bx ${method.icon}`}></i>
                                     </div>
                                     <div className="method-info">
-                                        <h4>{method.title}</h4>
+                                        <h4 dangerouslySetInnerHTML={{ __html: method.title }}></h4>
                                         <p>{method.info}</p>
                                     </div>
                                 </a>
@@ -1047,6 +1147,7 @@ const Footer = () => {
                         <a href="#home">בית</a>
                         <a href="#services">שירותים</a>
                         <a href="#portfolio">פרוייקטים</a>
+                        <a href="#certificates">תעודות</a>
                         <a href="#pricing">הצעות מחיר</a>
                         <a href="#contact">צור קשר</a>
                     </div>

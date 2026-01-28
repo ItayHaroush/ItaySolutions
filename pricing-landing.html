@@ -20,6 +20,9 @@
     <!-- BoxIcons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
+    <!-- Font Awesome 6.3 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <!-- AOS Animation Library -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     
@@ -343,7 +346,7 @@
         <!-- Main Content -->
         <main class="landing-main">
             <div class="section-intro" data-aos="fade-up">
-                <h2>📊 מחירון שירותים</h2>
+                <h2><i class="fas fa-chart-bar"></i> מחירון שירותים</h2>
                 <p>בחרו את החבילה המתאימה לצרכים שלכם - מחירים ברורים ושקופים</p>
             </div>
 
@@ -455,7 +458,7 @@
                     return;
                 }
 
-                const message = `🌟 *פנייה חדשה מהאתר!*
+                const message = `⭐ *פנייה חדשה מהאתר!*
 
 👤 *פרטים אישיים:*
 • שם: ${formData.name}
@@ -537,35 +540,35 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
             const contactMethods = [
                 {
                     icon: 'bxl-whatsapp',
-                    title: '💬 וואטסאפ - תגובה מהירה',
+                    title: '<i class="fas fa-comment-dots"></i> וואטסאפ - תגובה מהירה',
                     info: 'קבלו הצעת מחיר תוך 24 שעות',
                     link: 'https://wa.me/+972547466508?text=היי איתי! אני מעוניין לשמוע על שירותי הפיתוח שלך',
                     color: '#25D366'
                 },
                 {
                     icon: 'bx-phone',
-                    title: '📞 שיחת ייעוץ חינמית',
+                    title: '<i class="fas fa-phone"></i> שיחת ייעוץ חינמית',
                     info: 'חייג עכשיו לשיחת ייעוץ',
                     link: 'tel:+972547466508',
                     color: '#4f46e5'
                 },
                 {
                     icon: 'bx-envelope',
-                    title: '📧 אימייל עסקי',
+                    title: '<i class="fas fa-envelope"></i> אימייל עסקי',
                     info: 'itayyharoush@gmail.com',
                     link: 'mailto:itayyharoush@gmail.com?subject=פנייה עסקית - פיתוח',
                     color: '#EA4335'
                 },
                 {
                     icon: 'bxl-linkedin',
-                    title: '💼 רשת מקצועית',
+                    title: '<i class="fas fa-briefcase"></i> רשת מקצועית',
                     info: 'חיבור עסקי ב-LinkedIn',
                     link: 'https://www.linkedin.com/in/itay-haroush-94710b229/?originalSubdomain=il',
                     color: '#0A66C2'
                 },
                 {
                     icon: 'bxl-github',
-                    title: '🐙 GitHub - קוד פתוח',
+                    title: '<i class="fab fa-github"></i> GitHub - קוד פתוח',
                     info: 'צפו בפרוייקטים שלי ב-GitHub',
                     link: 'https://github.com/itayHaroush',
                     color: '#171515'
@@ -578,11 +581,11 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                         <div className="contact-content">
                             <div className="contact-info" data-aos="fade-right">
                                 <div className="contact-intro">
-                                    <h3>🚀 מוכנים להגדיל את העסק?</h3>
+                                    <h3 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-rocket"></i> מוכנים להגדיל את העסק?' }}></h3>
                                     <p>
                                         <strong>קבלו הצעת מחיר מקצועית ללא התחייבות תוך 24 שעות!</strong>
                                         <br /><br />
-                                        🎯 יעוץ חינם לבחירת הפתרון המתאים<br />
+                                        <i className="fas fa-bullseye"></i> יעוץ חינם לבחירת הפתרון המתאים<br />
                                         💰 מחירים הוגנים ושקופים<br />
                                         ⚡ מסירה מהירה ואמינה<br />
                                         🛠️ תמיכה מלאה לאחר המסירה
@@ -604,7 +607,7 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                                                 <i className={`bx ${method.icon}`}></i>
                                             </div>
                                             <div className="method-info">
-                                                <h4>{method.title}</h4>
+                                                <h4 dangerouslySetInnerHTML={{ __html: method.title }}></h4>
                                                 <p>{method.info}</p>
                                             </div>
                                         </a>

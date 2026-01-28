@@ -4,7 +4,7 @@ const PricingQuote = () => {
         {
             id: 'business-site',
             icon: 'bx-building-house',
-            title: '🏢 אתר תדמית לעסקים',
+            title: '<i class="fas fa-building"></i> אתר תדמית לעסקים',
             description: 'אתר מקצועי שמייצג את העסק שלך ומביא לקוחות חדשים',
             priceRange: '3,000 - 8,000',
             currency: '₪',
@@ -24,7 +24,7 @@ const PricingQuote = () => {
         {
             id: 'business-card',
             icon: 'bx-id-card',
-            title: '💳 אתר כרטיס ביקור',
+            title: '<i class="fas fa-credit-card"></i> אתר כרטיס ביקור',
             description: 'אתר מינימליסטי עם פרטי התקשרות וטופס יצירת קשר',
             priceRange: '1,500 - 3,000',
             currency: '₪',
@@ -43,7 +43,7 @@ const PricingQuote = () => {
         {
             id: 'landing-newsletter',
             icon: 'bx-envelope',
-            title: '📧 דף נחיתה + ניוזלטר',
+            title: '<i class="fas fa-envelope"></i> דף נחיתה + ניוזלטר',
             description: 'פתרון שממיר גולשים ללקוחות עם ניוזלטר אוטומטי',
             priceRange: '2,500 - 5,000',
             currency: '₪',
@@ -62,7 +62,7 @@ const PricingQuote = () => {
         {
             id: 'mobile-app',
             icon: 'bx-mobile',
-            title: '📱 אפליקציות מובייל',
+            title: '<i class="fas fa-mobile-alt"></i> אפליקציות מובייל',
             description: 'אפליקציות מותאמות אישית למובייל עם חוויית משתמש מעולה',
             priceRange: '8,000 - 20,000',
             currency: '₪',
@@ -81,7 +81,7 @@ const PricingQuote = () => {
         {
             id: 'maintenance',
             icon: 'bx-wrench',
-            title: '🔧 תחזוקה שוטפת',
+            title: '<i class="fas fa-wrench"></i> תחזוקה שוטפת',
             description: 'שמירה על האתר מעודכן, מאובטח ומהיר לאורך זמן',
             priceRange: '300 - 800',
             currency: '₪/חודש',
@@ -133,7 +133,7 @@ const PricingQuote = () => {
                                 <div className="pricing-icon">
                                     <i className={`bx ${pricing.icon}`}></i>
                                 </div>
-                                <h3>{pricing.title}</h3>
+                                <h3 dangerouslySetInnerHTML={{ __html: pricing.title }}></h3>
                                 <p className="pricing-description">{pricing.description}</p>
                             </div>
 
@@ -171,7 +171,7 @@ const PricingQuote = () => {
                     <div className="note-card">
                         <i className='bx bx-info-circle'></i>
                         <div className="note-content">
-                            <h4>💡 למה המחירים בטווח?</h4>
+                            <h4 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-lightbulb"></i> למה המחירים בטווח?' }}></h4>
                             <p>
                                 המחיר הסופי תלוי במורכבות הפרויקט, כמות העמודים, פיצ'רים מיוחדים ואינטגרציות נוספות.
                                 <strong> נספק הצעת מחיר מדויקת לאחר שיחת ייעוץ קצרה.</strong>
@@ -182,7 +182,7 @@ const PricingQuote = () => {
                     <div className="note-card">
                         <i className='bx bx-gift'></i>
                         <div className="note-content">
-                            <h4>🎁 מה כלול בכל חבילה?</h4>
+                            <h4 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-gift"></i> מה כלול בכל חבילה?' }}></h4>
                             <p>
                                 כל החבילות כוללות: ייעוץ ותכנון, קוד נקי ומסודר, הדרכה בסיסית,
                                 <strong> אחריות לתקופת האחריות הנקובה ותמיכה טכנית.</strong>
@@ -193,7 +193,7 @@ const PricingQuote = () => {
                     <div className="note-card">
                         <i className='bx bx-money'></i>
                         <div className="note-content">
-                            <h4>💳 תנאי תשלום גמישים</h4>
+                            <h4 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-credit-card"></i> תנאי תשלום גמישים' }}></h4>
                             <p>
                                 50% מקדמה בתחילת הפרויקט,
                                 <strong> 50% יתרה עם מסירת העבודה.</strong> אפשרות לפריסת תשלומים בפרויקטים גדולים.

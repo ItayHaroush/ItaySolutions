@@ -2412,3 +2412,211 @@ p {
         border: 2px solid var(--border-color);
     }
 }
+
+/* ===========================
+   Certificates Carousel Section
+   =========================== */
+
+.certificates-section {
+    padding: var(--spacing-3xl) 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    overflow: hidden;
+}
+
+[data-theme="dark"] .certificates-section {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.certificates-carousel-wrapper {
+    margin: var(--spacing-2xl) 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.certificates-carousel {
+    display: flex;
+    animation: scroll-certificates 40s linear infinite;
+    will-change: transform;
+    direction: rtl;
+}
+
+@keyframes scroll-certificates {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(33.333%);
+    }
+}
+
+.certificates-carousel:hover {
+    animation-play-state: paused;
+}
+
+.certificate-card {
+    flex: 0 0 300px;
+    margin: 0 var(--spacing-lg);
+    background: var(--bg-card);
+    border-radius: var(--border-radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-normal);
+}
+
+.certificate-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: var(--shadow-xl);
+}
+
+.certificate-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.certificate-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.certificate-card:hover .certificate-image img {
+    transform: scale(1.1);
+}
+
+.certificate-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(99, 102, 241, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.certificate-card:hover .certificate-overlay {
+    opacity: 1;
+}
+
+.certificate-overlay i {
+    font-size: 3rem;
+    color: white;
+}
+
+.certificate-info {
+    padding: var(--spacing-lg);
+}
+
+.certificate-info h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+}
+
+.certificate-info .issuer,
+.certificate-info .date {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.certificate-info .issuer i,
+.certificate-info .date i {
+    color: var(--primary-color);
+}
+
+.certificate-info .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.certificate-info .skill-tag {
+    background: var(--primary-color);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--border-radius-full);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.certificates-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-3xl);
+    margin-top: var(--spacing-3xl);
+    flex-wrap: wrap;
+}
+
+.certificates-stats .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.certificates-stats .stat-item i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+/* New Badge for Projects */
+.new-badge {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--border-radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+    animation: pulse-new 2s infinite;
+    z-index: 10;
+}
+
+@keyframes pulse-new {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(16, 185, 129, 0.5);
+    }
+}
+
+/* Responsive Adjustments for Certificates */
+@media (max-width: 768px) {
+    .certificate-card {
+        flex: 0 0 250px;
+        margin: 0 var(--spacing-md);
+    }
+
+    .certificate-image {
+        height: 150px;
+    }
+
+    .certificates-stats {
+        gap: var(--spacing-xl);
+    }
+
+    .certificates-stats .stat-item i {
+        font-size: 2rem;
+    }
+}
