@@ -228,7 +228,7 @@ const PricingQuote = () => {
 
     const handleSelectPricing = (packageId, pricing) => {
         const total = calculateTotal(packageId, pricing.basePrice);
-        const selectedAddonsList = pricing.addons?.filter(addon => 
+        const selectedAddonsList = pricing.addons?.filter(addon =>
             selectedAddons[packageId]?.[addon.id]
         ).map(addon => addon.name) || [];
 
@@ -292,10 +292,10 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
     // Reset to actual position after transition
     React.useEffect(() => {
         if (!isTransitioning) return;
-        
+
         const timer = setTimeout(() => {
             setIsTransitioning(false);
-            
+
             if (currentSlide >= pricingData.length) {
                 setCurrentSlide(0);
             } else if (currentSlide < 0) {
@@ -353,12 +353,12 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
                 {/* Combo Deals Section */}
                 <div className="combo-deals-section" data-aos="fade-up">
                     <h3 className="combo-title">
-                        <i className='bx bxs-gift'></i> 
+                        <i className='bx bxs-gift'></i>
                         חבילות משולבות - החיסכון הכי גדול!
                     </h3>
                     <div className="combo-deals-grid">
                         {comboDeals.map((deal, index) => (
-                            <div 
+                            <div
                                 key={deal.id}
                                 className="combo-deal-card"
                                 style={{ borderTop: `4px solid ${deal.color}` }}
@@ -373,7 +373,7 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
                                     <i className={`bx ${deal.icon}`}></i>
                                 </div>
                                 <h4>{deal.title}</h4>
-                                
+
                                 <ul className="combo-items">
                                     {deal.items.map((item, i) => (
                                         <li key={i}>
@@ -398,7 +398,7 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
                                     </div>
                                 </div>
 
-                                <button 
+                                <button
                                     className="btn-combo-deal"
                                     style={{ background: deal.gradient }}
                                     onClick={() => handleSelectComboDeal(deal)}
@@ -425,11 +425,11 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
                     <button className="carousel-nav prev" onClick={prevSlide} aria-label="כרטיס קודם">
                         <i className='bx bx-chevron-left'></i>
                     </button>
-                    
+
                     <div className="pricing-carousel">
-                        <div 
-                            className="pricing-carousel-track" 
-                            style={{ 
+                        <div
+                            className="pricing-carousel-track"
+                            style={{
                                 transform: `translateX(${getTransformValue()}%)`,
                                 transition: isTransitioning ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
                             }}
@@ -448,7 +448,7 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
                                                 <i className='bx bxs-star'></i>
                                                 הכי פופולרי
                                             </span>}
-                                            
+
                                             {pricing.dealBadge && (
                                                 <div className="deal-badge-top" style={{ background: pricing.gradient }}>
                                                     <i className={`bx ${pricing.dealBadgeIcon}`}></i>
