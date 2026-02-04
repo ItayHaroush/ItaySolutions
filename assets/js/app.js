@@ -235,9 +235,9 @@ const Services = () => {
             title: '<i class="fas fa-building"></i> אתרי תדמית לעסקים',
             description: 'אתרים מקצועיים שמייצגים את העסק שלך ומביאים לקוחות חדשים',
             features: ['עיצוב מותאם למותג', 'SEO מובנה להופעה בגוגל', 'מותאם לכל המכשירים', 'מערכת ניהול תוכן פשוטה'],
-            exampleLink: '#',
+            exampleLink: 'https://www.binalb.com/',
             exampleName: 'בינה לבנייה',
-            linkDisabled: true
+            linkDisabled: false
         },
         {
             icon: 'bx-id-card',
@@ -446,7 +446,7 @@ const Portfolio = () => {
             image: 'assets/images/fulllogo_nobuffer.jpeg',
             description: 'אתר תדמית לעסק בניה ובנייה עם עיצוב מודרני ותגובותי.',
             technologies: ['HTML5', 'React', 'Node.js', 'CSS3', 'JavaScript'],
-            // link: 'https://www.binalb.com/',
+            link: 'https://www.binalb.com/',
             github: '#',
             featured: true,
             linkDisabled: true
