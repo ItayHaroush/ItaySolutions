@@ -1014,8 +1014,10 @@ p {
 
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: var(--spacing-xl);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -1031,6 +1033,8 @@ p {
 
 .footer-links {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: var(--spacing-xl);
 }
 
@@ -1046,10 +1050,12 @@ p {
 
 .footer-bottom {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    gap: var(--spacing-md);
     padding-top: var(--spacing-lg);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
 }
 
 .footer-bottom p {
@@ -1077,10 +1083,8 @@ p {
 
 /* Google Review Section */
 .footer-google-section {
-    flex: 1;
     display: flex;
     justify-content: center;
-    margin: 0 var(--spacing-lg);
 }
 
 .google-review-card {
@@ -1740,13 +1744,15 @@ p {
 }
 
 .pricing-carousel {
-    overflow: visible;
+    overflow: hidden;
     border-radius: var(--border-radius-xl);
+    direction: ltr;
 }
 
 .pricing-carousel-track {
     display: flex;
     will-change: transform;
+    direction: ltr;
 }
 
 .pricing-card-slide {
@@ -1785,8 +1791,12 @@ p {
 
 .carousel-nav i {
     font-size: 1.5rem;
-    color: var(--text-primary);
+    color: #374151;
     transition: color var(--transition-fast);
+}
+
+[data-theme="dark"] .carousel-nav i {
+    color: #1f2937;
 }
 
 .carousel-nav.prev {
@@ -2096,15 +2106,47 @@ p {
     gap: var(--spacing-xs);
 }
 
-.addons-title i {
+.addons-title.addons-toggle {
+    cursor: pointer;
+    margin-bottom: 0;
+    padding: var(--spacing-sm) 0;
+    user-select: none;
+    transition: color var(--transition-fast);
+}
+
+.addons-title.addons-toggle:hover {
+    color: var(--primary-color);
+}
+
+.addons-title.addons-toggle i {
+    transition: transform var(--transition-fast);
+}
+
+.addons-count {
+    font-size: 0.85rem;
     color: var(--secondary-color);
-    font-size: 1.2rem;
+    margin-inline-start: var(--spacing-xs);
 }
 
 .addons-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-sm);
+}
+
+.addons-list.collapsed {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.2s ease, margin 0.2s ease;
+}
+
+.addons-list.expanded {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: var(--spacing-md);
+    transition: max-height 0.4s ease, opacity 0.2s ease;
 }
 
 .addon-checkbox {

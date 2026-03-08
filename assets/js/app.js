@@ -264,6 +264,38 @@ const Services = () => {
             title: '<i class="fas fa-wrench"></i> שירות תחזוקה שוטפת',
             description: 'שמירה על האתר שלך מעודכן, מאובטח ומהיר לאורך זמן',
             features: ['עדכוני אבטחה שוטפים', 'גיבויים אוטומטיים', 'תמיכה טכנית מתמשכת', 'שיפורים ואופטימיזציה']
+        },
+        {
+            icon: 'bx-restaurant',
+            title: '<i class="fas fa-utensils"></i> TakeEat - פתיחת מסעדה',
+            description: 'פתיחת מסעדה אונליין מלאה – הזמנות, תפריטים, ניהול משלוחים. החל מ-350₪ ללא מעמ, 14 יום חינם!',
+            features: ['החל מ-350₪ ללא מעמ', '14 יום ניסיון חינם', 'ניהול הזמנות ותפריטים', 'מערכת משלוחים'],
+            exampleLink: 'https://takeeat.co.il/register-restaurant',
+            exampleName: 'TakeEat'
+        },
+        {
+            icon: 'bx-calendar-check',
+            title: '<i class="fas fa-calendar-alt"></i> Appointed - ניהול תורים',
+            description: 'אפליקציה לניהול תורים בענן – פתרון חכם וזול לעסקים קטנים. החל מ-29₪/חודש, חודש ראשון חינם!',
+            features: ['החל מ-29₪ לחודש', 'חודש ראשון חינם', 'ניהול תורים אונליין', 'תזכורות אוטומטיות'],
+            exampleLink: 'https://appointed.cloud',
+            exampleName: 'Appointed.cloud'
+        },
+        {
+            icon: 'bx-food-menu',
+            title: '<i class="fas fa-concierge-bell"></i> ChefSync 1.0',
+            description: 'מערכת להזמנות ושירותי מטבח מקצועיים – גרסה קלאסית. 30 יום התנסות חינם, אפיון והתאמה אישית, הטמעה מלאה.',
+            features: ['30 יום התנסות חינם', 'אפיון והתאמה אישית', 'הטמעה מלאה', 'ניהול הזמנות מטבח'],
+            exampleLink: 'https://tefenorders.great-site.net/landingPage.php',
+            exampleName: 'ChefSync 1.0'
+        },
+        {
+            icon: 'bx-food-tag',
+            title: '<i class="fas fa-utensils"></i> ChefSync 2.0',
+            description: 'גרסה משופרת עם ממשק מודרני ופיצ\'רים מתקדמים. 30 יום התנסות חינם, אפיון והתאמה, הטמעה מלאה.',
+            features: ['30 יום התנסות חינם', 'אפיון והתאמה אישית', 'ממשק מודרני', 'פיצ\'רים מתקדמים'],
+            exampleLink: 'https://chefsyncil.great-site.net/landingPage.php',
+            exampleName: 'ChefSync 2.0'
         }
     ];
 
@@ -291,13 +323,13 @@ const Services = () => {
                             <p>
                                 {service.description}
                                 {service.exampleLink && !service.linkDisabled && (
-                                    <> - כמו <a href={service.exampleLink} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'underline' }}>{service.exampleName}</a></>
+                                    <> - <a href={service.exampleLink} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'underline' }}>{service.exampleName}</a></>
                                 )}
                                 {service.exampleLink && service.linkDisabled && (
-                                    <> - כמו <span style={{ color: 'var(--text-secondary)', textDecoration: 'line-through', cursor: 'not-allowed' }}>{service.exampleName}</span></>
+                                    <> - <span style={{ color: 'var(--text-secondary)', textDecoration: 'line-through', cursor: 'not-allowed' }}>{service.exampleName}</span></>
                                 )}
                                 {service.exampleLinks && (
-                                    <> - כמו {service.exampleLinks.map((link, i) => (
+                                    <> - {service.exampleLinks.map((link, i) => (
                                         <span key={i}>
                                             <a href={link.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'underline' }}>{link.name}</a>
                                             {i < service.exampleLinks.length - 1 && ' ו-'}
@@ -388,7 +420,7 @@ const Portfolio = () => {
             image: 'assets/images/ChefSyncIL.png',
             description: 'גרסה 2.0 משופרת של אפליקציית ChefSync IL עם ממשק מודרני ופיצ\'רים מתקדמים',
             technologies: ['React', 'Node.js', 'MySQL', 'PHP', 'API Development'],
-            link: 'https://chefsyncil.great-site.net',
+            link: 'https://chefsyncil.great-site.net/landingPage.php',
             github: '#',
             featured: true,
             status: 'new',
@@ -412,6 +444,22 @@ const Portfolio = () => {
             skills: ['MySQL', 'PHP', 'APIs', 'Modern UI/UX'],
             isExternal: true
 
+        },
+        {
+            id: 21,
+            title: 'Appointed.cloud',
+            category: 'applications',
+            type: 'project',
+            image: 'assets/images/appointedCloud.png',
+            description: 'אפליקציה לניהול תורים בענן – פתרון חכם וזול לעסקים קטנים. החל מ-29₪/חודש',
+            technologies: ['React', 'Node.js', 'Cloud', 'API Development'],
+            link: 'https://appointed.cloud',
+            github: '#',
+            featured: true,
+            status: 'new',
+            date: '2026',
+            skills: ['SaaS', 'Booking System', 'Cloud'],
+            isExternal: true
         },
         {
             id: 4,

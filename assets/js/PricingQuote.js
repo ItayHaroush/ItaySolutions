@@ -6,6 +6,7 @@ const PricingQuote = () => {
     const [showOfferPopup, setShowOfferPopup] = React.useState(true);
     const [currentSlide, setCurrentSlide] = React.useState(0);
     const [isTransitioning, setIsTransitioning] = React.useState(false);
+    const [expandedAddons, setExpandedAddons] = React.useState({});
 
     const pricingData = [
         {
@@ -13,9 +14,9 @@ const PricingQuote = () => {
             icon: 'bx-building-house',
             title: '<i class="fas fa-building"></i> אתר תדמית לעסקים',
             description: 'אתר מקצועי שמייצג את העסק שלך ומביא לקוחות חדשים',
-            basePrice: 4500,
-            originalPrice: 6000,
-            discount: 25,
+            basePrice: 3300,
+            originalPrice: 4800,
+            discount: 31,
             currency: '₪',
             timeline: '2-4 שבועות',
             features: [
@@ -29,11 +30,11 @@ const PricingQuote = () => {
                 'אחסון שנה ראשונה'
             ],
             addons: [
-                { id: 'extra-pages', name: 'עמודים נוספים (כל עמוד)', price: 400 },
-                { id: 'ecommerce-basic', name: 'חנות אונליין בסיסית (עד 20 מוצרים)', price: 2000 },
-                { id: 'multilingual', name: 'תמיכה רב-לשונית (אנגלית)', price: 1200 },
-                { id: 'blog', name: 'בלוג מקצועי', price: 800 },
-                { id: 'custom-forms', name: 'טפסים מותאמים אישית', price: 600 }
+                { id: 'extra-pages', name: 'עמודים נוספים (כל עמוד)', price: 300 },
+                { id: 'ecommerce-basic', name: 'חנות אונליין בסיסית (עד 20 מוצרים)', price: 1450 },
+                { id: 'multilingual', name: 'תמיכה רב-לשונית (אנגלית)', price: 850 },
+                { id: 'blog', name: 'בלוג מקצועי', price: 550 },
+                { id: 'custom-forms', name: 'טפסים מותאמים אישית', price: 420 }
             ],
             popular: true,
             dealBadge: 'מבצע השקה',
@@ -45,9 +46,9 @@ const PricingQuote = () => {
             icon: 'bx-id-card',
             title: '<i class="fas fa-credit-card"></i> אתר כרטיס ביקור',
             description: 'אתר מינימליסטי עם פרטי התקשרות וטופס יצירת קשר',
-            basePrice: 1800,
-            originalPrice: 2500,
-            discount: 28,
+            basePrice: 1350,
+            originalPrice: 1900,
+            discount: 29,
             currency: '₪',
             timeline: '1-2 שבועות',
             features: [
@@ -61,9 +62,9 @@ const PricingQuote = () => {
                 'אחסון שנה ראשונה'
             ],
             addons: [
-                { id: 'gallery', name: 'גלריית תמונות', price: 400 },
-                { id: 'booking', name: 'מערכת תורים בסיסית', price: 1200 },
-                { id: 'reviews', name: 'מערכת המלצות לקוחות', price: 500 }
+                { id: 'gallery', name: 'גלריית תמונות', price: 300 },
+                { id: 'booking', name: 'אינטגרציית Appointed.cloud לניהול תורים', price: 500 },
+                { id: 'reviews', name: 'מערכת המלצות לקוחות', price: 350 }
             ],
             dealBadge: 'מחיר מבצע',
             dealBadgeIcon: 'bxs-zap',
@@ -74,8 +75,8 @@ const PricingQuote = () => {
             icon: 'bx-envelope',
             title: '<i class="fas fa-envelope"></i> דף נחיתה + ניוזלטר',
             description: 'פתרון שממיר גולשים ללקוחות עם ניוזלטר אוטומטי',
-            basePrice: 3200,
-            originalPrice: 4500,
+            basePrice: 2400,
+            originalPrice: 3400,
             discount: 29,
             currency: '₪',
             timeline: '2-3 שבועות',
@@ -90,9 +91,9 @@ const PricingQuote = () => {
                 'תמיכה חודש ראשון'
             ],
             addons: [
-                { id: 'ab-testing', name: 'מערכת A/B Testing', price: 1500 },
-                { id: 'advanced-analytics', name: 'אנליטיקס מתקדם', price: 800 },
-                { id: 'automation', name: 'אוטומציות שיווק', price: 1200 }
+                { id: 'ab-testing', name: 'מערכת A/B Testing', price: 1050 },
+                { id: 'advanced-analytics', name: 'אנליטיקס מתקדם', price: 550 },
+                { id: 'automation', name: 'אוטומציות שיווק', price: 850 }
             ],
             dealBadge: 'חבילה שווה',
             dealBadgeIcon: 'bxs-diamond',
@@ -103,9 +104,9 @@ const PricingQuote = () => {
             icon: 'bx-mobile',
             title: '<i class="fas fa-mobile-alt"></i> אפליקציות מובייל',
             description: 'אפליקציות מותאמות אישית למובייל עם חוויית משתמש מעולה',
-            basePrice: 12000,
-            originalPrice: 18000,
-            discount: 33,
+            basePrice: 8800,
+            originalPrice: 13000,
+            discount: 32,
             currency: '₪',
             timeline: '4-8 שבועות',
             features: [
@@ -119,10 +120,10 @@ const PricingQuote = () => {
                 'תמיכה 3 חודשים'
             ],
             addons: [
-                { id: 'native-dev', name: 'פיתוח Native (במקום Cross-Platform)', price: 5000 },
-                { id: 'backend', name: 'פיתוח Backend מלא', price: 6000 },
-                { id: 'admin-panel', name: 'פאנל ניהול מתקדם', price: 3500 },
-                { id: 'payment-integration', name: 'אינטגרציית תשלומים', price: 2000 }
+                { id: 'native-dev', name: 'פיתוח Native (במקום Cross-Platform)', price: 3500 },
+                { id: 'backend', name: 'פיתוח Backend מלא', price: 4200 },
+                { id: 'admin-panel', name: 'פאנל ניהול מתקדם', price: 2500 },
+                { id: 'payment-integration', name: 'אינטגרציית תשלומים', price: 1400 }
             ],
             dealBadge: 'מבצע ענק',
             dealBadgeIcon: 'bxs-rocket',
@@ -133,8 +134,8 @@ const PricingQuote = () => {
             icon: 'bx-wrench',
             title: '<i class="fas fa-wrench"></i> תחזוקה שוטפת',
             description: 'שמירה על האתר מעודכן, מאובטח ומהיר לאורך זמן',
-            basePrice: 400,
-            originalPrice: 600,
+            basePrice: 300,
+            originalPrice: 450,
             discount: 33,
             currency: '₪/חודש',
             timeline: 'שירות חודשי',
@@ -149,9 +150,9 @@ const PricingQuote = () => {
                 'דוחות ביצועים חודשיים'
             ],
             addons: [
-                { id: 'extra-hours', name: 'שעות תוכן נוספות (שעה)', price: 150 },
-                { id: 'priority-support', name: 'תמיכה עדיפות 24/7', price: 200 },
-                { id: 'seo-monthly', name: 'אופטימיזציה חודשית SEO', price: 500 }
+                { id: 'extra-hours', name: 'שעות תוכן נוספות (שעה)', price: 110 },
+                { id: 'priority-support', name: 'תמיכה עדיפות 24/7', price: 140 },
+                { id: 'seo-monthly', name: 'אופטימיזציה חודשית SEO', price: 350 }
             ],
             dealBadge: 'מחיר מיוחד',
             dealBadgeIcon: 'bxs-star',
@@ -165,43 +166,46 @@ const PricingQuote = () => {
             title: 'חבילת STARTUP מושלמת',
             icon: 'bxs-rocket',
             items: ['אתר תדמית לעסקים', 'דף נחיתה + ניוזלטר', 'תחזוקה 12 חודשים'],
-            regularPrice: 11900,
-            dealPrice: 8500,
-            savings: 3400,
+            regularPrice: 8500,
+            dealPrice: 6000,
+            savings: 2500,
             badge: 'מבצע בלעדי',
             badgeIcon: 'bxs-flame',
-            gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)'
+            gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            color: '#6366f1'
         },
         {
             id: 'digital-pro',
             title: 'חבילת DIGITAL PRO',
             icon: 'bxs-briefcase-alt-2',
             items: ['אתר תדמית מלא', 'אפליקציית מובייל', 'תחזוקה 12 חודשים', 'SEO חודשי'],
-            regularPrice: 22900,
-            dealPrice: 16900,
-            savings: 6000,
+            regularPrice: 16500,
+            dealPrice: 12000,
+            savings: 4500,
             badge: 'החבילה הכי משתלמת',
             badgeIcon: 'bxs-crown',
-            gradient: 'linear-gradient(135deg, #f59e0b, #f97316)'
+            gradient: 'linear-gradient(135deg, #f59e0b, #f97316)',
+            color: '#f59e0b'
         },
         {
             id: 'quick-start',
             title: 'QUICK START',
             icon: 'bxs-bolt',
             items: ['אתר כרטיס ביקור', 'תחזוקה 6 חודשים'],
-            regularPrice: 4200,
-            dealPrice: 2999,
-            savings: 1201,
+            regularPrice: 3000,
+            dealPrice: 2100,
+            savings: 900,
             badge: 'מתנה לעסק חדש',
             badgeIcon: 'bxs-gift',
-            gradient: 'linear-gradient(135deg, #10b981, #14b8a6)'
+            gradient: 'linear-gradient(135deg, #10b981, #14b8a6)',
+            color: '#10b981'
         }
     ];
 
     const limitedTimeOffer = {
-        endDate: '2026-02-28',
+        endDate: '2026-03-31',
         discount: 15,
-        message: 'מבצע לזמן מוגבל! הנחה נוספת של 15% על כל החבילות עד סוף פברואר',
+        message: 'מבצע לזמן מוגבל! הנחה נוספת של 15% על כל החבילות עד סוף מרץ',
         icon: 'bx-time-five'
     };
 
@@ -314,7 +318,11 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
     ];
 
     const getTransformValue = () => {
-        return (currentSlide + 1) * 100; // +1 because we have a clone at the start
+        return -(currentSlide + 1) * 100; // Negative to move track left, +1 for clone at start
+    };
+
+    const toggleAddonsExpand = (packageId) => {
+        setExpandedAddons(prev => ({ ...prev, [packageId]: !prev[packageId] }));
     };
 
     return (
@@ -423,7 +431,7 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
                 {/* Pricing Carousel */}
                 <div className="pricing-carousel-wrapper" data-aos="fade-up" data-aos-delay="100">
                     <button className="carousel-nav prev" onClick={prevSlide} aria-label="כרטיס קודם">
-                        <i className='bx bx-chevron-left'></i>
+                        <i className="fas fa-chevron-left"></i>
                     </button>
 
                     <div className="pricing-carousel">
@@ -496,14 +504,24 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
                                                 ))}
                                             </ul>
 
-                                            {/* Addons Selection */}
+                                            {/* Addons Selection - Collapsible */}
                                             {pricing.addons && pricing.addons.length > 0 && (
                                                 <div className="addons-section">
-                                                    <h4 className="addons-title">
-                                                        <i className='bx bx-plus-circle'></i>
+                                                    <h4
+                                                        className="addons-title addons-toggle"
+                                                        onClick={() => toggleAddonsExpand(pricing.id)}
+                                                        role="button"
+                                                        tabIndex={0}
+                                                        onKeyDown={(e) => e.key === 'Enter' && toggleAddonsExpand(pricing.id)}
+                                                        aria-expanded={expandedAddons[pricing.id]}
+                                                    >
+                                                        <i className={`bx ${expandedAddons[pricing.id] ? 'bx-chevron-down' : 'bx-chevron-left'}`}></i>
                                                         תוספות אופציונליות
+                                                        {Object.values(selectedAddons[pricing.id] || {}).filter(Boolean).length > 0 && (
+                                                            <span className="addons-count">({Object.values(selectedAddons[pricing.id] || {}).filter(Boolean).length})</span>
+                                                        )}
                                                     </h4>
-                                                    <div className="addons-list">
+                                                    <div className={`addons-list ${expandedAddons[pricing.id] ? 'expanded' : 'collapsed'}`}>
                                                         {pricing.addons.map((addon) => (
                                                             <label key={addon.id} className="addon-checkbox">
                                                                 <input
@@ -534,7 +552,7 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
                     </div>
 
                     <button className="carousel-nav next" onClick={nextSlide} aria-label="כרטיס הבא">
-                        <i className='bx bx-chevron-right'></i>
+                        <i className="fas fa-chevron-right"></i>
                     </button>
 
                     {/* Carousel Indicators */}
