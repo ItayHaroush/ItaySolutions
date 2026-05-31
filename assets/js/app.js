@@ -1,21 +1,25 @@
 // React Components for Modern Portfolio Landing Page
 
+const WHATSAPP_NUMBER = '972547466508';
+const WHATSAPP_DEFAULT_MSG = 'היי איתי, ראיתי את האתר ורוצה לדבר על איך אפשר לקדם את העסק שלי';
+const CONTACT_EMAIL = 'itay@itaysolutions.com';
+const getWhatsAppUrl = (msg) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg || WHATSAPP_DEFAULT_MSG)}`;
+const getMailtoUrl = (subject) => `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject || 'פנייה מ-Itay Solutions')}`;
+
 // Main App Component
 const App = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [activeSection, setActiveSection] = React.useState('home');
 
     React.useEffect(() => {
-        // Initialize AOS
         AOS.init({
             duration: 1000,
             once: true,
             offset: 200,
         });
 
-        // Handle scroll for active section
         const handleScroll = () => {
-            const sections = ['home', 'services', 'portfolio', 'pricing', 'contact'];
+            const sections = ['home', 'portfolio', 'ongoing', 'digital', 'about', 'trust', 'contact'];
             const currentSection = sections.find(section => {
                 const element = document.getElementById(section);
                 if (element) {
@@ -50,12 +54,22 @@ const App = () => {
                 scrollToSection={scrollToSection}
             />
             <Hero scrollToSection={scrollToSection} />
-            <Services />
-            <Portfolio />
-            <CertificatesCarousel />
-            <PricingQuote />
+            <FeaturedWork />
+            <OngoingWork />
+            <DigitalManagement />
+            <AboutSection />
+            <TrustSection />
             <Contact />
             <Footer />
+            <a
+                href={getWhatsAppUrl()}
+                className="floating-whatsapp"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="שלחו הודעה בוואטסאפ"
+            >
+                <i className='bx bxl-whatsapp'></i>
+            </a>
         </div>
     );
 };
@@ -73,11 +87,10 @@ const Header = ({ isMenuOpen, setIsMenuOpen, activeSection, scrollToSection }) =
     }, []);
 
     const menuItems = [
-        { id: 'home', label: 'בית', icon: 'bx-home' },
-        { id: 'services', label: 'שירותים', icon: 'bx-briefcase' },
-        { id: 'portfolio', label: 'פרוייקטים', icon: 'bx-folder' },
-        { id: 'certificates', label: 'תעודות', icon: 'bx-medal' },
-        { id: 'pricing', label: 'הצעת מחיר', icon: 'bx-calculator' },
+        { id: 'portfolio', label: 'פרויקטים', icon: 'bx-folder' },
+        { id: 'ongoing', label: 'עבודה שוטפת', icon: 'bx-refresh' },
+        { id: 'digital', label: 'ניהול דיגיטל', icon: 'bx-share-alt' },
+        { id: 'about', label: 'עלי', icon: 'bx-user' },
         { id: 'contact', label: 'צור קשר', icon: 'bx-message' }
     ];
 
@@ -86,7 +99,7 @@ const Header = ({ isMenuOpen, setIsMenuOpen, activeSection, scrollToSection }) =
             <nav className="navbar">
                 <div className="nav-brand" onClick={() => scrollToSection('home')}>
                     <i className='bx bx-code-alt'></i>
-                    <span>איתי הרוש | Itay Solutions</span>
+                    <span>Itay Solutions</span>
                 </div>
 
                 <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
@@ -100,6 +113,15 @@ const Header = ({ isMenuOpen, setIsMenuOpen, activeSection, scrollToSection }) =
                             <span>{item.label}</span>
                         </a>
                     ))}
+                    <a
+                        href={getWhatsAppUrl()}
+                        className="nav-whatsapp-btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i className='bx bxl-whatsapp'></i>
+                        <span>דברו בוואטסאפ</span>
+                    </a>
                 </div>
 
                 <button
@@ -117,108 +139,67 @@ const Header = ({ isMenuOpen, setIsMenuOpen, activeSection, scrollToSection }) =
 
 // Hero Section Component
 const Hero = ({ scrollToSection }) => {
-    const [currentText, setCurrentText] = React.useState(0);
-    const texts = [
-        'פתרונות פיתוח מתקדמים',
-        'אתרים רספונסיביים',
-        'אפליקציות מותאמות אישית',
-        'חוויות דיגיטליות מרשימות'
-    ];
-
-    React.useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentText(prev => (prev + 1) % texts.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, []);
-
     return (
-        <section id="home" className="hero">
+        <section id="home" className="hero hero-agency">
             <div className="hero-content">
                 <div className="hero-text" data-aos="fade-up">
+                    <p className="hero-eyebrow">Itay Solutions</p>
                     <h1>
-                        הפתרון הדיגיטלי
-                        <span className="highlight"> שלך</span>
+                        בונה מערכות דיגיטליות, אתרים
+                        <span className="highlight"> ונוכחות אונליין לעסקים</span>
                     </h1>
-                    <h2 className="typing-text">
-                        <span className="text-cycle">{texts[currentText]}</span>
-                        <span className="cursor">|</span>
-                    </h2>
-                    <p style={{ color: 'white' }}>
-                        <i className="fas fa-rocket"></i> מפתח Full Stack מקצועי עם מעל 3 שנות ניסיון בפיתוח פתרונות דיגיטליים מתקדמים.
-                        מתמחה ביצירת אתרים ואפליקציות שמניבות תוצאות עסקיות מדידות ומשפרות את חוויית המשתמש.
+                    <p className="hero-tagline">
+                        עסקים לא צריכים עוד אתר.
+                        הם צריכים מערכת דיגיטלית שעוזרת להם לעבוד טוב יותר ולהביא יותר לקוחות.
+                    </p>
+                    <p className="hero-pillars">אתרים · מערכות עסקיות · ניהול דיגיטל</p>
+                    <p className="hero-description">
+                        משלב בניית אתרים, מערכות מותאמות אישית, ניהול דיגיטל ואוטומציות —
+                        כדי לעזור לעסקים לעבוד חכם יותר ולהיראות מקצועיים יותר.
+                    </p>
+                    <p className="hero-partner">
+                        לא עוד ספק שירות. שותף שמלווה את העסק מהרעיון ועד התוצאה.
                     </p>
 
-                    <div className="hero-stats">
-                        <div className="stat-item" data-aos="fade-up" data-aos-delay="200">
-                            <span className="stat-number">11+</span>
-                            <span className="stat-label">פרוייקטים</span>
-                        </div>
-                        <div className="stat-item" data-aos="fade-up" data-aos-delay="300">
-                            <span className="stat-number">3+</span>
-                            <span className="stat-label">שנות ניסיון</span>
-                        </div>
-                        <div className="stat-item" data-aos="fade-up" data-aos-delay="400">
-                            <span className="stat-number">100%</span>
-                            <span className="stat-label">שביעות רצון</span>
-                        </div>
-                    </div>
-
-                    <div className="hero-buttons" data-aos="fade-up" data-aos-delay="500">
-                        <button
+                    <div className="hero-buttons" data-aos="fade-up" data-aos-delay="300">
+                        <a
+                            href={getWhatsAppUrl()}
                             className="btn btn-primary btn-hero-main"
-                            onClick={() => scrollToSection('contact')}
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
-                            <i className='bx bx-phone'></i>
-                            בואו נתחיל
-                        </button>
+                            <i className='bx bxl-whatsapp'></i>
+                            בואו נראה איך אפשר לקדם את העסק שלכם
+                        </a>
                         <button
                             className="btn btn-secondary"
                             onClick={() => scrollToSection('portfolio')}
                         >
                             <i className='bx bx-folder'></i>
-                            הפרוייקטים שלי
-                        </button>
-                        <button className="btn btn-outline" onClick={() => scrollToSection('services')}>
-                            <i className='bx bx-briefcase'></i>
-                            <span>השירותים</span>
-                        </button>
-                        <button className="btn btn-outline" onClick={() => scrollToSection('pricing')}>
-                            <i className='bx bx-calculator'></i>
-                            <span>הצעת מחיר</span>
+                            צפו בעבודות
                         </button>
                     </div>
                 </div>
 
                 <div className="hero-visual" data-aos="fade-left" data-aos-delay="300">
-                    <div className="profile-card">
-                        <div className="profile-image">
-                            <img src="assets/images/photo_2025-01-04_02-16-56.jpg" alt="איתי הרוש" />
-                            <div className="status-indicator"></div>
+                    <div className="hero-showcase">
+                        <div className="showcase-card showcase-main">
+                            <img src="assets/images/buildixLogo.png" alt="Buildix" />
+                            <span>Buildix</span>
                         </div>
-                        <div className="profile-info">
-                            <h3>איתי הרוש | Itay Solutions</h3>
-                            <p>Full Stack Developer</p>
+                        <div className="showcase-card showcase-secondary">
+                            <img src="assets/images/takeEatLogo.png" alt="TakeEat" />
+                            <span>TakeEat</span>
                         </div>
-                    </div>
-
-                    <div className="floating-elements">
-                        <div className="tech-stack">
-                            <div className="tech-item">React</div>
-                            <div className="tech-item">JavaScript</div>
-                            <div className="tech-item">PHP</div>
-                            <div className="tech-item">MySQL</div>
-                            <div className="tech-item">Node.js</div>
-                            <div className="tech-item">HTML5</div>
-                            <div className="tech-item">CSS3</div>
-                            <div className="tech-item">SEO</div>
-                            <div className="tech-item">UI/UX</div>
+                        <div className="showcase-card showcase-secondary">
+                            <img src="assets/images/fulllogo_nobuffer.jpeg" alt="בינה לבנייה" />
+                            <span>בינה לבנייה</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="scroll-indicator" onClick={() => scrollToSection('services')}>
+            <div className="scroll-indicator" onClick={() => scrollToSection('portfolio')}>
                 <div className="scroll-arrow">
                     <i className='bx bx-chevron-down'></i>
                 </div>
@@ -227,655 +208,398 @@ const Hero = ({ scrollToSection }) => {
     );
 };
 
-// Services Section Component
-const Services = () => {
-    const services = [
-        {
-            icon: 'bx-building-house',
-            title: '<i class="fas fa-building"></i> אתרי תדמית לעסקים',
-            description: 'אתרים מקצועיים שמייצגים את העסק שלך ומביאים לקוחות חדשים',
-            features: ['עיצוב מותאם למותג', 'SEO מובנה להופעה בגוגל', 'מותאם לכל המכשירים', 'מערכת ניהול תוכן פשוטה'],
-            exampleLink: 'https://www.binalb.com/',
-            exampleName: 'בינה לבנייה',
-            linkDisabled: false
-        },
-        {
-            icon: 'bx-id-card',
-            title: '<i class="fas fa-credit-card"></i> אתר כרטיס ביקור',
-            description: 'אתר מינימליסטי להצגת פרטי התקשרות, מיקום, קישורים לרשתות חברתיות וטופס יצירת קשר מהיר',
-            features: ['עיצוב ממוקד וקליל', 'מותאם למובייל', 'קישור מהיר לוואטסאפ', 'טופס יצירת קשר פשוט', 'קישורים לרשתות חברתיות'],
-            exampleLink: '',
-            exampleName: ''
-        },
-        {
-            icon: 'bx-envelope',
-            title: '<i class="fas fa-envelope"></i> דפי נחיתה + ניוזלטר',
-            description: 'פתרון מושלם לעסקים קטנים, רופאים, מכוני יופי ומאמני כושר - להמרת גולשים ללקוחות',
-            features: ['דף נחיתה ממיר', 'מערכת ניוזלטר אוטומטית', 'טפסי הרשמה חכמים', 'אינטגרציה עם רשתות חברתיות']
-        },
-        {
-            icon: 'bx-mobile',
-            title: '<i class="fas fa-mobile-alt"></i> אפליקציות מובייל',
-            description: 'פיתוח אפליקציות מותאמות אישית למובייל עם חוויית משתמש מעולה',
-            features: ['פיתוח Native ו-Cross-Platform', 'UI/UX מותאם למובייל', 'אינטגרציה עם API', 'בדיקות איכות קפדניות'],
-        },
-        {
-            icon: 'bx-wrench',
-            title: '<i class="fas fa-wrench"></i> שירות תחזוקה שוטפת',
-            description: 'שמירה על האתר שלך מעודכן, מאובטח ומהיר לאורך זמן',
-            features: ['עדכוני אבטחה שוטפים', 'גיבויים אוטומטיים', 'תמיכה טכנית מתמשכת', 'שיפורים ואופטימיזציה']
-        },
-        {
-            icon: 'bx-restaurant',
-            title: '<i class="fas fa-utensils"></i> TakeEat - פתיחת מסעדה',
-            description: 'פתיחת מסעדה אונליין מלאה – הזמנות, תפריטים, ניהול משלוחים. החל מ-350₪ ללא מעמ, 14 יום חינם!',
-            features: ['החל מ-350₪ ללא מעמ', '14 יום ניסיון חינם', 'ניהול הזמנות ותפריטים', 'מערכת משלוחים'],
-            exampleLink: 'https://takeeat.co.il/register-restaurant',
-            exampleName: 'TakeEat'
-        },
-        {
-            icon: 'bx-calendar-check',
-            title: '<i class="fas fa-calendar-alt"></i> Appointed - ניהול תורים',
-            description: 'אפליקציה לניהול תורים בענן – פתרון חכם וזול לעסקים קטנים. החל מ-29₪/חודש, חודש ראשון חינם!',
-            features: ['החל מ-29₪ לחודש', 'חודש ראשון חינם', 'ניהול תורים אונליין', 'תזכורות אוטומטיות'],
-            exampleLink: 'https://appointed.cloud',
-            exampleName: 'Appointed.cloud'
-        },
-        {
-            icon: 'bx-food-menu',
-            title: '<i class="fas fa-concierge-bell"></i> ChefSync 1.0',
-            description: 'מערכת להזמנות ושירותי מטבח מקצועיים – גרסה קלאסית. 30 יום התנסות חינם, אפיון והתאמה אישית, הטמעה מלאה.',
-            features: ['30 יום התנסות חינם', 'אפיון והתאמה אישית', 'הטמעה מלאה', 'ניהול הזמנות מטבח'],
-            exampleLink: 'https://tefenorders.great-site.net/landingPage.php',
-            exampleName: 'ChefSync 1.0'
-        },
-        {
-            icon: 'bx-food-tag',
-            title: '<i class="fas fa-utensils"></i> ChefSync 2.0',
-            description: 'גרסה משופרת עם ממשק מודרני ופיצ\'רים מתקדמים. 30 יום התנסות חינם, אפיון והתאמה, הטמעה מלאה.',
-            features: ['30 יום התנסות חינם', 'אפיון והתאמה אישית', 'ממשק מודרני', 'פיצ\'רים מתקדמים'],
-            exampleLink: 'https://chefsyncil.great-site.net/landingPage.php',
-            exampleName: 'ChefSync 2.0'
-        }
+const ProjectCard = ({ project, index }) => (
+    <article
+        className={`featured-card ${project.compact ? 'featured-card-compact' : ''}`}
+        data-aos="fade-up"
+        data-aos-delay={index * 80}
+    >
+        <div className="featured-card-image">
+            {project.image ? (
+                <img src={project.image} alt={project.title} />
+            ) : (
+                <div className="featured-logo-text">{project.title}</div>
+            )}
+            {project.status === 'new' && <span className="new-badge">חדש</span>}
+        </div>
+        <div className="featured-card-body">
+            <span className="featured-card-type">{project.typeLabel}</span>
+            <h3>{project.title}</h3>
+            {project.subtitle && <p className="featured-card-subtitle">{project.subtitle}</p>}
+            <div className="featured-card-details">
+                <div className="detail-block">
+                    <strong>אתגר</strong>
+                    <p>{project.challenge}</p>
+                </div>
+                <div className="detail-block">
+                    <strong>פתרון</strong>
+                    <p>{project.solution}</p>
+                </div>
+                {project.result && (
+                    <div className="detail-block">
+                        <strong>תוצאה</strong>
+                        <p>{project.result}</p>
+                    </div>
+                )}
+            </div>
+            {project.link && project.link !== '#' && (
+                <div className="featured-card-links">
+                    <a
+                        href={project.link}
+                        className="featured-card-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {project.ctaText || 'צפו בפרויקט'}
+                        <i className='bx bx-link-external'></i>
+                    </a>
+                    {project.buildixLink && (
+                        <a
+                            href={project.buildixLink}
+                            className="featured-card-link featured-card-link-buildix"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            דף ב-Buildix
+                            <i className='bx bx-link-external'></i>
+                        </a>
+                    )}
+                </div>
+            )}
+        </div>
+    </article>
+);
+
+const BuildixFeaturedCard = () => {
+    const features = [
+        'הצעות מחיר',
+        'ניהול פרויקטים',
+        'מעקב לקוחות',
+        'יומן עבודה',
+        'דף עסקי',
+        'גישה מכל מקום'
     ];
 
     return (
-        <section id="services" className="services">
-            <div className="container">
-                <div className="section-header" data-aos="fade-up">
-                    <h2>השירותים שלי</h2>
-                    <p>פתרונות טכנולוגיים מותאמים אישית לכל צורך עסקי</p>
+        <article className="buildix-featured" data-aos="fade-up">
+            <div className="buildix-featured-inner">
+                <div className="buildix-featured-visual">
+                    <img src="assets/images/buildixLogo.png" alt="Buildix" />
                 </div>
-
-                <div className="services-grid">
-                    {services.map((service, index) => (
-                        <div
-
-                            key={index}
-                            className="service-card"
-                            data-aos="fade-up"
-                            data-aos-delay={index * 100}
-                        >
-                            <div className="service-icon">
-                                <i className={`bx ${service.icon}`}></i>
-                            </div>
-                            <h3 dangerouslySetInnerHTML={{ __html: service.title }}></h3>
-                            <p>
-                                {service.description}
-                                {service.exampleLink && !service.linkDisabled && (
-                                    <> - <a href={service.exampleLink} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'underline' }}>{service.exampleName}</a></>
-                                )}
-                                {service.exampleLink && service.linkDisabled && (
-                                    <> - <span style={{ color: 'var(--text-secondary)', textDecoration: 'line-through', cursor: 'not-allowed' }}>{service.exampleName}</span></>
-                                )}
-                                {service.exampleLinks && (
-                                    <> - {service.exampleLinks.map((link, i) => (
-                                        <span key={i}>
-                                            <a href={link.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'underline' }}>{link.name}</a>
-                                            {i < service.exampleLinks.length - 1 && ' ו-'}
-                                        </span>
-                                    ))}</>
-                                )}
-                            </p>
-                            <ul className="service-features">
-                                {service.features.map((feature, i) => (
-                                    <li key={i}>
-                                        <i className='bx bx-check'></i>
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                <div className="buildix-featured-content">
+                    <span className="featured-card-type">מוצר · מערכת עסקית</span>
+                    <h3>Buildix — מערכת ניהול לעסקי בנייה ובעלי מקצוע</h3>
+                    <p className="buildix-tagline">🏗️ פחות ניירת. פחות בלגן. יותר עבודה.</p>
+                    <p className="buildix-desc">
+                        Buildix מרכזת הצעות מחיר, פרויקטים, לקוחות, לידים ויומן עבודה במקום אחד.
+                    </p>
+                    <ul className="buildix-features">
+                        {features.map((feature, i) => (
+                            <li key={i}>
+                                <i className='bx bx-check'></i>
+                                {feature}
+                            </li>
+                        ))}
+                    </ul>
+                    <p className="buildix-audience">
+                        מתאים לקבלנים, שיפוצניקים, אדריכלים ובעלי מקצוע.
+                    </p>
+                    <a
+                        href="https://www.buildix.site"
+                        className="btn btn-buildix"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        צפו במערכת
+                        <i className='bx bx-link-external'></i>
+                    </a>
                 </div>
             </div>
-        </section>
+        </article>
     );
 };
 
-// Portfolio Section Component
-const Portfolio = () => {
-    const [activeFilter, setActiveFilter] = React.useState('all');
-
-    // רענון AOS כשמשתנה הפילטר
-    React.useEffect(() => {
-        if (typeof AOS !== 'undefined') {
-            setTimeout(() => {
-                AOS.refresh();
-            }, 100);
-        }
-    }, [activeFilter]);
-
-    // פרוייקטים - אתרים, משחקים, אפליקציות בלבד
-    const projects = [
+// Featured Work — לקוחות + מוצרים באותו סקשן
+const FeaturedWork = () => {
+    const clientProjects = [
         {
-            id: 1,
-            title: 'Portfolio Website',
-            category: 'websites',
-            type: 'project',
-            image: 'assets/images/MyPortfolio.png',
-            description: 'אתר פורטפוליו אישי המציג את הכישורים והפרוייקטים שלי. בנוי עם HTML & CSS.',
-            technologies: ['HTML5', 'CSS3', 'Responsive Design'],
-            link: 'https://itayharoush.github.io/MyPortfolio/index.html',
-            github: '#',
-            featured: true,
-
+            id: 'na',
+            title: 'NA Construction',
+            subtitle: 'עסק בנייה — מנהלים ב-Buildix',
+            typeLabel: 'לקוח · Buildix',
+            image: 'assets/images/naConstructionLogo.png',
+            challenge: 'ניהול הצעות מחיר, פרויקטים ולקוחות מפוזר בין וואטסאפ, טלפונים וניירת.',
+            solution: 'מעבר ל-Buildix — מערכת אחת לניהול העסק, הצעות מחיר, דף עסקי ומעקב לקוחות.',
+            result: 'עבודה מסודרת, פחות בלגן, ניהול מקצועי מהטלפון.',
+            link: 'https://app.buildix.site/c/na-construction',
+            ctaText: 'צפו בדף העסק'
         },
         {
-            id: 2,
-            title: 'Rotem Nails App',
-            category: 'applications',
-            type: 'project',
-            image: 'assets/images/rhNails.png',
-            description: 'אפליקציה לניהול לקוחות ומעקב אחרי טיפולי ציפורניים',
-            technologies: ['React', 'Node.js', 'API Development'],
-            link: 'https://rotemamosnails.great-site.net/rhNails.php?i=1',
-            github: '#',
-            featured: true,
-            status: '',
-            date: '2025',
-            skills: ['PHP', 'MySQL', 'APIs', 'Async Programming']
-
-        },
-        {
-            id: 3,
-            title: 'ChefSync IL App',
-            category: 'applications',
-            type: 'project',
-            image: 'assets/images/ChefSyncIL.png',
-            description: 'אפליקציה לניהול הזמנות ושירותי מטבח מקצועיים בישראל',
-            technologies: ['React', 'Node.js', 'API Development'],
-            link: 'https://tefenorders.great-site.net/landingPage.php?i=1',
-            github: '#',
-            featured: true,
-            status: '',
-            date: '2025',
-            skills: ['MySQL', 'PHP', 'APIs', 'Async Programming']
-        },
-        {
-            id: 19,
-            title: 'ChefSync IL 2.0',
-            category: 'applications',
-            type: 'project',
-            image: 'assets/images/ChefSyncIL.png',
-            description: 'גרסה 2.0 משופרת של אפליקציית ChefSync IL עם ממשק מודרני ופיצ\'רים מתקדמים',
-            technologies: ['React', 'Node.js', 'MySQL', 'PHP', 'API Development'],
-            link: 'https://chefsyncil.great-site.net/landingPage.php',
-            github: '#',
-            featured: true,
-            status: 'new',
-            date: '2026',
-            skills: ['MySQL', 'PHP', 'APIs', 'Modern UI/UX'],
-            isExternal: true
-        },
-        {
-            id: 20,
-            title: 'TakeEat App',
-            category: 'applications',
-            type: 'project',
-            image: 'assets/images/takeEatLogo.jpeg',
-            description: 'אפליקציה להזמנת אוכל עם ממשק משתמש מודרני ופיצ\'רים מתקדמים',
-            technologies: ['React', 'Node.js', 'MySQL', 'PHP', 'Laravel', 'API Development'],
-            link: 'https://takeeat.co.il',
-            github: '#',
-            featured: true,
-            status: 'new',
-            date: '2026',
-            skills: ['MySQL', 'PHP', 'APIs', 'Modern UI/UX'],
-            isExternal: true
-
-        },
-        {
-            id: 21,
-            title: 'Appointed.cloud',
-            category: 'applications',
-            type: 'project',
-            image: 'assets/images/appointedCloud.png',
-            description: 'אפליקציה לניהול תורים בענן – פתרון חכם וזול לעסקים קטנים. החל מ-29₪/חודש',
-            technologies: ['React', 'Node.js', 'Cloud', 'API Development'],
-            link: 'https://appointed.cloud',
-            github: '#',
-            featured: true,
-            status: 'new',
-            date: '2026',
-            skills: ['SaaS', 'Booking System', 'Cloud'],
-            isExternal: true
-        },
-        {
-            id: 4,
-            title: 'Itay Solutions Portfolio',
-            category: 'websites',
-            type: 'project',
-            image: 'assets/images/itaySolutionsLogoIconOrange.png',
-            description: 'פורטפוליו מתקדם זה עם React, אנימציות ועיצוב responsive מודרני.',
-            technologies: ['React', 'CSS Grid', 'JavaScript ES6+', 'Mobile First'],
-            link: 'https://itayharoush.github.io/Portfolio/index.html',
-            github: '#',
-            featured: true,
-
-        },
-        {
-            id: 5,
-            title: 'ContactApp',
-            category: 'websites',
-            type: 'project',
-            image: 'assets/images/logoContactApp.png',
-            description: 'אפליקציית אנשי קשר אישית עם עיצוב מודרני סטייל WhatsApp ותגובותי.',
-            technologies: ['HTML5', 'React', 'Node.js', 'CSS3', 'JavaScript'],
-            link: 'https://contact-app-orpin-one.vercel.app',
-            github: '#',
-            featured: true,
-        },
-        {
-            id: 6,
-            title: 'Bina Bnya Website',
-            category: 'websites',
-            type: 'project',
+            id: 'bina',
+            title: 'בינה לבנייה',
+            subtitle: 'אתר תדמית + דף עסקי ב-Buildix',
+            typeLabel: 'לקוח · אתר + Buildix',
             image: 'assets/images/fulllogo_nobuffer.jpeg',
-            description: 'אתר תדמית לעסק בניה ובנייה עם עיצוב מודרני ותגובותי.',
-            technologies: ['HTML5', 'React', 'Node.js', 'CSS3', 'JavaScript'],
+            challenge: 'עסק בנייה בלי נוכחות דיגיטלית מקצועית שמביאה פניות.',
+            solution: 'אתר תדמית מותאם מותג + דף עסקי ב-Buildix, SEO ויצירת קשר מהירה.',
+            result: 'נוכחות מקצועית ברשת ויותר פניות מגוגל.',
             link: 'https://www.binalb.com/',
-            github: '#',
-            featured: true,
-            linkDisabled: true
+            ctaText: 'צפו באתר',
+            buildixLink: 'https://app.buildix.site/c/binalb'
         },
         {
-            id: 7,
-            title: 'Pacman Game',
-            category: 'games',
-            type: 'project',
-            image: 'assets/images/PacmanGame2.png',
-            description: 'משחק פקמן פשוט הבנוי עם HTML, CSS ו-JavaScript. זמין כרגע למחשב בלבד, בקרוב גם למובייל.',
-            technologies: ['HTML5', 'CSS3', 'JavaScript', 'Canvas API'],
-            link: 'https://itayharoush.github.io/PacmanGame/',
-            github: 'https://github.com/itayHaroush/PacmanGame',
-            featured: true,
-            isExternal: true
-        },
-        {
-            id: 9,
-            title: 'MyLearn-App',
-            category: 'applications',
-            type: 'project',
-            image: 'assets/images/MyLearn.jpg',
-            description: 'אפליקציית למידה מתקדמת עם תכנים אינטראקטיביים ומערכת דירוג לסרטונים לפי משתמשים.',
-            technologies: ['HTML5', 'CSS3', 'JavaScript'],
-            link: '#',
-            github: '#',
-            status: 'coming-soon'
-        },
-        {
-            id: 16,
-            title: 'Linoy H Teaching Website',
-            category: 'websites',
-            type: 'project',
-            image: 'assets/images/logoLinoy.png',
-            description: 'אתר תדמית למורה פרטית עם עיצוב נקי ותגובותי',
-            technologies: ['HTML5', 'CSS3', 'JavaScript', 'React'],
-            link: 'https://linoy-app.vercel.app/',
-            github: '#',
-            isExternal: true,
-            featured: true
-        },
-        {
-            id: 17,
-            title: 'Bar Ben Abu Website',
-            category: 'websites',
-            type: 'project',
+            id: 'bar',
+            title: 'בר בן אבו',
+            subtitle: 'אדריכלות + דף עסקי ב-Buildix',
+            typeLabel: 'לקוח · אתר + Buildix',
             image: 'assets/images/barLogo.png',
-            description: 'אתר תדמית לאדריכל בר בן אבו עם עיצוב מודרני ותגובותי.',
-            technologies: ['HTML5', 'CSS3', 'JavaScript', 'React'],
+            challenge: 'הצגת פרויקטים וזהות מקצועית ברמת סטודיו.',
+            solution: 'אתר מינימליסטי עם גלריה + דף עסקי ב-Buildix, UX נקי ומותאם מובייל.',
+            result: 'מיתוג דיגיטלי ברמה גבוהה.',
             link: 'https://bar-app-self.vercel.app/',
-            github: '#',
-            isExternal: true,
-            featured: true
-        },
-        {
-            id: 18,
-            title: 'App Weather',
-            category: 'applications',
-            type: 'project',
-            image: 'assets/images/logoAppWeather.png',
-            description: 'אפליקציית מזג אוויר פשוטה המציגה תחזית יומית לשבוע עם עיצוב מודרני ותגובותי.',
-            technologies: ['HTML5', 'CSS3', 'JavaScript', 'React', 'API Integration'],
-            link: 'https://web2026-sandy.vercel.app',
-            github: '#',
-            isExternal: true,
-            featured: true
+            ctaText: 'צפו באתר',
+            buildixLink: 'https://app.buildix.site/c/bar-ben-abu'
         }
     ];
 
-    // תעודות הסמכה - רשימה נפרדת לקרוסלה
-    const certificates = [
+    const products = [
         {
-            id: 8,
-            title: 'React Development',
-            image: 'assets/images/React.jpg',
-            issuer: 'אקדמיה דיגיטלית',
-            date: '2024',
-            skills: ['React', 'JSX', 'Hooks', 'State Management']
+            id: 'takeeat',
+            title: 'TakeEat',
+            subtitle: 'פתיחת מסעדה אונליין',
+            typeLabel: 'מוצר · SaaS',
+            image: 'assets/images/takeEatLogo.png',
+            challenge: 'מסעדות צריכות מערכת הזמנות בלי עלויות גבוהות ומורכבות טכנית.',
+            solution: 'פלטפורמת הזמנות, תפריטים, ניהול משלוחים וממשק פשוט.',
+            result: 'מסעדה אונליין פעילה תוך ימים, לא חודשים.',
+            link: 'https://takeeat.co.il',
+            status: 'new',
+            ctaText: 'צפו במערכת'
         },
         {
-            id: 10,
-            title: 'CSS Mastery',
-            image: 'assets/images/Css.jpg',
-            issuer: 'מכללה טכנולוגית',
-            date: '2025',
-            skills: ['CSS', 'Responsive Design', 'UX/UI']
-        },
-        {
-            id: 11,
-            title: 'Java Development',
-            image: 'assets/images/Java.jpg',
-            issuer: 'מכללה טכנולוגית',
-            date: '2025',
-            skills: ['Java', 'API Development', 'OOP']
-        },
-        {
-            id: 12,
-            title: 'TypeScript Basics',
-            image: 'assets/images/TypeScript.jpg',
-            issuer: 'מכללה טכנולוגית',
-            date: '2025',
-            skills: ['TypeScript', 'Data Types']
-        },
-        {
-            id: 13,
-            title: 'Web Development',
-            image: 'assets/images/Html.jpg',
-            issuer: 'מכון טכנולוגי מתקדם',
-            date: '2024',
-            skills: ['HTML5', 'CSS3', 'JavaScript']
-        },
-        {
-            id: 14,
-            title: 'JavaScript Advanced',
-            image: 'assets/images/javaScript.jpg',
-            issuer: 'פלטפורמת קודינג מקוונת',
-            date: '2024',
-            skills: ['ES6+', 'DOM', 'APIs']
-        },
-        {
-            id: 15,
-            title: 'Frontend Development',
-            image: 'assets/images/FrontEndDevelopment.jpg',
-            issuer: 'מכללה טכנולוגית',
-            date: '2023',
-            skills: ['Frontend', 'UX/UI', 'Mobile First']
+            id: 'appointix',
+            title: 'Appointix',
+            subtitle: 'מערכת ניהול תורים לעסקים',
+            typeLabel: 'מוצר · SaaS',
+            image: 'assets/images/appointedCloud.png',
+            challenge: 'עסקים מאבדים לקוחות בגלל תיאום ידני, ביטולים וחוסר תזכורות.',
+            solution: 'מערכת תורים אונליין, יומן, תזכורות וניהול לקוחות מהטלפון.',
+            result: 'פחות ביטולים, יותר תורים, ניהול פשוט.',
+            link: 'https://appointed.cloud',
+            status: 'new',
+            ctaText: 'צפו במערכת'
         }
     ];
-
-    const categories = [
-        { id: 'all', label: 'הכל', icon: 'bx-grid-alt' },
-        { id: 'websites', label: 'אתרים', icon: 'bx-world' },
-        { id: 'games', label: 'משחקים', icon: 'bx-joystick' },
-        { id: 'applications', label: 'אפליקציות', icon: 'bx-mobile' }
-    ];
-
-    // חישוב הפריטים המסוננים - תלוי רק ב-activeFilter
-    const filteredProjects = activeFilter === 'all'
-        ? projects
-        : projects.filter(item => item.category === activeFilter);
 
     return (
-        <section id="portfolio" className="portfolio section">
+        <section id="portfolio" className="featured-work section">
             <div className="container">
                 <div className="section-header" data-aos="fade-up">
-                    <span className="section-subtitle">עבודות שלי</span>
-                    <h2 className="section-title">הפרוייקטים שלי</h2>
+                    <span className="section-subtitle">תיק עבודות</span>
+                    <h2 className="section-title">עבודות נבחרות</h2>
                     <p className="section-description">
-                        אוסף הפרוייקטים שפיתחתי - אתרים, אפליקציות ומשחקים
+                        פרויקטים אמיתיים לעסקים בישראל — ומערכות שבניתי מאפס
                     </p>
                 </div>
 
-                {/* מסנני קטגוריות */}
-                <div className="portfolio-filters" data-aos="fade-up" data-aos-delay="100">
-                    {categories.map(category => (
-                        <button
-                            key={category.id}
-                            className={`filter-btn ${activeFilter === category.id ? 'active' : ''}`}
-                            onClick={() => setActiveFilter(category.id)}
-                        >
-                            <i className={`bx ${category.icon}`}></i>
-                            <span>{category.label}</span>
-                        </button>
-                    ))}
-                </div>
-
-                {/* רשת הפרוייקטים */}
-                <div className="portfolio-grid">
-                    {filteredProjects.map((item, index) => (
-                        <div
-                            key={item.id}
-                            className={`portfolio-item project-item ${item.featured ? 'featured' : ''}`}
-                            data-aos="fade-up"
-                            data-aos-delay={index * 100}
-                        >
-                            <div className="portfolio-image">
-                                <img src={item.image} alt={item.title} />
-
-                                {/* מספר פרוייקט */}
-                                {item.number && (
-                                    <span className="project-number">{item.number}</span>
-                                )}
-
-                                {/* תגיות מיוחדות */}
-                                {item.featured && <span className="featured-badge">מומלץ</span>}
-                                {item.status === 'coming-soon' && <span className="coming-soon-badge">בקרוב</span>}
-                                {item.status === 'new' && <span className="new-badge">חדש</span>}
-
-                                <div className="portfolio-overlay">
-                                    <div className="portfolio-actions">
-                                        <a
-                                            href={item.link}
-                                            className="action-btn view-btn"
-                                            title="צפה בפרוייקט"
-                                            target={item.isExternal ? "_blank" : "_self"}
-                                            rel={item.isExternal ? "noopener noreferrer" : ""}
-                                        >
-                                            <i className='bx bx-link-external'></i>
-                                            <span>צפה בפרוייקט</span>
-                                        </a>
-                                        {item.github !== '#' && (
-                                            <a
-                                                href={item.github}
-                                                className="action-btn github-btn"
-                                                title="קוד ב-GitHub"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <i className='bx bxl-github'></i>
-                                                <span>GitHub</span>
-                                            </a>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="portfolio-content">
-                                <h3 className="portfolio-title">{item.title}</h3>
-                                <p className="portfolio-description">{item.description}</p>
-                                <div className="technologies">
-                                    {item.technologies.map((tech, techIndex) => (
-                                        <span key={techIndex} className="tech-tag">{tech}</span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* סטטיסטיקות מעודכנות */}
-                <div className="portfolio-stats" data-aos="fade-up">
-                    <div className="stat-item">
-                        <span className="stat-number">{projects.length}</span>
-                        <span className="stat-label">פרוייקטים</span>
-                    </div>
-                    <div className="stat-item">
-                        <span className="stat-number">{projects.filter(p => p.category === 'websites').length}</span>
-                        <span className="stat-label">אתרים</span>
-                    </div>
-                    <div className="stat-item">
-                        <span className="stat-number">{projects.filter(p => p.category === 'applications').length}</span>
-                        <span className="stat-label">אפליקציות</span>
-                    </div>
-                    <div className="stat-item">
-                        <span className="stat-number">{projects.filter(p => p.featured).length}</span>
-                        <span className="stat-label">פרוייקטים מומלצים</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-};
-
-// Certificates Carousel Component - קרוסלה אינפיניטית לתעודות
-const CertificatesCarousel = () => {
-    const certificatesData = [
-        {
-            id: 8,
-            title: 'React Development',
-            image: 'assets/images/React.jpg',
-            issuer: 'אקדמיה דיגיטלית',
-            date: '2024',
-            skills: ['React', 'JSX', 'Hooks']
-        },
-        {
-            id: 10,
-            title: 'CSS Mastery',
-            image: 'assets/images/Css.jpg',
-            issuer: 'מכללה טכנולוגית',
-            date: '2025',
-            skills: ['CSS', 'Responsive']
-        },
-        {
-            id: 11,
-            title: 'Java Development',
-            image: 'assets/images/Java.jpg',
-            issuer: 'מכללה טכנולוגית',
-            date: '2025',
-            skills: ['Java', 'OOP']
-        },
-        {
-            id: 12,
-            title: 'TypeScript Basics',
-            image: 'assets/images/TypeScript.jpg',
-            issuer: 'מכללה טכנולוגית',
-            date: '2025',
-            skills: ['TypeScript']
-        },
-        {
-            id: 13,
-            title: 'Web Development',
-            image: 'assets/images/Html.jpg',
-            issuer: 'מכון טכנולוגי',
-            date: '2024',
-            skills: ['HTML5', 'CSS3']
-        },
-        {
-            id: 14,
-            title: 'JavaScript Advanced',
-            image: 'assets/images/javaScript.jpg',
-            issuer: 'פלטפורמת קודינג',
-            date: '2024',
-            skills: ['ES6+', 'APIs']
-        },
-        {
-            id: 15,
-            title: 'Frontend Development',
-            image: 'assets/images/FrontEndDevelopment.jpg',
-            issuer: 'מכללה טכנולוגית',
-            date: '2023',
-            skills: ['Frontend', 'UX/UI']
-        }
-    ];
-
-    // כפילת התעודות פי 3 לקרוסלה רציפה
-    const duplicatedCertificates = [...certificatesData, ...certificatesData, ...certificatesData];
-
-    return (
-        <section id="certificates" className="certificates-section">
-            <div className="container">
-                <div className="section-header" data-aos="fade-up">
-                    <span className="section-subtitle">הכשרות והסמכות</span>
-                    <h2 className="section-title">תעודות ההסמכה שלי</h2>
-                    <p className="section-description">
-                        אוסף התעודות וההסמכות המקצועיות שרכשתי במהלך הדרך
-                    </p>
-                </div>
-
-                <div className="certificates-carousel-wrapper" data-aos="fade-up" data-aos-delay="100">
-                    <div className="certificates-carousel">
-                        {duplicatedCertificates.map((cert, index) => (
-                            <div key={`${cert.id}-${index}`} className="certificate-card">
-                                <div className="certificate-image">
-                                    <img src={cert.image} alt={cert.title} />
-                                    <div className="certificate-overlay">
-                                        <i className='bx bx-medal'></i>
-                                    </div>
-                                </div>
-                                <div className="certificate-info">
-                                    <h3>{cert.title}</h3>
-                                    <div className="issuer">
-                                        <i className='bx bx-building'></i>
-                                        <span>{cert.issuer}</span>
-                                    </div>
-                                    <div className="date">
-                                        <i className='bx bx-calendar'></i>
-                                        <span>{cert.date}</span>
-                                    </div>
-                                    <div className="skills">
-                                        {cert.skills.map((skill, skillIndex) => (
-                                            <span key={skillIndex} className="skill-tag">{skill}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
+                <div className="featured-subsection" data-aos="fade-up">
+                    <h3 className="featured-subtitle">לקוחות</h3>
+                    <div className="featured-grid">
+                        {clientProjects.map((project, index) => (
+                            <ProjectCard key={project.id} project={project} index={index} />
                         ))}
                     </div>
                 </div>
 
-                <div className="certificates-stats" data-aos="fade-up">
-                    <div className="stat-item">
-                        <i className='bx bx-medal'></i>
-                        <span className="stat-number">{certificatesData.length}</span>
-                        <span className="stat-label">תעודות הסמכה</span>
-                    </div>
-                    <div className="stat-item">
-                        <i className='bx bx-code-alt'></i>
-                        <span className="stat-number">10+</span>
-                        <span className="stat-label">טכנולוגיות</span>
-                    </div>
-                    <div className="stat-item">
-                        <i className='bx bx-trending-up'></i>
-                        <span className="stat-number">100%</span>
-                        <span className="stat-label">מחויבות ללמידה</span>
+                <div className="featured-subsection" data-aos="fade-up">
+                    <h3 className="featured-subtitle">מערכות שפיתחתי</h3>
+                    <BuildixFeaturedCard />
+                    <div className="featured-grid featured-grid-products">
+                        {products.map((project, index) => (
+                            <ProjectCard key={project.id} project={project} index={index} />
+                        ))}
                     </div>
                 </div>
             </div>
         </section>
     );
 };
+
+const OngoingWork = () => {
+    const items = [
+        'ניהול רשתות חברתיות',
+        'עדכוני אתר',
+        'יצירת תוכן',
+        'מענה לפניות',
+        'פרסום ממומן',
+        'שיפורים ופיתוחים'
+    ];
+
+    return (
+        <section id="ongoing" className="ongoing-work section">
+            <div className="container">
+                <div className="section-header" data-aos="fade-up">
+                    <span className="section-subtitle">שותפות מתמשכת</span>
+                    <h2 className="section-title">ליווי שוטף לעסקים</h2>
+                    <p className="section-description">
+                        לא רק פרויקט חד-פעמי — שותפות שמקדמת את העסק כל יום
+                    </p>
+                </div>
+                <div className="ongoing-content" data-aos="fade-up">
+                    <p className="ongoing-lead">
+                        רוב העסקים לא צריכים "עוד אתר" — הם צריכים מישהו שידאג שהדיגיטל שלהם יעבוד כל יום.
+                    </p>
+                    <ul className="ongoing-list">
+                        {items.map((item, i) => (
+                            <li key={i}>
+                                <i className='bx bx-check-circle'></i>
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                    <a
+                        href={getWhatsAppUrl('היי איתי, אני מעוניין לשמוע על ליווי שוטף לעסק שלי')}
+                        className="btn btn-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i className='bx bxl-whatsapp'></i>
+                        בואו נדבר על ליווי שוטף
+                    </a>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+const DigitalManagement = () => {
+    const services = [
+        { icon: 'bxl-facebook', title: 'ניהול פייסבוק', desc: 'עמוד, פוסטים, מענה וקהילה' },
+        { icon: 'bxl-instagram', title: 'ניהול אינסטגרם', desc: 'פיד, Stories, Reels ועקביות מותג' },
+        { icon: 'bx-edit', title: 'יצירת תוכן', desc: 'פוסטים, כיתובים וויזuals' },
+        { icon: 'bx-mobile', title: 'יצירת Stories', desc: 'סטוריז יומיים, מבצעים ותוכן' },
+        { icon: 'bx-message-dots', title: 'מענה ללקוחות', desc: 'הודעות, לידים ושירות מהיר' },
+        { icon: 'bx-target-lock', title: 'פרסום ממומן', desc: 'קמפיינים, קהלים והמרות' }
+    ];
+
+    return (
+        <section id="digital" className="digital-mgmt section">
+            <div className="container">
+                <div className="section-header" data-aos="fade-up">
+                    <span className="section-subtitle">ניהול דיגיטל</span>
+                    <h2 className="section-title">העסק שלכם פעיל ברשת — בלי שתרדפו אחרי תוכן</h2>
+                    <p className="section-description">
+                        פייסבוק, אינסטגרם, אתר, תוכן, לידים ופרסום — הכל במקום אחד
+                    </p>
+                </div>
+                <div className="digital-grid">
+                    {services.map((service, index) => (
+                        <div key={index} className="digital-card" data-aos="fade-up" data-aos-delay={index * 80}>
+                            <i className={`bx ${service.icon}`}></i>
+                            <h3>{service.title}</h3>
+                            <p>{service.desc}</p>
+                        </div>
+                    ))}
+                </div>
+                <div className="digital-cta" data-aos="fade-up">
+                    <a
+                        href={getWhatsAppUrl('היי איתי, אני מעוניין לשמוע על ניהול דיגיטל לעסק שלי')}
+                        className="btn btn-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i className='bx bxl-whatsapp'></i>
+                        בואו נדבר על הניהול הדיגיטלי שלכם
+                    </a>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+const AboutSection = () => (
+    <section id="about" className="about-agency section">
+        <div className="container">
+            <div className="about-grid" data-aos="fade-up">
+                <div className="about-image">
+                    <img src="assets/images/photo_2025-01-04_02-16-56.jpg" alt="איתי הרוש" />
+                </div>
+                <div className="about-text">
+                    <span className="section-subtitle">עלי</span>
+                    <h2 className="section-title">לא בונה אתרים — בונה פתרונות לעסקים</h2>
+                    <p>
+                        אני איתי הרוש, מייסד Itay Solutions. עובד עם עסקים קטנים ובינוניים בישראל —
+                        קבלנים, מסעדות, מורים, אדריכלים ובעלי מקצוע.
+                    </p>
+                    <p>
+                        לא מוסר קובץ ונעלם. מלווה מהרעיון, דרך הפיתוח והניהול הדיגיטלי,
+                        ועד שהמערכת או האתר עובדים בשטח — כולל Buildix, TakeEat ו-Appointix.
+                    </p>
+                    <div className="about-process">
+                        <span>רעיון</span>
+                        <i className='bx bx-chevron-left'></i>
+                        <span>אפיון</span>
+                        <i className='bx bx-chevron-left'></i>
+                        <span>פיתוח</span>
+                        <i className='bx bx-chevron-left'></i>
+                        <span>השקה</span>
+                        <i className='bx bx-chevron-left'></i>
+                        <span>ליווי</span>
+                    </div>
+                    <a
+                        href={getWhatsAppUrl()}
+                        className="btn btn-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i className='bx bxl-whatsapp'></i>
+                        בואו נעבוד יחד
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+);
+
+const TrustSection = () => {
+    const trustLogos = [
+        { name: 'NA Construction', image: 'assets/images/naConstructionLogo.png' },
+        { name: 'בינה לבנייה', image: 'assets/images/fulllogo_nobuffer.jpeg' },
+        { name: 'בר בן אבו', image: 'assets/images/barLogo.png' },
+        { name: 'TakeEat', image: 'assets/images/takeEatLogo.png' },
+        { name: 'Buildix', image: 'assets/images/buildixLogo.png' },
+        { name: 'Appointix', image: 'assets/images/appointedCloud.png' }
+    ];
+
+    return (
+        <section id="trust" className="trust-section section">
+            <div className="container">
+                <div className="section-header" data-aos="fade-up">
+                    <span className="section-subtitle">למה לעבוד איתי</span>
+                    <h2 className="section-title">עסקים אמיתיים. מערכות אמיתיות.</h2>
+                    <p className="section-description">
+                        לקוחות ומוצרים שעובדים בשטח — לא רק על המסך
+                    </p>
+                </div>
+                <div className="trust-logos trust-logos-prominent" data-aos="fade-up">
+                    <div className="trust-logo-list">
+                        {trustLogos.map((logo, index) => (
+                            <div key={index} className="trust-logo-item">
+                                {logo.image ? (
+                                    <img src={logo.image} alt={logo.name} />
+                                ) : (
+                                    <div className="trust-logo-text">{logo.name}</div>
+                                )}
+                                <span className="trust-logo-name">{logo.name}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
 
 // Contact Section Component
 const Contact = () => {
@@ -1004,7 +728,7 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                 
 📱 אנא פנו ישירות:
 טלפון: +${phoneNumber}
-אימייל: itay666@icloud.com`);
+אימייל: ${CONTACT_EMAIL}`);
                 });
             }
         }
@@ -1013,60 +737,56 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
     const contactMethods = [
         {
             icon: 'bxl-whatsapp',
-            title: '<i class="fas fa-comment-dots"></i> וואטסאפ - תגובה מהירה',
-            info: 'קבלו הצעת מחיר תוך 24 שעות',
-            link: 'https://wa.me/+972547466508?text=היי איתי! אני מעוניין לשמוע על שירותי הפיתוח שלך',
+            title: 'וואטסאפ — הדרך הכי מהירה',
+            info: 'שיחה קצרה, בלי התחייבות',
+            link: getWhatsAppUrl(),
             color: '#25D366'
         },
         {
             icon: 'bx-phone',
-            title: '<i class="fas fa-phone"></i> שיחת ייעוץ חינמית',
-            info: 'חייג עכשיו לשיחת ייעוץ',
+            title: 'שיחת ייעוץ',
+            info: '054-746-6508',
             link: 'tel:+972547466508',
             color: '#4f46e5'
         },
         {
             icon: 'bx-envelope',
-            title: '<i class="fas fa-envelope"></i> אימייל עסקי',
-            info: 'itayyharoush@gmail.com',
-            link: 'mailto:itayyharoush@gmail.com?subject=פנייה עסקית - פיתוח',
+            title: 'אימייל',
+            info: CONTACT_EMAIL,
+            link: getMailtoUrl('פנייה מ-Itay Solutions'),
             color: '#EA4335'
         },
         {
             icon: 'bxl-linkedin',
-            title: '<i class="fas fa-briefcase"></i> רשת מקצועית',
-            info: 'חיבור עסקי ב-LinkedIn',
+            title: 'LinkedIn',
+            info: 'חיבור מקצועי',
             link: 'https://www.linkedin.com/in/itay-haroush-94710b229/?originalSubdomain=il',
             color: '#0A66C2'
-        },
-        {
-            icon: 'bxl-github',
-            title: '<i class="fab fa-github"></i> GitHub - קוד פתוח',
-            info: 'צפו בפרוייקטים שלי ב-GitHub',
-            link: 'https://github.com/itayHaroush',
-            color: '#171515'
         }
     ];
 
     return (
-        <section id="contact" className="contact">
+        <section id="contact" className="contact contact-agency">
             <div className="container">
-
+                <div className="section-header contact-header" data-aos="fade-up">
+                    <span className="section-subtitle">צור קשר</span>
+                    <h2 className="section-title">יש לכם רעיון? בואו נדבר</h2>
+                    <p className="section-description">
+                        שיחה קצרה בוואטסאפ — בלי התחייבות, בלי טפסים ארוכים
+                    </p>
+                    <a
+                        href={getWhatsAppUrl()}
+                        className="btn btn-whatsapp-large"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i className='bx bxl-whatsapp'></i>
+                        שלחו הודעה בוואטסאפ
+                    </a>
+                </div>
 
                 <div className="contact-content">
                     <div className="contact-info" data-aos="fade-right">
-                        <div className="contact-intro">
-                            <h3 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-rocket"></i> מוכנים להגדיל את העסק?' }}></h3>
-                            <p>
-                                <strong>קבלו הצעת מחיר מקצועית ללא התחייבות תוך 24 שעות!</strong>
-                                <br /><br />
-                                <i className="fas fa-bullseye"></i> יעוץ חינם לבחירת הפתרון המתאים<br />
-                                💰 מחירים הוגנים ושקופים<br />
-                                ⚡ מסירה מהירה ואמינה<br />
-                                🛠️ תמיכה מלאה לאחר המסירה
-                            </p>
-                        </div>
-
                         <div className="contact-methods">
                             {contactMethods.map((method, index) => (
                                 <a
@@ -1082,7 +802,7 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                                         <i className={`bx ${method.icon}`}></i>
                                     </div>
                                     <div className="method-info">
-                                        <h4 dangerouslySetInnerHTML={{ __html: method.title }}></h4>
+                                        <h4>{method.title}</h4>
                                         <p>{method.info}</p>
                                     </div>
                                 </a>
@@ -1090,12 +810,9 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                         </div>
                     </div>
 
-                    <div className="section-header" data-aos="fade-up">
-                        <h2>בואו ניצור קשר</h2>
-                        <p>מוכנים להפוך את הרעיון שלכם למציאות? אשמח לשמוע על הפרוייקט שלכם</p>
-
-
-                        <form className="contact-form" onSubmit={handleSubmit} data-aos="fade-left">
+                    <div className="contact-form-wrap" data-aos="fade-up">
+                        <p className="form-alt-label">או השאירו פרטים ואחזור אליכם</p>
+                        <form className="contact-form" onSubmit={handleSubmit}>
                             <div className="form-group">
                                 <input
                                     type="text"
@@ -1172,8 +889,8 @@ const Footer = () => {
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-brand">
-                        <h3>איתי הרוש | Itay Solutions</h3>
-                        <p>פתרונות פיתוח דיגיטליים מתקדמים</p>
+                        <h3>Itay Solutions</h3>
+                        <p>פיתוח מערכות, אתרים וניהול דיגיטל לעסקים</p>
                     </div>
 
                     <div className="footer-google-section">
@@ -1193,11 +910,12 @@ const Footer = () => {
                     </div>
                     <div className="footer-links">
                         <a href="#home">בית</a>
-                        <a href="#services">שירותים</a>
-                        <a href="#portfolio">פרוייקטים</a>
-                        <a href="#certificates">תעודות</a>
-                        <a href="#pricing">הצעות מחיר</a>
+                        <a href="#portfolio">פרויקטים</a>
+                        <a href="#ongoing">עבודה שוטפת</a>
+                        <a href="#digital">ניהול דיגיטל</a>
+                        <a href="#about">עלי</a>
                         <a href="#contact">צור קשר</a>
+                        <a href="pricing-landing.html">מחירון</a>
                     </div>
 
                 </div>

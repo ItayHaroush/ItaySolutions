@@ -374,7 +374,7 @@
                     </div>
                     <div class="footer-contact-item">
                         <i class='bx bx-envelope'></i>
-                        <span>itayyharoush@gmail.com</span>
+                        <span>itay@itaysolutions.com</span>
                     </div>
                     <div class="footer-contact-item">
                         <i class='bx bxl-linkedin'></i>
@@ -410,6 +410,9 @@
 
     <!-- Contact Component (copied from main app) -->
     <script type="text/babel">
+        const CONTACT_EMAIL = 'itay@itaysolutions.com';
+        const getMailtoUrl = (subject) => `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject || 'פנייה מ-Itay Solutions')}`;
+
         const Contact = () => {
             const [formData, setFormData] = React.useState({
                 name: '',
@@ -526,7 +529,7 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                 
 📱 אנא פנו ישירות:
 טלפון: +${phoneNumber}
-אימייל: itay666@icloud.com`);
+אימייל: ${CONTACT_EMAIL}`);
                         });
                     }
                 }
@@ -550,8 +553,8 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                 {
                     icon: 'bx-envelope',
                     title: '<i class="fas fa-envelope"></i> אימייל עסקי',
-                    info: 'itayyharoush@gmail.com',
-                    link: 'mailto:itayyharoush@gmail.com?subject=פנייה עסקית - פיתוח',
+                    info: CONTACT_EMAIL,
+                    link: getMailtoUrl('פנייה עסקית - פיתוח'),
                     color: '#EA4335'
                 },
                 {
