@@ -447,6 +447,9 @@
 				const response = await fetch(PREPARE_URL, {
 					method: "POST",
 					headers: headers,
+					mode: "cors",
+					credentials: "omit",
+					cache: "no-store",
 					body: JSON.stringify({
 						templateKey: templateKey,
 						clientName: formData.clientName,
@@ -454,7 +457,8 @@
 						clientEmail: formData.clientEmail || "",
 						businessName: formData.businessName || formData.clientName,
 						itemPrices: formData.itemPrices || undefined,
-						businessLogoDataUrl: formData.businessLogoDataUrl || undefined
+						businessLogoDataUrl: formData.businessLogoDataUrl || undefined,
+						documentUrl: formData.documentUrl || undefined
 					})
 				});
 
@@ -570,7 +574,8 @@
 								clientEmail: clientEmail,
 								businessName: businessName,
 								itemPrices: priceData.itemPrices,
-								businessLogoDataUrl: logoDataUrl || undefined
+								businessLogoDataUrl: logoDataUrl || undefined,
+								documentUrl: buildProposalUrl(template)
 							});
 							statusEl.textContent = "נוצרה הצעה " + (result.quoteNumber || "") + " — פותח דף שליחה...";
 							statusEl.classList.add("is-success");

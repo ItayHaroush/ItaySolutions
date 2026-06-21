@@ -2343,6 +2343,7 @@
 			</div>
 		</div>
 	</main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="../proposal-backend-config.js"></script>
 	<script>
 		window.ITAY_PROPOSAL_CONFIG = window.ITAY_PROPOSAL_CONFIG || {
@@ -2603,6 +2604,9 @@
 				const response = await fetch(brandingUrl, {
 					method: "POST",
 					headers: headers,
+					mode: "cors",
+					credentials: "omit",
+					cache: "no-store",
 					body: JSON.stringify(Object.assign({ quoteToken: buildixQuoteToken }, payload))
 				});
 
@@ -2620,7 +2624,11 @@
 
 				try {
 					const response = await fetch(brandingUrl + "/" + encodeURIComponent(buildixQuoteToken), {
-						headers: { "Accept": "application/json" }
+						method: "GET",
+						headers: { "Accept": "application/json" },
+						mode: "cors",
+						credentials: "omit",
+						cache: "no-store"
 					});
 					if (!response.ok) {
 						return;
@@ -3538,6 +3546,9 @@
 				const response = await fetch(submitUrl, {
 					method: "POST",
 					headers: headers,
+					mode: "cors",
+					credentials: "omit",
+					cache: "no-store",
 					body: JSON.stringify(payload)
 				});
 
@@ -3580,7 +3591,7 @@
 				});
 				signedAtValue = signedAt;
 
-				const payload = {
+				persist({
 					proposalId: proposalId,
 					businessName: businessNameInput.value.trim(),
 					signerName: signerNameInput.value.trim(),
@@ -3591,17 +3602,43 @@
 					signedAt: signedAt,
 					signatureDataUrl: signedImageDataUrl,
 					shareUrl: buildShareUrlForApproval()
-				};
-
-				persist(payload);
+				});
 				updateSummary(signedAt);
 				updateSignaturePreview(signedAt);
+
+				approveButton.disabled = true;
+				setStatus("מייצר מסמך PDF עם כל פרטי ההצעה...", "success");
+
+				let proposalPdfDataUrl = null;
+				try {
+					proposalPdfDataUrl = await generateProposalPdfDataUrl();
+				} catch (error) {
+					proposalPdfDataUrl = null;
+				}
+
+				const payload = {
+					proposalId: proposalId,
+					businessName: businessNameInput.value.trim(),
+					signerName: signerNameInput.value.trim(),
+					phone: phoneInput.value.trim(),
+					email: emailInput.value.trim(),
+					notes: notesInput.value.trim(),
+					approved: approvalCheckbox.checked,
+					signedAt: signedAt,
+					signatureDataUrl: signedImageDataUrl,
+					shareUrl: buildShareUrlForApproval(),
+					proposalPdfDataUrl: proposalPdfDataUrl || undefined
+				};
+
+				setStatus("שולח אישור ומצרף PDF להצעה ב-Buildix...", "success");
 
 				try {
 					const result = await submitApproval(payload);
 					if (wizardSuccessSaveNote) {
 						if (result.quoteSynced) {
-							wizardSuccessSaveNote.textContent = "ההצעה אושרה ב-Buildix (itaySolutions)";
+							wizardSuccessSaveNote.textContent = proposalPdfDataUrl
+								? "ההצעה אושרה ב-Buildix — מסמך PDF עם כל הפרטים צורף להצעה"
+								: "ההצעה אושרה ב-Buildix (itaySolutions)";
 						} else if (result.sent) {
 							wizardSuccessSaveNote.textContent = "עותק נשמר בשרת";
 						} else {
@@ -3614,7 +3651,9 @@
 							: "";
 						setStatus(
 							result.quoteSynced
-								? "האישור נשמר וההצעה אושרה ב-Buildix." + emailNote
+								? (proposalPdfDataUrl
+									? "האישור נשמר, ההצעה אושרה ב-Buildix ומסמך PDF עם כל הפרטים צורף." + emailNote
+									: "האישור נשמר וההצעה אושרה ב-Buildix." + emailNote)
 								: "האישור נשמר ונשלח לשרת בהצלחה." + emailNote,
 							"success"
 						);
@@ -3626,6 +3665,8 @@
 				} catch (error) {
 					setStatus("האישור נשמר מקומית, אך לא נשלח לשרת. אפשר עדיין להדפיס או לשמור כ-PDF.", "error");
 					showWizardSuccess();
+				} finally {
+					approveButton.disabled = false;
 				}
 			}
 
@@ -3755,6 +3796,77 @@
 					}
 					updateSummary(signedAtValue);
 					updateSignaturePreview(signedAtValue);
+				}
+			}
+
+			function buildPdfExportRoot() {
+				const printBlock = document.querySelector(".print-contract");
+				if (!printBlock) {
+					return null;
+				}
+
+				const page = printBlock.closest(".page");
+				const footer = page ? page.querySelector(".footer") : document.querySelector(".footer");
+				const wrapper = document.createElement("div");
+				wrapper.className = "pdf-export-root";
+				wrapper.setAttribute("dir", "rtl");
+				wrapper.style.cssText = [
+					"position: fixed",
+					"left: -10000px",
+					"top: 0",
+					"width: 190mm",
+					"background: #fffdfb",
+					"color: #182230",
+					"font-family: Heebo, Segoe UI, Arial, sans-serif",
+					"line-height: 1.6",
+					"padding: 0",
+					"z-index: -1"
+				].join(";");
+
+				const contractClone = printBlock.cloneNode(true);
+				contractClone.classList.remove("print-only");
+				contractClone.style.display = "block";
+				wrapper.appendChild(contractClone);
+
+				if (footer) {
+					const footerClone = footer.cloneNode(true);
+					footerClone.style.marginTop = "16px";
+					wrapper.appendChild(footerClone);
+				}
+
+				document.body.appendChild(wrapper);
+				return wrapper;
+			}
+
+			async function generateProposalPdfDataUrl() {
+				if (typeof html2pdf !== "function") {
+					return null;
+				}
+
+				prepareForPrint();
+				const wrapper = buildPdfExportRoot();
+				if (!wrapper) {
+					return null;
+				}
+
+				try {
+					return await html2pdf()
+						.set({
+							margin: [10, 10, 10, 10],
+							filename: proposalId + "-approved.pdf",
+							image: { type: "jpeg", quality: 0.92 },
+							html2canvas: {
+								scale: 2,
+								useCORS: true,
+								logging: false,
+								backgroundColor: "#fffdfb"
+							},
+							jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+						})
+						.from(wrapper)
+						.output("datauristring");
+				} finally {
+					wrapper.remove();
 				}
 			}
 

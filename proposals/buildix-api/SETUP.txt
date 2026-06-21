@@ -54,4 +54,12 @@ BUILDIX_EXTERNAL_PROPOSAL_API_KEY=your-secret
 MySQL table: `proposal_approvals`
 Email: `itay@itaysolutions.com` (via TransactionalEmailService + outbound log)
 
+## PDF attachment on approval
+
+When the client approves on itaysolutions.com, the page generates a PDF from the full proposal
+document (`.print-contract` + footer) and sends it as `proposalPdfDataUrl` to `/api/proposals/approve`.
+Buildix stores it on the linked quote as `pdf_path` instead of the default template PDF.
+
+On prepare (`/api/proposals/prepare`), pass `documentUrl` to link the hosted proposal page in quote notes.
+
 The duplicate PHP snippets in this folder are reference-only; Buildix is the source of truth.

@@ -24,6 +24,7 @@ class ProposalApprovalController extends Controller
             'signedAt' => 'nullable|string|max:80',
             'signatureDataUrl' => 'required|string',
             'shareUrl' => 'nullable|string|max:2000',
+            'proposalPdfDataUrl' => 'nullable|string|max:8000000',
         ]);
 
         if ($validator->fails()) {
