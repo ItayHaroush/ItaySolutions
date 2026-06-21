@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex, nofollow">
+	<title>ניהול הצעות מחיר | Itay Solutions</title>
+	<style>
+		:root {
+			--brand-orange: #ff6a00;
+			--brand-green: #146c2e;
+			--brand-navy: #182230;
+			--brand-slate: #4b5563;
+			--brand-line: #e8dccf;
+			--paper: #fffdfb;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			margin: 0;
+			font-family: "Segoe UI", Arial, sans-serif;
+			background: #f5f1eb;
+			color: var(--brand-navy);
+			line-height: 1.6;
+		}
+
+		.is-hidden { display: none !important; }
+
+		.gate {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+			background:
+				radial-gradient(circle at top right, rgba(255, 106, 0, 0.12), transparent 28%),
+				radial-gradient(circle at left 20%, rgba(20, 108, 46, 0.10), transparent 24%),
+				rgba(24, 34, 48, 0.72);
+		}
+
+		.gate-card,
+		.shell {
+			width: min(100%, 760px);
+			padding: 24px;
+			border-radius: 22px;
+			background: linear-gradient(180deg, #fffefc 0%, var(--paper) 100%);
+			box-shadow: 0 18px 50px rgba(24, 34, 48, 0.18);
+			border: 1px solid rgba(232, 220, 207, 0.95);
+		}
+
+		.gate-card { width: min(100%, 420px); }
+
+		h1, h2 { margin: 0 0 8px; }
+		h1 { font-size: 22pt; }
+		h2 { font-size: 14pt; color: var(--brand-green); }
+
+		.subtitle,
+		.note {
+			margin: 0 0 16px;
+			color: var(--brand-slate);
+			font-size: 10pt;
+		}
+
+		.field { margin-bottom: 14px; }
+		.label {
+			display: block;
+			margin-bottom: 6px;
+			font-size: 9pt;
+			font-weight: 700;
+			color: var(--brand-slate);
+		}
+
+		.input {
+			width: 100%;
+			padding: 11px 12px;
+			border-radius: 12px;
+			border: 1px solid rgba(24, 34, 48, 0.12);
+			font: inherit;
+		}
+
+		.button {
+			border: 0;
+			border-radius: 12px;
+			padding: 11px 16px;
+			font: inherit;
+			font-weight: 700;
+			cursor: pointer;
+		}
+
+		.button-primary {
+			background: linear-gradient(135deg, var(--brand-orange), #ff8533);
+			color: #fff;
+		}
+
+		.button-secondary {
+			background: rgba(20, 108, 46, 0.10);
+			color: var(--brand-green);
+		}
+
+		.button-ghost {
+			background: transparent;
+			border: 1px solid rgba(24, 34, 48, 0.12);
+			color: var(--brand-navy);
+		}
+
+		.error {
+			margin-top: 10px;
+			padding: 10px 12px;
+			border-radius: 12px;
+			font-size: 9pt;
+			display: none;
+			background: rgba(185, 28, 28, 0.08);
+			color: #991b1b;
+			border: 1px solid rgba(185, 28, 28, 0.14);
+		}
+
+		.error.is-visible { display: block; }
+
+		.shell-wrap {
+			min-height: 100vh;
+			padding: 24px 16px 40px;
+		}
+
+		.topbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 18px;
+			flex-wrap: wrap;
+		}
+
+		.badge {
+			display: inline-block;
+			padding: 5px 10px;
+			border-radius: 999px;
+			background: rgba(20, 108, 46, 0.10);
+			color: var(--brand-green);
+			font-size: 8.5pt;
+			font-weight: 700;
+		}
+
+		.proposal-list {
+			display: grid;
+			gap: 14px;
+		}
+
+		.proposal-card {
+			padding: 16px;
+			border-radius: 16px;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			background: rgba(255, 255, 255, 0.88);
+		}
+
+		.proposal-title {
+			margin: 0 0 4px;
+			font-size: 13pt;
+			font-weight: 800;
+		}
+
+		.proposal-meta {
+			margin: 0 0 12px;
+			font-size: 9.5pt;
+			color: var(--brand-slate);
+		}
+
+		.actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+
+		.help-box {
+			margin-top: 18px;
+			padding: 14px 16px;
+			border-radius: 14px;
+			background: rgba(255, 106, 0, 0.08);
+			border: 1px solid rgba(255, 106, 0, 0.14);
+			font-size: 9.5pt;
+			color: var(--brand-slate);
+		}
+
+		.help-box code {
+			background: rgba(255, 255, 255, 0.8);
+			padding: 2px 6px;
+			border-radius: 6px;
+			font-size: 9pt;
+		}
+
+		.empty-state {
+			padding: 20px;
+			text-align: center;
+			color: var(--brand-slate);
+		}
+	</style>
+</head>
+<body>
+	<div class="gate" id="owner-gate">
+		<div class="gate-card">
+			<h1>ניהול הצעות מחיר</h1>
+			<p class="subtitle">אזור פרטי לשליחת הצעות ללקוחות. הזינו את מספר הטלפון שלכם (054-7466508) לגישה.</p>
+			<div class="field">
+				<label class="label" for="owner-phone">מספר הטלפון שלכם</label>
+				<input class="input" id="owner-phone" type="tel" placeholder="054-7466508" autocomplete="tel">
+			</div>
+			<button class="button button-primary" type="button" id="owner-unlock-button">כניסה לפאנל</button>
+			<div class="error" id="owner-gate-error">מספר הטלפון אינו תקין.</div>
+		</div>
+	</div>
+
+	<div class="shell-wrap is-hidden" id="admin-shell">
+		<div class="shell">
+			<div class="topbar">
+				<div>
+					<h1>הצעות מחיר</h1>
+					<p class="note">שליחה מאובטחת ללקוחות — ללא קישור מדף הבית</p>
+				</div>
+				<span class="badge">Itay Solutions</span>
+			</div>
+
+			<div class="proposal-list" id="proposal-list">
+				<div class="empty-state">טוען הצעות...</div>
+			</div>
+
+			<div class="help-box">
+				<strong>איך שולחים ללקוח?</strong><br>
+				לחצו «פתיחה ושליחה» → הזינו טלפון ושם לקוח → שליחה ב-SMS או WhatsApp.<br>
+				הלקוח יקבל קישור עם <code>access=...</code> ויוכל לפתוח רק לאחר הקשת אותו מספר טלפון.<br>
+				גישה מהירה: הוסיפו לכתובת <code>?owner=7466508</code>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		(function () {
+			const SESSION_KEY = "itay-proposals-admin";
+			const ownerGate = document.getElementById("owner-gate");
+			const adminShell = document.getElementById("admin-shell");
+			const ownerPhoneInput = document.getElementById("owner-phone");
+			const ownerUnlockButton = document.getElementById("owner-unlock-button");
+			const ownerGateError = document.getElementById("owner-gate-error");
+			const proposalList = document.getElementById("proposal-list");
+
+			let manifest = null;
+
+			function normalizePhone(value) {
+				const digits = String(value || "").replace(/\D/g, "");
+				if (!digits) return "";
+				if (digits.startsWith("972")) return digits.slice(3);
+				if (digits.startsWith("0")) return digits.slice(1);
+				return digits;
+			}
+
+			function getOwnerKey() {
+				return normalizePhone((manifest && manifest.ownerPhone) || "7466508");
+			}
+
+			function isOwnerAuthorized(value) {
+				const key = getOwnerKey();
+				return Boolean(key && normalizePhone(value) === key);
+			}
+
+			function showGateError(message) {
+				ownerGateError.textContent = message;
+				ownerGateError.classList.add("is-visible");
+			}
+
+			function hideGateError() {
+				ownerGateError.classList.remove("is-visible");
+			}
+
+			function unlockAdmin() {
+				sessionStorage.setItem(SESSION_KEY, "1");
+				ownerGate.classList.add("is-hidden");
+				adminShell.classList.remove("is-hidden");
+				renderProposals();
+			}
+
+			function tryUnlockFromQuery() {
+				const ownerParam = new URLSearchParams(window.location.search).get("owner");
+				if (ownerParam && isOwnerAuthorized(ownerParam)) {
+					unlockAdmin();
+					return true;
+				}
+				if (sessionStorage.getItem(SESSION_KEY) === "1") {
+					unlockAdmin();
+					return true;
+				}
+				return false;
+			}
+
+			function buildProposalUrl(proposal, withOwner) {
+				const base = new URL(proposal.path, window.location.href);
+				if (withOwner) {
+					base.searchParams.set("owner", getOwnerKey());
+				}
+				return base.toString();
+			}
+
+			function renderProposals() {
+				if (!manifest || !manifest.proposals || !manifest.proposals.length) {
+					proposalList.innerHTML = '<div class="empty-state">אין הצעות מחיר רשומות.</div>';
+					return;
+				}
+
+				proposalList.innerHTML = manifest.proposals.map(function (proposal) {
+					const openUrl = buildProposalUrl(proposal, true);
+					const clientUrl = buildProposalUrl(proposal, false);
+					return (
+						'<article class="proposal-card">' +
+							'<h3 class="proposal-title">' + proposal.title + '</h3>' +
+							'<p class="proposal-meta">לקוח: ' + (proposal.client || "—") + ' · עודכן: ' + (proposal.updated || "—") + '</p>' +
+							'<div class="actions">' +
+								'<a class="button button-primary" href="' + openUrl + '">פתיחה ושליחה</a>' +
+								'<button class="button button-secondary" type="button" data-copy="' + clientUrl + '">העתקת נתיב בסיס</button>' +
+							'</div>' +
+						'</article>'
+					);
+				}).join("");
+
+				proposalList.querySelectorAll("[data-copy]").forEach(function (button) {
+					button.addEventListener("click", async function () {
+						const value = button.getAttribute("data-copy");
+						try {
+							await navigator.clipboard.writeText(value);
+							button.textContent = "הועתק!";
+							setTimeout(function () {
+								button.textContent = "העתקת נתיב בסיס";
+							}, 1800);
+						} catch (error) {
+							window.prompt("העתיקו את הנתיב:", value);
+						}
+					});
+				});
+			}
+
+			async function init() {
+				try {
+					const response = await fetch("manifest.json", { cache: "no-store" });
+					if (!response.ok) {
+						throw new Error("manifest_load_failed");
+					}
+					manifest = await response.json();
+				} catch (error) {
+					manifest = { ownerPhone: "7466508", proposals: [] };
+					proposalList.innerHTML = '<div class="empty-state">לא ניתן לטעון את רשימת ההצעות.</div>';
+				}
+
+				if (!tryUnlockFromQuery()) {
+					ownerGate.classList.remove("is-hidden");
+					adminShell.classList.add("is-hidden");
+				}
+			}
+
+			ownerUnlockButton.addEventListener("click", function () {
+				hideGateError();
+				const entered = ownerPhoneInput.value.trim();
+				if (!isOwnerAuthorized(entered)) {
+					showGateError("מספר הטלפון אינו תואם. השתמשו ב-054-7466508.");
+					return;
+				}
+				unlockAdmin();
+			});
+
+			ownerPhoneInput.addEventListener("keydown", function (event) {
+				if (event.key === "Enter") {
+					event.preventDefault();
+					ownerUnlockButton.click();
+				}
+			});
+
+			init();
+		})();
+	</script>
+</body>
+</html>

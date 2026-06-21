@@ -1,0 +1,17 @@
+{
+  "ownerPhone": "7466508",
+  "ownerPhoneDisplay": "054-7466508",
+  "siteOrigin": "https://www.itaysolutions.com",
+  "accessSalt": "itay-proposals-2026",
+  "proposals": [
+    {
+      "id": "takeeat-hatzarfatiya-2026",
+      "title": "TakeEat — הצרפתייה הקטנה",
+      "client": "תמי — הצרפתייה הקטנה",
+      "business": "הצרפתייה הקטנה",
+      "path": "takeeat-hatzarfatiya-2026/",
+      "updated": "2026-06-21",
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex, nofollow">
+	<title>הצעת מחיר והסכם שירות | TakeEat - הצרפתייה הקטנה</title>
+	<style>
+		:root {
+			--brand-orange: #ff6a00;
+			--brand-orange-soft: #fff3e8;
+			--brand-green: #146c2e;
+			--brand-navy: #182230;
+			--brand-slate: #4b5563;
+			--brand-line: #e8dccf;
+			--paper: #fffdfb;
+		}
+
+		@page {
+			size: A4;
+			margin: 15mm;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			font-family: "Segoe UI", Arial, sans-serif;
+			background: #f5f1eb;
+			color: var(--brand-navy);
+			line-height: 1.6;
+			font-size: 11pt;
+		}
+
+		.page {
+			width: 210mm;
+			min-height: 297mm;
+			margin: 0 auto;
+			padding: 12mm 12mm 16mm;
+			background:
+				radial-gradient(circle at top right, rgba(255, 106, 0, 0.08), transparent 24%),
+				radial-gradient(circle at left 18%, rgba(20, 108, 46, 0.06), transparent 20%),
+				linear-gradient(180deg, #fffefc 0%, var(--paper) 100%);
+			box-shadow: 0 10px 35px rgba(24, 34, 48, 0.10);
+			position: relative;
+			overflow: visible;
+		}
+
+		.page::before,
+		.page::after {
+			content: "";
+			position: absolute;
+			border-radius: 999px;
+			z-index: 0;
+		}
+
+		.page::before {
+			width: 180px;
+			height: 180px;
+			top: -60px;
+			left: -70px;
+			background: radial-gradient(circle, rgba(255, 106, 0, 0.12), transparent 70%);
+		}
+
+		.page::after {
+			width: 220px;
+			height: 220px;
+			bottom: -90px;
+			right: -80px;
+			background: radial-gradient(circle, rgba(20, 108, 46, 0.10), transparent 70%);
+		}
+
+		.content {
+			position: relative;
+			z-index: 1;
+		}
+
+		.screen-only {
+			display: block;
+		}
+		.print-hide {
+			display: block;
+		}
+		.is-hidden {
+			display: none !important;
+		}
+
+		.hero {
+			display: grid;
+			grid-template-columns: 1.2fr 0.8fr;
+			gap: 16px;
+			align-items: center;
+			padding: 6px 0 14px;
+			border-bottom: 2px solid var(--brand-line);
+		}
+
+		.hero-copy {
+			text-align: right;
+		}
+
+		.eyebrow {
+			display: inline-block;
+			padding: 5px 12px;
+			border-radius: 999px;
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			font-size: 9pt;
+			font-weight: 700;
+			letter-spacing: 0.2px;
+			margin-bottom: 10px;
+		}
+
+		h1 {
+			margin: 0;
+			font-size: 27pt;
+			line-height: 1.1;
+			letter-spacing: -0.8px;
+		}
+
+		h1 span {
+			color: var(--brand-orange);
+		}
+
+		.subtitle {
+			margin: 8px 0 0;
+			font-size: 11.3pt;
+			color: var(--brand-slate);
+		}
+
+		.doc-chip-row {
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			margin-top: 10px;
+		}
+
+		.doc-chip {
+			padding: 6px 10px;
+			border-radius: 999px;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			background: rgba(255, 255, 255, 0.86);
+			font-size: 8.6pt;
+			font-weight: 700;
+			color: var(--brand-slate);
+		}
+
+		.meta-card {
+			margin-top: 16px;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+		}
+
+		.meta-item {
+			background: rgba(255, 255, 255, 0.82);
+			border: 1px solid rgba(232, 220, 207, 0.9);
+			border-radius: 14px;
+			padding: 10px 12px;
+		}
+
+		.meta-label {
+			display: block;
+			color: #6b7280;
+			font-size: 8.5pt;
+			margin-bottom: 2px;
+		}
+
+		.meta-value {
+			display: block;
+			color: var(--brand-navy);
+			font-size: 11pt;
+			font-weight: 700;
+		}
+
+		.brand-lockup {
+			background: linear-gradient(145deg, rgba(255, 255, 255, 0.97), rgba(255, 248, 242, 0.96));
+			border: 1px solid rgba(232, 220, 207, 0.95);
+			border-radius: 24px;
+			padding: 16px;
+			min-height: 178px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+		}
+
+		.brand-lockup img {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+
+		.share-strip {
+			margin-top: 16px;
+			padding: 14px 16px;
+			border: 1px solid rgba(255, 106, 0, 0.18);
+			border-radius: 18px;
+			background: linear-gradient(135deg, rgba(255, 243, 232, 0.94), rgba(255, 255, 255, 0.95));
+			display: grid;
+			grid-template-columns: 1.5fr auto;
+			gap: 12px;
+			align-items: center;
+		}
+
+		.share-link-label {
+			font-size: 8.8pt;
+			color: #6b7280;
+			margin-bottom: 4px;
+		}
+
+		.share-link-value {
+			font-size: 10.2pt;
+			font-weight: 700;
+			word-break: break-all;
+		}
+
+		.owner-panel {
+			margin-bottom: 16px;
+			padding: 16px;
+			border-radius: 18px;
+			border: 1px solid rgba(20, 108, 46, 0.22);
+			background: linear-gradient(135deg, rgba(20, 108, 46, 0.08), rgba(255, 255, 255, 0.96));
+		}
+
+		.owner-panel-title {
+			margin: 0 0 6px;
+			font-size: 12pt;
+			font-weight: 800;
+			color: var(--brand-green);
+		}
+
+		.owner-panel-note {
+			margin: 0 0 12px;
+			font-size: 9pt;
+			color: var(--brand-slate);
+		}
+
+		.owner-form-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+		}
+
+		.owner-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-top: 12px;
+		}
+
+		.access-gate {
+			position: fixed;
+			inset: 0;
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+			background:
+				radial-gradient(circle at top right, rgba(255, 106, 0, 0.12), transparent 28%),
+				radial-gradient(circle at left 20%, rgba(20, 108, 46, 0.10), transparent 24%),
+				rgba(24, 34, 48, 0.72);
+			backdrop-filter: blur(6px);
+		}
+
+		.access-gate.is-hidden {
+			display: none;
+		}
+
+		.access-gate-card {
+			width: min(100%, 420px);
+			padding: 24px;
+			border-radius: 22px;
+			background: linear-gradient(180deg, #fffefc 0%, var(--paper) 100%);
+			box-shadow: 0 18px 50px rgba(24, 34, 48, 0.22);
+			border: 1px solid rgba(232, 220, 207, 0.95);
+		}
+
+		.access-gate-card h2 {
+			margin: 0 0 8px;
+			font-size: 17pt;
+			color: var(--brand-navy);
+		}
+
+		.access-gate-card p {
+			margin: 0 0 16px;
+			font-size: 10pt;
+			color: var(--brand-slate);
+		}
+
+		.access-gate-error {
+			margin-top: 10px;
+			padding: 10px 12px;
+			border-radius: 12px;
+			font-size: 9pt;
+			display: none;
+			background: rgba(185, 28, 28, 0.08);
+			color: #991b1b;
+			border: 1px solid rgba(185, 28, 28, 0.14);
+		}
+
+		.access-gate-error.is-visible {
+			display: block;
+		}
+
+		.proposal-document.is-locked {
+			display: none;
+		}
+
+		.section-signature {
+			margin-bottom: 8px;
+		}
+
+		.takeeat-logo {
+			max-width: 100%;
+		}
+
+		.brand-caption {
+			font-size: 8.8pt;
+			color: #6b7280;
+			text-align: center;
+		}
+
+		.itay-logo {
+			max-width: 150px;
+			width: 100%;
+		}
+
+		.section {
+			margin-top: 14px;
+		}
+
+		.section-title {
+			margin: 0 0 8px;
+			font-size: 13pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.section-title::before {
+			content: "";
+			width: 18px;
+			height: 18px;
+			border-radius: 6px;
+			background: linear-gradient(135deg, var(--brand-orange), #ff8f3a);
+			flex: 0 0 18px;
+		}
+
+		.lead-box,
+		.terms-box,
+		.materials-box,
+		.ownership-box,
+		.signature-box {
+			background: rgba(255, 255, 255, 0.86);
+			border: 1px solid rgba(232, 220, 207, 0.95);
+			border-radius: 18px;
+			padding: 14px 16px;
+		}
+
+		.lead-box p,
+		.terms-box p,
+		.ownership-box p {
+			margin: 0;
+			text-align: justify;
+		}
+
+		.services-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 8px;
+		}
+
+		.service-item,
+		.material-item {
+			background: rgba(255, 255, 255, 0.88);
+			border: 1px solid rgba(232, 220, 207, 0.95);
+			border-radius: 14px;
+			padding: 9px 11px;
+			min-height: 50px;
+			position: relative;
+			padding-right: 38px;
+			font-size: 9.3pt;
+		}
+
+		.service-item::before,
+		.material-item::before {
+			content: "✓";
+			position: absolute;
+			right: 13px;
+			top: 11px;
+			width: 18px;
+			height: 18px;
+			border-radius: 50%;
+			background: rgba(255, 106, 0, 0.12);
+			color: var(--brand-orange);
+			text-align: center;
+			line-height: 18px;
+			font-size: 10pt;
+			font-weight: 800;
+		}
+
+		.pricing {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			gap: 10px;
+		}
+
+		.price-card {
+			border-radius: 20px;
+			padding: 12px;
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 243, 232, 0.92));
+			border: 1px solid rgba(255, 106, 0, 0.20);
+			text-align: center;
+		}
+
+		.price-card.emphasis {
+			background: linear-gradient(160deg, var(--brand-orange), #ff8a2b);
+			color: #ffffff;
+			transform: translateY(-4px);
+			box-shadow: 0 12px 24px rgba(255, 106, 0, 0.18);
+		}
+
+		.price-label {
+			font-size: 9pt;
+			font-weight: 700;
+			margin-bottom: 8px;
+		}
+
+		.price-value {
+			font-size: 18pt;
+			font-weight: 800;
+			line-height: 1.1;
+		}
+
+		.price-note {
+			margin-top: 6px;
+			font-size: 8.6pt;
+			color: inherit;
+			opacity: 0.9;
+		}
+
+		.highlight-banner {
+			margin-top: 14px;
+			background: linear-gradient(135deg, rgba(20, 108, 46, 0.10), rgba(255, 106, 0, 0.12));
+			border: 1px solid rgba(20, 108, 46, 0.16);
+			border-right: 6px solid var(--brand-green);
+			border-radius: 18px;
+			padding: 14px 16px;
+		}
+
+		.highlight-banner strong {
+			display: block;
+			color: var(--brand-green);
+			margin-bottom: 4px;
+			font-size: 11pt;
+		}
+
+		.terms-list,
+		.materials-list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			display: grid;
+			gap: 8px;
+		}
+
+		.signatures {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+			margin-top: 12px;
+		}
+
+		.final-signature-card {
+			display: grid;
+			gap: 10px;
+		}
+
+		.final-signature-meta {
+			font-size: 8.8pt;
+			color: #6b7280;
+		}
+
+		.final-signature-preview {
+			min-height: 74px;
+			padding: 10px 12px;
+			border-radius: 16px;
+			border: 1px dashed rgba(24, 34, 48, 0.18);
+			background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,249,242,0.9));
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.final-signature-preview img {
+			max-width: 100%;
+			max-height: 76px;
+			display: none;
+		}
+
+		.final-signature-preview img.is-visible {
+			display: block;
+		}
+
+		.provider-signature-block {
+			margin-top: 10px;
+			padding: 12px;
+			border-radius: 16px;
+			border: 1px solid rgba(20, 108, 46, 0.14);
+			background: linear-gradient(135deg, rgba(20, 108, 46, 0.06), rgba(255,255,255,0.88));
+		}
+
+		.provider-signature-label {
+			font-size: 8.5pt;
+			font-weight: 700;
+			color: var(--brand-green);
+			margin-bottom: 6px;
+		}
+
+		.provider-signature-mark {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+
+		.provider-contact-line {
+			margin-top: 8px;
+			font-size: 8.8pt;
+			color: var(--brand-slate);
+		}
+
+		.signature-box {
+			min-height: 150px;
+		}
+
+		.signature-title {
+			font-weight: 800;
+			margin-bottom: 16px;
+			color: var(--brand-orange);
+		}
+
+		.line-field {
+			margin-top: 16px;
+			padding-bottom: 7px;
+			border-bottom: 1px dashed #b8b2ab;
+			min-height: 28px;
+		}
+
+		.signature-form-grid {
+			display: grid;
+			grid-template-columns: 1.05fr 0.95fr;
+			gap: 14px;
+			margin-top: 12px;
+		}
+
+		.form-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+		}
+
+		.form-field {
+			display: grid;
+			gap: 6px;
+		}
+
+		.form-field.full {
+			grid-column: 1 / -1;
+		}
+
+		.form-label {
+			font-size: 8.8pt;
+			font-weight: 700;
+			color: #6b7280;
+		}
+
+		.form-input,
+		.form-textarea {
+			width: 100%;
+			border: 1px solid #ded6cb;
+			border-radius: 12px;
+			padding: 11px 12px;
+			font: inherit;
+			color: var(--brand-navy);
+			background: rgba(255, 255, 255, 0.92);
+		}
+
+		.form-input:focus,
+		.form-textarea:focus {
+			outline: 2px solid rgba(255, 106, 0, 0.16);
+			border-color: rgba(255, 106, 0, 0.42);
+		}
+
+		.form-textarea {
+			min-height: 96px;
+			resize: vertical;
+		}
+
+		.check-row {
+			display: flex;
+			gap: 10px;
+			align-items: flex-start;
+			padding: 12px;
+			border-radius: 14px;
+			background: rgba(255, 243, 232, 0.55);
+			border: 1px solid rgba(255, 106, 0, 0.12);
+		}
+
+		.check-row input {
+			margin-top: 3px;
+		}
+
+		.action-row {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			margin-top: 12px;
+		}
+
+		.button {
+			appearance: none;
+			border: none;
+			border-radius: 999px;
+			padding: 11px 18px;
+			font: inherit;
+			font-weight: 700;
+			cursor: pointer;
+			transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+		}
+
+		.button:hover {
+			transform: translateY(-1px);
+		}
+
+		.button-primary {
+			background: linear-gradient(135deg, var(--brand-orange), #ff8a2b);
+			color: #ffffff;
+			box-shadow: 0 10px 18px rgba(255, 106, 0, 0.18);
+		}
+
+		.button-secondary {
+			background: #ffffff;
+			color: var(--brand-navy);
+			border: 1px solid rgba(24, 34, 48, 0.12);
+		}
+
+		.button-ghost {
+			background: rgba(255, 243, 232, 0.7);
+			color: var(--brand-orange);
+		}
+
+		.signature-pad-wrap {
+			display: grid;
+			gap: 10px;
+		}
+
+		.signature-canvas {
+			width: 100%;
+			height: 220px;
+			border: 1px dashed rgba(24, 34, 48, 0.18);
+			border-radius: 18px;
+			background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,249,242,0.9));
+			touch-action: none;
+		}
+
+		.signature-hint {
+			font-size: 8.7pt;
+			color: #6b7280;
+		}
+
+		.status-box {
+			margin-top: 12px;
+			padding: 12px 14px;
+			border-radius: 14px;
+			font-size: 9.2pt;
+			display: none;
+		}
+
+		.status-box.is-visible {
+			display: block;
+		}
+
+		.status-success {
+			background: rgba(20, 108, 46, 0.10);
+			color: var(--brand-green);
+			border: 1px solid rgba(20, 108, 46, 0.18);
+		}
+
+		.status-error {
+			background: rgba(185, 28, 28, 0.08);
+			color: #991b1b;
+			border: 1px solid rgba(185, 28, 28, 0.14);
+		}
+
+		.signature-preview {
+			margin-top: 12px;
+			padding: 12px;
+			border-radius: 16px;
+			background: rgba(255,255,255,0.8);
+			border: 1px solid rgba(232, 220, 207, 0.95);
+		}
+
+		.signature-preview img {
+			max-width: 100%;
+			height: auto;
+			display: none;
+		}
+
+		.signature-preview img.is-visible {
+			display: block;
+		}
+
+		.preview-meta {
+			font-size: 8.8pt;
+			color: #6b7280;
+			margin-top: 8px;
+		}
+
+		.footer {
+			margin-top: 14px;
+			padding-top: 10px;
+			border-top: 1px solid var(--brand-line);
+			display: grid;
+			grid-template-columns: auto 1fr auto;
+			gap: 12px;
+			align-items: center;
+			color: #6b7280;
+			font-size: 8.7pt;
+		}
+
+		.footer-brand {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.footer-brand-copy {
+			font-size: 8.6pt;
+			line-height: 1.45;
+		}
+
+		.footer-logo {
+			width: 92px;
+			height: auto;
+		}
+
+		.footer-contact {
+			text-align: left;
+			font-weight: 700;
+			color: var(--brand-navy);
+		}
+
+		@media print {
+			@page {
+				size: A4;
+				margin: 12mm 14mm;
+			}
+
+			*,
+			*::before,
+			*::after {
+				-webkit-print-color-adjust: exact;
+				print-color-adjust: exact;
+			}
+
+			body {
+				background: #ffffff;
+			}
+
+			.page {
+				margin: 0;
+				box-shadow: none;
+				width: auto;
+				min-height: 0;
+				height: auto;
+				padding: 0;
+				overflow: visible;
+				background: #fffdfb;
+			}
+
+			.page::before,
+			.page::after {
+				display: none;
+			}
+
+			.hero {
+				break-inside: avoid;
+				page-break-inside: avoid;
+			}
+
+			.section {
+				margin-top: 10px;
+				break-inside: auto;
+				page-break-inside: auto;
+			}
+
+			.section-title,
+			.price-card,
+			.highlight-banner,
+			.signature-box,
+			.lead-box,
+			.terms-box,
+			.materials-box,
+			.ownership-box,
+			.provider-signature-block,
+			.footer {
+				break-inside: avoid;
+				page-break-inside: avoid;
+			}
+
+			.service-item,
+			.material-item {
+				min-height: 44px;
+				padding-top: 8px;
+				padding-bottom: 8px;
+				break-inside: avoid;
+				page-break-inside: avoid;
+			}
+
+			.price-card {
+				padding: 10px;
+				transform: none;
+				box-shadow: none;
+			}
+
+			.signatures {
+				grid-template-columns: 1fr 1fr;
+			}
+
+			.footer {
+				position: static;
+				margin-top: 16px;
+				padding-top: 12px;
+				break-inside: avoid;
+				page-break-inside: avoid;
+			}
+
+			.footer a {
+				color: inherit;
+				text-decoration: none;
+			}
+
+			.screen-only,
+			.owner-panel,
+			.access-gate,
+			.action-row,
+			.signature-hint,
+			.status-box,
+			.signature-form-grid,
+			.interactive-note,
+			.signature-canvas,
+			.signature-preview {
+				display: none !important;
+			}
+
+			.final-signature-preview {
+				min-height: 68px;
+			}
+
+			.final-signature-preview img.is-visible,
+			.provider-signature-mark {
+				display: block !important;
+			}
+
+			img {
+				max-width: 100%;
+			}
+		}
+
+		@media (max-width: 900px) {
+			.page {
+				width: 100%;
+				min-height: 0;
+				padding: 16px 14px 24px;
+			}
+
+			.hero,
+			.signature-form-grid,
+			.signatures,
+			.share-strip,
+			.owner-form-grid,
+			.pricing,
+			.services-grid,
+			.meta-card,
+			.form-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.footer {
+				grid-template-columns: 1fr;
+			}
+
+			.footer-contact {
+				text-align: right;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="access-gate is-hidden" id="access-gate" aria-hidden="true">
+		<div class="access-gate-card">
+			<h2>גישה להצעת המחיר</h2>
+			<p>ההצעה נשלחה למספר טלפון ספציפי. הזינו את אותו מספר כדי לצפות במסמך, למלא פרטים ולחתום דיגיטלית.</p>
+			<div class="form-field">
+				<label class="form-label" for="access-phone">מספר הטלפון שאליו נשלחה ההצעה</label>
+				<input class="form-input" id="access-phone" name="accessPhone" type="tel" placeholder="05X-XXXXXXX" autocomplete="tel">
+			</div>
+			<div class="action-row">
+				<button class="button button-primary" type="button" id="access-unlock-button">הצגת המסמך</button>
+			</div>
+			<div class="access-gate-error" id="access-gate-error">מספר הטלפון אינו תואם להצעה שנשלחה. בדקו את המספר ונסו שוב.</div>
+		</div>
+	</div>
+
+	<main class="page">
+		<div class="content">
+			<div class="owner-panel screen-only is-hidden" id="owner-panel">
+				<h3 class="owner-panel-title">פאנל בעל האתר — שליחת הצעה ללקוח</h3>
+				<p class="owner-panel-note">הזינו את מספר הטלפון של הלקוח. המערכת תיצור קישור מאובטח ותפתח שליחה ב-SMS או ב-WhatsApp. הלקוח יוכל לצפות במסמך רק לאחר הקשת אותו מספר טלפון. לגישת בעלים: הוסיפו לכתובת <strong>?owner=7466508</strong> (054-7466508 ללא 0)</p>
+				<div class="owner-form-grid">
+					<div class="form-field">
+						<label class="form-label" for="owner-client-phone">טלפון הלקוח לשליחה</label>
+						<input class="form-input" id="owner-client-phone" name="ownerClientPhone" type="tel" placeholder="05X-XXXXXXX" autocomplete="tel">
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="owner-client-name">שם הלקוח (אופציונלי)</label>
+						<input class="form-input" id="owner-client-name" name="ownerClientName" type="text" placeholder="שם מלא">
+					</div>
+				</div>
+				<div class="share-strip" style="margin-top: 12px;">
+					<div>
+						<div class="share-link-label">קישור מאובטח ללקוח</div>
+						<div class="share-link-value" id="share-link-text">—</div>
+					</div>
+					<div class="owner-actions">
+						<button class="button button-primary" type="button" id="send-sms-button">שליחה ב-SMS</button>
+						<button class="button button-secondary" type="button" id="send-whatsapp-button">שליחה ב-WhatsApp</button>
+						<button class="button button-ghost" type="button" id="copy-link-button">העתקת קישור</button>
+					</div>
+				</div>
+				<div class="status-box" id="owner-status-box"></div>
+			</div>
+
+			<div class="proposal-document" id="proposal-document">
+			<section class="hero">
+				<div class="hero-copy">
+					<div class="eyebrow">הצעת מחיר והסכם שירות</div>
+					<h1>מערכת הזמנות דיגיטלית <span>TakeEat</span></h1>
+					<p class="subtitle">עבור הצרפתייה הקטנה, הקמה, הטמעה ואחסון על ידי Itay Solutions.</p>
+					<div class="doc-chip-row">
+						<div class="doc-chip">מסמך אישור והזמנה</div>
+						<div class="doc-chip">טלפון שירות: 054-7466508</div>
+					</div>
+
+					<div class="meta-card">
+						<div class="meta-item">
+							<span class="meta-label">נותן השירות</span>
+							<span class="meta-value">איתי פתרונות טכנולוגיים | Itay Solutions</span>
+						</div>
+						<div class="meta-item">
+							<span class="meta-label">הלקוח</span>
+							<span class="meta-value"> תמי - הצרפתייה הקטנה</span>
+						</div>
+						<div class="meta-item">
+							<span class="meta-label">זמן הקמה</span>
+							<span class="meta-value">עד 7 ימי עבודה</span>
+						</div>
+						<div class="meta-item">
+							<span class="meta-label">טלפון</span>
+							<span class="meta-value">054-7466508</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="brand-lockup" aria-label="TakeEat logo header block">
+					<img class="takeeat-logo" src="assets/images/takeEatLogo.png" alt="TakeEat by Itay Solutions">
+					<div class="brand-caption">פתרון הזמנות דיגיטלי למסעדות, איסוף עצמי ומשלוחים</div>
+				</div>
+			</section>
+
+			<section class="section">
+				<h2 class="section-title">מטרת השירות</h2>
+				<div class="lead-box">
+					<p>הקמת אתר הזמנות דיגיטלי לעסק, הכולל תפריט מקוון, מערכת לקבלת הזמנות אונליין, חוויית משתמש מותאמת למובייל ותשתית שירות יציבה לניהול שוטף של פעילות ההזמנות.</p>
+				</div>
+			</section>
+
+			<section class="section">
+				<h2 class="section-title">השירות כולל</h2>
+				<div class="services-grid">
+					<div class="service-item">הקמת עמוד עסק ממותג בהתאם לשפה הוויזואלית של העסק.</div>
+					<div class="service-item">חיבור דומיין ייעודי לעסק, במידה וקיים או יירכש בנפרד.</div>
+					<div class="service-item">העלאת תפריט, מוצרים, תיאורים ומחירים.</div>
+					<div class="service-item">מערכת הזמנות אונליין לקבלת הזמנות מהלקוחות.</div>
+					<div class="service-item">התאמה מלאה למובייל ולשימוש נוח מכל מכשיר.</div>
+					<div class="service-item">ניהול מוצרים, קטגוריות ותוכן בסיסי במערכת.</div>
+					<div class="service-item">אחסון ותחזוקת המערכת במסגרת השירות החודשי.</div>
+					<div class="service-item">עדכוני מערכת שוטפים ושמירה על תקינות תפעולית.</div>
+				</div>
+			</section>
+
+			<section class="section">
+				<h2 class="section-title">עלות ולוחות זמנים</h2>
+				<div class="pricing">
+					<div class="price-card emphasis">
+						<div class="price-label">עלות הקמה</div>
+						<div class="price-value">₪2000</div>
+						<div class="price-note">תשלום חד־פעמי לפני תחילת העבודה</div>
+					</div>
+					<div class="price-card">
+						<div class="price-label">עלות חודשית</div>
+						<div class="price-value">₪350</div>
+						<div class="price-note">חיוב בתחילת כל חודש</div>
+					</div>
+					<div class="price-card">
+						<div class="price-label">זמן הקמה</div>
+						<div class="price-value">עד 7 ימים</div>
+						<div class="price-note">מקבלת כל החומרים הנדרשים</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="section">
+				<h2 class="section-title">חומרים באחריות הלקוח</h2>
+				<div class="materials-box">
+					<ul class="materials-list">
+						<li class="material-item">לוגו העסק.</li>
+						<li class="material-item">תמונות רלוונטיות של העסק או המוצרים.</li>
+						<li class="material-item">תפריט מלא ומחירים מעודכנים.</li>
+						<li class="material-item">פרטי יצירת קשר מלאים.</li>
+						<li class="material-item">אזורי משלוח או איסוף עצמי, במידת הצורך.</li>
+					</ul>
+				</div>
+			</section>
+
+			<section class="section">
+				<h2 class="section-title">תנאי תשלום</h2>
+				<div class="terms-box">
+					<ul class="terms-list">
+						<li class="service-item">תשלום ההקמה יבוצע לפני תחילת העבודה בפועל.</li>
+						<li class="service-item">התשלום החודשי ייגבה בתחילת כל חודש עבור המשך שימוש, אחסון ותחזוקה.</li>
+					</ul>
+				</div>
+			</section>
+
+			<section class="section">
+				<h2 class="section-title">בעלות, זכויות וביטול</h2>
+				<div class="ownership-box">
+					<p>מערכת ההזמנות מופעלת כשירות מתמשך על גבי תשתית TakeEat של Itay Solutions. הלקוח מקבל זכות שימוש במערכת לאורך תקופת המנוי הפעיל, בעוד שהתוכן, התמונות והלוגו של העסק נשארים בבעלות הלקוח בלבד.</p>
+					<div class="highlight-banner">
+						<strong>סעיף מהותי</strong>
+						מערכת TakeEat ותשתיותיה נשארות בבעלות Itay Solutions. הלקוח מקבל זכות שימוש במערכת כל עוד המנוי פעיל, אך אינו רוכש בעלות על הקוד, התשתיות או מנגנון המערכת.
+					</div>
+					<div class="terms-box" style="margin-top: 12px;">
+						<ul class="terms-list">
+							<li class="service-item">ניתן להפסיק את השירות בהתראה מוקדמת של 30 יום מראש.</li>
+							<li class="service-item">תשלום ההקמה אינו מוחזר לאחר תחילת העבודה.</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<section class="section section-signature">
+				<h2 class="section-title">פרטי אישור וחתימה</h2>
+				<div class="lead-box interactive-note screen-only">
+					<p>לאחר שליחת ההצעה ללקוח, הוא יידרש להזין את מספר הטלפון שאליו נשלח הקישור כדי לצפות במסמך, למלא פרטים ולחתום דיגיטלית. לאחר האישור ניתן להדפיס או לשמור כ־PDF מתוך הדפדפן.</p>
+				</div>
+
+				<div class="signature-form-grid screen-only">
+					<div class="signature-box">
+						<div class="signature-title">מילוי פרטי מאשר העסק</div>
+						<form id="approval-form" class="form-grid">
+							<div class="form-field">
+								<label class="form-label" for="business-name">שם העסק</label>
+								<input class="form-input" id="business-name" name="businessName" type="text" value="הצרפתייה הקטנה">
+							</div>
+							<div class="form-field">
+								<label class="form-label" for="signer-name">שם החותם</label>
+								<input class="form-input" id="signer-name" name="signerName" type="text" placeholder="שם מלא">
+							</div>
+							<div class="form-field">
+								<label class="form-label" for="phone">טלפון</label>
+								<input class="form-input" id="phone" name="phone" type="tel" placeholder="05X-XXXXXXX">
+							</div>
+							<div class="form-field">
+								<label class="form-label" for="email">אימייל</label>
+								<input class="form-input" id="email" name="email" type="email" placeholder="name@example.com">
+							</div>
+							<div class="form-field full">
+								<label class="form-label" for="notes">הערות / פרטים נוספים</label>
+								<textarea class="form-textarea" id="notes" name="notes" placeholder="למשל: בקשה להוספת משלוחים, חיבור תפריט נוסף, הערות לחתימה"></textarea>
+							</div>
+							<div class="form-field full">
+								<label class="check-row">
+									<input id="approval-checkbox" name="approved" type="checkbox">
+									<span>אני מאשר/ת את הצעת המחיר ותנאי השירות המופיעים במסמך זה, לרבות סעיף הבעלות של מערכת TakeEat ותשתיותיה.</span>
+								</label>
+							</div>
+						</form>
+					</div>
+
+					<div class="signature-box">
+						<div class="signature-title">חתימה דיגיטלית</div>
+						<div class="signature-pad-wrap">
+							<canvas id="signature-canvas" class="signature-canvas"></canvas>
+							<div class="signature-hint">חתמו כאן עם עכבר, אצבע או עט דיגיטלי. לאחר האישור ניתן להדפיס או לשמור כ־PDF מתוך הדפדפן.</div>
+							<div class="action-row">
+								<button class="button button-primary" type="button" id="approve-button">אישור ויצירת עותק חתום</button>
+								<button class="button button-secondary" type="button" id="print-button">הדפסה / PDF</button>
+								<button class="button button-ghost" type="button" id="clear-signature-button">ניקוי חתימה</button>
+							</div>
+							<div class="status-box" id="status-box"></div>
+							<div class="signature-preview">
+								<img id="signature-preview-image" alt="תצוגת חתימה דיגיטלית">
+								<div class="preview-meta" id="signature-preview-meta">טרם נוצר אישור חתום.</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="signatures">
+					<div class="signature-box">
+						<div class="signature-title">פרטי העסק / הלקוח</div>
+						<div class="line-field">שם העסק: <span id="summary-business-name">הצרפתייה הקטנה</span></div>
+						<div class="line-field">שם החותם: <span id="summary-signer-name">__________________________</span></div>
+						<div class="line-field">טלפון: <span id="summary-phone">__________________________</span></div>
+						<div class="line-field">אימייל: <span id="summary-email">__________________________</span></div>
+						<div class="line-field">תאריך: <span id="summary-date">__________________________</span></div>
+						<div class="line-field">הערות: <span id="summary-notes">__________________________</span></div>
+					</div>
+					<div class="signature-box final-signature-card">
+						<div class="signature-title">אישור והתחייבות</div>
+						<div class="final-signature-preview">
+							<img id="final-signature-image" alt="חתימת לקוח דיגיטלית">
+						</div>
+						<div class="final-signature-meta" id="final-signature-meta">טרם נחתם על ידי הלקוח.</div>
+						<div class="line-field">חתימת לקוח: <span id="summary-signature-status">__________________________</span></div>
+						<div class="provider-signature-block">
+							<div class="provider-signature-label">חתימה דיגיטלית מטעם Itay Solutions</div>
+							<img src="assets/images/itaySolutionsLogoIconOrange.png" alt="itay Solutions חתימה דיגיטלית" class="provider-signature-mark" >
+							<div class="provider-contact-line">טלפון ישיר: 054-7466508</div>
+							<div class="provider-contact-line"><a href="https://www.itaysolutions.com" target="_blank" rel="noopener noreferrer">www.itaysolutions.com</a></div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<footer class="footer">
+				<div class="footer-brand">
+					<img class="footer-logo" src="assets/images/fulllogo_nobuffer.jpeg" alt="Itay Solutions">
+					<div class="footer-brand-copy">Itay Solutions<br>פתרונות דיגיטליים לעסקים</div>
+				</div>
+				<div>מסמך זה מיועד לאישור הצעת המחיר והזמנת השירות עבור מערכת TakeEat.</div>
+				<div class="footer-contact">054-7466508<br><a href="https://www.itaysolutions.com" target="_blank" rel="noopener  noreferrer">www.itaysolutions.com</a></div>
+			</footer>
+			</div>
+		</div>
+	</main>
+	<script>
+		window.ITAY_PROPOSAL_CONFIG = window.ITAY_PROPOSAL_CONFIG || {
+			proposalId: "takeeat-hatzarfatiya-2026",
+			hostedPath: "https://www.itaysolutions.com/proposals/takeeat-hatzarfatiya-2026",
+			ownerKey: "7466508",
+			accessSalt: "itay-proposals-2026"
+		};
+	</script>
+	<script>
+		(function () {
+			const config = window.ITAY_PROPOSAL_CONFIG || {};
+			const proposalId = config.proposalId || "takeeat-hatzarfatiya-2026";
+			const hostedPath = config.hostedPath || "https://www.itaysolutions.com/proposals/takeeat-hatzarfatiya-2026";
+			const accessSalt = config.accessSalt || "itay-proposals-2026";
+			const storageKey = "takeeat-proposal-approval:" + proposalId;
+			const accessStorageKey = "takeeat-proposal-access:" + proposalId;
+			const unlockSessionKey = "takeeat-proposal-unlocked:" + proposalId;
+			const submitUrl = config.submitUrl || window.PROPOSAL_SUBMIT_URL || "";
+			const smsApiUrl = config.smsApiUrl || window.PROPOSAL_SMS_API_URL || "";
+
+			const accessGate = document.getElementById("access-gate");
+			const accessPhoneInput = document.getElementById("access-phone");
+			const accessUnlockButton = document.getElementById("access-unlock-button");
+			const accessGateError = document.getElementById("access-gate-error");
+			const ownerPanel = document.getElementById("owner-panel");
+			const ownerClientPhoneInput = document.getElementById("owner-client-phone");
+			const ownerClientNameInput = document.getElementById("owner-client-name");
+			const ownerStatusBox = document.getElementById("owner-status-box");
+			const sendSmsButton = document.getElementById("send-sms-button");
+			const sendWhatsappButton = document.getElementById("send-whatsapp-button");
+			const proposalDocument = document.getElementById("proposal-document");
+
+			const form = document.getElementById("approval-form");
+			const businessNameInput = document.getElementById("business-name");
+			const signerNameInput = document.getElementById("signer-name");
+			const phoneInput = document.getElementById("phone");
+			const emailInput = document.getElementById("email");
+			const notesInput = document.getElementById("notes");
+			const approvalCheckbox = document.getElementById("approval-checkbox");
+			const copyLinkButton = document.getElementById("copy-link-button");
+			const approveButton = document.getElementById("approve-button");
+			const printButton = document.getElementById("print-button");
+			const clearSignatureButton = document.getElementById("clear-signature-button");
+			const shareLinkText = document.getElementById("share-link-text");
+			const statusBox = document.getElementById("status-box");
+			const signatureCanvas = document.getElementById("signature-canvas");
+			const signaturePreviewImage = document.getElementById("signature-preview-image");
+			const signaturePreviewMeta = document.getElementById("signature-preview-meta");
+			const finalSignatureImage = document.getElementById("final-signature-image");
+			const finalSignatureMeta = document.getElementById("final-signature-meta");
+
+			const summaryBusinessName = document.getElementById("summary-business-name");
+			const summarySignerName = document.getElementById("summary-signer-name");
+			const summaryDate = document.getElementById("summary-date");
+			const summarySignatureStatus = document.getElementById("summary-signature-status");
+			const summaryPhone = document.getElementById("summary-phone");
+			const summaryEmail = document.getElementById("summary-email");
+			const summaryNotes = document.getElementById("summary-notes");
+
+			const context = signatureCanvas.getContext("2d");
+			let strokes = [];
+			let currentStroke = null;
+			let signedImageDataUrl = "";
+			let signedAtValue = "";
+			let authorizedPhone = "";
+			let isOwnerMode = false;
+			let isUnlocked = false;
+
+			function normalizePhone(value) {
+				const digits = String(value || "").replace(/\D/g, "");
+				if (!digits) {
+					return "";
+				}
+				if (digits.startsWith("972")) {
+					return digits.slice(3);
+				}
+				if (digits.startsWith("0")) {
+					return digits.slice(1);
+				}
+				return digits;
+			}
+
+			const ownerKey = normalizePhone(config.ownerKey || config.ownerPhone || "7466508");
+
+			function formatPhoneDisplay(value) {
+				const digits = normalizePhone(value);
+				if (!digits) {
+					return "";
+				}
+				if (digits.length === 9) {
+					return "0" + digits.slice(0, 2) + "-" + digits.slice(2);
+				}
+				return "0" + digits;
+			}
+
+			function hashAccessToken(phone) {
+				const normalized = normalizePhone(phone);
+				if (!normalized) {
+					return "";
+				}
+				const source = proposalId + ":" + normalized + ":" + accessSalt;
+				let hash = 2166136261;
+				for (let index = 0; index < source.length; index += 1) {
+					hash ^= source.charCodeAt(index);
+					hash = Math.imul(hash, 16777619);
+				}
+				return (hash >>> 0).toString(36);
+			}
+
+			function phonesMatch(left, right) {
+				const a = normalizePhone(left);
+				const b = normalizePhone(right);
+				return Boolean(a && b && a === b);
+			}
+
+			function isOwnerSession() {
+				const params = new URLSearchParams(window.location.search);
+				const ownerParam = params.get("owner");
+				if (ownerParam && phonesMatch(ownerParam, ownerKey)) {
+					return true;
+				}
+				return sessionStorage.getItem("itay-proposal-owner:" + proposalId) === "1";
+			}
+
+			function loadAuthorizedPhone() {
+				try {
+					const stored = JSON.parse(localStorage.getItem(accessStorageKey) || "null");
+					return stored && stored.phone ? stored.phone : "";
+				} catch (error) {
+					return "";
+				}
+			}
+
+			function saveAuthorizedPhone(phone, clientName) {
+				const payload = {
+					phone: normalizePhone(phone),
+					clientName: clientName || "",
+					sentAt: new Date().toISOString()
+				};
+				localStorage.setItem(accessStorageKey, JSON.stringify(payload));
+				authorizedPhone = payload.phone;
+			}
+
+			function getAccessTokenFromUrl() {
+				return new URLSearchParams(window.location.search).get("access") || "";
+			}
+
+			function requiresAccessGate() {
+				return !isOwnerMode;
+			}
+
+			function setOwnerStatus(message, type) {
+				if (!ownerStatusBox) {
+					return;
+				}
+				ownerStatusBox.textContent = message;
+				ownerStatusBox.className = "status-box is-visible " + (type === "error" ? "status-error" : "status-success");
+			}
+
+			function setStatus(message, type) {
+				statusBox.textContent = message;
+				statusBox.className = "status-box is-visible " + (type === "error" ? "status-error" : "status-success");
+			}
+
+			function clearStatus() {
+				statusBox.className = "status-box";
+				statusBox.textContent = "";
+			}
+
+			function showAccessError(message) {
+				if (!accessGateError) {
+					return;
+				}
+				accessGateError.textContent = message;
+				accessGateError.classList.add("is-visible");
+			}
+
+			function hideAccessError() {
+				if (!accessGateError) {
+					return;
+				}
+				accessGateError.classList.remove("is-visible");
+			}
+
+			function unlockDocument(rememberPhone) {
+				isUnlocked = true;
+				sessionStorage.setItem(unlockSessionKey, rememberPhone || "1");
+				if (accessGate) {
+					accessGate.classList.add("is-hidden");
+					accessGate.setAttribute("aria-hidden", "true");
+				}
+				if (proposalDocument) {
+					proposalDocument.classList.remove("is-locked");
+				}
+				resizeCanvas();
+			}
+
+			function lockDocument() {
+				if (!requiresAccessGate()) {
+					unlockDocument();
+					return;
+				}
+				if (sessionStorage.getItem(unlockSessionKey)) {
+					unlockDocument();
+					return;
+				}
+				if (!getAccessTokenFromUrl() && accessGate) {
+					const gateText = accessGate.querySelector(".access-gate-card p");
+					if (gateText) {
+						gateText.textContent = "הקישור אינו שלם או שפג תוקפו. פנו אל Itay Solutions (054-7466508) לקבלת קישור מאובטח חדש.";
+					}
+					if (accessPhoneInput) {
+						accessPhoneInput.closest(".form-field").classList.add("is-hidden");
+					}
+					if (accessUnlockButton) {
+						accessUnlockButton.classList.add("is-hidden");
+					}
+				}
+				if (proposalDocument) {
+					proposalDocument.classList.add("is-locked");
+				}
+				if (accessGate) {
+					accessGate.classList.remove("is-hidden");
+					accessGate.setAttribute("aria-hidden", "false");
+				}
+			}
+
+			function verifyAccessPhone(enteredPhone) {
+				const token = getAccessTokenFromUrl();
+				if (token) {
+					return hashAccessToken(enteredPhone) === token;
+				}
+				if (authorizedPhone && phonesMatch(enteredPhone, authorizedPhone)) {
+					return true;
+				}
+				return false;
+			}
+
+			function buildShareUrl(options) {
+				const settings = options || {};
+				const base = settings.useCurrentOrigin ? window.location.origin + window.location.pathname : hostedPath;
+				const url = new URL(base, window.location.href);
+				const clientPhone = settings.clientPhone || ownerClientPhoneInput.value.trim() || phoneInput.value.trim();
+				const clientName = settings.clientName || ownerClientNameInput.value.trim() || signerNameInput.value.trim();
+
+				if (businessNameInput.value.trim()) {
+					url.searchParams.set("business", businessNameInput.value.trim());
+				}
+				if (clientName) {
+					url.searchParams.set("signer", clientName);
+				}
+				if (clientPhone) {
+					url.searchParams.set("access", hashAccessToken(clientPhone));
+				}
+				url.searchParams.delete("owner");
+				return url.toString();
+			}
+
+			function buildShareMessage(shareUrl) {
+				const businessName = businessNameInput.value.trim() || "העסק שלך";
+				return "שלום, מצורפת הצעת מחיר דיגיטלית לחתימה עבור " + businessName + ":\n" + shareUrl;
+			}
+
+			function openSmsShare(phone, shareUrl) {
+				const normalized = normalizePhone(phone);
+				if (!normalized) {
+					return false;
+				}
+				const smsPhone = normalized.startsWith("972") ? normalized : "972" + normalized;
+				const body = encodeURIComponent(buildShareMessage(shareUrl));
+				window.location.href = "sms:+" + smsPhone + "?body=" + body;
+				return true;
+			}
+
+			function openWhatsappShare(phone, shareUrl) {
+				const normalized = normalizePhone(phone);
+				if (!normalized) {
+					return false;
+				}
+				const waPhone = normalized.startsWith("972") ? normalized : "972" + normalized;
+				const body = encodeURIComponent(buildShareMessage(shareUrl));
+				window.open("https://wa.me/" + waPhone + "?text=" + body, "_blank", "noopener,noreferrer");
+				return true;
+			}
+
+			async function sendProposalToClient(channel) {
+				const clientPhone = ownerClientPhoneInput.value.trim();
+				const clientName = ownerClientNameInput.value.trim();
+
+				if (!normalizePhone(clientPhone)) {
+					setOwnerStatus("יש להזין מספר טלפון תקין של הלקוח לפני השליחה.", "error");
+					return;
+				}
+
+				saveAuthorizedPhone(clientPhone, clientName);
+				if (clientName) {
+					signerNameInput.value = clientName;
+				}
+				phoneInput.value = formatPhoneDisplay(clientPhone);
+
+				const shareUrl = buildShareUrl({
+					clientPhone: clientPhone,
+					clientName: clientName,
+					useCurrentOrigin: true
+				});
+				updateShareUrl(shareUrl);
+
+				if (smsApiUrl) {
+					try {
+						const response = await fetch(smsApiUrl, {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							body: JSON.stringify({
+								proposalId: proposalId,
+								phone: normalizePhone(clientPhone),
+								clientName: clientName,
+								shareUrl: shareUrl,
+								message: buildShareMessage(shareUrl)
+							})
+						});
+						if (!response.ok) {
+							throw new Error("sms_failed");
+						}
+						setOwnerStatus("ההצעה נשלחה ללקוח בהצלחה. הקישור עודכן למטה.", "success");
+					} catch (error) {
+						setOwnerStatus("שליחת ה-SMS מהשרת נכשלה. אפשר לשלוח ידנית דרך הכפתורים למטה.", "error");
+					}
+				}
+
+				if (channel === "sms") {
+					openSmsShare(clientPhone, shareUrl);
+					setOwnerStatus("נפתחה שליחת SMS עם הקישור המאובטח ללקוח.", "success");
+					return;
+				}
+				if (channel === "whatsapp") {
+					openWhatsappShare(clientPhone, shareUrl);
+					setOwnerStatus("נפתח WhatsApp עם הקישור המאובטח ללקוח.", "success");
+					return;
+				}
+
+				setOwnerStatus("הקישור עודכן. אפשר לשלוח אותו ללקוח ב-SMS או ב-WhatsApp.", "success");
+			}
+
+			function updateShareUrl(explicitUrl) {
+				if (shareLinkText) {
+					shareLinkText.textContent = explicitUrl || buildShareUrl({ useCurrentOrigin: true });
+				}
+			}
+
+			function resizeCanvas() {
+				const ratio = window.devicePixelRatio || 1;
+				const rect = signatureCanvas.getBoundingClientRect();
+				signatureCanvas.width = Math.floor(rect.width * ratio);
+				signatureCanvas.height = Math.floor(rect.height * ratio);
+				context.setTransform(ratio, 0, 0, ratio, 0, 0);
+				context.lineJoin = "round";
+				context.lineCap = "round";
+				context.strokeStyle = "#182230";
+				context.lineWidth = 2.2;
+				renderSignature();
+			}
+
+			function getPoint(event) {
+				const rect = signatureCanvas.getBoundingClientRect();
+				return {
+					x: event.clientX - rect.left,
+					y: event.clientY - rect.top
+				};
+			}
+
+			function renderSignature() {
+				const rect = signatureCanvas.getBoundingClientRect();
+				context.clearRect(0, 0, rect.width, rect.height);
+				strokes.forEach(function (stroke) {
+					if (!stroke.length) {
+						return;
+					}
+					context.beginPath();
+					context.moveTo(stroke[0].x, stroke[0].y);
+					for (let index = 1; index < stroke.length; index += 1) {
+						context.lineTo(stroke[index].x, stroke[index].y);
+					}
+					context.stroke();
+				});
+			}
+
+			function startStroke(event) {
+				event.preventDefault();
+				currentStroke = [getPoint(event)];
+				strokes.push(currentStroke);
+			}
+
+			function moveStroke(event) {
+				if (!currentStroke) {
+					return;
+				}
+				event.preventDefault();
+				currentStroke.push(getPoint(event));
+				renderSignature();
+			}
+
+			function endStroke() {
+				currentStroke = null;
+			}
+
+			function hasSignature() {
+				return strokes.some(function (stroke) {
+					return stroke.length > 1;
+				});
+			}
+
+			function buildShareUrlForApproval() {
+				return buildShareUrl({ useCurrentOrigin: true });
+			}
+
+			function updateShareUrlFromForm() {
+				updateShareUrl(buildShareUrlForApproval());
+			}
+
+			function updateSummary(signedAtText) {
+				if (typeof signedAtText !== "undefined") {
+					signedAtValue = signedAtText || "";
+				}
+				summaryBusinessName.textContent = businessNameInput.value.trim() || "__________________________";
+				summarySignerName.textContent = signerNameInput.value.trim() || "__________________________";
+				if (summaryPhone) {
+					summaryPhone.textContent = phoneInput.value.trim() || "__________________________";
+				}
+				if (summaryEmail) {
+					summaryEmail.textContent = emailInput.value.trim() || "__________________________";
+				}
+				if (summaryNotes) {
+					summaryNotes.textContent = notesInput.value.trim() || "__________________________";
+				}
+				summaryDate.textContent = signedAtValue || "__________________________";
+				summarySignatureStatus.textContent = signedImageDataUrl ? "חתום דיגיטלית" : "__________________________";
+			}
+
+			function updateSignaturePreview(signedAtText) {
+				if (signedImageDataUrl) {
+					signaturePreviewImage.src = signedImageDataUrl;
+					signaturePreviewImage.classList.add("is-visible");
+					finalSignatureImage.src = signedImageDataUrl;
+					finalSignatureImage.classList.add("is-visible");
+					signaturePreviewMeta.textContent = "אושר דיגיטלית בתאריך " + signedAtText;
+					finalSignatureMeta.textContent = "חתום דיגיטלית בתאריך " + signedAtText;
+				} else {
+					signaturePreviewImage.removeAttribute("src");
+					signaturePreviewImage.classList.remove("is-visible");
+					finalSignatureImage.removeAttribute("src");
+					finalSignatureImage.classList.remove("is-visible");
+					signaturePreviewMeta.textContent = "טרם נוצר אישור חתום.";
+					finalSignatureMeta.textContent = "טרם נחתם על ידי הלקוח.";
+				}
+			}
+
+			function persist(data) {
+				localStorage.setItem(storageKey, JSON.stringify(data));
+			}
+
+			function loadStoredData() {
+				try {
+					return JSON.parse(localStorage.getItem(storageKey) || "null");
+				} catch (error) {
+					return null;
+				}
+			}
+
+			function fillFromQuery() {
+				const params = new URLSearchParams(window.location.search);
+				if (params.get("business")) {
+					businessNameInput.value = params.get("business");
+				}
+				if (params.get("signer")) {
+					signerNameInput.value = params.get("signer");
+					if (ownerClientNameInput) {
+						ownerClientNameInput.value = params.get("signer");
+					}
+				}
+				if (params.get("phone")) {
+					phoneInput.value = params.get("phone");
+					if (ownerClientPhoneInput) {
+						ownerClientPhoneInput.value = params.get("phone");
+					}
+				}
+			}
+
+			function applyStoredData(data) {
+				if (!data) {
+					updateShareUrlFromForm();
+					updateSummary("");
+					return;
+				}
+
+				businessNameInput.value = data.businessName || businessNameInput.value;
+				signerNameInput.value = data.signerName || "";
+				phoneInput.value = data.phone || "";
+				emailInput.value = data.email || "";
+				notesInput.value = data.notes || "";
+				approvalCheckbox.checked = Boolean(data.approved);
+				signedImageDataUrl = data.signatureDataUrl || "";
+				signedAtValue = data.signedAt || "";
+				updateShareUrlFromForm();
+				updateSummary(data.signedAt || "");
+				updateSignaturePreview(data.signedAt || "");
+			}
+
+			async function submitApproval(payload) {
+				if (!submitUrl) {
+					return false;
+				}
+
+				const response = await fetch(submitUrl, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(payload)
+				});
+
+				if (!response.ok) {
+					throw new Error("submit_failed");
+				}
+
+				return true;
+			}
+
+			async function approveProposal() {
+				clearStatus();
+				if (!signerNameInput.value.trim()) {
+					setStatus("יש להזין את שם החותם לפני אישור המסמך.", "error");
+					return;
+				}
+				if (!approvalCheckbox.checked) {
+					setStatus("יש לסמן אישור לתנאי ההצעה לפני חתימה.", "error");
+					return;
+				}
+				if (!hasSignature()) {
+					setStatus("יש לחתום דיגיטלית בתוך אזור החתימה.", "error");
+					return;
+				}
+
+				signedImageDataUrl = signatureCanvas.toDataURL("image/png");
+				const signedAt = new Date().toLocaleString("he-IL", {
+					dateStyle: "short",
+					timeStyle: "short"
+				});
+				signedAtValue = signedAt;
+
+				const payload = {
+					businessName: businessNameInput.value.trim(),
+					signerName: signerNameInput.value.trim(),
+					phone: phoneInput.value.trim(),
+					email: emailInput.value.trim(),
+					notes: notesInput.value.trim(),
+					approved: approvalCheckbox.checked,
+					signedAt: signedAt,
+					signatureDataUrl: signedImageDataUrl,
+					shareUrl: buildShareUrlForApproval()
+				};
+
+				persist(payload);
+				updateSummary(signedAt);
+				updateSignaturePreview(signedAt);
+
+				try {
+					const sent = await submitApproval(payload);
+					if (sent) {
+						setStatus("האישור נשמר ונשלח לשרת בהצלחה.", "success");
+						return;
+					}
+					setStatus("האישור נשמר בדפדפן ונוצר עותק חתום. כדי לשמור מסמך סופי, לחץ על הדפסה / PDF.", "success");
+				} catch (error) {
+					setStatus("האישור נשמר מקומית, אך לא נשלח לשרת. אפשר עדיין להדפיס או לשמור כ-PDF.", "error");
+				}
+			}
+
+			function clearSignature() {
+				strokes = [];
+				signedImageDataUrl = "";
+				signedAtValue = "";
+				renderSignature();
+				updateSignaturePreview("");
+				updateSummary("");
+				clearStatus();
+			}
+
+			if (copyLinkButton && shareLinkText) {
+				copyLinkButton.addEventListener("click", async function () {
+					updateShareUrlFromForm();
+					try {
+						await navigator.clipboard.writeText(shareLinkText.textContent);
+						setOwnerStatus("הקישור הועתק. אפשר להדביק אותו ולשלוח ללקוח.", "success");
+					} catch (error) {
+						setOwnerStatus("לא ניתן היה להעתיק אוטומטית. אפשר להעתיק ידנית מהקישור שמופיע למעלה.", "error");
+					}
+				});
+			}
+
+			if (sendSmsButton) {
+				sendSmsButton.addEventListener("click", function () {
+					sendProposalToClient("sms");
+				});
+			}
+
+			if (sendWhatsappButton) {
+				sendWhatsappButton.addEventListener("click", function () {
+					sendProposalToClient("whatsapp");
+				});
+			}
+
+			if (accessUnlockButton) {
+				accessUnlockButton.addEventListener("click", function () {
+					hideAccessError();
+					const enteredPhone = accessPhoneInput.value.trim();
+					if (!normalizePhone(enteredPhone)) {
+						showAccessError("יש להזין מספר טלפון תקין.");
+						return;
+					}
+					if (!verifyAccessPhone(enteredPhone)) {
+						showAccessError("מספר הטלפון אינו תואם להצעה שנשלחה. בדקו את המספר ונסו שוב.");
+						return;
+					}
+					phoneInput.value = formatPhoneDisplay(enteredPhone);
+					unlockDocument(enteredPhone);
+					updateSummary(signedAtValue);
+				});
+			}
+
+			if (accessPhoneInput) {
+				accessPhoneInput.addEventListener("keydown", function (event) {
+					if (event.key === "Enter") {
+						event.preventDefault();
+						accessUnlockButton.click();
+					}
+				});
+			}
+
+			[ownerClientPhoneInput, ownerClientNameInput].forEach(function (element) {
+				if (!element) {
+					return;
+				}
+				element.addEventListener("input", function () {
+					updateShareUrlFromForm();
+				});
+			});
+
+			function prepareForPrint() {
+				updateSummary(signedAtValue);
+				if (hasSignature() && !signedImageDataUrl) {
+					signedImageDataUrl = signatureCanvas.toDataURL("image/png");
+					if (!signedAtValue) {
+						signedAtValue = new Date().toLocaleString("he-IL", {
+							dateStyle: "short",
+							timeStyle: "short"
+						});
+					}
+					updateSummary(signedAtValue);
+					updateSignaturePreview(signedAtValue);
+				}
+			}
+
+			approveButton.addEventListener("click", approveProposal);
+			printButton.addEventListener("click", function () {
+				prepareForPrint();
+				window.print();
+			});
+			window.addEventListener("beforeprint", prepareForPrint);
+			clearSignatureButton.addEventListener("click", clearSignature);
+
+			[businessNameInput, signerNameInput, phoneInput, emailInput, notesInput].forEach(function (element) {
+				element.addEventListener("input", function () {
+					updateShareUrlFromForm();
+					updateSummary(summaryDate.textContent.trim() === "__________________________" ? "" : summaryDate.textContent.trim());
+				});
+			});
+
+			signatureCanvas.addEventListener("pointerdown", startStroke);
+			signatureCanvas.addEventListener("pointermove", moveStroke);
+			signatureCanvas.addEventListener("pointerup", endStroke);
+			signatureCanvas.addEventListener("pointerleave", endStroke);
+			signatureCanvas.addEventListener("pointercancel", endStroke);
+
+			window.addEventListener("resize", resizeCanvas);
+
+			isOwnerMode = isOwnerSession();
+			authorizedPhone = loadAuthorizedPhone();
+
+			if (isOwnerMode) {
+				sessionStorage.setItem("itay-proposal-owner:" + proposalId, "1");
+				if (ownerPanel) {
+					ownerPanel.classList.remove("is-hidden");
+				}
+			}
+
+			fillFromQuery();
+			applyStoredData(loadStoredData());
+			updateShareUrlFromForm();
+			updateSummary(signedAtValue);
+			lockDocument();
+			if (isUnlocked) {
+				resizeCanvas();
+			}
+		})();
+	</script>
+</body>
+</html>
