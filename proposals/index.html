@@ -457,8 +457,7 @@
 						clientEmail: formData.clientEmail || "",
 						businessName: formData.businessName || formData.clientName,
 						itemPrices: formData.itemPrices || undefined,
-						businessLogoDataUrl: formData.businessLogoDataUrl || undefined,
-						documentUrl: formData.documentUrl || undefined
+						businessLogoDataUrl: formData.businessLogoDataUrl || undefined
 					})
 				});
 
@@ -574,8 +573,7 @@
 								clientEmail: clientEmail,
 								businessName: businessName,
 								itemPrices: priceData.itemPrices,
-								businessLogoDataUrl: logoDataUrl || undefined,
-								documentUrl: buildProposalUrl(template)
+								businessLogoDataUrl: logoDataUrl || undefined
 							});
 							statusEl.textContent = "נוצרה הצעה " + (result.quoteNumber || "") + " — פותח דף שליחה...";
 							statusEl.classList.add("is-success");

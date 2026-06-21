@@ -2,64 +2,50 @@
 
 The Laravel backend lives in Buildix, not in PortfolioReact.
 
-## Endpoint
+## Endpoints
 
-POST `/api/proposals/approve`
+POST `/api/proposals/prepare` — create client + quote  
+POST `/api/proposals/attachment` — upload full itaysolutions PDF as quote attachment  
+POST `/api/proposals/approve` — sign + attach signed PDF + regenerate Buildix PDF  
+GET/POST `/api/proposals/branding` — logo + business name sync
 
-Production URL:
+Production base: https://app.buildix.site/api/proposals/
 
-https://app.buildix.site/api/proposals/approve
+## PDF attachment (not a link)
 
-## Buildix files added
+The hosted proposal page generates a full print PDF and uploads it to Buildix as
+`attachment_path` on the quote — the same field used by manual "load document" in
+Buildix UI. When Buildix regenerates the quote PDF, the attachment is appended at
+the end of the original quote document.
 
-- `backend/database/migrations/2026_06_23_100000_create_proposal_approvals_table.php`
-- `backend/app/Models/ProposalApproval.php`
-- `backend/app/Http/Controllers/Api/ProposalApprovalController.php`
-- `backend/app/Mail/ExternalProposalApprovedMail.php`
-- `backend/resources/views/mail/external-proposal-approved.blade.php`
-- Route in `backend/routes/api.php`
+Flow:
+1. Owner creates quote via `/proposals/` → prepare
+2. Proposal page auto-uploads draft PDF to `/api/proposals/attachment`
+3. Client signs → signed PDF replaces attachment via `/api/proposals/approve`
+4. Buildix PDF = original quote + full itaysolutions proposal at the end
+
+Do **not** store a document URL in quote notes — use the attachment API only.
 
 ## Deploy on VPS
 
 ```bash
 cd backend
+git pull
 php artisan migrate
-# set .env:
-# BUILDIX_EXTERNAL_PROPOSAL_NOTIFY_EMAIL=itay@itaysolutions.com
-# BUILDIX_EXTERNAL_PROPOSAL_ORIGINS=https://www.itaysolutions.com,https://itaysolutions.com
+# restart php-fpm / queue if needed
+```
+
+`.env`:
+```env
+BUILDIX_EXTERNAL_PROPOSAL_NOTIFY_EMAIL=itay@itaysolutions.com
+BUILDIX_EXTERNAL_PROPOSAL_ORIGINS=https://www.itaysolutions.com,https://itaysolutions.com
 ```
 
 ## Connect PortfolioReact
 
-Edit `proposals/proposal-backend-config.js`:
-
+`proposals/proposal-backend-config.js`:
 ```javascript
-window.PROPOSAL_SUBMIT_URL = "https://app.buildix.site/api/proposals/approve";
+window.PROPOSAL_ATTACHMENT_URL = "https://app.buildix.site/api/proposals/attachment";
 ```
-
-Optional shared secret (both sides):
-
-```javascript
-window.PROPOSAL_SUBMIT_API_KEY = "your-secret";
-```
-
-Buildix `.env`:
-
-```
-BUILDIX_EXTERNAL_PROPOSAL_API_KEY=your-secret
-```
-
-## Data
-
-MySQL table: `proposal_approvals`
-Email: `itay@itaysolutions.com` (via TransactionalEmailService + outbound log)
-
-## PDF attachment on approval
-
-When the client approves on itaysolutions.com, the page generates a PDF from the full proposal
-document (`.print-contract` + footer) and sends it as `proposalPdfDataUrl` to `/api/proposals/approve`.
-Buildix stores it on the linked quote as `pdf_path` instead of the default template PDF.
-
-On prepare (`/api/proposals/prepare`), pass `documentUrl` to link the hosted proposal page in quote notes.
 
 The duplicate PHP snippets in this folder are reference-only; Buildix is the source of truth.
