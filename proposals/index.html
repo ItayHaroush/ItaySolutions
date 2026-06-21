@@ -253,7 +253,7 @@
 			<div class="help-box">
 				<strong>איך שולחים ללקוח חדש?</strong><br>
 				1. בחרו תבנית הצעה<br>
-				2. הזינו שם, טלפון ושם עסק → «צור ב-Buildix ושלח»<br>
+				2. הזינו שם, טלפון, שם עסק ומחירים → «צור ב-Buildix ושלח»<br>
 				3. Buildix יוצר <strong>לקוח + הצעה</strong> תחת itaySolutions<br>
 				4. תיפתח דף השליחה — SMS / WhatsApp ללקוח<br>
 				5. בחתימה — ההצעה מאושרת אוטומטית ב-Buildix
@@ -361,6 +361,53 @@
 				return manifest && manifest.proposals ? manifest.proposals : [];
 			}
 
+			function getTemplatePricing(template) {
+				return Array.isArray(template.pricing) ? template.pricing : [];
+			}
+
+			function readPriceValues(card, pricingFields) {
+				const values = {};
+				const itemPrices = [];
+
+				pricingFields.forEach(function (field) {
+					const input = card.querySelector('.send-price[data-price-key="' + field.key + '"]');
+					const raw = input ? input.value.trim() : "";
+					const parsed = raw === "" ? Number(field.default) : Number(raw.replace(/,/g, ""));
+
+					if (!Number.isFinite(parsed) || parsed < 0) {
+						values[field.key] = null;
+						return;
+					}
+
+					values[field.key] = parsed;
+					if (typeof field.itemIndex === "number") {
+						itemPrices[field.itemIndex] = parsed;
+					}
+				});
+
+				return { values: values, itemPrices: itemPrices };
+			}
+
+			function renderPricingFields(pricingFields) {
+				if (!pricingFields.length) {
+					return "";
+				}
+
+				return (
+					'<div class="send-grid send-pricing-grid">' +
+						pricingFields.map(function (field) {
+							const defaultValue = typeof field.default === "number" ? field.default : "";
+							return (
+								'<div class="field">' +
+									'<label class="label">' + field.label + '</label>' +
+									'<input class="input send-price" type="number" min="0" step="1" data-price-key="' + field.key + '" value="' + defaultValue + '">' +
+								'</div>'
+							);
+						}).join("") +
+					'</div>'
+				);
+			}
+
 			async function prepareAndOpen(template, formData) {
 				const templateKey = template.buildixTemplateKey || template.id;
 				if (!PREPARE_URL) {
@@ -383,7 +430,8 @@
 						clientName: formData.clientName,
 						clientPhone: formData.clientPhone,
 						clientEmail: formData.clientEmail || "",
-						businessName: formData.businessName || formData.clientName
+						businessName: formData.businessName || formData.clientName,
+						itemPrices: formData.itemPrices || undefined
 					})
 				});
 
@@ -409,6 +457,11 @@
 				if (formData.businessName) {
 					url.searchParams.set("business", formData.businessName);
 				}
+				if (formData.prices) {
+					Object.keys(formData.prices).forEach(function (key) {
+						url.searchParams.set("price_" + key, String(formData.prices[key]));
+					});
+				}
 				window.location.href = url.toString();
 			}
 
@@ -421,6 +474,7 @@
 
 				proposalList.innerHTML = templates.map(function (template) {
 					const defaultBusiness = template.defaultBusiness || "";
+					const pricingFields = getTemplatePricing(template);
 					return (
 						'<article class="proposal-card" data-template-id="' + template.id + '">' +
 							'<h3 class="proposal-title">' + template.title + '</h3>' +
@@ -431,6 +485,7 @@
 									'<div class="field"><label class="label">טלפון לקוח</label><input class="input send-client-phone" type="tel" placeholder="05X-XXXXXXX"></div>' +
 									'<div class="field" style="grid-column: 1 / -1;"><label class="label">שם העסק</label><input class="input send-business-name" type="text" placeholder="שם העסק" value="' + defaultBusiness.replace(/"/g, "&quot;") + '"></div>' +
 								'</div>' +
+								renderPricingFields(pricingFields) +
 								'<div class="actions">' +
 									'<button class="button button-primary send-prepare-button" type="button">צור ב-Buildix ושלח</button>' +
 								'</div>' +
@@ -449,10 +504,17 @@
 						const clientName = card.querySelector(".send-client-name").value.trim();
 						const clientPhone = card.querySelector(".send-client-phone").value.trim();
 						const businessName = card.querySelector(".send-business-name").value.trim();
+						const pricingFields = getTemplatePricing(template);
+						const priceData = readPriceValues(card, pricingFields);
 
 						statusEl.className = "send-status";
 						if (!clientName || !clientPhone) {
 							statusEl.textContent = "יש להזין שם וטלפון לקוח.";
+							statusEl.classList.add("is-error");
+							return;
+						}
+						if (pricingFields.length && Object.values(priceData.values).some(function (value) { return value === null; })) {
+							statusEl.textContent = "יש להזין מחירים תקינים (מספרים חיוביים).";
 							statusEl.classList.add("is-error");
 							return;
 						}
@@ -463,14 +525,16 @@
 							const result = await prepareAndOpen(template, {
 								clientName: clientName,
 								clientPhone: clientPhone,
-								businessName: businessName
+								businessName: businessName,
+								itemPrices: priceData.itemPrices
 							});
 							statusEl.textContent = "נוצרה הצעה " + (result.quoteNumber || "") + " — פותח דף שליחה...";
 							statusEl.classList.add("is-success");
 							openPreparedProposal(template, {
 								clientName: clientName,
 								clientPhone: clientPhone,
-								businessName: businessName
+								businessName: businessName,
+								prices: priceData.values
 							}, result);
 						} catch (error) {
 							statusEl.textContent = "לא הצליח ליצור ב-Buildix. ודאו deploy + BUILDIX_EXTERNAL_PROPOSAL_OWNER_EMAIL.";

@@ -1996,12 +1996,12 @@
 								<div class="wizard-price-box">
 									<div class="w-icon w-icon--orange w-icon--sm"><i class="fa-solid fa-hammer"></i></div>
 									<div class="wizard-price-label">הקמה חד פעמית</div>
-									<div class="wizard-price-value">₪2,000</div>
+									<div class="wizard-price-value" data-price-key="setup">₪2,000</div>
 								</div>
 								<div class="wizard-price-box">
 									<div class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-calendar-check"></i></div>
 									<div class="wizard-price-label">מנוי חודשי</div>
-									<div class="wizard-price-value">₪350</div>
+									<div class="wizard-price-value" data-price-key="monthly">₪350</div>
 								</div>
 							</div>
 							<div class="wizard-price-note"><i class="fa-regular fa-clock"></i> זמן הקמה: עד 7 ימי עבודה מקבלת כל החומרים</div>
@@ -2203,8 +2203,8 @@
 				<section class="section">
 					<h2 class="section-title">סיכום עלויות</h2>
 					<div class="pricing">
-						<div class="price-card emphasis"><div class="price-label">הקמה</div><div class="price-value">₪2,000</div></div>
-						<div class="price-card"><div class="price-label">חודשי</div><div class="price-value">₪350</div></div>
+						<div class="price-card emphasis"><div class="price-label">הקמה</div><div class="price-value" data-price-key="setup">₪2,000</div></div>
+						<div class="price-card"><div class="price-label">חודשי</div><div class="price-value" data-price-key="monthly">₪350</div></div>
 						<div class="price-card"><div class="price-label">זמן הקמה</div><div class="price-value">עד 7 ימים</div></div>
 					</div>
 					<p class="price-note" style="margin-top: 10px; text-align: center;">זמן הקמה: עד 7 ימי עבודה מקבלת כל החומרים</p>
@@ -2297,6 +2297,8 @@
 			const submitApiKey = config.submitApiKey || window.PROPOSAL_SUBMIT_API_KEY || "";
 			let buildixQuoteToken = config.buildixQuoteToken || "";
 			let buildixPublicBase = "https://app.buildix.site";
+			const defaultProposalPrices = { setup: 2000, monthly: 350 };
+			let proposalPrices = Object.assign({}, defaultProposalPrices);
 			const smsApiUrl = config.smsApiUrl || window.PROPOSAL_SMS_API_URL || "";
 
 			const accessGate = document.getElementById("access-gate");
@@ -2758,6 +2760,50 @@
 				return false;
 			}
 
+			function formatShekel(amount) {
+				const value = Number(amount);
+				if (!Number.isFinite(value)) {
+					return "";
+				}
+				return "₪" + value.toLocaleString("he-IL");
+			}
+
+			function applyProposalPrices(prices) {
+				Object.keys(prices).forEach(function (key) {
+					document.querySelectorAll('[data-price-key="' + key + '"]').forEach(function (element) {
+						element.textContent = formatShekel(prices[key]);
+					});
+				});
+			}
+
+			function readProposalPricesFromParams(params) {
+				const nextPrices = Object.assign({}, defaultProposalPrices);
+				let hasOverride = false;
+
+				params.forEach(function (value, key) {
+					if (!key.startsWith("price_")) {
+						return;
+					}
+					const priceKey = key.slice(6);
+					const parsed = Number(value);
+					if (!Number.isFinite(parsed) || parsed < 0) {
+						return;
+					}
+					nextPrices[priceKey] = parsed;
+					hasOverride = true;
+				});
+
+				return hasOverride ? nextPrices : null;
+			}
+
+			function appendPriceParams(url) {
+				Object.keys(proposalPrices).forEach(function (key) {
+					if (typeof proposalPrices[key] === "number") {
+						url.searchParams.set("price_" + key, String(proposalPrices[key]));
+					}
+				});
+			}
+
 			function buildShareUrl(options) {
 				const settings = options || {};
 				const base = settings.useCurrentOrigin ? window.location.origin + window.location.pathname : hostedPath;
@@ -2777,6 +2823,7 @@
 				if (buildixQuoteToken) {
 					url.searchParams.set("quoteToken", buildixQuoteToken);
 				}
+				appendPriceParams(url);
 				url.searchParams.delete("owner");
 				return url.toString();
 			}
@@ -2997,6 +3044,11 @@
 				const params = new URLSearchParams(window.location.search);
 				if (params.get("quoteToken")) {
 					buildixQuoteToken = params.get("quoteToken");
+				}
+				const pricesFromParams = readProposalPricesFromParams(params);
+				if (pricesFromParams) {
+					proposalPrices = pricesFromParams;
+					applyProposalPrices(proposalPrices);
 				}
 				if (params.get("business")) {
 					businessNameInput.value = params.get("business");

@@ -922,6 +922,10 @@ const Footer = () => {
 
                 <div className="footer-bottom">
                     <p>&copy; {currentYear} איתי הרוש. כל הזכויות שמורות.</p>
+                    <p className="footer-cookie-note">
+                        האתר משתמש בעוגיות (Cookies) לשיפור החוויה ולניתוח תנועה באמצעות Google Analytics.
+                        המשך גלישה באתר מהווה הסכמה לשימוש בעוגיות.
+                    </p>
                     <div className="scroll-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                         <i className='bx bx-up-arrow-alt'></i>
                     </div>

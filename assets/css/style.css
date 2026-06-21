@@ -1063,6 +1063,13 @@ p {
     margin: 0;
 }
 
+.footer-cookie-note {
+    max-width: 640px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.55);
+}
+
 .scroll-top {
     width: 50px;
     height: 50px;

@@ -11,7 +11,11 @@
       "description": "מערכת הזמנות דיגיטלית · הקמה ₪2,000 + ₪350/חודש",
       "path": "takeeat-hatzarfatiya-2026/",
       "buildixTemplateKey": "takeeat-hatzarfatiya-2026",
-      "defaultBusiness": "הצרפתייה הקטנה"
+      "defaultBusiness": "הצרפתייה הקטנה",
+      "pricing": [
+        { "key": "setup", "label": "הקמה חד פעמית (₪)", "default": 2000, "itemIndex": 0 },
+        { "key": "monthly", "label": "מנוי חודשי (₪)", "default": 350, "itemIndex": 1 }
+      ]
     }
   ],
   "proposals": [
