@@ -2774,6 +2774,9 @@
 				if (clientPhone) {
 					url.searchParams.set("access", hashAccessToken(clientPhone));
 				}
+				if (buildixQuoteToken) {
+					url.searchParams.set("quoteToken", buildixQuoteToken);
+				}
 				url.searchParams.delete("owner");
 				return url.toString();
 			}
@@ -2992,6 +2995,9 @@
 
 			function fillFromQuery() {
 				const params = new URLSearchParams(window.location.search);
+				if (params.get("quoteToken")) {
+					buildixQuoteToken = params.get("quoteToken");
+				}
 				if (params.get("business")) {
 					businessNameInput.value = params.get("business");
 				}
@@ -3051,7 +3057,7 @@
 					const entry = (manifest.proposals || []).find(function (item) {
 						return item.id === proposalId;
 					});
-					if (entry && entry.buildix && entry.buildix.quoteToken) {
+					if (!buildixQuoteToken && entry && entry.buildix && entry.buildix.quoteToken) {
 						buildixQuoteToken = entry.buildix.quoteToken;
 					}
 					updateBuildixOwnerLinks(entry);
@@ -3074,7 +3080,7 @@
 					return;
 				}
 				buildixLinkBox.classList.remove("is-hidden");
-				buildixLinkText.textContent = "לא מקושר — צרו הצעה ב-Buildix והדביקו quoteToken ב-proposals-registry.json";
+				buildixLinkText.textContent = "לא מקושר — השתמשו בפאנל /proposals/ → «צור ב-Buildix ושלח»";
 				if (buildixLinkHint && entry && entry.buildix && entry.buildix.clientHint) {
 					buildixLinkHint.textContent = entry.buildix.clientHint;
 				}
@@ -3313,6 +3319,11 @@
 				sessionStorage.setItem("itay-proposal-owner:" + proposalId, "1");
 				if (ownerPanel) {
 					ownerPanel.classList.remove("is-hidden");
+				}
+				const pendingPhone = sessionStorage.getItem("itay-proposal-pending-phone:" + proposalId);
+				if (pendingPhone && ownerClientPhoneInput) {
+					ownerClientPhoneInput.value = pendingPhone;
+					phoneInput.value = pendingPhone;
 				}
 			}
 

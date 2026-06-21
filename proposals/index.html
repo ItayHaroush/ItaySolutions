@@ -194,10 +194,31 @@
 			font-size: 9pt;
 		}
 
-		.empty-state {
-			padding: 20px;
-			text-align: center;
+		.send-form {
+			margin-top: 12px;
+			padding-top: 12px;
+			border-top: 1px solid rgba(24, 34, 48, 0.08);
+			display: grid;
+			gap: 10px;
+		}
+
+		.send-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+		}
+
+		.send-status {
+			font-size: 9pt;
 			color: var(--brand-slate);
+			min-height: 1.2em;
+		}
+
+		.send-status.is-success { color: var(--brand-green); }
+		.send-status.is-error { color: #991b1b; }
+
+		@media (max-width: 640px) {
+			.send-grid { grid-template-columns: 1fr; }
 		}
 	</style>
 </head>
@@ -230,9 +251,12 @@
 			</div>
 
 			<div class="help-box">
-				<strong>איך שולחים ללקוח?</strong><br>
-				לחצו «פתיחה ושליחה» → הזינו טלפון ושם לקוח → שליחה ב-SMS או WhatsApp.<br>
-				הלקוח יקבל קישור עם <code>access=...</code> ויוכל לפתוח רק לאחר הקשת אותו מספר טלפון.
+				<strong>איך שולחים ללקוח חדש?</strong><br>
+				1. בחרו תבנית הצעה<br>
+				2. הזינו שם, טלפון ושם עסק → «צור ב-Buildix ושלח»<br>
+				3. Buildix יוצר <strong>לקוח + הצעה</strong> תחת itaySolutions<br>
+				4. תיפתח דף השליחה — SMS / WhatsApp ללקוח<br>
+				5. בחתימה — ההצעה מאושרת אוטומטית ב-Buildix
 			</div>
 			<div class="help-box" id="install-hint" style="display: none;">
 				<strong>קיצור דרך במכשיר</strong><br>
@@ -242,9 +266,12 @@
 		</div>
 	</div>
 
+	<script src="proposal-backend-config.js"></script>
 	<script>
 		window.ITAY_PROPOSALS_ADMIN = window.ITAY_PROPOSALS_ADMIN || {
-			ownerAccessCode: "7466508"
+			ownerAccessCode: "7466508",
+			prepareUrl: window.PROPOSAL_PREPARE_URL || "https://app.buildix.site/api/proposals/prepare",
+			prepareApiKey: window.PROPOSAL_SUBMIT_API_KEY || ""
 		};
 	</script>
 	<script>
@@ -324,66 +351,131 @@
 				return false;
 			}
 
+			const PREPARE_URL = (window.ITAY_PROPOSALS_ADMIN && window.ITAY_PROPOSALS_ADMIN.prepareUrl) || window.PROPOSAL_PREPARE_URL || "";
+			const PREPARE_API_KEY = (window.ITAY_PROPOSALS_ADMIN && window.ITAY_PROPOSALS_ADMIN.prepareApiKey) || window.PROPOSAL_SUBMIT_API_KEY || "";
+
+			function getTemplates() {
+				if (manifest && manifest.templates && manifest.templates.length) {
+					return manifest.templates;
+				}
+				return manifest && manifest.proposals ? manifest.proposals : [];
+			}
+
+			async function prepareAndOpen(template, formData) {
+				const templateKey = template.buildixTemplateKey || template.id;
+				if (!PREPARE_URL) {
+					throw new Error("prepare_url_missing");
+				}
+
+				const headers = {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				};
+				if (PREPARE_API_KEY) {
+					headers["X-Proposal-Api-Key"] = PREPARE_API_KEY;
+				}
+
+				const response = await fetch(PREPARE_URL, {
+					method: "POST",
+					headers: headers,
+					body: JSON.stringify({
+						templateKey: templateKey,
+						clientName: formData.clientName,
+						clientPhone: formData.clientPhone,
+						clientEmail: formData.clientEmail || "",
+						businessName: formData.businessName || formData.clientName
+					})
+				});
+
+				if (!response.ok) {
+					throw new Error("prepare_failed");
+				}
+
+				return response.json();
+			}
+
 			function buildProposalUrl(proposal) {
 				return new URL(proposal.path, window.location.href).toString();
 			}
 
-			function openProposalAsOwner(proposal) {
-				sessionStorage.setItem("itay-proposal-owner:" + proposal.id, "1");
-				window.location.href = buildProposalUrl(proposal);
+			function openPreparedProposal(template, formData, prepareResult) {
+				sessionStorage.setItem("itay-proposal-owner:" + template.id, "1");
+				sessionStorage.setItem("itay-proposal-pending-phone:" + template.id, formData.clientPhone);
+
+				const url = new URL(buildProposalUrl(template), window.location.href);
+				url.searchParams.set("owner", getOwnerAccessCode());
+				url.searchParams.set("quoteToken", prepareResult.quoteToken);
+				url.searchParams.set("signer", formData.clientName);
+				if (formData.businessName) {
+					url.searchParams.set("business", formData.businessName);
+				}
+				window.location.href = url.toString();
 			}
 
 			function renderProposals() {
-				if (!manifest || !manifest.proposals || !manifest.proposals.length) {
-					proposalList.innerHTML = '<div class="empty-state">אין הצעות מחיר רשומות.</div>';
+				const templates = getTemplates();
+				if (!templates.length) {
+					proposalList.innerHTML = '<div class="empty-state">אין תבניות הצעה.</div>';
 					return;
 				}
 
-				const buildixBase = (manifest && manifest.buildixPublicBase) ? manifest.buildixPublicBase.replace(/\/$/, "") : "https://app.buildix.site";
-				proposalList.innerHTML = manifest.proposals.map(function (proposal) {
-					const clientUrl = buildProposalUrl(proposal);
-					const quoteToken = proposal.buildix && proposal.buildix.quoteToken ? proposal.buildix.quoteToken : "";
-					const buildixUrl = quoteToken ? buildixBase + "/q/" + quoteToken : "";
-					const buildixMeta = buildixUrl
-						? '<p class="proposal-meta">Buildix: <a href="' + buildixUrl + '" target="_blank" rel="noopener noreferrer">' + buildixUrl + '</a></p>'
-						: '<p class="proposal-meta proposal-meta--warn">Buildix: לא מקושר — צרו הצעה ב-itaySolutions והדביקו quoteToken ב-registry</p>';
+				proposalList.innerHTML = templates.map(function (template) {
+					const defaultBusiness = template.defaultBusiness || "";
 					return (
-						'<article class="proposal-card">' +
-							'<h3 class="proposal-title">' + proposal.title + '</h3>' +
-							'<p class="proposal-meta">לקוח: ' + (proposal.client || "—") + ' · עודכן: ' + (proposal.updated || "—") + '</p>' +
-							buildixMeta +
-							'<div class="actions">' +
-								'<button class="button button-primary" type="button" data-open-proposal="' + proposal.id + '">פתיחה ושליחה</button>' +
-								'<button class="button button-secondary" type="button" data-copy="' + clientUrl + '">העתקת קישור ללקוח</button>' +
-								(buildixUrl ? '<button class="button button-secondary" type="button" data-copy="' + buildixUrl + '">העתקת קישור Buildix</button>' : '') +
+						'<article class="proposal-card" data-template-id="' + template.id + '">' +
+							'<h3 class="proposal-title">' + template.title + '</h3>' +
+							'<p class="proposal-meta">' + (template.description || "תבנית הצעה") + '</p>' +
+							'<div class="send-form">' +
+								'<div class="send-grid">' +
+									'<div class="field"><label class="label">שם הלקוח</label><input class="input send-client-name" type="text" placeholder="שם מלא"></div>' +
+									'<div class="field"><label class="label">טלפון לקוח</label><input class="input send-client-phone" type="tel" placeholder="05X-XXXXXXX"></div>' +
+									'<div class="field" style="grid-column: 1 / -1;"><label class="label">שם העסק</label><input class="input send-business-name" type="text" placeholder="שם העסק" value="' + defaultBusiness.replace(/"/g, "&quot;") + '"></div>' +
+								'</div>' +
+								'<div class="actions">' +
+									'<button class="button button-primary send-prepare-button" type="button">צור ב-Buildix ושלח</button>' +
+								'</div>' +
+								'<div class="send-status" data-send-status></div>' +
 							'</div>' +
 						'</article>'
 					);
 				}).join("");
 
-				proposalList.querySelectorAll("[data-open-proposal]").forEach(function (button) {
-					button.addEventListener("click", function () {
-						const proposalId = button.getAttribute("data-open-proposal");
-						const proposal = manifest.proposals.find(function (item) {
-							return item.id === proposalId;
-						});
-						if (proposal) {
-							openProposalAsOwner(proposal);
-						}
-					});
-				});
-
-				proposalList.querySelectorAll("[data-copy]").forEach(function (button) {
+				proposalList.querySelectorAll(".send-prepare-button").forEach(function (button) {
 					button.addEventListener("click", async function () {
-						const value = button.getAttribute("data-copy");
+						const card = button.closest(".proposal-card");
+						const templateId = card.getAttribute("data-template-id");
+						const template = templates.find(function (item) { return item.id === templateId; });
+						const statusEl = card.querySelector("[data-send-status]");
+						const clientName = card.querySelector(".send-client-name").value.trim();
+						const clientPhone = card.querySelector(".send-client-phone").value.trim();
+						const businessName = card.querySelector(".send-business-name").value.trim();
+
+						statusEl.className = "send-status";
+						if (!clientName || !clientPhone) {
+							statusEl.textContent = "יש להזין שם וטלפון לקוח.";
+							statusEl.classList.add("is-error");
+							return;
+						}
+
+						button.disabled = true;
+						statusEl.textContent = "יוצר לקוח והצעה ב-Buildix...";
 						try {
-							await navigator.clipboard.writeText(value);
-							button.textContent = "הועתק!";
-							setTimeout(function () {
-								button.textContent = "העתקת נתיב בסיס";
-							}, 1800);
+							const result = await prepareAndOpen(template, {
+								clientName: clientName,
+								clientPhone: clientPhone,
+								businessName: businessName
+							});
+							statusEl.textContent = "נוצרה הצעה " + (result.quoteNumber || "") + " — פותח דף שליחה...";
+							statusEl.classList.add("is-success");
+							openPreparedProposal(template, {
+								clientName: clientName,
+								clientPhone: clientPhone,
+								businessName: businessName
+							}, result);
 						} catch (error) {
-							window.prompt("העתיקו את הנתיב:", value);
+							statusEl.textContent = "לא הצליח ליצור ב-Buildix. ודאו deploy + BUILDIX_EXTERNAL_PROPOSAL_OWNER_EMAIL.";
+							statusEl.classList.add("is-error");
+							button.disabled = false;
 						}
 					});
 				});

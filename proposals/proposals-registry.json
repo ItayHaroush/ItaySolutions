@@ -4,18 +4,28 @@
   "siteOrigin": "https://www.itaysolutions.com",
   "accessSalt": "itay-proposals-2026",
   "buildixPublicBase": "https://app.buildix.site",
+  "templates": [
+    {
+      "id": "takeeat-hatzarfatiya-2026",
+      "title": "TakeEat — הצעת מחיר",
+      "description": "מערכת הזמנות דיגיטלית · הקמה ₪2,000 + ₪350/חודש",
+      "path": "takeeat-hatzarfatiya-2026/",
+      "buildixTemplateKey": "takeeat-hatzarfatiya-2026",
+      "defaultBusiness": "הצרפתייה הקטנה"
+    }
+  ],
   "proposals": [
     {
       "id": "takeeat-hatzarfatiya-2026",
-      "title": "TakeEat — הצרפתייה הקטנה",
-      "client": "תמי — הצרפתייה הקטנה",
+      "title": "TakeEat — הצעת מחיר",
+      "client": "תבנית — לכל לקוח חדש",
       "business": "הצרפתייה הקטנה",
       "path": "takeeat-hatzarfatiya-2026/",
-      "updated": "2026-06-21",
+      "updated": "2026-06-23",
       "status": "active",
+      "buildixTemplateKey": "takeeat-hatzarfatiya-2026",
       "buildix": {
-        "quoteToken": "xkzxcwrhbxusscbxunsdk43quu7hjoza",
-        "clientHint": "מקושר להצעה ב-Buildix — חתימה ב-itaysolutions.com מאשרת גם בפלטפורמה"
+        "clientHint": "לכל שליחה — Buildix יוצר לקוח + הצעה חדשים אוטומטית"
       }
     }
   ]
