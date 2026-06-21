@@ -1355,6 +1355,55 @@
 			background: linear-gradient(135deg, var(--brand-green), #1a8a3f);
 		}
 
+		.business-logo-image {
+			width: 72px;
+			height: 72px;
+			margin: 0 auto 8px;
+			border-radius: 18px;
+			object-fit: contain;
+			display: block;
+			background: #fff;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+		}
+
+		.owner-logo-preview {
+			max-width: 84px;
+			max-height: 84px;
+			border-radius: 12px;
+			object-fit: contain;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			background: #fff;
+		}
+
+		.owner-form-grid .form-field--full {
+			grid-column: 1 / -1;
+		}
+
+		.buildix-status {
+			margin: 0 0 12px;
+			padding: 10px 12px;
+			border-radius: 12px;
+			font-size: 9pt;
+			font-weight: 700;
+		}
+
+		.buildix-status--linked {
+			background: rgba(20, 108, 46, 0.10);
+			color: var(--brand-green);
+			border: 1px solid rgba(20, 108, 46, 0.18);
+		}
+
+		.buildix-status--unlinked {
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			border: 1px solid rgba(255, 106, 0, 0.18);
+		}
+
+		.buildix-status a {
+			color: inherit;
+			word-break: break-all;
+		}
+
 		.wizard-chip {
 			display: inline-block;
 			padding: 6px 12px;
@@ -1818,15 +1867,35 @@
 		<div class="content">
 			<div class="owner-panel screen-only is-hidden" id="owner-panel">
 				<h3 class="owner-panel-title">פאנל בעל האתר — שליחת הצעה ללקוח</h3>
-				<p class="owner-panel-note">הזינו את מספר הטלפון של הלקוח. המערכת תיצור קישור מאובטח ותפתח שליחה ב-SMS או ב-WhatsApp. הלקוח יוכל לצפות במסמך רק לאחר הקשת אותו מספר טלפון.</p>
+				<div class="buildix-status buildix-status--unlinked" id="buildix-status-badge">Buildix: לא מקושר — צרו הצעה דרך /proposals/</div>
+				<p class="owner-panel-note">הזינו פרטי לקוח ועסק, לוגו (אופציונלי) ואימייל לברכות לאחר אישור. הקישור המאובטח יישלח ב-SMS או WhatsApp.</p>
 				<div class="owner-form-grid">
 					<div class="form-field">
 						<label class="form-label" for="owner-client-phone">טלפון הלקוח לשליחה</label>
 						<input class="form-input" id="owner-client-phone" name="ownerClientPhone" type="tel" placeholder="05X-XXXXXXX" autocomplete="tel">
 					</div>
 					<div class="form-field">
-						<label class="form-label" for="owner-client-name">שם הלקוח (אופציונלי)</label>
+						<label class="form-label" for="owner-client-name">שם הלקוח</label>
 						<input class="form-input" id="owner-client-name" name="ownerClientName" type="text" placeholder="שם מלא">
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="owner-business-name">שם העסק / מסעדה</label>
+						<input class="form-input" id="owner-business-name" name="ownerBusinessName" type="text" placeholder="שם העסק">
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="owner-client-email">אימייל לקוח (לברכות באישור)</label>
+						<input class="form-input" id="owner-client-email" name="ownerClientEmail" type="email" placeholder="name@example.com">
+					</div>
+					<div class="form-field form-field--full">
+						<label class="form-label" for="owner-logo-url">לוגו — קישור (URL)</label>
+						<input class="form-input" id="owner-logo-url" name="ownerLogoUrl" type="url" placeholder="https://.../logo.png">
+					</div>
+					<div class="form-field form-field--full">
+						<label class="form-label" for="owner-logo-file">לוגו — העלאת קובץ</label>
+						<input class="form-input" id="owner-logo-file" name="ownerLogoFile" type="file" accept="image/png,image/jpeg,image/webp">
+					</div>
+					<div class="form-field form-field--full">
+						<img class="owner-logo-preview is-hidden" id="owner-logo-preview" alt="תצוגת לוגו">
 					</div>
 				</div>
 				<div class="share-strip" style="margin-top: 12px;">
@@ -1880,12 +1949,13 @@
 								</div>
 								<span class="wizard-welcome-link" aria-hidden="true"><i class="fa-solid fa-link"></i></span>
 								<div class="wizard-welcome-logo-wrap">
+									<img class="business-logo-image is-hidden" id="welcome-business-logo" alt="לוגו העסק">
 									<div class="business-logo-badge" id="welcome-business-badge">הק</div>
 									<div class="brand-caption" id="welcome-business-name">הצרפתייה הקטנה</div>
 								</div>
 							</div>
 							<h2 class="wizard-title">ברוכים הבאים להצעת TakeEat</h2>
-							<p class="wizard-subtitle">הצעה עבור הצרפתייה הקטנה · מסע קצר וברור לאישור ההצעה</p>
+							<p class="wizard-subtitle" id="welcome-subtitle">הצעה עבור הצרפתייה הקטנה · מסע קצר וברור לאישור ההצעה</p>
 							<div class="wizard-meta-row">
 								<span class="wizard-meta-pill"><i class="fa-regular fa-clock"></i> זמן קריאה: כ-2 דקות</span>
 								<span class="wizard-meta-pill wizard-meta-pill--green"><i class="fa-solid fa-shoe-prints"></i> 7 שלבים מסודרים</span>
@@ -2156,7 +2226,7 @@
 					<div class="hero-copy">
 						<div class="eyebrow">הצעת מחיר והסכם שירות</div>
 						<h1>מערכת הזמנות דיגיטלית <span>TakeEat</span></h1>
-						<p class="subtitle">עבור הצרפתייה הקטנה | Itay Solutions</p>
+						<p class="subtitle" id="print-business-subtitle">עבור הצרפתייה הקטנה | Itay Solutions</p>
 					</div>
 				</section>
 
@@ -2281,6 +2351,7 @@
 			ownerKey: "7466508",
 			accessSalt: "itay-proposals-2026",
 			submitUrl: window.PROPOSAL_SUBMIT_URL || "",
+			brandingUrl: window.PROPOSAL_BRANDING_URL || "",
 			buildixQuoteToken: ""
 		};
 	</script>
@@ -2293,10 +2364,14 @@
 			const storageKey = "takeeat-proposal-approval:" + proposalId;
 			const accessStorageKey = "takeeat-proposal-access:" + proposalId;
 			const unlockSessionKey = "takeeat-proposal-unlocked:" + proposalId;
+			const quoteTokenSessionKey = "itay-proposal-quote-token:" + proposalId;
 			const submitUrl = config.submitUrl || window.PROPOSAL_SUBMIT_URL || "";
 			const submitApiKey = config.submitApiKey || window.PROPOSAL_SUBMIT_API_KEY || "";
+			const brandingUrl = config.brandingUrl || window.PROPOSAL_BRANDING_URL || "";
 			let buildixQuoteToken = config.buildixQuoteToken || "";
 			let buildixPublicBase = "https://app.buildix.site";
+			let businessLogoUrl = "";
+			let hasBusinessLogo = false;
 			const defaultProposalPrices = { setup: 2000, monthly: 350 };
 			let proposalPrices = Object.assign({}, defaultProposalPrices);
 			const smsApiUrl = config.smsApiUrl || window.PROPOSAL_SMS_API_URL || "";
@@ -2308,6 +2383,11 @@
 			const ownerPanel = document.getElementById("owner-panel");
 			const ownerClientPhoneInput = document.getElementById("owner-client-phone");
 			const ownerClientNameInput = document.getElementById("owner-client-name");
+			const ownerBusinessNameInput = document.getElementById("owner-business-name");
+			const ownerClientEmailInput = document.getElementById("owner-client-email");
+			const ownerLogoUrlInput = document.getElementById("owner-logo-url");
+			const ownerLogoFileInput = document.getElementById("owner-logo-file");
+			const ownerLogoPreview = document.getElementById("owner-logo-preview");
 			const ownerStatusBox = document.getElementById("owner-status-box");
 			const sendSmsButton = document.getElementById("send-sms-button");
 			const sendWhatsappButton = document.getElementById("send-whatsapp-button");
@@ -2329,6 +2409,7 @@
 			const buildixLinkBox = document.getElementById("buildix-link-box");
 			const buildixLinkText = document.getElementById("buildix-link-text");
 			const buildixLinkHint = document.getElementById("buildix-link-hint");
+			const buildixStatusBadge = document.getElementById("buildix-status-badge");
 			const statusBox = document.getElementById("status-box");
 			const signatureCanvas = document.getElementById("signature-canvas");
 			const signaturePreviewImage = document.getElementById("signature-preview-image");
@@ -2354,6 +2435,9 @@
 			const wizardTermsError = document.getElementById("wizard-terms-error");
 			const welcomeBusinessName = document.getElementById("welcome-business-name");
 			const welcomeBusinessBadge = document.getElementById("welcome-business-badge");
+			const welcomeBusinessLogo = document.getElementById("welcome-business-logo");
+			const welcomeSubtitle = document.getElementById("welcome-subtitle");
+			const printBusinessSubtitle = document.getElementById("print-business-subtitle");
 			const successPrintButton = document.getElementById("success-print-button");
 			const wizardSuccessSaveNote = document.getElementById("wizard-success-save-note");
 			const wizardStepKey = "takeeat-proposal-wizard-step:" + proposalId;
@@ -2380,6 +2464,231 @@
 						return part.charAt(0);
 					}).join("");
 					welcomeBusinessBadge.textContent = initials || "עסק";
+				}
+				const subtitleText = "הצעה עבור " + name + " · מסע קצר וברור לאישור ההצעה";
+				if (welcomeSubtitle) {
+					welcomeSubtitle.textContent = subtitleText;
+				}
+				if (printBusinessSubtitle) {
+					printBusinessSubtitle.textContent = "עבור " + name + " | Itay Solutions";
+				}
+			}
+
+			function getBuildixLogoApiUrl() {
+				if (!buildixQuoteToken || !brandingUrl) {
+					return "";
+				}
+				return brandingUrl.replace(/\/$/, "") + "/" + encodeURIComponent(buildixQuoteToken) + "/logo";
+			}
+
+			function resolveBusinessLogoDisplayUrl() {
+				if (businessLogoUrl && businessLogoUrl.indexOf("data:image/") === 0) {
+					return businessLogoUrl;
+				}
+				if (hasBusinessLogo && getBuildixLogoApiUrl()) {
+					return getBuildixLogoApiUrl() + "?t=" + Date.now();
+				}
+				return businessLogoUrl || "";
+			}
+
+			function showBusinessLogoFallback() {
+				hasBusinessLogo = false;
+				if (welcomeBusinessLogo) {
+					welcomeBusinessLogo.removeAttribute("src");
+					welcomeBusinessLogo.classList.add("is-hidden");
+				}
+				if (welcomeBusinessBadge) {
+					welcomeBusinessBadge.classList.remove("is-hidden");
+				}
+				if (ownerLogoPreview) {
+					ownerLogoPreview.removeAttribute("src");
+					ownerLogoPreview.classList.add("is-hidden");
+				}
+			}
+
+			function applyBusinessLogo(logoUrl, options) {
+				const opts = options || {};
+				if (typeof logoUrl === "string" && logoUrl.trim() !== "") {
+					businessLogoUrl = logoUrl.trim();
+					if (businessLogoUrl.indexOf("data:image/") === 0 || opts.markUploaded) {
+						hasBusinessLogo = true;
+					}
+				}
+				const displayUrl = resolveBusinessLogoDisplayUrl();
+				if (ownerLogoUrlInput && businessLogoUrl && businessLogoUrl.indexOf("data:image/") !== 0) {
+					ownerLogoUrlInput.value = businessLogoUrl;
+				}
+				if (welcomeBusinessLogo && welcomeBusinessBadge) {
+					if (displayUrl) {
+						welcomeBusinessLogo.onload = function () {
+							welcomeBusinessLogo.classList.remove("is-hidden");
+							welcomeBusinessBadge.classList.add("is-hidden");
+						};
+						welcomeBusinessLogo.onerror = showBusinessLogoFallback;
+						welcomeBusinessLogo.src = displayUrl;
+					} else {
+						showBusinessLogoFallback();
+					}
+				}
+				if (ownerLogoPreview) {
+					if (displayUrl) {
+						ownerLogoPreview.onload = function () {
+							ownerLogoPreview.classList.remove("is-hidden");
+						};
+						ownerLogoPreview.onerror = function () {
+							ownerLogoPreview.classList.add("is-hidden");
+						};
+						ownerLogoPreview.src = displayUrl;
+					} else {
+						ownerLogoPreview.classList.add("is-hidden");
+					}
+				}
+			}
+
+			function syncOwnerPanelFromProposal() {
+				if (ownerBusinessNameInput) {
+					ownerBusinessNameInput.value = businessNameInput.value.trim();
+				}
+				if (ownerClientEmailInput) {
+					ownerClientEmailInput.value = emailInput.value.trim();
+				}
+			}
+
+			function syncOwnerPanelToProposal() {
+				if (ownerBusinessNameInput) {
+					businessNameInput.value = ownerBusinessNameInput.value.trim();
+				}
+				if (ownerClientEmailInput) {
+					emailInput.value = ownerClientEmailInput.value.trim();
+				}
+				updateWelcomeBusiness();
+				updateShareUrlFromForm();
+			}
+
+			function readLogoFileAsDataUrl(fileInput) {
+				return new Promise(function (resolve) {
+					const file = fileInput && fileInput.files && fileInput.files[0];
+					if (!file) {
+						resolve("");
+						return;
+					}
+					if (file.size > 400000) {
+						resolve(null);
+						return;
+					}
+					const reader = new FileReader();
+					reader.onload = function () {
+						resolve(typeof reader.result === "string" ? reader.result : "");
+					};
+					reader.onerror = function () {
+						resolve("");
+					};
+					reader.readAsDataURL(file);
+				});
+			}
+
+			async function saveBrandingToServer(payload) {
+				if (!buildixQuoteToken || !brandingUrl) {
+					return null;
+				}
+
+				const headers = {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				};
+				if (submitApiKey) {
+					headers["X-Proposal-Api-Key"] = submitApiKey;
+				}
+
+				const response = await fetch(brandingUrl, {
+					method: "POST",
+					headers: headers,
+					body: JSON.stringify(Object.assign({ quoteToken: buildixQuoteToken }, payload))
+				});
+
+				if (!response.ok) {
+					throw new Error("branding_failed");
+				}
+
+				return response.json();
+			}
+
+			async function loadBrandingFromServer() {
+				if (!buildixQuoteToken || !brandingUrl) {
+					return;
+				}
+
+				try {
+					const response = await fetch(brandingUrl + "/" + encodeURIComponent(buildixQuoteToken), {
+						headers: { "Accept": "application/json" }
+					});
+					if (!response.ok) {
+						return;
+					}
+					const data = await response.json();
+					if (data.businessName && !businessNameInput.value.trim()) {
+						businessNameInput.value = data.businessName;
+					}
+					if (data.clientEmail) {
+						if (ownerClientEmailInput) {
+							ownerClientEmailInput.value = data.clientEmail;
+						}
+						if (!emailInput.value.trim()) {
+							emailInput.value = data.clientEmail;
+						}
+					}
+					if (data.hasLogo || data.logoUrl) {
+						hasBusinessLogo = true;
+						applyBusinessLogo(data.logoUrl || "linked");
+					}
+					syncOwnerPanelFromProposal();
+					updateWelcomeBusiness();
+				} catch (error) {
+					/* ignore */
+				}
+			}
+
+			async function persistOwnerBranding(options) {
+				const settings = options || {};
+				syncOwnerPanelToProposal();
+
+				if (!buildixQuoteToken) {
+					if (settings.logoUrl) {
+						applyBusinessLogo(settings.logoUrl, { markUploaded: true });
+					}
+					if (settings.logoDataUrl) {
+						applyBusinessLogo(settings.logoDataUrl, { markUploaded: true });
+					}
+					return;
+				}
+
+				if (settings.logoDataUrl) {
+					applyBusinessLogo(settings.logoDataUrl, { markUploaded: true });
+				} else if (settings.logoUrl) {
+					applyBusinessLogo(settings.logoUrl, { markUploaded: true });
+				}
+
+				try {
+					const result = await saveBrandingToServer({
+						businessName: businessNameInput.value.trim(),
+						clientEmail: emailInput.value.trim(),
+						businessLogoDataUrl: settings.logoDataUrl || undefined,
+						businessLogoUrl: settings.logoUrl || undefined
+					});
+					if (result && (result.hasLogo || result.logoUrl)) {
+						hasBusinessLogo = true;
+						applyBusinessLogo(result.logoUrl || "linked");
+					}
+					if (settings.showStatus !== false) {
+						setOwnerStatus("פרטי העסק עודכנו.", "success");
+					}
+				} catch (error) {
+					if (settings.showStatus !== false) {
+						setOwnerStatus("לא הצליח לשמור ב-Buildix. השינויים נשמרו מקומית בקישור.", "error");
+					}
+					if (settings.logoUrl) {
+						applyBusinessLogo(settings.logoUrl);
+					}
 				}
 			}
 
@@ -2562,6 +2871,10 @@
 				localStorage.removeItem(storageKey);
 				sessionStorage.removeItem(wizardStepKey);
 				sessionStorage.removeItem(unlockSessionKey);
+				sessionStorage.removeItem(quoteTokenSessionKey);
+				buildixQuoteToken = "";
+				businessLogoUrl = "";
+				hasBusinessLogo = false;
 				signedImageDataUrl = "";
 				signedAtValue = "";
 				maxWizardStep = 1;
@@ -2804,6 +3117,14 @@
 				});
 			}
 
+			function appendBrandingParams(url) {
+				if (hasBusinessLogo && getBuildixLogoApiUrl()) {
+					url.searchParams.set("logo", "1");
+				} else if (businessLogoUrl && businessLogoUrl.indexOf("data:image/") !== 0) {
+					url.searchParams.set("logoUrl", businessLogoUrl);
+				}
+			}
+
 			function buildShareUrl(options) {
 				const settings = options || {};
 				const base = settings.useCurrentOrigin ? window.location.origin + window.location.pathname : hostedPath;
@@ -2824,6 +3145,7 @@
 					url.searchParams.set("quoteToken", buildixQuoteToken);
 				}
 				appendPriceParams(url);
+				appendBrandingParams(url);
 				url.searchParams.delete("owner");
 				return url.toString();
 			}
@@ -2856,6 +3178,7 @@
 			}
 
 			async function sendProposalToClient(channel) {
+				syncOwnerPanelToProposal();
 				const clientPhone = ownerClientPhoneInput.value.trim();
 				const clientName = ownerClientNameInput.value.trim();
 
@@ -3042,9 +3365,7 @@
 
 			function fillFromQuery() {
 				const params = new URLSearchParams(window.location.search);
-				if (params.get("quoteToken")) {
-					buildixQuoteToken = params.get("quoteToken");
-				}
+				restoreBuildixQuoteToken();
 				const pricesFromParams = readProposalPricesFromParams(params);
 				if (pricesFromParams) {
 					proposalPrices = pricesFromParams;
@@ -3052,6 +3373,24 @@
 				}
 				if (params.get("business")) {
 					businessNameInput.value = params.get("business");
+					if (ownerBusinessNameInput) {
+						ownerBusinessNameInput.value = params.get("business");
+					}
+				}
+				if (params.get("logoUrl")) {
+					applyBusinessLogo(decodeURIComponent(params.get("logoUrl")), { markUploaded: true });
+				} else if (params.get("logo") === "1" && buildixQuoteToken) {
+					hasBusinessLogo = true;
+					applyBusinessLogo("linked");
+				}
+				const pendingEmail = sessionStorage.getItem("itay-proposal-pending-email:" + proposalId);
+				if (pendingEmail) {
+					if (ownerClientEmailInput) {
+						ownerClientEmailInput.value = pendingEmail;
+					}
+					if (!emailInput.value.trim()) {
+						emailInput.value = pendingEmail;
+					}
 				}
 				if (params.get("signer")) {
 					signerNameInput.value = params.get("signer");
@@ -3113,6 +3452,9 @@
 						buildixQuoteToken = entry.buildix.quoteToken;
 					}
 					updateBuildixOwnerLinks(entry);
+					await loadBrandingFromServer();
+					syncOwnerPanelFromProposal();
+					updateWelcomeBusiness();
 				} catch (error) {
 					updateBuildixOwnerLinks(null);
 				}
@@ -3125,9 +3467,13 @@
 				if (buildixQuoteToken) {
 					const buildixUrl = buildixPublicBase.replace(/\/$/, "") + "/q/" + buildixQuoteToken;
 					buildixLinkBox.classList.remove("is-hidden");
-					buildixLinkText.textContent = buildixUrl;
+					buildixLinkText.innerHTML = '<a href="' + buildixUrl + '" target="_blank" rel="noopener noreferrer">' + buildixUrl + "</a>";
 					if (buildixLinkHint) {
 						buildixLinkHint.textContent = "בחתימה בדף זה — ההצעה תאושר אוטומטית ב-Buildix תחת itaySolutions.";
+					}
+					if (buildixStatusBadge) {
+						buildixStatusBadge.className = "buildix-status buildix-status--linked";
+						buildixStatusBadge.innerHTML = 'Buildix: מקושר · <a href="' + buildixUrl + '" target="_blank" rel="noopener noreferrer">' + buildixQuoteToken.slice(0, 8) + "…</a>";
 					}
 					return;
 				}
@@ -3135,6 +3481,39 @@
 				buildixLinkText.textContent = "לא מקושר — השתמשו בפאנל /proposals/ → «צור ב-Buildix ושלח»";
 				if (buildixLinkHint && entry && entry.buildix && entry.buildix.clientHint) {
 					buildixLinkHint.textContent = entry.buildix.clientHint;
+				} else if (buildixLinkHint) {
+					buildixLinkHint.textContent = "כל לקוח חדש = הצעה חדשה ב-Buildix. אין token קבוע בקובץ.";
+				}
+				if (buildixStatusBadge) {
+					buildixStatusBadge.className = "buildix-status buildix-status--unlinked";
+					buildixStatusBadge.textContent = "Buildix: לא מקושר — צרו הצעה דרך /proposals/ → «צור ב-Buildix ושלח»";
+				}
+			}
+
+			function persistBuildixQuoteToken(token) {
+				const nextToken = String(token || "").trim();
+				if (!nextToken) {
+					return;
+				}
+				buildixQuoteToken = nextToken;
+				sessionStorage.setItem(quoteTokenSessionKey, nextToken);
+				updateBuildixOwnerLinks(null);
+				const url = new URL(window.location.href);
+				if (url.searchParams.get("quoteToken") !== nextToken) {
+					url.searchParams.set("quoteToken", nextToken);
+					window.history.replaceState({}, "", url.toString());
+				}
+			}
+
+			function restoreBuildixQuoteToken() {
+				const fromUrl = new URLSearchParams(window.location.search).get("quoteToken");
+				if (fromUrl) {
+					persistBuildixQuoteToken(fromUrl);
+					return;
+				}
+				const stored = sessionStorage.getItem(quoteTokenSessionKey);
+				if (stored) {
+					persistBuildixQuoteToken(stored);
 				}
 			}
 
@@ -3230,10 +3609,13 @@
 						}
 					}
 					if (result.sent) {
+						const emailNote = emailInput.value.trim()
+							? " נשלחה גם הודעת ברכות ל-" + emailInput.value.trim() + "."
+							: "";
 						setStatus(
 							result.quoteSynced
-								? "האישור נשמר וההצעה אושרה ב-Buildix."
-								: "האישור נשמר ונשלח לשרת בהצלחה.",
+								? "האישור נשמר וההצעה אושרה ב-Buildix." + emailNote
+								: "האישור נשמר ונשלח לשרת בהצלחה." + emailNote,
 							"success"
 						);
 						showWizardSuccess();
@@ -3286,6 +3668,42 @@
 					if (window.confirm("לאפס את המסע ולמחוק נתונים שמורים (טיוטה / אישור) בדפדפן הזה?")) {
 						resetProposalJourney();
 					}
+				});
+			}
+
+			if (ownerBusinessNameInput) {
+				ownerBusinessNameInput.addEventListener("change", function () {
+					void persistOwnerBranding({ showStatus: false });
+				});
+			}
+
+			if (ownerClientEmailInput) {
+				ownerClientEmailInput.addEventListener("change", function () {
+					syncOwnerPanelToProposal();
+				});
+			}
+
+			if (ownerLogoUrlInput) {
+				ownerLogoUrlInput.addEventListener("change", function () {
+					const logoUrl = ownerLogoUrlInput.value.trim();
+					if (!logoUrl) {
+						return;
+					}
+					void persistOwnerBranding({ logoUrl: logoUrl });
+				});
+			}
+
+			if (ownerLogoFileInput) {
+				ownerLogoFileInput.addEventListener("change", async function () {
+					const logoDataUrl = await readLogoFileAsDataUrl(ownerLogoFileInput);
+					if (logoDataUrl === null) {
+						setOwnerStatus("קובץ הלוגו גדול מדי (עד 400KB).", "error");
+						return;
+					}
+					if (!logoDataUrl) {
+						return;
+					}
+					void persistOwnerBranding({ logoDataUrl: logoDataUrl });
 				});
 			}
 
@@ -3377,9 +3795,11 @@
 					ownerClientPhoneInput.value = pendingPhone;
 					phoneInput.value = pendingPhone;
 				}
+				syncOwnerPanelFromProposal();
 			}
 
 			fillFromQuery();
+			updateWelcomeBusiness();
 			void loadProposalManifest();
 			initWizardNavigation();
 			applyStoredData(loadStoredData());

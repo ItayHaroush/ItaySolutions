@@ -408,6 +408,28 @@
 				);
 			}
 
+			function readLogoDataUrl(fileInput) {
+				return new Promise(function (resolve) {
+					const file = fileInput && fileInput.files && fileInput.files[0];
+					if (!file) {
+						resolve("");
+						return;
+					}
+					if (file.size > 400000) {
+						resolve(null);
+						return;
+					}
+					const reader = new FileReader();
+					reader.onload = function () {
+						resolve(typeof reader.result === "string" ? reader.result : "");
+					};
+					reader.onerror = function () {
+						resolve("");
+					};
+					reader.readAsDataURL(file);
+				});
+			}
+
 			async function prepareAndOpen(template, formData) {
 				const templateKey = template.buildixTemplateKey || template.id;
 				if (!PREPARE_URL) {
@@ -431,7 +453,8 @@
 						clientPhone: formData.clientPhone,
 						clientEmail: formData.clientEmail || "",
 						businessName: formData.businessName || formData.clientName,
-						itemPrices: formData.itemPrices || undefined
+						itemPrices: formData.itemPrices || undefined,
+						businessLogoDataUrl: formData.businessLogoDataUrl || undefined
 					})
 				});
 
@@ -449,6 +472,9 @@
 			function openPreparedProposal(template, formData, prepareResult) {
 				sessionStorage.setItem("itay-proposal-owner:" + template.id, "1");
 				sessionStorage.setItem("itay-proposal-pending-phone:" + template.id, formData.clientPhone);
+				if (formData.clientEmail) {
+					sessionStorage.setItem("itay-proposal-pending-email:" + template.id, formData.clientEmail);
+				}
 
 				const url = new URL(buildProposalUrl(template), window.location.href);
 				url.searchParams.set("owner", getOwnerAccessCode());
@@ -461,6 +487,12 @@
 					Object.keys(formData.prices).forEach(function (key) {
 						url.searchParams.set("price_" + key, String(formData.prices[key]));
 					});
+				}
+				if (prepareResult.logoUrl) {
+					url.searchParams.set("logoUrl", prepareResult.logoUrl);
+				}
+				if (prepareResult.quoteToken) {
+					sessionStorage.setItem("itay-proposal-quote-token:" + template.id, prepareResult.quoteToken);
 				}
 				window.location.href = url.toString();
 			}
@@ -484,6 +516,8 @@
 									'<div class="field"><label class="label">שם הלקוח</label><input class="input send-client-name" type="text" placeholder="שם מלא"></div>' +
 									'<div class="field"><label class="label">טלפון לקוח</label><input class="input send-client-phone" type="tel" placeholder="05X-XXXXXXX"></div>' +
 									'<div class="field" style="grid-column: 1 / -1;"><label class="label">שם העסק</label><input class="input send-business-name" type="text" placeholder="שם העסק" value="' + defaultBusiness.replace(/"/g, "&quot;") + '"></div>' +
+									'<div class="field"><label class="label">אימייל לקוח</label><input class="input send-client-email" type="email" placeholder="name@example.com"></div>' +
+									'<div class="field"><label class="label">לוגו עסק (קובץ)</label><input class="input send-logo-file" type="file" accept="image/png,image/jpeg,image/webp"></div>' +
 								'</div>' +
 								renderPricingFields(pricingFields) +
 								'<div class="actions">' +
@@ -504,12 +538,20 @@
 						const clientName = card.querySelector(".send-client-name").value.trim();
 						const clientPhone = card.querySelector(".send-client-phone").value.trim();
 						const businessName = card.querySelector(".send-business-name").value.trim();
+						const clientEmail = card.querySelector(".send-client-email").value.trim();
+						const logoInput = card.querySelector(".send-logo-file");
 						const pricingFields = getTemplatePricing(template);
 						const priceData = readPriceValues(card, pricingFields);
+						const logoDataUrl = await readLogoDataUrl(logoInput);
 
 						statusEl.className = "send-status";
 						if (!clientName || !clientPhone) {
 							statusEl.textContent = "יש להזין שם וטלפון לקוח.";
+							statusEl.classList.add("is-error");
+							return;
+						}
+						if (logoDataUrl === null) {
+							statusEl.textContent = "קובץ הלוגו גדול מדי (עד 400KB).";
 							statusEl.classList.add("is-error");
 							return;
 						}
@@ -525,14 +567,17 @@
 							const result = await prepareAndOpen(template, {
 								clientName: clientName,
 								clientPhone: clientPhone,
+								clientEmail: clientEmail,
 								businessName: businessName,
-								itemPrices: priceData.itemPrices
+								itemPrices: priceData.itemPrices,
+								businessLogoDataUrl: logoDataUrl || undefined
 							});
 							statusEl.textContent = "נוצרה הצעה " + (result.quoteNumber || "") + " — פותח דף שליחה...";
 							statusEl.classList.add("is-success");
 							openPreparedProposal(template, {
 								clientName: clientName,
 								clientPhone: clientPhone,
+								clientEmail: clientEmail,
 								businessName: businessName,
 								prices: priceData.values
 							}, result);
