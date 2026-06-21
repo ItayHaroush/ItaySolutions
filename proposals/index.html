@@ -4,6 +4,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="robots" content="noindex, nofollow">
+	<meta name="theme-color" content="#ff6a00">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta name="apple-mobile-web-app-title" content="הצעות מחיר">
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="apple-touch-icon" href="../assets/images/logoItayS.jpeg">
 	<title>ניהול הצעות מחיר | Itay Solutions</title>
 	<style>
 		:root {
@@ -199,10 +205,10 @@
 	<div class="gate" id="owner-gate">
 		<div class="gate-card">
 			<h1>ניהול הצעות מחיר</h1>
-			<p class="subtitle">אזור פרטי לשליחת הצעות ללקוחות. הזינו את מספר הטלפון שלכם (054-7466508) לגישה.</p>
+			<p class="subtitle">אזור פרטי לשליחת הצעות ללקוחות. הזינו את מספר הטלפון שלכם לגישה.</p>
 			<div class="field">
 				<label class="label" for="owner-phone">מספר הטלפון שלכם</label>
-				<input class="input" id="owner-phone" type="tel" placeholder="054-7466508" autocomplete="tel">
+				<input class="input" id="owner-phone" type="tel" placeholder="05X-XXXXXXX" autocomplete="tel">
 			</div>
 			<button class="button button-primary" type="button" id="owner-unlock-button">כניסה לפאנל</button>
 			<div class="error" id="owner-gate-error">מספר הטלפון אינו תקין.</div>
@@ -226,12 +232,21 @@
 			<div class="help-box">
 				<strong>איך שולחים ללקוח?</strong><br>
 				לחצו «פתיחה ושליחה» → הזינו טלפון ושם לקוח → שליחה ב-SMS או WhatsApp.<br>
-				הלקוח יקבל קישור עם <code>access=...</code> ויוכל לפתוח רק לאחר הקשת אותו מספר טלפון.<br>
-				גישה מהירה: הוסיפו לכתובת <code>?owner=7466508</code>
+				הלקוח יקבל קישור עם <code>access=...</code> ויוכל לפתוח רק לאחר הקשת אותו מספר טלפון.
+			</div>
+			<div class="help-box" id="install-hint" style="display: none;">
+				<strong>קיצור דרך במכשיר</strong><br>
+				<button class="button button-secondary" type="button" id="install-app-button">הוספה למסך הבית</button>
+				<span id="install-app-note" style="margin-right: 8px; font-size: 9pt;">פתיחה ישירה לפאנל הצעות המחיר</span>
 			</div>
 		</div>
 	</div>
 
+	<script>
+		window.ITAY_PROPOSALS_ADMIN = window.ITAY_PROPOSALS_ADMIN || {
+			ownerAccessCode: "7466508"
+		};
+	</script>
 	<script>
 		(function () {
 			const SESSION_KEY = "itay-proposals-admin";
@@ -243,6 +258,7 @@
 			const proposalList = document.getElementById("proposal-list");
 
 			let manifest = null;
+			let registryReady = false;
 
 			function normalizePhone(value) {
 				const digits = String(value || "").replace(/\D/g, "");
@@ -252,13 +268,31 @@
 				return digits;
 			}
 
-			function getOwnerKey() {
-				return normalizePhone((manifest && manifest.ownerPhone) || "7466508");
+			let ownerAccessCode = normalizePhone(
+				(window.ITAY_PROPOSALS_ADMIN && window.ITAY_PROPOSALS_ADMIN.ownerAccessCode) || "7466508"
+			);
+
+			function getOwnerAccessCode() {
+				if (manifest && (manifest.ownerAccessCode || manifest.ownerPhone)) {
+					return normalizePhone(manifest.ownerAccessCode || manifest.ownerPhone);
+				}
+				return ownerAccessCode;
+			}
+
+			function matchesOwnerAccess(entered, expected) {
+				const a = normalizePhone(entered);
+				const b = normalizePhone(expected);
+				if (!a || !b) {
+					return false;
+				}
+				if (a === b) {
+					return true;
+				}
+				return a.endsWith(b) || b.endsWith(a);
 			}
 
 			function isOwnerAuthorized(value) {
-				const key = getOwnerKey();
-				return Boolean(key && normalizePhone(value) === key);
+				return matchesOwnerAccess(value, getOwnerAccessCode());
 			}
 
 			function showGateError(message) {
@@ -290,12 +324,13 @@
 				return false;
 			}
 
-			function buildProposalUrl(proposal, withOwner) {
-				const base = new URL(proposal.path, window.location.href);
-				if (withOwner) {
-					base.searchParams.set("owner", getOwnerKey());
-				}
-				return base.toString();
+			function buildProposalUrl(proposal) {
+				return new URL(proposal.path, window.location.href).toString();
+			}
+
+			function openProposalAsOwner(proposal) {
+				sessionStorage.setItem("itay-proposal-owner:" + proposal.id, "1");
+				window.location.href = buildProposalUrl(proposal);
 			}
 
 			function renderProposals() {
@@ -304,20 +339,39 @@
 					return;
 				}
 
+				const buildixBase = (manifest && manifest.buildixPublicBase) ? manifest.buildixPublicBase.replace(/\/$/, "") : "https://app.buildix.site";
 				proposalList.innerHTML = manifest.proposals.map(function (proposal) {
-					const openUrl = buildProposalUrl(proposal, true);
-					const clientUrl = buildProposalUrl(proposal, false);
+					const clientUrl = buildProposalUrl(proposal);
+					const quoteToken = proposal.buildix && proposal.buildix.quoteToken ? proposal.buildix.quoteToken : "";
+					const buildixUrl = quoteToken ? buildixBase + "/q/" + quoteToken : "";
+					const buildixMeta = buildixUrl
+						? '<p class="proposal-meta">Buildix: <a href="' + buildixUrl + '" target="_blank" rel="noopener noreferrer">' + buildixUrl + '</a></p>'
+						: '<p class="proposal-meta proposal-meta--warn">Buildix: לא מקושר — צרו הצעה ב-itaySolutions והדביקו quoteToken ב-registry</p>';
 					return (
 						'<article class="proposal-card">' +
 							'<h3 class="proposal-title">' + proposal.title + '</h3>' +
 							'<p class="proposal-meta">לקוח: ' + (proposal.client || "—") + ' · עודכן: ' + (proposal.updated || "—") + '</p>' +
+							buildixMeta +
 							'<div class="actions">' +
-								'<a class="button button-primary" href="' + openUrl + '">פתיחה ושליחה</a>' +
-								'<button class="button button-secondary" type="button" data-copy="' + clientUrl + '">העתקת נתיב בסיס</button>' +
+								'<button class="button button-primary" type="button" data-open-proposal="' + proposal.id + '">פתיחה ושליחה</button>' +
+								'<button class="button button-secondary" type="button" data-copy="' + clientUrl + '">העתקת קישור ללקוח</button>' +
+								(buildixUrl ? '<button class="button button-secondary" type="button" data-copy="' + buildixUrl + '">העתקת קישור Buildix</button>' : '') +
 							'</div>' +
 						'</article>'
 					);
 				}).join("");
+
+				proposalList.querySelectorAll("[data-open-proposal]").forEach(function (button) {
+					button.addEventListener("click", function () {
+						const proposalId = button.getAttribute("data-open-proposal");
+						const proposal = manifest.proposals.find(function (item) {
+							return item.id === proposalId;
+						});
+						if (proposal) {
+							openProposalAsOwner(proposal);
+						}
+					});
+				});
 
 				proposalList.querySelectorAll("[data-copy]").forEach(function (button) {
 					button.addEventListener("click", async function () {
@@ -336,16 +390,21 @@
 			}
 
 			async function init() {
+				ownerUnlockButton.disabled = true;
 				try {
-					const response = await fetch("manifest.json", { cache: "no-store" });
+					const response = await fetch("proposals-registry.json", { cache: "no-store" });
 					if (!response.ok) {
 						throw new Error("manifest_load_failed");
 					}
 					manifest = await response.json();
+					ownerAccessCode = getOwnerAccessCode();
 				} catch (error) {
-					manifest = { ownerPhone: "7466508", proposals: [] };
+					manifest = { ownerAccessCode: ownerAccessCode, proposals: [] };
 					proposalList.innerHTML = '<div class="empty-state">לא ניתן לטעון את רשימת ההצעות.</div>';
 				}
+
+				registryReady = true;
+				ownerUnlockButton.disabled = false;
 
 				if (!tryUnlockFromQuery()) {
 					ownerGate.classList.remove("is-hidden");
@@ -355,9 +414,13 @@
 
 			ownerUnlockButton.addEventListener("click", function () {
 				hideGateError();
+				if (!registryReady) {
+					showGateError("טוען הגדרות, נסו שוב בעוד רגע.");
+					return;
+				}
 				const entered = ownerPhoneInput.value.trim();
 				if (!isOwnerAuthorized(entered)) {
-					showGateError("מספר הטלפון אינו תואם. השתמשו ב-054-7466508.");
+					showGateError("מספר הטלפון אינו תואם. בדקו את המספר ונסו שוב.");
 					return;
 				}
 				unlockAdmin();
@@ -371,6 +434,44 @@
 			});
 
 			init();
+		})();
+
+		if ("serviceWorker" in navigator) {
+			window.addEventListener("load", function () {
+				navigator.serviceWorker.register("./sw.js").catch(function () {});
+			});
+		}
+
+		(function () {
+			const installHint = document.getElementById("install-hint");
+			const installButton = document.getElementById("install-app-button");
+			let deferredPrompt = null;
+
+			window.addEventListener("beforeinstallprompt", function (event) {
+				event.preventDefault();
+				deferredPrompt = event;
+				if (installHint) {
+					installHint.style.display = "block";
+				}
+			});
+
+			if (installButton) {
+				installButton.addEventListener("click", async function () {
+					if (!deferredPrompt) {
+						return;
+					}
+					deferredPrompt.prompt();
+					await deferredPrompt.userChoice;
+					deferredPrompt = null;
+					if (installHint) {
+						installHint.style.display = "none";
+					}
+				});
+			}
+
+			if (window.matchMedia("(display-mode: standalone)").matches && installHint) {
+				installHint.style.display = "none";
+			}
 		})();
 	</script>
 </body>

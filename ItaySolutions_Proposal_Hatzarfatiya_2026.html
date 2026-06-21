@@ -4,6 +4,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="robots" content="noindex, nofollow">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 	<title>הצעת מחיר והסכם שירות | TakeEat - הצרפתייה הקטנה</title>
 	<style>
 		:root {
@@ -27,7 +31,7 @@
 
 		body {
 			margin: 0;
-			font-family: "Segoe UI", Arial, sans-serif;
+			font-family: "Heebo", "Segoe UI", Arial, sans-serif;
 			background: #f5f1eb;
 			color: var(--brand-navy);
 			line-height: 1.6;
@@ -37,6 +41,7 @@
 		.page {
 			width: 210mm;
 			min-height: 297mm;
+			max-width: 100%;
 			margin: 0 auto;
 			padding: 12mm 12mm 16mm;
 			background:
@@ -45,7 +50,7 @@
 				linear-gradient(180deg, #fffefc 0%, var(--paper) 100%);
 			box-shadow: 0 10px 35px rgba(24, 34, 48, 0.10);
 			position: relative;
-			overflow: visible;
+			overflow-x: hidden;
 		}
 
 		.page::before,
@@ -75,6 +80,8 @@
 		.content {
 			position: relative;
 			z-index: 1;
+			min-width: 0;
+			max-width: 100%;
 		}
 
 		.screen-only {
@@ -175,22 +182,27 @@
 		}
 
 		.brand-lockup {
-			background: linear-gradient(145deg, rgba(255, 255, 255, 0.97), rgba(255, 248, 242, 0.96));
-			border: 1px solid rgba(232, 220, 207, 0.95);
+			background: transparent;
+			border: 1px solid rgba(232, 220, 207, 0.72);
 			border-radius: 24px;
-			padding: 16px;
-			min-height: 178px;
+			padding: 18px 16px;
+			min-height: 160px;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			gap: 8px;
+			gap: 10px;
 		}
 
 		.brand-lockup img {
 			display: block;
-			width: 100%;
+			width: auto;
 			height: auto;
+		}
+
+		.logo-transparent {
+			background: transparent;
+			mix-blend-mode: multiply;
 		}
 
 		.share-strip {
@@ -200,21 +212,41 @@
 			border-radius: 18px;
 			background: linear-gradient(135deg, rgba(255, 243, 232, 0.94), rgba(255, 255, 255, 0.95));
 			display: grid;
-			grid-template-columns: 1.5fr auto;
-			gap: 12px;
-			align-items: center;
+			grid-template-columns: 1fr;
+			gap: 14px;
+			align-items: start;
+			max-width: 100%;
+			overflow: hidden;
+		}
+
+		.share-link-box {
+			min-width: 0;
+			max-width: 100%;
 		}
 
 		.share-link-label {
 			font-size: 8.8pt;
 			color: #6b7280;
-			margin-bottom: 4px;
+			margin-bottom: 6px;
 		}
 
 		.share-link-value {
-			font-size: 10.2pt;
-			font-weight: 700;
+			display: block;
+			width: 100%;
+			max-width: 100%;
+			padding: 10px 12px;
+			border-radius: 12px;
+			background: rgba(255, 255, 255, 0.92);
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			font-size: 8.8pt;
+			font-weight: 600;
+			line-height: 1.5;
 			word-break: break-all;
+			overflow-wrap: anywhere;
+			max-height: 4.5em;
+			overflow-y: auto;
+			overflow-x: hidden;
+			white-space: normal;
 		}
 
 		.owner-panel {
@@ -223,6 +255,8 @@
 			border-radius: 18px;
 			border: 1px solid rgba(20, 108, 46, 0.22);
 			background: linear-gradient(135deg, rgba(20, 108, 46, 0.08), rgba(255, 255, 255, 0.96));
+			max-width: 100%;
+			overflow: hidden;
 		}
 
 		.owner-panel-title {
@@ -315,7 +349,9 @@
 		}
 
 		.takeeat-logo {
-			max-width: 100%;
+			max-width: min(100%, 300px);
+			max-height: 118px;
+			object-fit: contain;
 		}
 
 		.brand-caption {
@@ -510,10 +546,10 @@
 
 		.provider-signature-block {
 			margin-top: 10px;
-			padding: 12px;
+			padding: 12px 12px 10px;
 			border-radius: 16px;
-			border: 1px solid rgba(20, 108, 46, 0.14);
-			background: linear-gradient(135deg, rgba(20, 108, 46, 0.06), rgba(255,255,255,0.88));
+			border: 1px solid rgba(20, 108, 46, 0.12);
+			background: transparent;
 		}
 
 		.provider-signature-label {
@@ -524,8 +560,11 @@
 		}
 
 		.provider-signature-mark {
-			width: 100%;
+			width: auto;
+			max-width: 220px;
 			height: auto;
+			max-height: 72px;
+			object-fit: contain;
 			display: block;
 		}
 
@@ -723,37 +762,95 @@
 		}
 
 		.footer {
-			margin-top: 14px;
-			padding-top: 10px;
-			border-top: 1px solid var(--brand-line);
+			margin-top: 22px;
+			padding: 0;
+			border: 0;
+			border-radius: 20px;
+			overflow: hidden;
+			background:
+				linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 248, 242, 0.88) 100%);
+			box-shadow: 0 -6px 28px rgba(24, 34, 48, 0.06);
+		}
+
+		.footer-top-bar {
+			height: 4px;
+			background: linear-gradient(90deg, var(--brand-green) 0%, var(--brand-orange) 50%, var(--brand-green) 100%);
+		}
+
+		.footer-inner {
 			display: grid;
-			grid-template-columns: auto 1fr auto;
-			gap: 12px;
+			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 0.9fr);
+			gap: 16px 20px;
+			padding: 16px 18px 18px;
 			align-items: center;
-			color: #6b7280;
-			font-size: 8.7pt;
 		}
 
 		.footer-brand {
 			display: flex;
 			align-items: center;
-			gap: 10px;
+			gap: 12px;
 		}
 
-		.footer-brand-copy {
-			font-size: 8.6pt;
-			line-height: 1.45;
+		.footer-brand-copy strong {
+			display: block;
+			font-size: 9.8pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			line-height: 1.2;
+		}
+
+		.footer-brand-copy span {
+			display: block;
+			margin-top: 2px;
+			font-size: 8.2pt;
+			color: var(--brand-slate);
+			line-height: 1.4;
 		}
 
 		.footer-logo {
-			width: 92px;
+			width: 74px;
 			height: auto;
+			flex-shrink: 0;
+			object-fit: contain;
+		}
+
+		.footer-message {
+			text-align: center;
+			font-size: 8.5pt;
+			color: var(--brand-slate);
+			line-height: 1.55;
+			padding: 0 6px;
 		}
 
 		.footer-contact {
 			text-align: left;
+			display: flex;
+			flex-direction: column;
+			gap: 3px;
+		}
+
+		.footer-contact-label {
+			font-size: 7.8pt;
 			font-weight: 700;
+			color: #9ca3af;
+			letter-spacing: 0.2px;
+		}
+
+		.footer-contact-value {
+			font-size: 9.6pt;
+			font-weight: 800;
 			color: var(--brand-navy);
+		}
+
+		.footer-contact a {
+			color: var(--brand-orange);
+			text-decoration: none;
+			font-weight: 700;
+			font-size: 8.8pt;
+		}
+
+		.footer-contact a:hover {
+			text-decoration: underline;
 		}
 
 		@media print {
@@ -794,24 +891,42 @@
 				page-break-inside: avoid;
 			}
 
+			.print-contract > .section,
 			.section {
-				margin-top: 10px;
-				break-inside: auto;
-				page-break-inside: auto;
+				margin-top: 14px;
+				break-inside: avoid;
+				page-break-inside: avoid;
 			}
 
-			.section-title,
-			.price-card,
-			.highlight-banner,
-			.signature-box,
+			.section-title {
+				break-after: avoid;
+				page-break-after: avoid;
+			}
+
+			.pricing,
+			.services-grid,
+			.materials-list,
+			.signatures,
 			.lead-box,
 			.terms-box,
 			.materials-box,
 			.ownership-box,
+			.highlight-banner,
+			.signature-box,
 			.provider-signature-block,
+			.final-signature-card,
+			.price-card,
 			.footer {
 				break-inside: avoid;
 				page-break-inside: avoid;
+			}
+
+			.lead-box p,
+			.terms-box p,
+			.ownership-box p,
+			.line-field {
+				orphans: 3;
+				widows: 3;
 			}
 
 			.service-item,
@@ -836,9 +951,13 @@
 			.footer {
 				position: static;
 				margin-top: 16px;
-				padding-top: 12px;
+				box-shadow: none;
 				break-inside: avoid;
 				page-break-inside: avoid;
+			}
+
+			.logo-transparent {
+				mix-blend-mode: normal;
 			}
 
 			.footer a {
@@ -855,8 +974,15 @@
 			.signature-form-grid,
 			.interactive-note,
 			.signature-canvas,
-			.signature-preview {
+			.signature-preview,
+			.journey-wizard,
+			.wizard-progress,
+			.wizard-actions {
 				display: none !important;
+			}
+
+			.print-only {
+				display: block !important;
 			}
 
 			.final-signature-preview {
@@ -871,6 +997,756 @@
 			img {
 				max-width: 100%;
 			}
+		}
+
+		.print-only {
+			display: none;
+		}
+
+		.journey-wizard {
+			display: block;
+			position: relative;
+		}
+
+		.wizard-transition {
+			display: none;
+			position: absolute;
+			inset: 48px 0 0;
+			z-index: 30;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255, 253, 251, 0.92);
+			backdrop-filter: blur(5px);
+			border-radius: 20px;
+		}
+
+		.wizard-transition.is-visible {
+			display: flex;
+		}
+
+		.wizard-transition-inner {
+			text-align: center;
+			padding: 20px;
+		}
+
+		.wizard-spinner {
+			position: relative;
+			width: 76px;
+			height: 76px;
+			margin: 0 auto 12px;
+		}
+
+		.wizard-spinner-ring {
+			position: absolute;
+			inset: 0;
+			border: 3px solid rgba(255, 106, 0, 0.14);
+			border-top-color: var(--brand-orange);
+			border-left-color: var(--brand-green);
+			border-radius: 50%;
+			animation: wizardSpin 0.85s linear infinite;
+		}
+
+		.wizard-spinner-icon {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 24px;
+			color: var(--brand-orange);
+			animation: wizardSpin 1.15s linear infinite;
+		}
+
+		.wizard-transition-text {
+			font-size: 10pt;
+			font-weight: 700;
+			color: var(--brand-slate);
+		}
+
+		@keyframes wizardSpin {
+			to { transform: rotate(360deg); }
+		}
+
+		@keyframes wizardGearPulse {
+			0%, 100% { transform: scale(1); opacity: 1; }
+			50% { transform: scale(1.08); opacity: 0.85; }
+		}
+
+		.journey-wizard.is-complete .wizard-progress {
+			display: none;
+		}
+
+		.wizard-progress {
+			display: flex;
+			gap: 4px;
+			margin-bottom: 18px;
+			padding: 10px 8px;
+			border-radius: 16px;
+			background: rgba(255, 255, 255, 0.72);
+			border: 1px solid rgba(232, 220, 207, 0.9);
+			overflow-x: auto;
+		}
+
+		.wizard-progress-item {
+			flex: 1 0 72px;
+			min-width: 72px;
+			text-align: center;
+			position: relative;
+			padding: 0 2px 8px;
+			border: 0;
+			background: transparent;
+			cursor: default;
+			font: inherit;
+		}
+
+		.wizard-progress-item.is-clickable {
+			cursor: pointer;
+		}
+
+		.wizard-progress-dot {
+			width: 34px;
+			height: 34px;
+			margin: 0 auto 6px;
+			border-radius: 999px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 8pt;
+			font-weight: 800;
+			background: rgba(24, 34, 48, 0.08);
+			color: var(--brand-slate);
+			border: 2px solid transparent;
+			transition: all 0.2s ease;
+		}
+
+		.wizard-progress-dot i {
+			font-size: 12px;
+		}
+
+		.wizard-progress-item.is-active .wizard-progress-dot,
+		.wizard-progress-item.is-done .wizard-progress-dot {
+			background: linear-gradient(135deg, var(--brand-orange), #ff8533);
+			color: #fff;
+			border-color: rgba(255, 106, 0, 0.25);
+			box-shadow: 0 4px 12px rgba(255, 106, 0, 0.22);
+		}
+
+		.wizard-progress-item.is-done .wizard-progress-dot {
+			background: linear-gradient(135deg, var(--brand-green), #1a8a3f);
+			box-shadow: 0 4px 12px rgba(20, 108, 46, 0.18);
+		}
+
+		.wizard-progress-label {
+			display: block;
+			font-size: 7.2pt;
+			font-weight: 700;
+			color: #9ca3af;
+			line-height: 1.2;
+		}
+
+		.wizard-progress-item.is-active .wizard-progress-label,
+		.wizard-progress-item.is-done .wizard-progress-label {
+			color: var(--brand-navy);
+		}
+
+		.wizard-step {
+			display: none;
+			animation: wizardFadeIn 0.28s ease;
+		}
+
+		.wizard-step.is-active {
+			display: block;
+		}
+
+		@keyframes wizardFadeIn {
+			from { opacity: 0; transform: translateY(8px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.wizard-card {
+			padding: 22px 20px;
+			border-radius: 22px;
+			border: 1px solid rgba(232, 220, 207, 0.95);
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 251, 247, 0.92) 100%);
+			box-shadow: 0 8px 28px rgba(24, 34, 48, 0.06);
+		}
+
+		.w-icon {
+			width: 44px;
+			height: 44px;
+			border-radius: 14px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			font-size: 17px;
+		}
+
+		.w-icon--sm {
+			width: 36px;
+			height: 36px;
+			border-radius: 11px;
+			font-size: 14px;
+		}
+
+		.w-icon--lg {
+			width: 56px;
+			height: 56px;
+			border-radius: 18px;
+			font-size: 22px;
+		}
+
+		.w-icon--orange {
+			background: rgba(255, 106, 0, 0.12);
+			color: var(--brand-orange);
+		}
+
+		.w-icon--green {
+			background: rgba(20, 108, 46, 0.12);
+			color: var(--brand-green);
+		}
+
+		.w-icon--navy {
+			background: rgba(24, 34, 48, 0.08);
+			color: var(--brand-navy);
+		}
+
+		.wizard-step-header {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			gap: 12px;
+			margin-bottom: 18px;
+			padding-bottom: 14px;
+			border-bottom: 1px solid rgba(232, 220, 207, 0.85);
+		}
+
+		.wizard-step-header-text {
+			width: 100%;
+			max-width: 560px;
+			text-align: center;
+		}
+
+		.wizard-step-header .wizard-title {
+			margin: 0 0 4px;
+			font-size: 17pt;
+		}
+
+		.wizard-step-header .wizard-subtitle {
+			margin: 0;
+			font-size: 10pt;
+		}
+
+		.wizard-title {
+			margin: 0 0 6px;
+			font-size: 20pt;
+			line-height: 1.15;
+			color: var(--brand-navy);
+		}
+
+		.wizard-subtitle {
+			margin: 0 0 18px;
+			color: var(--brand-slate);
+			font-size: 10.5pt;
+		}
+
+		.wizard-card--welcome {
+			text-align: center;
+		}
+
+		.wizard-welcome-hero {
+			padding: 8px 0 4px;
+		}
+
+		.wizard-welcome-visual {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 14px;
+			flex-wrap: wrap;
+			margin-bottom: 16px;
+		}
+
+		.wizard-welcome-logo-wrap {
+			padding: 16px 18px;
+			border-radius: 20px;
+			border: 1px solid rgba(232, 220, 207, 0.95);
+			background: rgba(255, 255, 255, 0.82);
+			min-width: 150px;
+		}
+
+		.wizard-welcome-link {
+			width: 40px;
+			height: 40px;
+			border-radius: 999px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			font-size: 14px;
+		}
+
+		.wizard-meta-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			justify-content: center;
+			margin: 14px 0 18px;
+		}
+
+		.wizard-meta-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			padding: 7px 12px;
+			border-radius: 999px;
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			font-size: 8.8pt;
+			font-weight: 700;
+		}
+
+		.wizard-meta-pill--green {
+			background: rgba(20, 108, 46, 0.10);
+			color: var(--brand-green);
+		}
+
+		.wizard-meta-pill i {
+			font-size: 11px;
+		}
+
+		.wizard-welcome-logos {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 18px;
+			flex-wrap: wrap;
+			margin: 18px 0;
+		}
+
+		.wizard-logo-box {
+			padding: 14px 16px;
+			border-radius: 18px;
+			border: 1px dashed rgba(24, 34, 48, 0.12);
+			background: rgba(255, 255, 255, 0.65);
+			min-width: 140px;
+			text-align: center;
+		}
+
+		.wizard-logo-box img {
+			max-width: 130px;
+			max-height: 72px;
+			object-fit: contain;
+		}
+
+		.business-logo-badge {
+			width: 72px;
+			height: 72px;
+			margin: 0 auto 8px;
+			border-radius: 18px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 22pt;
+			font-weight: 800;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-green), #1a8a3f);
+		}
+
+		.wizard-chip {
+			display: inline-block;
+			padding: 6px 12px;
+			border-radius: 999px;
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			font-size: 8.8pt;
+			font-weight: 700;
+			margin-bottom: 12px;
+		}
+
+		.wizard-feature-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 12px;
+			margin: 16px auto 20px;
+			max-width: 640px;
+		}
+
+		.wizard-feature-card {
+			padding: 16px 14px;
+			border-radius: 18px;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			background: rgba(255, 255, 255, 0.88);
+			text-align: center;
+			display: grid;
+			gap: 10px;
+			justify-items: center;
+		}
+
+		.wizard-feature-icon {
+			margin: 0;
+		}
+
+		.wizard-feature-desc {
+			font-size: 8.8pt;
+			color: var(--brand-slate);
+			line-height: 1.45;
+		}
+
+		.wizard-feature-title {
+			font-size: 10.5pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+		}
+
+		.wizard-timeline {
+			display: grid;
+			gap: 10px;
+			margin: 16px auto 20px;
+			max-width: 520px;
+			position: relative;
+		}
+
+		.wizard-timeline-item {
+			display: grid;
+			grid-template-columns: 44px 1fr;
+			gap: 12px;
+			align-items: center;
+			padding: 12px 14px;
+			border-radius: 16px;
+			border: 1px solid rgba(20, 108, 46, 0.12);
+			background: rgba(255, 255, 255, 0.9);
+			position: relative;
+		}
+
+		.wizard-timeline-item:not(:last-child)::after {
+			content: "";
+			position: absolute;
+			right: 35px;
+			top: 52px;
+			width: 2px;
+			height: calc(100% - 8px);
+			background: linear-gradient(180deg, rgba(20, 108, 46, 0.28), rgba(20, 108, 46, 0.08));
+		}
+
+		.wizard-timeline-icon {
+			width: auto;
+			height: auto;
+			border-radius: 0;
+			font-size: inherit;
+			background: transparent;
+		}
+
+		.wizard-timeline-text {
+			font-size: 10.2pt;
+			font-weight: 700;
+			color: var(--brand-navy);
+			padding-top: 0;
+		}
+
+		.wizard-process {
+			display: grid;
+			gap: 0;
+			margin: 16px auto 20px;
+			max-width: 560px;
+			position: relative;
+			padding-right: 6px;
+		}
+
+		.wizard-process::before {
+			content: "";
+			position: absolute;
+			right: 29px;
+			top: 28px;
+			bottom: 28px;
+			width: 2px;
+			background: linear-gradient(180deg, var(--brand-orange), var(--brand-green));
+			border-radius: 999px;
+		}
+
+		.wizard-process-step {
+			display: grid;
+			grid-template-columns: 58px 1fr;
+			gap: 14px;
+			align-items: center;
+			padding: 12px 14px 12px 0;
+			position: relative;
+			z-index: 1;
+		}
+
+		.wizard-process-num {
+			width: 58px;
+			height: 58px;
+			border-radius: 18px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 3px;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-orange), #ff8533);
+			box-shadow: 0 6px 16px rgba(255, 106, 0, 0.22);
+		}
+
+		.wizard-process-num-label {
+			font-size: 8pt;
+			font-weight: 800;
+			opacity: 0.92;
+			line-height: 1;
+		}
+
+		.wizard-process-num i {
+			font-size: 17px;
+			line-height: 1;
+		}
+
+		.wizard-process-copy {
+			padding: 14px 16px;
+			border-radius: 18px;
+			background: linear-gradient(135deg, rgba(255, 243, 232, 0.55), rgba(255, 255, 255, 0.95));
+			border: 1px solid rgba(255, 106, 0, 0.14);
+		}
+
+		.wizard-process-text {
+			font-size: 11pt;
+			font-weight: 700;
+			color: var(--brand-navy);
+		}
+
+		.wizard-pricing-hero {
+			max-width: 420px;
+			margin: 16px auto 20px;
+			padding: 22px 20px;
+			border-radius: 22px;
+			text-align: center;
+			border: 2px solid rgba(255, 106, 0, 0.22);
+			background: linear-gradient(180deg, rgba(255, 243, 232, 0.72), rgba(255, 255, 255, 0.96));
+			box-shadow: 0 10px 30px rgba(255, 106, 0, 0.10);
+		}
+
+		.wizard-price-row {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+			margin: 14px 0;
+		}
+
+		.wizard-price-box {
+			padding: 14px 12px;
+			border-radius: 14px;
+			background: rgba(255, 255, 255, 0.88);
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			display: grid;
+			gap: 8px;
+			justify-items: center;
+		}
+
+		.wizard-price-note {
+			margin-top: 10px;
+			font-size: 9pt;
+			color: var(--brand-slate);
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			justify-content: center;
+		}
+
+		.wizard-price-note i {
+			color: var(--brand-orange);
+		}
+
+		.terms-summary-icon {
+			width: 30px;
+			height: 30px;
+			border-radius: 9px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			font-size: 12px;
+			flex-shrink: 0;
+		}
+
+		.wizard-price-label {
+			font-size: 8.5pt;
+			color: var(--brand-slate);
+			margin-bottom: 4px;
+		}
+
+		.wizard-price-value {
+			font-size: 18pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+		}
+
+		.wizard-price-note {
+			margin-top: 10px;
+			font-size: 9pt;
+			color: var(--brand-slate);
+		}
+
+		.terms-accordion {
+			display: grid;
+			gap: 10px;
+			margin: 16px 0;
+		}
+
+		.terms-accordion details {
+			border: 1px solid rgba(24, 34, 48, 0.10);
+			border-radius: 14px;
+			background: rgba(255, 255, 255, 0.92);
+			overflow: hidden;
+		}
+
+		.terms-accordion summary {
+			padding: 14px 16px;
+			font-size: 10.2pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			cursor: pointer;
+			list-style: none;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.terms-accordion summary::-webkit-details-marker {
+			display: none;
+		}
+
+		.terms-accordion summary::after {
+			content: "+";
+			margin-right: auto;
+			font-size: 14pt;
+			color: var(--brand-orange);
+		}
+
+		.terms-accordion details[open] summary::after {
+			content: "−";
+		}
+
+		.terms-accordion-body {
+			padding: 0 16px 14px;
+			font-size: 9.5pt;
+			color: var(--brand-slate);
+			line-height: 1.55;
+		}
+
+		.terms-accordion-body ul {
+			margin: 0;
+			padding-right: 18px;
+		}
+
+		.wizard-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-top: 18px;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.wizard-actions .button-primary {
+			min-width: 180px;
+		}
+
+		.wizard-success {
+			text-align: center;
+		}
+
+		.wizard-success-list,
+		.wizard-next-steps {
+			display: grid;
+			gap: 10px;
+			margin: 18px 0;
+			text-align: right;
+		}
+
+		.wizard-success-item,
+		.wizard-next-step {
+			padding: 12px 14px;
+			border-radius: 14px;
+			background: rgba(20, 108, 46, 0.08);
+			border: 1px solid rgba(20, 108, 46, 0.12);
+			font-size: 10pt;
+			font-weight: 700;
+			color: var(--brand-navy);
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.wizard-success-hero {
+			display: grid;
+			justify-items: center;
+			gap: 10px;
+			margin-bottom: 16px;
+		}
+
+		.wizard-success-ring {
+			width: 72px;
+			height: 72px;
+			border-radius: 999px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 30px;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-green), #1a8a3f);
+			box-shadow: 0 10px 28px rgba(20, 108, 46, 0.22);
+		}
+
+		.button-primary i,
+		.button-secondary i,
+		.button-ghost i {
+			margin-left: 6px;
+		}
+
+		.wizard-next-step {
+			display: grid;
+			grid-template-columns: 36px 1fr;
+			gap: 10px;
+			align-items: center;
+			background: rgba(255, 106, 0, 0.08);
+			border-color: rgba(255, 106, 0, 0.14);
+		}
+
+		.wizard-next-num {
+			width: 36px;
+			height: 36px;
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: var(--brand-orange);
+			color: #fff;
+			font-weight: 800;
+			font-size: 14px;
+		}
+
+		.wizard-signature-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 14px;
+			margin-top: 14px;
+		}
+
+		.wizard-error {
+			margin-top: 10px;
+			padding: 10px 12px;
+			border-radius: 12px;
+			font-size: 9pt;
+			display: none;
+			background: rgba(185, 28, 28, 0.08);
+			color: #991b1b;
+			border: 1px solid rgba(185, 28, 28, 0.14);
+		}
+
+		.wizard-error.is-visible {
+			display: block;
 		}
 
 		@media (max-width: 900px) {
@@ -896,8 +1772,28 @@
 				grid-template-columns: 1fr;
 			}
 
+			.footer-inner {
+				grid-template-columns: 1fr;
+				text-align: center;
+			}
+
+			.footer-brand {
+				justify-content: center;
+			}
+
 			.footer-contact {
-				text-align: right;
+				text-align: center;
+				align-items: center;
+			}
+
+			.wizard-feature-grid,
+			.wizard-signature-grid,
+			.wizard-price-row {
+				grid-template-columns: 1fr;
+			}
+
+			.wizard-progress-label {
+				font-size: 6.8pt;
 			}
 		}
 	</style>
@@ -922,7 +1818,7 @@
 		<div class="content">
 			<div class="owner-panel screen-only is-hidden" id="owner-panel">
 				<h3 class="owner-panel-title">פאנל בעל האתר — שליחת הצעה ללקוח</h3>
-				<p class="owner-panel-note">הזינו את מספר הטלפון של הלקוח. המערכת תיצור קישור מאובטח ותפתח שליחה ב-SMS או ב-WhatsApp. הלקוח יוכל לצפות במסמך רק לאחר הקשת אותו מספר טלפון. לגישת בעלים: הוסיפו לכתובת <strong>?owner=7466508</strong> (054-7466508 ללא 0)</p>
+				<p class="owner-panel-note">הזינו את מספר הטלפון של הלקוח. המערכת תיצור קישור מאובטח ותפתח שליחה ב-SMS או ב-WhatsApp. הלקוח יוכל לצפות במסמך רק לאחר הקשת אותו מספר טלפון.</p>
 				<div class="owner-form-grid">
 					<div class="form-field">
 						<label class="form-label" for="owner-client-phone">טלפון הלקוח לשליחה</label>
@@ -934,148 +1830,255 @@
 					</div>
 				</div>
 				<div class="share-strip" style="margin-top: 12px;">
-					<div>
-						<div class="share-link-label">קישור מאובטח ללקוח</div>
+					<div class="share-link-box">
+						<div class="share-link-label">קישור מאובטח ללקוח (itaysolutions.com)</div>
 						<div class="share-link-value" id="share-link-text">—</div>
+					</div>
+					<div class="share-link-box is-hidden" id="buildix-link-box" style="margin-top: 10px;">
+						<div class="share-link-label">הצעה מקושרת ב-Buildix (itaySolutions)</div>
+						<div class="share-link-value" id="buildix-link-text">—</div>
+						<p class="owner-panel-note" id="buildix-link-hint" style="margin: 8px 0 0;"></p>
 					</div>
 					<div class="owner-actions">
 						<button class="button button-primary" type="button" id="send-sms-button">שליחה ב-SMS</button>
 						<button class="button button-secondary" type="button" id="send-whatsapp-button">שליחה ב-WhatsApp</button>
 						<button class="button button-ghost" type="button" id="copy-link-button">העתקת קישור</button>
+						<button class="button button-ghost" type="button" id="reset-journey-button">איפוס מסע / נתונים שמורים</button>
 					</div>
 				</div>
 				<div class="status-box" id="owner-status-box"></div>
 			</div>
 
 			<div class="proposal-document" id="proposal-document">
-			<section class="hero">
-				<div class="hero-copy">
-					<div class="eyebrow">הצעת מחיר והסכם שירות</div>
-					<h1>מערכת הזמנות דיגיטלית <span>TakeEat</span></h1>
-					<p class="subtitle">עבור הצרפתייה הקטנה, הקמה, הטמעה ואחסון על ידי Itay Solutions.</p>
-					<div class="doc-chip-row">
-						<div class="doc-chip">מסמך אישור והזמנה</div>
-						<div class="doc-chip">טלפון שירות: 054-7466508</div>
-					</div>
+			<div class="journey-wizard screen-only" id="journey-wizard">
+				<div class="wizard-progress" id="wizard-progress" aria-label="התקדמות במסע האישור">
+					<button class="wizard-progress-item" type="button" data-step="1"><span class="wizard-progress-dot"><i class="fa-solid fa-house"></i></span><span class="wizard-progress-label">פתיחה</span></button>
+					<button class="wizard-progress-item" type="button" data-step="2"><span class="wizard-progress-dot"><i class="fa-solid fa-utensils"></i></span><span class="wizard-progress-label">פתרון</span></button>
+					<button class="wizard-progress-item" type="button" data-step="3"><span class="wizard-progress-dot"><i class="fa-solid fa-list-check"></i></span><span class="wizard-progress-label">מה כלול</span></button>
+					<button class="wizard-progress-item" type="button" data-step="4"><span class="wizard-progress-dot"><i class="fa-solid fa-route"></i></span><span class="wizard-progress-label">תהליך</span></button>
+					<button class="wizard-progress-item" type="button" data-step="5"><span class="wizard-progress-dot"><i class="fa-solid fa-tags"></i></span><span class="wizard-progress-label">מחיר</span></button>
+					<button class="wizard-progress-item" type="button" data-step="6"><span class="wizard-progress-dot"><i class="fa-solid fa-file-contract"></i></span><span class="wizard-progress-label">תנאים</span></button>
+					<button class="wizard-progress-item" type="button" data-step="7"><span class="wizard-progress-dot"><i class="fa-solid fa-signature"></i></span><span class="wizard-progress-label">חתימה</span></button>
+				</div>
 
-					<div class="meta-card">
-						<div class="meta-item">
-							<span class="meta-label">נותן השירות</span>
-							<span class="meta-value">איתי פתרונות טכנולוגיים | Itay Solutions</span>
+				<div class="wizard-transition" id="wizard-transition" aria-hidden="true">
+					<div class="wizard-transition-inner">
+						<div class="wizard-spinner" aria-hidden="true">
+							<div class="wizard-spinner-ring"></div>
+							<div class="wizard-spinner-icon"><i class="fa-solid fa-gear"></i></div>
 						</div>
-						<div class="meta-item">
-							<span class="meta-label">הלקוח</span>
-							<span class="meta-value"> תמי - הצרפתייה הקטנה</span>
+						<div class="wizard-transition-text">מעבר לשלב הבא...</div>
+					</div>
+				</div>
+
+				<section class="wizard-step is-active" data-step="1" id="wizard-step-1">
+					<div class="wizard-card wizard-card--welcome">
+						<div class="wizard-welcome-hero">
+							<div class="wizard-welcome-visual">
+								<div class="wizard-welcome-logo-wrap">
+									<img class="logo-transparent takeeat-logo" src="assets/images/takeEatLogoNew.png" alt="TakeEat">
+								</div>
+								<span class="wizard-welcome-link" aria-hidden="true"><i class="fa-solid fa-link"></i></span>
+								<div class="wizard-welcome-logo-wrap">
+									<div class="business-logo-badge" id="welcome-business-badge">הק</div>
+									<div class="brand-caption" id="welcome-business-name">הצרפתייה הקטנה</div>
+								</div>
+							</div>
+							<h2 class="wizard-title">ברוכים הבאים להצעת TakeEat</h2>
+							<p class="wizard-subtitle">הצעה עבור הצרפתייה הקטנה · מסע קצר וברור לאישור ההצעה</p>
+							<div class="wizard-meta-row">
+								<span class="wizard-meta-pill"><i class="fa-regular fa-clock"></i> זמן קריאה: כ-2 דקות</span>
+								<span class="wizard-meta-pill wizard-meta-pill--green"><i class="fa-solid fa-shoe-prints"></i> 7 שלבים מסודרים</span>
+							</div>
 						</div>
-						<div class="meta-item">
-							<span class="meta-label">זמן הקמה</span>
-							<span class="meta-value">עד 7 ימי עבודה</span>
-						</div>
-						<div class="meta-item">
-							<span class="meta-label">טלפון</span>
-							<span class="meta-value">054-7466508</span>
+						<div class="wizard-actions" style="justify-content: center;">
+							<button class="button button-primary" type="button" data-wizard-next="2"><i class="fa-solid fa-arrow-left"></i> המשך להצעה</button>
 						</div>
 					</div>
-				</div>
+				</section>
 
-				<div class="brand-lockup" aria-label="TakeEat logo header block">
-					<img class="takeeat-logo" src="assets/images/takeEatLogo.png" alt="TakeEat by Itay Solutions">
-					<div class="brand-caption">פתרון הזמנות דיגיטלי למסעדות, איסוף עצמי ומשלוחים</div>
-				</div>
-			</section>
-
-			<section class="section">
-				<h2 class="section-title">מטרת השירות</h2>
-				<div class="lead-box">
-					<p>הקמת אתר הזמנות דיגיטלי לעסק, הכולל תפריט מקוון, מערכת לקבלת הזמנות אונליין, חוויית משתמש מותאמת למובייל ותשתית שירות יציבה לניהול שוטף של פעילות ההזמנות.</p>
-				</div>
-			</section>
-
-			<section class="section">
-				<h2 class="section-title">השירות כולל</h2>
-				<div class="services-grid">
-					<div class="service-item">הקמת עמוד עסק ממותג בהתאם לשפה הוויזואלית של העסק.</div>
-					<div class="service-item">חיבור דומיין ייעודי לעסק, במידה וקיים או יירכש בנפרד.</div>
-					<div class="service-item">העלאת תפריט, מוצרים, תיאורים ומחירים.</div>
-					<div class="service-item">מערכת הזמנות אונליין לקבלת הזמנות מהלקוחות.</div>
-					<div class="service-item">התאמה מלאה למובייל ולשימוש נוח מכל מכשיר.</div>
-					<div class="service-item">ניהול מוצרים, קטגוריות ותוכן בסיסי במערכת.</div>
-					<div class="service-item">אחסון ותחזוקת המערכת במסגרת השירות החודשי.</div>
-					<div class="service-item">עדכוני מערכת שוטפים ושמירה על תקינות תפעולית.</div>
-				</div>
-			</section>
-
-			<section class="section">
-				<h2 class="section-title">עלות ולוחות זמנים</h2>
-				<div class="pricing">
-					<div class="price-card emphasis">
-						<div class="price-label">עלות הקמה</div>
-						<div class="price-value">₪2000</div>
-						<div class="price-note">תשלום חד־פעמי לפני תחילת העבודה</div>
+				<section class="wizard-step" data-step="2" id="wizard-step-2">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-utensils"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">איך המערכת תעזור לעסק</h2>
+								<p class="wizard-subtitle">TakeEat הופכת את ההזמנות לדיגיטליות, מסודרות ונגישות — מהלקוח ועד המטבח.</p>
+							</div>
+						</div>
+						<div class="wizard-feature-grid">
+							<div class="wizard-feature-card">
+								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+								<div class="wizard-feature-title">הזמנות אונליין</div>
+								<div class="wizard-feature-desc">תפריט דיגיטלי והזמנה ישירה מהלקוח</div>
+							</div>
+							<div class="wizard-feature-card">
+								<div class="w-icon w-icon--green wizard-feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+								<div class="wizard-feature-title">משלוחים ואיסוף עצמי</div>
+								<div class="wizard-feature-desc">גמישות מלאה לפי מודל העסק</div>
+							</div>
+							<div class="wizard-feature-card">
+								<div class="w-icon w-icon--navy wizard-feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+								<div class="wizard-feature-title">ניהול הזמנות במקום אחד</div>
+								<div class="wizard-feature-desc">כל ההזמנות מרוכזות במערכת אחת</div>
+							</div>
+							<div class="wizard-feature-card">
+								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+								<div class="wizard-feature-title">פחות עמלות ותלות</div>
+								<div class="wizard-feature-desc">פחות תלות בפלטפורמות חיצוניות</div>
+							</div>
+						</div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="1"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
+							<button class="button button-primary" type="button" data-wizard-next="3">הבנתי, מה מקבלים? <i class="fa-solid fa-arrow-left"></i></button>
+						</div>
 					</div>
-					<div class="price-card">
-						<div class="price-label">עלות חודשית</div>
-						<div class="price-value">₪350</div>
-						<div class="price-note">חיוב בתחילת כל חודש</div>
+				</section>
+
+				<section class="wizard-step" data-step="3" id="wizard-step-3">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--green w-icon--lg"><i class="fa-solid fa-box-open"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">מה תקבלו</h2>
+								<p class="wizard-subtitle">הכל כלול בהקמה — אתם מספקים חומרים, אנחנו מקימים ומריצים.</p>
+							</div>
+						</div>
+						<div class="wizard-timeline">
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-globe"></i></span></div><div class="wizard-timeline-text">הקמת אתר הזמנות</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-clipboard-list"></i></span></div><div class="wizard-timeline-text">העלאת תפריט</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-link"></i></span></div><div class="wizard-timeline-text">חיבור דומיין</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-mobile-screen"></i></span></div><div class="wizard-timeline-text">התאמה למובייל</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-cloud"></i></span></div><div class="wizard-timeline-text">אחסון ותחזוקה</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-rotate"></i></span></div><div class="wizard-timeline-text">עדכוני מערכת</div></div>
+						</div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="2"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
+							<button class="button button-primary" type="button" data-wizard-next="4">המשך לתהליך העבודה <i class="fa-solid fa-arrow-left"></i></button>
+						</div>
 					</div>
-					<div class="price-card">
-						<div class="price-label">זמן הקמה</div>
-						<div class="price-value">עד 7 ימים</div>
-						<div class="price-note">מקבלת כל החומרים הנדרשים</div>
+				</section>
+
+				<section class="wizard-step" data-step="4" id="wizard-step-4">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-route"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">איך זה עובד</h2>
+								<p class="wizard-subtitle">תהליך ברור מהחתימה ועד קבלת הזמנות ראשונות.</p>
+							</div>
+						</div>
+						<div class="wizard-process">
+							<div class="wizard-process-step"><div class="wizard-process-num"><span class="wizard-process-num-label">1</span><i class="fa-solid fa-folder-open"></i></div><div class="wizard-process-copy"><div class="wizard-process-text">שולחים חומרים</div></div></div>
+							<div class="wizard-process-step"><div class="wizard-process-num"><span class="wizard-process-num-label">2</span><i class="fa-solid fa-screwdriver-wrench"></i></div><div class="wizard-process-copy"><div class="wizard-process-text">אנחנו מקימים את המערכת</div></div></div>
+							<div class="wizard-process-step"><div class="wizard-process-num"><span class="wizard-process-num-label">3</span><i class="fa-solid fa-clipboard-check"></i></div><div class="wizard-process-copy"><div class="wizard-process-text">בדיקות ואישור</div></div></div>
+							<div class="wizard-process-step"><div class="wizard-process-num"><span class="wizard-process-num-label">4</span><i class="fa-solid fa-rocket"></i></div><div class="wizard-process-copy"><div class="wizard-process-text">עליה לאוויר</div></div></div>
+							<div class="wizard-process-step"><div class="wizard-process-num"><span class="wizard-process-num-label">5</span><i class="fa-solid fa-bell-concierge"></i></div><div class="wizard-process-copy"><div class="wizard-process-text">קבלת הזמנות</div></div></div>
+						</div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="3"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
+							<button class="button button-primary" type="button" data-wizard-next="5">המשך לעלות <i class="fa-solid fa-arrow-left"></i></button>
+						</div>
 					</div>
-				</div>
-			</section>
+				</section>
 
-			<section class="section">
-				<h2 class="section-title">חומרים באחריות הלקוח</h2>
-				<div class="materials-box">
-					<ul class="materials-list">
-						<li class="material-item">לוגו העסק.</li>
-						<li class="material-item">תמונות רלוונטיות של העסק או המוצרים.</li>
-						<li class="material-item">תפריט מלא ומחירים מעודכנים.</li>
-						<li class="material-item">פרטי יצירת קשר מלאים.</li>
-						<li class="material-item">אזורי משלוח או איסוף עצמי, במידת הצורך.</li>
-					</ul>
-				</div>
-			</section>
-
-			<section class="section">
-				<h2 class="section-title">תנאי תשלום</h2>
-				<div class="terms-box">
-					<ul class="terms-list">
-						<li class="service-item">תשלום ההקמה יבוצע לפני תחילת העבודה בפועל.</li>
-						<li class="service-item">התשלום החודשי ייגבה בתחילת כל חודש עבור המשך שימוש, אחסון ותחזוקה.</li>
-					</ul>
-				</div>
-			</section>
-
-			<section class="section">
-				<h2 class="section-title">בעלות, זכויות וביטול</h2>
-				<div class="ownership-box">
-					<p>מערכת ההזמנות מופעלת כשירות מתמשך על גבי תשתית TakeEat של Itay Solutions. הלקוח מקבל זכות שימוש במערכת לאורך תקופת המנוי הפעיל, בעוד שהתוכן, התמונות והלוגו של העסק נשארים בבעלות הלקוח בלבד.</p>
-					<div class="highlight-banner">
-						<strong>סעיף מהותי</strong>
-						מערכת TakeEat ותשתיותיה נשארות בבעלות Itay Solutions. הלקוח מקבל זכות שימוש במערכת כל עוד המנוי פעיל, אך אינו רוכש בעלות על הקוד, התשתיות או מנגנון המערכת.
+				<section class="wizard-step" data-step="5" id="wizard-step-5">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-tags"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">ההשקעה</h2>
+								<p class="wizard-subtitle">שקיפות מלאה — בלי הפתעות.</p>
+							</div>
+						</div>
+						<div class="wizard-pricing-hero">
+							<div class="wizard-price-row">
+								<div class="wizard-price-box">
+									<div class="w-icon w-icon--orange w-icon--sm"><i class="fa-solid fa-hammer"></i></div>
+									<div class="wizard-price-label">הקמה חד פעמית</div>
+									<div class="wizard-price-value">₪2,000</div>
+								</div>
+								<div class="wizard-price-box">
+									<div class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-calendar-check"></i></div>
+									<div class="wizard-price-label">מנוי חודשי</div>
+									<div class="wizard-price-value">₪350</div>
+								</div>
+							</div>
+							<div class="wizard-price-note"><i class="fa-regular fa-clock"></i> זמן הקמה: עד 7 ימי עבודה מקבלת כל החומרים</div>
+						</div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="4"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
+							<button class="button button-primary" type="button" data-wizard-next="6">אני מעוניין/ת להמשיך <i class="fa-solid fa-arrow-left"></i></button>
+						</div>
 					</div>
-					<div class="terms-box" style="margin-top: 12px;">
-						<ul class="terms-list">
-							<li class="service-item">ניתן להפסיק את השירות בהתראה מוקדמת של 30 יום מראש.</li>
-							<li class="service-item">תשלום ההקמה אינו מוחזר לאחר תחילת העבודה.</li>
-						</ul>
+				</section>
+
+				<section class="wizard-step" data-step="6" id="wizard-step-6">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--navy w-icon--lg"><i class="fa-solid fa-file-contract"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">לפני חתימה</h2>
+								<p class="wizard-subtitle">כדאי לעבור על התנאים החשובים — בקצרה ובבהירות.</p>
+							</div>
+						</div>
+						<div class="terms-accordion">
+							<details>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-credit-card"></i></span>תנאי תשלום</summary>
+								<div class="terms-accordion-body">
+									<ul>
+										<li>תשלום ההקמה יבוצע לפני תחילת העבודה בפועל.</li>
+										<li>התשלום החודשי ייגבה בתחילת כל חודש עבור המשך שימוש, אחסון ותחזוקה.</li>
+									</ul>
+								</div>
+							</details>
+							<details>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-images"></i></span>חומרים באחריות הלקוח</summary>
+								<div class="terms-accordion-body">
+									<ul>
+										<li>לוגו העסק, תמונות, תפריט מלא ומחירים מעודכנים.</li>
+										<li>פרטי יצירת קשר מלאים ואזורי משלוח / איסוף עצמי.</li>
+									</ul>
+								</div>
+							</details>
+							<details>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-shield-halved"></i></span>בעלות וזכויות</summary>
+								<div class="terms-accordion-body">
+									<p>מערכת TakeEat ותשתיותיה נשארות בבעלות Itay Solutions. הלקוח מקבל זכות שימוש במערכת כל עוד המנוי פעיל. התוכן, התמונות והלוגו של העסק נשארים בבעלות הלקוח.</p>
+								</div>
+							</details>
+							<details>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-ban"></i></span>ביטול שירות</summary>
+								<div class="terms-accordion-body">
+									<ul>
+										<li>ניתן להפסיק את השירות בהתראה מוקדמת של 30 יום מראש.</li>
+										<li>תשלום ההקמה אינו מוחזר לאחר תחילת העבודה.</li>
+									</ul>
+								</div>
+							</details>
+						</div>
+						<label class="check-row">
+							<input id="terms-read-checkbox" type="checkbox">
+							<span>קראתי והבנתי את התנאים</span>
+						</label>
+						<div class="wizard-error" id="wizard-terms-error">יש לסמן שקראתם והבנתם את התנאים לפני המשך.</div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="5"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
+							<button class="button button-primary" type="button" data-wizard-next="7">המשך לחתימה <i class="fa-solid fa-arrow-left"></i></button>
+						</div>
 					</div>
-				</div>
-			</section>
+				</section>
 
-			<section class="section section-signature">
-				<h2 class="section-title">פרטי אישור וחתימה</h2>
-				<div class="lead-box interactive-note screen-only">
-					<p>לאחר שליחת ההצעה ללקוח, הוא יידרש להזין את מספר הטלפון שאליו נשלח הקישור כדי לצפות במסמך, למלא פרטים ולחתום דיגיטלית. לאחר האישור ניתן להדפיס או לשמור כ־PDF מתוך הדפדפן.</p>
-				</div>
-
-				<div class="signature-form-grid screen-only">
-					<div class="signature-box">
-						<div class="signature-title">מילוי פרטי מאשר העסק</div>
-						<form id="approval-form" class="form-grid">
+				<section class="wizard-step" data-step="7" id="wizard-step-7">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--green w-icon--lg"><i class="fa-solid fa-signature"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">אישור הזמנה</h2>
+								<p class="wizard-subtitle">מלאו את הפרטים, חתמו דיגיטלית — ומתחילים הקמה.</p>
+							</div>
+						</div>
+						<form id="approval-form" class="form-grid wizard-signature-grid">
 							<div class="form-field">
 								<label class="form-label" for="business-name">שם העסק</label>
 								<input class="form-input" id="business-name" name="businessName" type="text" value="הצרפתייה הקטנה">
@@ -1093,81 +2096,192 @@
 								<input class="form-input" id="email" name="email" type="email" placeholder="name@example.com">
 							</div>
 							<div class="form-field full">
-								<label class="form-label" for="notes">הערות / פרטים נוספים</label>
-								<textarea class="form-textarea" id="notes" name="notes" placeholder="למשל: בקשה להוספת משלוחים, חיבור תפריט נוסף, הערות לחתימה"></textarea>
-							</div>
-							<div class="form-field full">
-								<label class="check-row">
-									<input id="approval-checkbox" name="approved" type="checkbox">
-									<span>אני מאשר/ת את הצעת המחיר ותנאי השירות המופיעים במסמך זה, לרבות סעיף הבעלות של מערכת TakeEat ותשתיותיה.</span>
-								</label>
+								<label class="form-label" for="notes">הערות (אופציונלי)</label>
+								<textarea class="form-textarea" id="notes" name="notes" placeholder="הערות נוספות"></textarea>
 							</div>
 						</form>
-					</div>
-
-					<div class="signature-box">
-						<div class="signature-title">חתימה דיגיטלית</div>
-						<div class="signature-pad-wrap">
-							<canvas id="signature-canvas" class="signature-canvas"></canvas>
-							<div class="signature-hint">חתמו כאן עם עכבר, אצבע או עט דיגיטלי. לאחר האישור ניתן להדפיס או לשמור כ־PDF מתוך הדפדפן.</div>
-							<div class="action-row">
-								<button class="button button-primary" type="button" id="approve-button">אישור ויצירת עותק חתום</button>
-								<button class="button button-secondary" type="button" id="print-button">הדפסה / PDF</button>
-								<button class="button button-ghost" type="button" id="clear-signature-button">ניקוי חתימה</button>
-							</div>
-							<div class="status-box" id="status-box"></div>
-							<div class="signature-preview">
-								<img id="signature-preview-image" alt="תצוגת חתימה דיגיטלית">
-								<div class="preview-meta" id="signature-preview-meta">טרם נוצר אישור חתום.</div>
+						<div class="signature-box" style="margin-top: 14px;">
+							<div class="signature-title">חתימה דיגיטלית</div>
+							<div class="signature-pad-wrap">
+								<canvas id="signature-canvas" class="signature-canvas"></canvas>
+								<div class="signature-hint">חתמו כאן עם עכבר, אצבע או עט דיגיטלי.</div>
 							</div>
 						</div>
-					</div>
-				</div>
-
-				<div class="signatures">
-					<div class="signature-box">
-						<div class="signature-title">פרטי העסק / הלקוח</div>
-						<div class="line-field">שם העסק: <span id="summary-business-name">הצרפתייה הקטנה</span></div>
-						<div class="line-field">שם החותם: <span id="summary-signer-name">__________________________</span></div>
-						<div class="line-field">טלפון: <span id="summary-phone">__________________________</span></div>
-						<div class="line-field">אימייל: <span id="summary-email">__________________________</span></div>
-						<div class="line-field">תאריך: <span id="summary-date">__________________________</span></div>
-						<div class="line-field">הערות: <span id="summary-notes">__________________________</span></div>
-					</div>
-					<div class="signature-box final-signature-card">
-						<div class="signature-title">אישור והתחייבות</div>
-						<div class="final-signature-preview">
-							<img id="final-signature-image" alt="חתימת לקוח דיגיטלית">
+						<label class="check-row" style="margin-top: 12px;">
+							<input id="approval-checkbox" name="approved" type="checkbox">
+							<span>אני מאשר/ת את הצעת המחיר ותנאי השירות, לרבות סעיף הבעלות של מערכת TakeEat.</span>
+						</label>
+						<div class="status-box" id="status-box"></div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="6">חזרה</button>
+							<button class="button button-secondary" type="button" id="clear-signature-button">ניקוי חתימה</button>
+							<button class="button button-primary" type="button" id="approve-button"><i class="fa-solid fa-rocket"></i> אשר והתחל הקמה</button>
+							<button class="button button-ghost" type="button" id="print-button">הדפסה / PDF</button>
 						</div>
-						<div class="final-signature-meta" id="final-signature-meta">טרם נחתם על ידי הלקוח.</div>
-						<div class="line-field">חתימת לקוח: <span id="summary-signature-status">__________________________</span></div>
-						<div class="provider-signature-block">
-							<div class="provider-signature-label">חתימה דיגיטלית מטעם Itay Solutions</div>
-							<img src="assets/images/itaySolutionsLogoIconOrange.png" alt="itay Solutions חתימה דיגיטלית" class="provider-signature-mark" >
-							<div class="provider-contact-line">טלפון ישיר: 054-7466508</div>
-							<div class="provider-contact-line"><a href="https://www.itaysolutions.com" target="_blank" rel="noopener noreferrer">www.itaysolutions.com</a></div>
+						<div class="signature-preview">
+							<img id="signature-preview-image" alt="תצוגת חתימה דיגיטלית">
+							<div class="preview-meta" id="signature-preview-meta">טרם נוצר אישור חתום.</div>
 						</div>
 					</div>
-				</div>
-			</section>
+				</section>
 
+				<section class="wizard-step wizard-success" data-step="success" id="wizard-step-success">
+					<div class="wizard-card">
+						<div class="wizard-success-hero">
+							<div class="wizard-success-ring"><i class="fa-solid fa-check"></i></div>
+							<h2 class="wizard-title">תודה! ההצעה אושרה בהצלחה</h2>
+							<p class="wizard-subtitle">קיבלנו את האישור והחתימה. ממשיכים לשלב ההקמה.</p>
+						</div>
+						<div class="wizard-success-list">
+							<div class="wizard-success-item"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-check"></i></span><span>חתימה התקבלה</span></div>
+							<div class="wizard-success-item"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-check"></i></span><span id="wizard-success-save-note">עותק נשמר</span></div>
+							<div class="wizard-success-item"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-check"></i></span><span>ניצור קשר תוך 24 שעות</span></div>
+						</div>
+						<h3 class="section-title" style="font-size: 12pt; margin-top: 8px;">השלב הבא</h3>
+						<div class="wizard-next-steps">
+							<div class="wizard-next-step"><span class="wizard-next-num"><i class="fa-solid fa-folder-open"></i></span><span>שליחת חומרים</span></div>
+							<div class="wizard-next-step"><span class="wizard-next-num"><i class="fa-solid fa-screwdriver-wrench"></i></span><span>הקמת המערכת</span></div>
+							<div class="wizard-next-step"><span class="wizard-next-num"><i class="fa-solid fa-clipboard-check"></i></span><span>בדיקות</span></div>
+							<div class="wizard-next-step"><span class="wizard-next-num"><i class="fa-solid fa-rocket"></i></span><span>עליה לאוויר</span></div>
+						</div>
+						<div class="wizard-actions" style="justify-content: center;">
+							<button class="button button-secondary" type="button" id="success-print-button"><i class="fa-solid fa-print"></i> הדפסה / PDF</button>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<div class="print-contract print-only">
+				<section class="hero">
+					<div class="hero-copy">
+						<div class="eyebrow">הצעת מחיר והסכם שירות</div>
+						<h1>מערכת הזמנות דיגיטלית <span>TakeEat</span></h1>
+						<p class="subtitle">עבור הצרפתייה הקטנה | Itay Solutions</p>
+					</div>
+				</section>
+
+				<section class="section">
+					<h2 class="section-title">איך המערכת תעזור לעסק</h2>
+					<div class="lead-box">
+						<p>TakeEat הופכת את ההזמנות לדיגיטליות, מסודרות ונגישות — מהלקוח ועד המטבח.</p>
+					</div>
+					<div class="services-grid" style="margin-top: 10px;">
+						<div class="service-item">הזמנות אונליין — תפריט דיגיטלי והזמנה ישירה מהלקוח</div>
+						<div class="service-item">משלוחים ואיסוף עצמי — גמישות מלאה לפי מודל העסק</div>
+						<div class="service-item">ניהול הזמנות במקום אחד — כל ההזמנות מרוכזות במערכת אחת</div>
+						<div class="service-item">פחות עמלות ותלות — פחות תלות בפלטפורמות חיצוניות</div>
+					</div>
+				</section>
+
+				<section class="section">
+					<h2 class="section-title">מה כלול בהקמה</h2>
+					<ul class="materials-list">
+						<li class="material-item">הקמת אתר הזמנות</li>
+						<li class="material-item">העלאת תפריט</li>
+						<li class="material-item">חיבור דומיין</li>
+						<li class="material-item">התאמה למובייל</li>
+						<li class="material-item">אחסון ותחזוקה</li>
+						<li class="material-item">עדכוני מערכת</li>
+					</ul>
+					<div class="highlight-banner" style="margin-top: 12px;">
+						<strong>חומרים באחריות הלקוח</strong>
+						לוגו העסק, תמונות, תפריט מלא ומחירים מעודכנים, פרטי יצירת קשר ואזורי משלוח / איסוף עצמי.
+					</div>
+				</section>
+
+				<section class="section">
+					<h2 class="section-title">תהליך העבודה</h2>
+					<ol class="terms-list" style="padding-right: 18px; list-style: decimal;">
+						<li class="material-item" style="list-style: none;">שולחים חומרים</li>
+						<li class="material-item" style="list-style: none;">אנחנו מקימים את המערכת</li>
+						<li class="material-item" style="list-style: none;">בדיקות ואישור</li>
+						<li class="material-item" style="list-style: none;">עליה לאוויר</li>
+						<li class="material-item" style="list-style: none;">קבלת הזמנות</li>
+					</ol>
+				</section>
+
+				<section class="section">
+					<h2 class="section-title">סיכום עלויות</h2>
+					<div class="pricing">
+						<div class="price-card emphasis"><div class="price-label">הקמה</div><div class="price-value">₪2,000</div></div>
+						<div class="price-card"><div class="price-label">חודשי</div><div class="price-value">₪350</div></div>
+						<div class="price-card"><div class="price-label">זמן הקמה</div><div class="price-value">עד 7 ימים</div></div>
+					</div>
+					<p class="price-note" style="margin-top: 10px; text-align: center;">זמן הקמה: עד 7 ימי עבודה מקבלת כל החומרים</p>
+				</section>
+
+				<section class="section">
+					<h2 class="section-title">תנאי שירות</h2>
+					<div class="terms-box" style="margin-bottom: 10px;">
+						<p><strong>תנאי תשלום:</strong> תשלום ההקמה לפני תחילת העבודה. המנוי החודשי בתחילת כל חודש עבור המשך שימוש, אחסון ותחזוקה.</p>
+					</div>
+					<div class="ownership-box" style="margin-bottom: 10px;">
+						<p><strong>בעלות וזכויות:</strong> מערכת TakeEat ותשתיותיה נשארות בבעלות Itay Solutions. הלקוח מקבל זכות שימוש במערכת כל עוד המנוי פעיל. התוכן, התמונות והלוגו של העסק נשארים בבעלות הלקוח.</p>
+					</div>
+					<div class="terms-box">
+						<p><strong>ביטול שירות:</strong> ניתן להפסיק את השירות בהתראה מוקדמת של 30 יום. תשלום ההקמה אינו מוחזר לאחר תחילת העבודה.</p>
+					</div>
+				</section>
+
+				<section class="section section-signature">
+					<h2 class="section-title">פרטי אישור וחתימה</h2>
+					<div class="signatures">
+						<div class="signature-box">
+							<div class="signature-title">פרטי העסק / הלקוח</div>
+							<div class="line-field">שם העסק: <span id="summary-business-name">הצרפתייה הקטנה</span></div>
+							<div class="line-field">שם החותם: <span id="summary-signer-name">__________________________</span></div>
+							<div class="line-field">טלפון: <span id="summary-phone">__________________________</span></div>
+							<div class="line-field">אימייל: <span id="summary-email">__________________________</span></div>
+							<div class="line-field">תאריך: <span id="summary-date">__________________________</span></div>
+							<div class="line-field">הערות: <span id="summary-notes">__________________________</span></div>
+						</div>
+						<div class="signature-box final-signature-card">
+							<div class="signature-title">אישור והתחייבות</div>
+							<div class="final-signature-preview">
+								<img id="final-signature-image" alt="חתימת לקוח דיגיטלית">
+							</div>
+							<div class="final-signature-meta" id="final-signature-meta">טרם נחתם על ידי הלקוח.</div>
+							<div class="line-field">חתימת לקוח: <span id="summary-signature-status">__________________________</span></div>
+							<div class="provider-signature-block">
+								<div class="provider-signature-label">חתימה דיגיטלית מטעם Itay Solutions</div>
+								<img src="assets/images/itayhatima.png" alt="itay Solutions חתימה דיגיטלית" class="provider-signature-mark logo-transparent">
+								<div class="provider-contact-line">טלפון ישיר: 054-7466508</div>
+								<div class="provider-contact-line"><a href="https://www.itaysolutions.com">www.itaysolutions.com</a></div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
 			<footer class="footer">
-				<div class="footer-brand">
-					<img class="footer-logo" src="assets/images/fulllogo_nobuffer.jpeg" alt="Itay Solutions">
-					<div class="footer-brand-copy">Itay Solutions<br>פתרונות דיגיטליים לעסקים</div>
+				<div class="footer-top-bar" aria-hidden="true"></div>
+				<div class="footer-inner">
+					<div class="footer-brand">
+						<img class="footer-logo logo-transparent" src="assets/images/logoItayS.jpeg" alt="Itay Solutions">
+						<div class="footer-brand-copy">
+							<strong>Itay Solutions</strong>
+							<span>פתרונות דיגיטליים לעסקים</span>
+						</div>
+					</div>
+					<div class="footer-message">מסמך זה מיועד לאישור הצעת המחיר והזמנת השירות עבור מערכת TakeEat.</div>
+					<div class="footer-contact">
+						<span class="footer-contact-label">יצירת קשר</span>
+						<span class="footer-contact-value">054-7466508</span>
+						<a href="https://www.itaysolutions.com" target="_blank" rel="noopener noreferrer">www.itaysolutions.com</a>
+					</div>
 				</div>
-				<div>מסמך זה מיועד לאישור הצעת המחיר והזמנת השירות עבור מערכת TakeEat.</div>
-				<div class="footer-contact">054-7466508<br><a href="https://www.itaysolutions.com" target="_blank" rel="noopener  noreferrer">www.itaysolutions.com</a></div>
 			</footer>
 			</div>
 		</div>
 	</main>
+	<script src="proposals/proposal-backend-config.js"></script>
 	<script>
 		window.ITAY_PROPOSAL_CONFIG = window.ITAY_PROPOSAL_CONFIG || {
 			proposalId: "takeeat-hatzarfatiya-2026",
 			hostedPath: "https://www.itaysolutions.com/proposals/takeeat-hatzarfatiya-2026",
 			ownerKey: "7466508",
-			accessSalt: "itay-proposals-2026"
+			accessSalt: "itay-proposals-2026",
+			submitUrl: window.PROPOSAL_SUBMIT_URL || "",
+			buildixQuoteToken: ""
 		};
 	</script>
 	<script>
@@ -1180,6 +2294,9 @@
 			const accessStorageKey = "takeeat-proposal-access:" + proposalId;
 			const unlockSessionKey = "takeeat-proposal-unlocked:" + proposalId;
 			const submitUrl = config.submitUrl || window.PROPOSAL_SUBMIT_URL || "";
+			const submitApiKey = config.submitApiKey || window.PROPOSAL_SUBMIT_API_KEY || "";
+			let buildixQuoteToken = config.buildixQuoteToken || "";
+			let buildixPublicBase = "https://app.buildix.site";
 			const smsApiUrl = config.smsApiUrl || window.PROPOSAL_SMS_API_URL || "";
 
 			const accessGate = document.getElementById("access-gate");
@@ -1192,6 +2309,7 @@
 			const ownerStatusBox = document.getElementById("owner-status-box");
 			const sendSmsButton = document.getElementById("send-sms-button");
 			const sendWhatsappButton = document.getElementById("send-whatsapp-button");
+			const resetJourneyButton = document.getElementById("reset-journey-button");
 			const proposalDocument = document.getElementById("proposal-document");
 
 			const form = document.getElementById("approval-form");
@@ -1206,6 +2324,9 @@
 			const printButton = document.getElementById("print-button");
 			const clearSignatureButton = document.getElementById("clear-signature-button");
 			const shareLinkText = document.getElementById("share-link-text");
+			const buildixLinkBox = document.getElementById("buildix-link-box");
+			const buildixLinkText = document.getElementById("buildix-link-text");
+			const buildixLinkHint = document.getElementById("buildix-link-hint");
 			const statusBox = document.getElementById("status-box");
 			const signatureCanvas = document.getElementById("signature-canvas");
 			const signaturePreviewImage = document.getElementById("signature-preview-image");
@@ -1221,6 +2342,22 @@
 			const summaryEmail = document.getElementById("summary-email");
 			const summaryNotes = document.getElementById("summary-notes");
 
+			const journeyWizard = document.getElementById("journey-wizard");
+			const wizardProgress = document.getElementById("wizard-progress");
+			const wizardTransition = document.getElementById("wizard-transition");
+			const WIZARD_TRANSITION_MS = 520;
+			const wizardSteps = journeyWizard ? journeyWizard.querySelectorAll(".wizard-step") : [];
+			const wizardProgressItems = wizardProgress ? wizardProgress.querySelectorAll(".wizard-progress-item") : [];
+			const termsReadCheckbox = document.getElementById("terms-read-checkbox");
+			const wizardTermsError = document.getElementById("wizard-terms-error");
+			const welcomeBusinessName = document.getElementById("welcome-business-name");
+			const welcomeBusinessBadge = document.getElementById("welcome-business-badge");
+			const successPrintButton = document.getElementById("success-print-button");
+			const wizardSuccessSaveNote = document.getElementById("wizard-success-save-note");
+			const wizardStepKey = "takeeat-proposal-wizard-step:" + proposalId;
+			let currentWizardStep = 1;
+			let maxWizardStep = 1;
+
 			const context = signatureCanvas.getContext("2d");
 			let strokes = [];
 			let currentStroke = null;
@@ -1229,6 +2366,209 @@
 			let authorizedPhone = "";
 			let isOwnerMode = false;
 			let isUnlocked = false;
+
+			function updateWelcomeBusiness() {
+				const name = businessNameInput.value.trim() || "הצרפתייה הקטנה";
+				if (welcomeBusinessName) {
+					welcomeBusinessName.textContent = name;
+				}
+				if (welcomeBusinessBadge) {
+					const parts = name.split(/\s+/).filter(Boolean);
+					const initials = parts.slice(0, 2).map(function (part) {
+						return part.charAt(0);
+					}).join("");
+					welcomeBusinessBadge.textContent = initials || "עסק";
+				}
+			}
+
+			function updateWizardProgress(step) {
+				wizardProgressItems.forEach(function (item) {
+					const itemStep = Number(item.getAttribute("data-step"));
+					const isSuccess = step === "success";
+					const numericStep = isSuccess ? 8 : Number(step);
+					item.classList.toggle("is-active", !isSuccess && itemStep === numericStep);
+					item.classList.toggle("is-done", itemStep < numericStep || isSuccess);
+					const clickable = isOwnerMode || itemStep <= maxWizardStep;
+					item.classList.toggle("is-clickable", clickable);
+					item.disabled = !clickable;
+				});
+			}
+
+			function applyWizardStep(step) {
+				if (!journeyWizard) {
+					return;
+				}
+				currentWizardStep = step;
+				wizardSteps.forEach(function (wizardStep) {
+					const stepName = wizardStep.getAttribute("data-step");
+					const isActive = stepName === String(step) || (step === "success" && stepName === "success");
+					wizardStep.classList.toggle("is-active", isActive);
+				});
+				if (typeof step === "number") {
+					maxWizardStep = Math.max(maxWizardStep, step);
+					sessionStorage.setItem(wizardStepKey, String(step));
+				}
+				updateWizardProgress(step);
+				if (step === 7) {
+					setTimeout(resizeCanvas, 60);
+				}
+				if (step === "success" && journeyWizard) {
+					journeyWizard.classList.add("is-complete");
+				}
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			}
+
+			function goToWizardStep(step, options) {
+				options = options || {};
+				const skipTransition = options.skipTransition === true;
+
+				if (!journeyWizard) {
+					return;
+				}
+
+				if (skipTransition || step === currentWizardStep || !wizardTransition) {
+					applyWizardStep(step);
+					return;
+				}
+
+				wizardTransition.classList.add("is-visible");
+				wizardTransition.setAttribute("aria-hidden", "false");
+
+				window.setTimeout(function () {
+					applyWizardStep(step);
+					wizardTransition.classList.remove("is-visible");
+					wizardTransition.setAttribute("aria-hidden", "true");
+				}, WIZARD_TRANSITION_MS);
+			}
+
+			function showWizardTermsError(message) {
+				if (!wizardTermsError) {
+					return;
+				}
+				wizardTermsError.textContent = message;
+				wizardTermsError.classList.add("is-visible");
+			}
+
+			function hideWizardTermsError() {
+				if (wizardTermsError) {
+					wizardTermsError.classList.remove("is-visible");
+				}
+			}
+
+			function tryWizardNext(targetStep) {
+				if (currentWizardStep === 6 && targetStep === 7 && termsReadCheckbox && !termsReadCheckbox.checked) {
+					showWizardTermsError("יש לסמן שקראתם והבנתם את התנאים לפני המשך.");
+					return;
+				}
+				hideWizardTermsError();
+				goToWizardStep(targetStep);
+			}
+
+			function initWizardNavigation() {
+				if (!journeyWizard) {
+					return;
+				}
+
+				journeyWizard.querySelectorAll("[data-wizard-next]").forEach(function (button) {
+					button.addEventListener("click", function () {
+						tryWizardNext(Number(button.getAttribute("data-wizard-next")));
+					});
+				});
+
+				journeyWizard.querySelectorAll("[data-wizard-back]").forEach(function (button) {
+					button.addEventListener("click", function () {
+						hideWizardTermsError();
+						goToWizardStep(Number(button.getAttribute("data-wizard-back")));
+					});
+				});
+
+				wizardProgressItems.forEach(function (item) {
+					item.addEventListener("click", function () {
+						const step = Number(item.getAttribute("data-step"));
+						if (isOwnerMode || step <= maxWizardStep) {
+							hideWizardTermsError();
+							goToWizardStep(step);
+						}
+					});
+				});
+
+				if (termsReadCheckbox) {
+					termsReadCheckbox.addEventListener("change", hideWizardTermsError);
+				}
+
+				if (successPrintButton) {
+					successPrintButton.addEventListener("click", function () {
+						prepareForPrint();
+						window.print();
+					});
+				}
+			}
+
+			function initWizardState() {
+				if (!journeyWizard) {
+					return;
+				}
+				updateWelcomeBusiness();
+				if (isOwnerMode) {
+					maxWizardStep = 7;
+					goToWizardStep(1, { skipTransition: true });
+					return;
+				}
+				const stored = loadStoredData();
+				if (shouldShowCompletedState(stored)) {
+					goToWizardStep("success", { skipTransition: true });
+					return;
+				}
+				const savedStep = Number(sessionStorage.getItem(wizardStepKey) || "1");
+				goToWizardStep(Math.min(Math.max(savedStep, 1), 7), { skipTransition: true });
+			}
+
+			function showWizardSuccess() {
+				goToWizardStep("success");
+			}
+
+			function isApprovalComplete(data) {
+				if (!data || !data.approved) {
+					return false;
+				}
+				if (!String(data.signerName || "").trim()) {
+					return false;
+				}
+				if (!String(data.signedAt || "").trim()) {
+					return false;
+				}
+				const signature = String(data.signatureDataUrl || "");
+				if (!signature.startsWith("data:image/") || signature.length < 120) {
+					return false;
+				}
+				return true;
+			}
+
+			function shouldShowCompletedState(data) {
+				if (isOwnerMode || !isApprovalComplete(data)) {
+					return false;
+				}
+				const storedPhone = normalizePhone(data.phone);
+				const sessionPhone = normalizePhone(phoneInput.value) || authorizedPhone;
+				if (storedPhone && sessionPhone) {
+					return phonesMatch(storedPhone, sessionPhone);
+				}
+				return Boolean(getAccessTokenFromUrl());
+			}
+
+			function resetProposalJourney() {
+				localStorage.removeItem(storageKey);
+				sessionStorage.removeItem(wizardStepKey);
+				sessionStorage.removeItem(unlockSessionKey);
+				signedImageDataUrl = "";
+				signedAtValue = "";
+				maxWizardStep = 1;
+				currentWizardStep = 1;
+				if (journeyWizard) {
+					journeyWizard.classList.remove("is-complete");
+				}
+				window.location.href = window.location.pathname + (isOwnerMode ? "?owner=" + ownerKey : "");
+			}
 
 			function normalizePhone(value) {
 				const digits = String(value || "").replace(/\D/g, "");
@@ -1277,13 +2617,31 @@
 				return Boolean(a && b && a === b);
 			}
 
-			function isOwnerSession() {
-				const params = new URLSearchParams(window.location.search);
-				const ownerParam = params.get("owner");
-				if (ownerParam && phonesMatch(ownerParam, ownerKey)) {
+			function matchesOwnerKey(entered, expected) {
+				const a = normalizePhone(entered);
+				const b = normalizePhone(expected);
+				if (!a || !b) {
+					return false;
+				}
+				if (a === b) {
 					return true;
 				}
-				return sessionStorage.getItem("itay-proposal-owner:" + proposalId) === "1";
+				return a.endsWith(b) || b.endsWith(a);
+			}
+
+			function isOwnerSession() {
+				if (sessionStorage.getItem("itay-proposals-admin") === "1") {
+					return true;
+				}
+				if (sessionStorage.getItem("itay-proposal-owner:" + proposalId) === "1") {
+					return true;
+				}
+				const params = new URLSearchParams(window.location.search);
+				const ownerParam = params.get("owner");
+				if (ownerParam && matchesOwnerKey(ownerParam, ownerKey)) {
+					return true;
+				}
+				return false;
 			}
 
 			function loadAuthorizedPhone() {
@@ -1664,23 +3022,85 @@
 				emailInput.value = data.email || "";
 				notesInput.value = data.notes || "";
 				approvalCheckbox.checked = Boolean(data.approved);
-				signedImageDataUrl = data.signatureDataUrl || "";
-				signedAtValue = data.signedAt || "";
+				if (isApprovalComplete(data)) {
+					signedImageDataUrl = data.signatureDataUrl || "";
+					signedAtValue = data.signedAt || "";
+				} else {
+					signedImageDataUrl = "";
+					signedAtValue = "";
+				}
 				updateShareUrlFromForm();
 				updateSummary(data.signedAt || "");
 				updateSignaturePreview(data.signedAt || "");
+				if (shouldShowCompletedState(data)) {
+					goToWizardStep("success", { skipTransition: true });
+				}
+			}
+
+			async function loadProposalManifest() {
+				try {
+					const manifestUrl = new URL("proposals/proposals-registry.json", window.location.href).href;
+					const response = await fetch(manifestUrl, { cache: "no-store" });
+					if (!response.ok) {
+						return;
+					}
+					const manifest = await response.json();
+					if (manifest.buildixPublicBase) {
+						buildixPublicBase = manifest.buildixPublicBase;
+					}
+					const entry = (manifest.proposals || []).find(function (item) {
+						return item.id === proposalId;
+					});
+					if (entry && entry.buildix && entry.buildix.quoteToken) {
+						buildixQuoteToken = entry.buildix.quoteToken;
+					}
+					updateBuildixOwnerLinks(entry);
+				} catch (error) {
+					updateBuildixOwnerLinks(null);
+				}
+			}
+
+			function updateBuildixOwnerLinks(entry) {
+				if (!buildixLinkBox || !buildixLinkText) {
+					return;
+				}
+				if (buildixQuoteToken) {
+					const buildixUrl = buildixPublicBase.replace(/\/$/, "") + "/q/" + buildixQuoteToken;
+					buildixLinkBox.classList.remove("is-hidden");
+					buildixLinkText.textContent = buildixUrl;
+					if (buildixLinkHint) {
+						buildixLinkHint.textContent = "בחתימה בדף זה — ההצעה תאושר אוטומטית ב-Buildix תחת itaySolutions.";
+					}
+					return;
+				}
+				buildixLinkBox.classList.remove("is-hidden");
+				buildixLinkText.textContent = "לא מקושר — צרו הצעה ב-Buildix והדביקו quoteToken ב-proposals-registry.json";
+				if (buildixLinkHint && entry && entry.buildix && entry.buildix.clientHint) {
+					buildixLinkHint.textContent = entry.buildix.clientHint;
+				}
 			}
 
 			async function submitApproval(payload) {
 				if (!submitUrl) {
-					return false;
+					return { sent: false, quoteSynced: false };
+				}
+
+				if (buildixQuoteToken) {
+					payload.quoteToken = buildixQuoteToken;
+				}
+
+				const headers = {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				};
+
+				if (submitApiKey) {
+					headers["X-Proposal-Api-Key"] = submitApiKey;
 				}
 
 				const response = await fetch(submitUrl, {
 					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
+					headers: headers,
 					body: JSON.stringify(payload)
 				});
 
@@ -1688,7 +3108,17 @@
 					throw new Error("submit_failed");
 				}
 
-				return true;
+				let body = null;
+				try {
+					body = await response.json();
+				} catch (error) {
+					body = null;
+				}
+
+				return {
+					sent: true,
+					quoteSynced: Boolean(body && body.quote && body.quote.status === "approved")
+				};
 			}
 
 			async function approveProposal() {
@@ -1714,6 +3144,7 @@
 				signedAtValue = signedAt;
 
 				const payload = {
+					proposalId: proposalId,
 					businessName: businessNameInput.value.trim(),
 					signerName: signerNameInput.value.trim(),
 					phone: phoneInput.value.trim(),
@@ -1730,14 +3161,31 @@
 				updateSignaturePreview(signedAt);
 
 				try {
-					const sent = await submitApproval(payload);
-					if (sent) {
-						setStatus("האישור נשמר ונשלח לשרת בהצלחה.", "success");
+					const result = await submitApproval(payload);
+					if (wizardSuccessSaveNote) {
+						if (result.quoteSynced) {
+							wizardSuccessSaveNote.textContent = "ההצעה אושרה ב-Buildix (itaySolutions)";
+						} else if (result.sent) {
+							wizardSuccessSaveNote.textContent = "עותק נשמר בשרת";
+						} else {
+							wizardSuccessSaveNote.textContent = "עותק נשמר בדפדפן שלך";
+						}
+					}
+					if (result.sent) {
+						setStatus(
+							result.quoteSynced
+								? "האישור נשמר וההצעה אושרה ב-Buildix."
+								: "האישור נשמר ונשלח לשרת בהצלחה.",
+							"success"
+						);
+						showWizardSuccess();
 						return;
 					}
-					setStatus("האישור נשמר בדפדפן ונוצר עותק חתום. כדי לשמור מסמך סופי, לחץ על הדפסה / PDF.", "success");
+					setStatus("האישור נשמר בדפדפן. אפשר להדפיס או לשמור כ-PDF.", "success");
+					showWizardSuccess();
 				} catch (error) {
 					setStatus("האישור נשמר מקומית, אך לא נשלח לשרת. אפשר עדיין להדפיס או לשמור כ-PDF.", "error");
+					showWizardSuccess();
 				}
 			}
 
@@ -1772,6 +3220,14 @@
 			if (sendWhatsappButton) {
 				sendWhatsappButton.addEventListener("click", function () {
 					sendProposalToClient("whatsapp");
+				});
+			}
+
+			if (resetJourneyButton) {
+				resetJourneyButton.addEventListener("click", function () {
+					if (window.confirm("לאפס את המסע ולמחוק נתונים שמורים (טיוטה / אישור) בדפדפן הזה?")) {
+						resetProposalJourney();
+					}
 				});
 			}
 
@@ -1837,6 +3293,7 @@
 			[businessNameInput, signerNameInput, phoneInput, emailInput, notesInput].forEach(function (element) {
 				element.addEventListener("input", function () {
 					updateShareUrlFromForm();
+					updateWelcomeBusiness();
 					updateSummary(summaryDate.textContent.trim() === "__________________________" ? "" : summaryDate.textContent.trim());
 				});
 			});
@@ -1860,10 +3317,15 @@
 			}
 
 			fillFromQuery();
+			void loadProposalManifest();
+			initWizardNavigation();
 			applyStoredData(loadStoredData());
 			updateShareUrlFromForm();
 			updateSummary(signedAtValue);
 			lockDocument();
+			if (!shouldShowCompletedState(loadStoredData())) {
+				initWizardState();
+			}
 			if (isUnlocked) {
 				resizeCanvas();
 			}

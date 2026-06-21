@@ -1,0 +1,57 @@
+# External proposal approvals — implemented in Buildix
+
+The Laravel backend lives in Buildix, not in PortfolioReact.
+
+## Endpoint
+
+POST `/api/proposals/approve`
+
+Production URL:
+
+https://app.buildix.site/api/proposals/approve
+
+## Buildix files added
+
+- `backend/database/migrations/2026_06_23_100000_create_proposal_approvals_table.php`
+- `backend/app/Models/ProposalApproval.php`
+- `backend/app/Http/Controllers/Api/ProposalApprovalController.php`
+- `backend/app/Mail/ExternalProposalApprovedMail.php`
+- `backend/resources/views/mail/external-proposal-approved.blade.php`
+- Route in `backend/routes/api.php`
+
+## Deploy on VPS
+
+```bash
+cd backend
+php artisan migrate
+# set .env:
+# BUILDIX_EXTERNAL_PROPOSAL_NOTIFY_EMAIL=itay@itaysolutions.com
+# BUILDIX_EXTERNAL_PROPOSAL_ORIGINS=https://www.itaysolutions.com,https://itaysolutions.com
+```
+
+## Connect PortfolioReact
+
+Edit `proposals/proposal-backend-config.js`:
+
+```javascript
+window.PROPOSAL_SUBMIT_URL = "https://app.buildix.site/api/proposals/approve";
+```
+
+Optional shared secret (both sides):
+
+```javascript
+window.PROPOSAL_SUBMIT_API_KEY = "your-secret";
+```
+
+Buildix `.env`:
+
+```
+BUILDIX_EXTERNAL_PROPOSAL_API_KEY=your-secret
+```
+
+## Data
+
+MySQL table: `proposal_approvals`
+Email: `itay@itaysolutions.com` (via TransactionalEmailService + outbound log)
+
+The duplicate PHP snippets in this folder are reference-only; Buildix is the source of truth.

@@ -377,8 +377,8 @@ const FeaturedWork = () => {
             ctaText: 'צפו במערכת'
         },
         {
-            id: 'appointix',
-            title: 'Appointix',
+            id: 'appointed',
+            title: 'Appointed',
             subtitle: 'מערכת ניהול תורים לעסקים',
             typeLabel: 'מוצר · SaaS',
             image: 'assets/images/appointedCloud.png',
@@ -568,7 +568,7 @@ const TrustSection = () => {
         { name: 'בר בן אבו', image: 'assets/images/barLogo.png' },
         { name: 'TakeEat', image: 'assets/images/takeEatLogo.png' },
         { name: 'Buildix', image: 'assets/images/buildixLogo.png' },
-        { name: 'Appointix', image: 'assets/images/appointedCloud.png' }
+        { name: 'Appointed', image: 'assets/images/appointedCloud.png' }
     ];
 
     return (

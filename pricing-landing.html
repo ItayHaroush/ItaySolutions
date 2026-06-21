@@ -399,17 +399,22 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Babel for JSX (pinned — v8+ defaults to automatic JSX runtime which breaks inline scripts) -->
+    <script src="https://unpkg.com/@babel/standalone@7.26.9/babel.min.js"></script>
+    <script>
+        Babel.registerPreset('react-classic', {
+            presets: [[Babel.availablePresets.react, { runtime: 'classic' }]],
+        });
+    </script>
     
     <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     
     <!-- Pricing Component -->
-    <script type="text/babel" src="assets/js/PricingQuote.js"></script>
+    <script type="text/babel" data-presets="react-classic" src="assets/js/PricingQuote.js"></script>
 
     <!-- Contact Component (copied from main app) -->
-    <script type="text/babel">
+    <script type="text/babel" data-presets="react-classic">
         const CONTACT_EMAIL = 'itay@itaysolutions.com';
         const getMailtoUrl = (subject) => `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject || 'פנייה מ-Itay Solutions')}`;
 
@@ -686,8 +691,7 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
         };
     </script>
     
-    <script type="text/babel">
-        // Initialize AOS
+    <script type="text/babel" data-presets="react-classic">
         AOS.init({
             duration: 1000,
             once: true,

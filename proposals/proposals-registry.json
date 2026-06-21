@@ -1,8 +1,9 @@
 {
-  "ownerPhone": "7466508",
+  "ownerAccessCode": "7466508",
   "ownerPhoneDisplay": "054-7466508",
   "siteOrigin": "https://www.itaysolutions.com",
   "accessSalt": "itay-proposals-2026",
+  "buildixPublicBase": "https://app.buildix.site",
   "proposals": [
     {
       "id": "takeeat-hatzarfatiya-2026",
@@ -11,7 +12,11 @@
       "business": "הצרפתייה הקטנה",
       "path": "takeeat-hatzarfatiya-2026/",
       "updated": "2026-06-21",
-      "status": "active"
+      "status": "active",
+      "buildix": {
+        "quoteToken": "xkzxcwrhbxusscbxunsdk43quu7hjoza",
+        "clientHint": "מקושר להצעה ב-Buildix — חתימה ב-itaysolutions.com מאשרת גם בפלטפורמה"
+      }
     }
   ]
 }
