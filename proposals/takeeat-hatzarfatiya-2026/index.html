@@ -3555,7 +3555,8 @@
 				});
 
 				if (!response.ok) {
-					throw new Error("submit_failed");
+					const message = await readApiError(response);
+					throw new Error(message || "submit_failed");
 				}
 
 				let body = null;
@@ -3611,7 +3612,12 @@
 				approveButton.disabled = true;
 				setStatus("מכין מסמך מלא לצירוף ל-Buildix...", "success");
 
-				const documentPayload = buildProposalDocumentPayload();
+				const documentPayload = await buildProposalDocumentPayload();
+				if (!documentPayload || !documentPayload.proposalHtml) {
+					setStatus("לא הצליח להכין את המסמך לצירוף. נסו שוב.", "error");
+					approveButton.disabled = false;
+					return;
+				}
 
 				const payload = {
 					proposalId: proposalId,
@@ -3624,8 +3630,8 @@
 					signedAt: signedAt,
 					signatureDataUrl: signedImageDataUrl,
 					shareUrl: buildShareUrlForApproval(),
-					proposalHtml: documentPayload ? documentPayload.proposalHtml : undefined,
-					proposalCss: documentPayload ? documentPayload.proposalCss : undefined
+					proposalHtml: documentPayload.proposalHtml,
+					proposalCss: documentPayload.proposalCss
 				};
 
 				setStatus("שולח אישור ומצרף PDF לסוף ההצעה ב-Buildix...", "success");
@@ -3664,7 +3670,10 @@
 					setStatus("האישור נשמר בדפדפן. אפשר להדפיס או לשמור כ-PDF.", "success");
 					showWizardSuccess();
 				} catch (error) {
-					setStatus("האישור נשמר מקומית, אך לא נשלח לשרת. אפשר עדיין להדפיס או לשמור כ-PDF.", "error");
+					const detail = error && error.message && error.message !== "submit_failed"
+						? " (" + error.message + ")"
+						: "";
+					setStatus("האישור נשמר מקומית, אך לא נשלח לשרת" + detail + ".", "error");
 					showWizardSuccess();
 				} finally {
 					approveButton.disabled = false;
@@ -3809,46 +3818,52 @@
 				const page = printBlock.closest(".page");
 				const footer = page ? page.querySelector(".footer") : document.querySelector(".footer");
 				const wrapper = document.createElement("div");
-				wrapper.className = "pdf-export-root";
+				wrapper.className = "proposal-attachment-export";
 				wrapper.setAttribute("dir", "rtl");
-				wrapper.style.cssText = [
-					"position: fixed",
-					"left: -10000px",
-					"top: 0",
-					"width: 190mm",
-					"background: #fffdfb",
-					"color: #182230",
-					"font-family: Heebo, Segoe UI, Arial, sans-serif",
-					"line-height: 1.6",
-					"padding: 0",
-					"z-index: -1"
-				].join(";");
-
-				const styleNode = document.createElement("style");
-				styleNode.textContent = Array.from(document.querySelectorAll("style"))
-					.map(function (node) { return node.textContent || ""; })
-					.join("\n");
-				wrapper.appendChild(styleNode);
 
 				const contractClone = printBlock.cloneNode(true);
 				contractClone.classList.remove("print-only");
-				contractClone.style.display = "block";
 				wrapper.appendChild(contractClone);
 
 				if (footer) {
-					const footerClone = footer.cloneNode(true);
-					footerClone.style.marginTop = "16px";
-					wrapper.appendChild(footerClone);
+					wrapper.appendChild(footer.cloneNode(true));
 				}
 
-				document.body.appendChild(wrapper);
 				return wrapper;
 			}
 
-			function collectProposalCss() {
-				return Array.from(document.querySelectorAll("style"))
-					.map(function (node) { return node.textContent || ""; })
-					.join("\n");
+			async function embedImagesAsDataUrl(root) {
+				const images = root.querySelectorAll("img");
+				await Promise.all(Array.from(images).map(function (img) {
+					const src = img.getAttribute("src");
+					if (!src || src.indexOf("data:") === 0) {
+						return Promise.resolve();
+					}
+					const absolute = new URL(src, window.location.href).href;
+					return fetch(absolute, { mode: "cors", cache: "force-cache" })
+						.then(function (response) {
+							if (!response.ok) {
+								throw new Error("image_fetch_failed");
+							}
+							return response.blob();
+						})
+						.then(function (blob) {
+							return new Promise(function (resolve) {
+								const reader = new FileReader();
+								reader.onload = function () {
+									if (typeof reader.result === "string") {
+										img.setAttribute("src", reader.result);
+									}
+									resolve();
+								};
+								reader.onerror = resolve;
+								reader.readAsDataURL(blob);
+							});
+						})
+						.catch(function () {
+							img.setAttribute("src", absolute);
+						});
+				}));
 			}
 
 			function absolutizeImages(root) {
@@ -3864,7 +3879,7 @@
 				});
 			}
 
-			function buildProposalDocumentPayload() {
+			async function buildProposalDocumentPayload() {
 				prepareForPrint();
 				const wrapper = buildPdfExportRoot();
 				if (!wrapper) {
@@ -3872,12 +3887,12 @@
 				}
 
 				absolutizeImages(wrapper);
-				const payload = {
+				await embedImagesAsDataUrl(wrapper);
+
+				return {
 					proposalHtml: wrapper.innerHTML,
-					proposalCss: collectProposalCss()
+					proposalCss: ""
 				};
-				wrapper.remove();
-				return payload;
 			}
 
 			async function readApiError(response) {
@@ -3918,9 +3933,9 @@
 					return { ok: true, cached: true };
 				}
 
-				const documentPayload = buildProposalDocumentPayload();
+				const documentPayload = await buildProposalDocumentPayload();
 				if (!documentPayload || !documentPayload.proposalHtml) {
-					return { ok: false, generated: false };
+					return { ok: false, generated: false, error: "empty_document" };
 				}
 
 				const headers = {
@@ -3998,10 +4013,12 @@
 				}
 				if (isOwnerMode && buildixQuoteToken) {
 					try {
-						const attachResult = await syncProposalPdfToBuildix({ showStatus: true, force: true });
+						const attachResult = await syncProposalPdfToBuildix({ force: true });
 						if (!attachResult.ok && !attachResult.cached) {
 							const detail = attachResult.error ? " (" + attachResult.error + ")" : "";
-							setOwnerStatus("לא הצליח לצרף PDF ל-Buildix" + detail + ". ודאו deploy ל-Buildix.", "error");
+							setOwnerStatus("לא הצליח לצרף PDF ל-Buildix" + detail + ".", "error");
+						} else if (attachResult.uploaded) {
+							setOwnerStatus("מסמך PDF מלא צורף לסוף ההצעה ב-Buildix.", "success");
 						}
 					} catch (error) {
 						setOwnerStatus("לא הצליח לצרף PDF ל-Buildix. אפשר לנסות שוב אחרי רענון.", "error");
