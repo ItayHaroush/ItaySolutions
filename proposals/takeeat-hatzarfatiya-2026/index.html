@@ -2343,7 +2343,6 @@
 			</div>
 		</div>
 	</main>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="../proposal-backend-config.js"></script>
 	<script>
 		window.ITAY_PROPOSAL_CONFIG = window.ITAY_PROPOSAL_CONFIG || {
@@ -3610,14 +3609,9 @@
 				updateSignaturePreview(signedAt);
 
 				approveButton.disabled = true;
-				setStatus("מייצר מסמך PDF עם כל פרטי ההצעה...", "success");
+				setStatus("מכין מסמך מלא לצירוף ל-Buildix...", "success");
 
-				let proposalPdfDataUrl = null;
-				try {
-					proposalPdfDataUrl = await generateProposalPdfDataUrl();
-				} catch (error) {
-					proposalPdfDataUrl = null;
-				}
+				const documentPayload = buildProposalDocumentPayload();
 
 				const payload = {
 					proposalId: proposalId,
@@ -3630,19 +3624,20 @@
 					signedAt: signedAt,
 					signatureDataUrl: signedImageDataUrl,
 					shareUrl: buildShareUrlForApproval(),
-					proposalPdfDataUrl: proposalPdfDataUrl || undefined
+					proposalHtml: documentPayload ? documentPayload.proposalHtml : undefined,
+					proposalCss: documentPayload ? documentPayload.proposalCss : undefined
 				};
 
 				setStatus("שולח אישור ומצרף PDF לסוף ההצעה ב-Buildix...", "success");
 
 				try {
 					const result = await submitApproval(payload);
-					if (result.sent && proposalPdfDataUrl) {
+					if (result.sent && documentPayload) {
 						sessionStorage.setItem(getAttachmentUploadedKey(), "1");
 					}
 					if (wizardSuccessSaveNote) {
 						if (result.quoteSynced) {
-							wizardSuccessSaveNote.textContent = proposalPdfDataUrl
+							wizardSuccessSaveNote.textContent = documentPayload
 								? "ההצעה אושרה ב-Buildix — PDF מלא צורף לסוף המסמך"
 								: "ההצעה אושרה ב-Buildix (itaySolutions)";
 						} else if (result.sent) {
@@ -3657,7 +3652,7 @@
 							: "";
 						setStatus(
 							result.quoteSynced
-								? (proposalPdfDataUrl
+								? (documentPayload
 									? "האישור נשמר, ההצעה אושרה ב-Buildix ו-PDF מלא צורף לסוף המסמך." + emailNote
 									: "האישור נשמר וההצעה אושרה ב-Buildix." + emailNote)
 								: "האישור נשמר ונשלח לשרת בהצלחה." + emailNote,
@@ -3850,36 +3845,63 @@
 				return wrapper;
 			}
 
-			async function generateProposalPdfDataUrl() {
-				if (typeof html2pdf !== "function") {
-					return null;
-				}
+			function collectProposalCss() {
+				return Array.from(document.querySelectorAll("style"))
+					.map(function (node) { return node.textContent || ""; })
+					.join("\n");
+			}
 
+			function absolutizeImages(root) {
+				root.querySelectorAll("img").forEach(function (img) {
+					const src = img.getAttribute("src");
+					if (!src || src.indexOf("data:") === 0 || src.indexOf("http") === 0) {
+						if (src) {
+							img.setAttribute("src", src);
+						}
+						return;
+					}
+					img.setAttribute("src", new URL(src, window.location.href).href);
+				});
+			}
+
+			function buildProposalDocumentPayload() {
 				prepareForPrint();
 				const wrapper = buildPdfExportRoot();
 				if (!wrapper) {
 					return null;
 				}
 
+				absolutizeImages(wrapper);
+				const payload = {
+					proposalHtml: wrapper.innerHTML,
+					proposalCss: collectProposalCss()
+				};
+				wrapper.remove();
+				return payload;
+			}
+
+			async function readApiError(response) {
 				try {
-					return await html2pdf()
-						.set({
-							margin: [10, 10, 10, 10],
-							filename: proposalId + "-proposal.pdf",
-							image: { type: "jpeg", quality: 0.92 },
-							html2canvas: {
-								scale: 2,
-								useCORS: true,
-								logging: false,
-								backgroundColor: "#fffdfb"
-							},
-							jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
-						})
-						.from(wrapper)
-						.output("datauristring");
-				} finally {
-					wrapper.remove();
+					const body = await response.json();
+					if (body && body.message) {
+						return body.message;
+					}
+					if (body && body.code) {
+						return body.code;
+					}
+				} catch (error) {
+					/* ignore */
 				}
+				return "HTTP " + response.status;
+			}
+
+			function buildAttachmentRequestBody(documentPayload) {
+				return {
+					quoteToken: buildixQuoteToken,
+					proposalHtml: documentPayload.proposalHtml,
+					proposalCss: documentPayload.proposalCss,
+					originalName: proposalId + "-proposal.pdf"
+				};
 			}
 
 			function getAttachmentUploadedKey() {
@@ -3896,8 +3918,8 @@
 					return { ok: true, cached: true };
 				}
 
-				const proposalPdfDataUrl = await generateProposalPdfDataUrl();
-				if (!proposalPdfDataUrl) {
+				const documentPayload = buildProposalDocumentPayload();
+				if (!documentPayload || !documentPayload.proposalHtml) {
 					return { ok: false, generated: false };
 				}
 
@@ -3915,22 +3937,24 @@
 					mode: "cors",
 					credentials: "omit",
 					cache: "no-store",
-					body: JSON.stringify({
-						quoteToken: buildixQuoteToken,
-						proposalPdfDataUrl: proposalPdfDataUrl,
-						originalName: proposalId + "-proposal.pdf"
-					})
+					body: JSON.stringify(buildAttachmentRequestBody(documentPayload))
 				});
 
 				if (!response.ok) {
-					return { ok: false, uploaded: false };
+					const message = await readApiError(response);
+					return { ok: false, uploaded: false, error: message };
+				}
+
+				const body = await response.json();
+				if (!body || !body.ok) {
+					return { ok: false, uploaded: false, error: "attachment_rejected" };
 				}
 
 				sessionStorage.setItem(getAttachmentUploadedKey(), "1");
 				if (settings.showStatus) {
 					setOwnerStatus("מסמך PDF מלא צורף לסוף ההצעה ב-Buildix.", "success");
 				}
-				return { ok: true, uploaded: true };
+				return { ok: true, uploaded: true, quote: body.quote || null };
 			}
 
 			approveButton.addEventListener("click", approveProposal);
@@ -3974,7 +3998,11 @@
 				}
 				if (isOwnerMode && buildixQuoteToken) {
 					try {
-						await syncProposalPdfToBuildix({ showStatus: true });
+						const attachResult = await syncProposalPdfToBuildix({ showStatus: true, force: true });
+						if (!attachResult.ok && !attachResult.cached) {
+							const detail = attachResult.error ? " (" + attachResult.error + ")" : "";
+							setOwnerStatus("לא הצליח לצרף PDF ל-Buildix" + detail + ". ודאו deploy ל-Buildix.", "error");
+						}
 					} catch (error) {
 						setOwnerStatus("לא הצליח לצרף PDF ל-Buildix. אפשר לנסות שוב אחרי רענון.", "error");
 					}
