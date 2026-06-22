@@ -559,10 +559,11 @@
 					'<div class="send-grid send-pricing-grid">' +
 						pricingFields.map(function (field) {
 							const defaultValue = typeof field.default === "number" ? field.default : "";
+							const placeholder = field.oneTime ? "0 = חינם" : "";
 							return (
 								'<div class="field">' +
 									'<label class="label">' + field.label + '</label>' +
-									'<input class="input send-price" type="number" min="0" step="1" data-price-key="' + field.key + '" value="' + defaultValue + '">' +
+									'<input class="input send-price" type="number" min="0" step="1" data-price-key="' + field.key + '" value="' + defaultValue + '" placeholder="' + placeholder + '">' +
 								'</div>'
 							);
 						}).join("") +
@@ -787,7 +788,7 @@
 							return;
 						}
 						if (pricingFields.length && Object.values(priceData.values).some(function (value) { return value === null; })) {
-							statusEl.textContent = "יש להזין מחירים תקינים (מספרים חיוביים).";
+							statusEl.textContent = "יש להזין מחירים תקינים (0 ומעלה).";
 							statusEl.classList.add("is-error");
 							return;
 						}
@@ -859,7 +860,7 @@
 							return;
 						}
 						if (pricingFields.length && Object.values(priceData.values).some(function (value) { return value === null; })) {
-							statusEl.textContent = "יש להזין מחירים תקינים (מספרים חיוביים).";
+							statusEl.textContent = "יש להזין מחירים תקינים (0 ומעלה).";
 							statusEl.classList.add("is-error");
 							return;
 						}

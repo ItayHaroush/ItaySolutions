@@ -2227,12 +2227,12 @@
 							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-hand-pointer"></i></div>
 							<div class="wizard-step-header-text">
 								<h2 class="wizard-title">בחירת שירותים</h2>
-								<p class="wizard-subtitle">סמנו את השירותים שתרצו לכלול. המחיר מתעדכן אוטומטית לפי הבחירה.</p>
+								<p class="wizard-subtitle">סמנו אחד או יותר מהשירותים — ניתן לשלב כמה שירותים יחד. המחיר מתעדכן אוטומטית לפי הבחירה.</p>
 							</div>
 						</div>
 						<div class="service-choice-grid" id="service-choice-grid">
-							<label class="service-choice-card" data-service-id="facebook">
-								<input type="checkbox" name="selected-service" value="facebook">
+							<div class="service-choice-card" data-service-id="facebook" role="checkbox" tabindex="0" aria-checked="false">
+								<input type="checkbox" name="selected-service" value="facebook" tabindex="-1" aria-hidden="true">
 								<div class="service-choice-head">
 									<span class="service-choice-icon"><i class="fa-brands fa-facebook"></i></span>
 									<div class="service-choice-title">ניהול פייסבוק</div>
@@ -2240,9 +2240,9 @@
 								<div class="service-choice-desc">עמוד, פוסטים, מענה וקהילה</div>
 								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="facebook">₪900</strong></div>
 								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
-							</label>
-							<label class="service-choice-card" data-service-id="instagram">
-								<input type="checkbox" name="selected-service" value="instagram">
+							</div>
+							<div class="service-choice-card" data-service-id="instagram" role="checkbox" tabindex="0" aria-checked="false">
+								<input type="checkbox" name="selected-service" value="instagram" tabindex="-1" aria-hidden="true">
 								<div class="service-choice-head">
 									<span class="service-choice-icon"><i class="fa-brands fa-instagram"></i></span>
 									<div class="service-choice-title">ניהול אינסטגרם</div>
@@ -2250,9 +2250,9 @@
 								<div class="service-choice-desc">פיד, Stories, Reels ועקביות מותג</div>
 								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="instagram">₪900</strong></div>
 								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
-							</label>
-							<label class="service-choice-card" data-service-id="content">
-								<input type="checkbox" name="selected-service" value="content">
+							</div>
+							<div class="service-choice-card" data-service-id="content" role="checkbox" tabindex="0" aria-checked="false">
+								<input type="checkbox" name="selected-service" value="content" tabindex="-1" aria-hidden="true">
 								<div class="service-choice-head">
 									<span class="service-choice-icon"><i class="fa-solid fa-pen-nib"></i></span>
 									<div class="service-choice-title">יצירת תוכן</div>
@@ -2260,9 +2260,9 @@
 								<div class="service-choice-desc">פוסטים, כיתובים וויזואלים</div>
 								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="content">₪700</strong></div>
 								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
-							</label>
-							<label class="service-choice-card" data-service-id="stories">
-								<input type="checkbox" name="selected-service" value="stories">
+							</div>
+							<div class="service-choice-card" data-service-id="stories" role="checkbox" tabindex="0" aria-checked="false">
+								<input type="checkbox" name="selected-service" value="stories" tabindex="-1" aria-hidden="true">
 								<div class="service-choice-head">
 									<span class="service-choice-icon"><i class="fa-solid fa-clapperboard"></i></span>
 									<div class="service-choice-title">יצירת Stories</div>
@@ -2270,9 +2270,9 @@
 								<div class="service-choice-desc">סטוריז, מבצעים ותוכן יומי</div>
 								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="stories">₪500</strong></div>
 								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
-							</label>
-							<label class="service-choice-card" data-service-id="inbox">
-								<input type="checkbox" name="selected-service" value="inbox">
+							</div>
+							<div class="service-choice-card" data-service-id="inbox" role="checkbox" tabindex="0" aria-checked="false">
+								<input type="checkbox" name="selected-service" value="inbox" tabindex="-1" aria-hidden="true">
 								<div class="service-choice-head">
 									<span class="service-choice-icon"><i class="fa-solid fa-comments"></i></span>
 									<div class="service-choice-title">מענה ללקוחות</div>
@@ -2280,9 +2280,9 @@
 								<div class="service-choice-desc">הודעות, לידים ושירות מהיר</div>
 								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="inbox">₪600</strong></div>
 								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
-							</label>
-							<label class="service-choice-card" data-service-id="ads">
-								<input type="checkbox" name="selected-service" value="ads">
+							</div>
+							<div class="service-choice-card" data-service-id="ads" role="checkbox" tabindex="0" aria-checked="false">
+								<input type="checkbox" name="selected-service" value="ads" tabindex="-1" aria-hidden="true">
 								<div class="service-choice-head">
 									<span class="service-choice-icon"><i class="fa-solid fa-bullhorn"></i></span>
 									<div class="service-choice-title">פרסום ממומן</div>
@@ -2290,7 +2290,7 @@
 								<div class="service-choice-desc">קמפיינים, קהלים והמרות (לא כולל תקציב מודעות)</div>
 								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="ads">₪800</strong></div>
 								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
-							</label>
+							</div>
 						</div>
 						<div class="pricing-total-box" id="pricing-total-box">
 							<div class="pricing-total-line"><span>הקמה ראשונית (חד פעמית)</span><strong data-price-key="setup">₪1,500</strong></div>
@@ -3417,6 +3417,7 @@
 					card.classList.toggle("is-not-offered", !offered);
 					const isSelected = offered && selectedServiceIds.indexOf(serviceId) !== -1;
 					card.classList.toggle("is-selected", isSelected);
+					card.setAttribute("aria-checked", isSelected ? "true" : "false");
 					const checkbox = card.querySelector('input[type="checkbox"]');
 					if (checkbox) {
 						checkbox.disabled = !offered;
@@ -3457,7 +3458,8 @@
 				selectedServiceIds = nextIds.filter(function (serviceId) {
 					return isServiceOffered(serviceId);
 				});
-				syncOfferedServicesUI();
+				updateServiceCardSelection();
+				updatePricingTotals();
 				if (!settings.silent) {
 					persistServiceSelection();
 				}
@@ -3515,30 +3517,14 @@
 					return;
 				}
 				serviceChoiceGrid.querySelectorAll(".service-choice-card").forEach(function (card) {
-					card.addEventListener("click", function (event) {
-						if (event.target && event.target.closest && event.target.closest('input[type="checkbox"]')) {
-							return;
-						}
+					card.addEventListener("click", function () {
 						toggleService(card.getAttribute("data-service-id"));
 					});
-				});
-				serviceChoiceGrid.querySelectorAll('input[name="selected-service"]').forEach(function (checkbox) {
-					checkbox.addEventListener("change", function () {
-						if (!isServiceOffered(checkbox.value)) {
-							checkbox.checked = false;
-							return;
+					card.addEventListener("keydown", function (event) {
+						if (event.key === "Enter" || event.key === " ") {
+							event.preventDefault();
+							toggleService(card.getAttribute("data-service-id"));
 						}
-						if (checkbox.checked) {
-							if (selectedServiceIds.indexOf(checkbox.value) === -1) {
-								selectedServiceIds = selectedServiceIds.concat([checkbox.value]);
-							}
-						} else {
-							selectedServiceIds = selectedServiceIds.filter(function (id) { return id !== checkbox.value; });
-						}
-						updateServiceCardSelection();
-						updatePricingTotals();
-						persistServiceSelection();
-						hideWizardServicesError();
 					});
 				});
 				updateServiceCardSelection();
@@ -3590,6 +3576,17 @@
 				return "₪" + value.toLocaleString("he-IL");
 			}
 
+			function formatProposalPrice(priceKey, amount) {
+				const value = Number(amount);
+				if (!Number.isFinite(value)) {
+					return "";
+				}
+				if (value === 0 && priceKey === "setup") {
+					return "חינם";
+				}
+				return formatShekel(value);
+			}
+
 
 			function syncProposalPrices() {
 				applyProposalPrices(proposalPrices);
@@ -3598,7 +3595,7 @@
 			function applyProposalPrices(prices) {
 				Object.keys(prices).forEach(function (key) {
 					document.querySelectorAll('[data-price-key="' + key + '"]').forEach(function (element) {
-						element.textContent = formatShekel(prices[key]);
+						element.textContent = formatProposalPrice(key, prices[key]);
 					});
 				});
 			}
