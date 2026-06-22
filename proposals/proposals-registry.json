@@ -45,6 +45,24 @@
           ]
         }
       ]
+    },
+    {
+      "id": "social-media-management-2026",
+      "title": "ניהול סושיאל ודיגיטל",
+      "description": "בחירת שירותים מההצעה · הקמה + מנוי חודשי מותאם",
+      "path": "social-media-management-2026/",
+      "buildixTemplateKey": "social-media-management-2026",
+      "selectableItems": true,
+      "defaultBusiness": "שם העסק / מסעדה",
+      "pricing": [
+        { "key": "setup", "label": "הקמה ראשונית (₪)", "default": 1500, "itemIndex": 0, "oneTime": true },
+        { "key": "facebook", "label": "ניהול פייסבוק (₪/חודש)", "default": 900, "itemIndex": 1, "serviceId": "facebook" },
+        { "key": "instagram", "label": "ניהול אינסטגרם (₪/חודש)", "default": 900, "itemIndex": 2, "serviceId": "instagram" },
+        { "key": "content", "label": "יצירת תוכן (₪/חודש)", "default": 700, "itemIndex": 3, "serviceId": "content" },
+        { "key": "stories", "label": "יצירת Stories (₪/חודש)", "default": 500, "itemIndex": 4, "serviceId": "stories" },
+        { "key": "inbox", "label": "מענה ללקוחות (₪/חודש)", "default": 600, "itemIndex": 5, "serviceId": "inbox" },
+        { "key": "ads", "label": "פרסום ממומן (₪/חודש)", "default": 800, "itemIndex": 6, "serviceId": "ads" }
+      ]
     }
   ],
   "proposals": [
@@ -72,6 +90,20 @@
       "dualPath": true,
       "buildix": {
         "clientHint": "Buildix נוצר אוטומטית רק לאחר שהלקוח בוחר מסלול וחותם"
+      }
+    },
+    {
+      "id": "social-media-management-2026",
+      "title": "ניהול סושיאל ודיגיטל",
+      "client": "תבנית — לכל לקוח חדש",
+      "business": "שם העסק / מסעדה",
+      "path": "social-media-management-2026/",
+      "updated": "2026-06-22",
+      "status": "active",
+      "selectableItems": true,
+      "buildixTemplateKey": "social-media-management-2026",
+      "buildix": {
+        "clientHint": "לכל שליחה — Buildix יוצר לקוח + הצעה חדשים אוטומטית"
       }
     },
     {

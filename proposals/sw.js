@@ -1,5 +1,32 @@
-const CACHE_NAME = "itay-proposals-shell-v4";
-const SHELL = ["./index.html", "./site.webmanifest", "../assets/images/logoItayS.jpeg"];
+const CACHE_NAME = "itay-proposals-shell-v5";
+const SHELL = [
+	"./index.html",
+	"./site.webmanifest",
+	"./proposal-backend-config.js",
+	"../assets/images/logoItayS.jpeg"
+];
+
+function isDynamicRequest(request) {
+	const url = new URL(request.url);
+
+	if (request.mode === "navigate") {
+		return true;
+	}
+
+	if (url.pathname.endsWith(".html")) {
+		return true;
+	}
+
+	if (url.pathname.endsWith(".json")) {
+		return true;
+	}
+
+	if (url.pathname.includes("/proposals/") && url.pathname.includes("-2026/")) {
+		return true;
+	}
+
+	return false;
+}
 
 self.addEventListener("install", function (event) {
 	event.waitUntil(
@@ -27,6 +54,12 @@ self.addEventListener("activate", function (event) {
 	);
 });
 
+self.addEventListener("message", function (event) {
+	if (event.data && event.data.type === "SKIP_WAITING") {
+		self.skipWaiting();
+	}
+});
+
 self.addEventListener("fetch", function (event) {
 	if (event.request.method !== "GET") {
 		return;
@@ -37,9 +70,35 @@ self.addEventListener("fetch", function (event) {
 		return;
 	}
 
+	if (isDynamicRequest(event.request)) {
+		event.respondWith(
+			fetch(event.request).then(function (response) {
+				if (response && response.ok) {
+					const copy = response.clone();
+					caches.open(CACHE_NAME).then(function (cache) {
+						cache.put(event.request, copy);
+					});
+				}
+				return response;
+			}).catch(function () {
+				return caches.match(event.request);
+			})
+		);
+		return;
+	}
+
 	event.respondWith(
 		caches.match(event.request).then(function (cached) {
-			return cached || fetch(event.request);
+			const networkFetch = fetch(event.request).then(function (response) {
+				if (response && response.ok) {
+					const copy = response.clone();
+					caches.open(CACHE_NAME).then(function (cache) {
+						cache.put(event.request, copy);
+					});
+				}
+				return response;
+			});
+			return cached || networkFetch;
 		})
 	);
 });

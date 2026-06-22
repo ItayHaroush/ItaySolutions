@@ -241,6 +241,25 @@
 		.send-status.is-success { color: var(--brand-green); }
 		.send-status.is-error { color: #991b1b; }
 
+		.service-offer-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 8px 12px;
+			margin-top: 4px;
+		}
+
+		.service-offer-item {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 9pt;
+			color: var(--brand-navy);
+		}
+
+		.service-offer-item input {
+			flex-shrink: 0;
+		}
+
 		@media (max-width: 900px) {
 			.proposal-list {
 				grid-template-columns: 1fr;
@@ -319,6 +338,11 @@
 				<div class="empty-state">טוען הצעות...</div>
 			</div>
 
+			<div class="help-box">
+				<strong>הצעת ניהול סושיאל</strong><br>
+				תבנית «ניהול סושיאל ודיגיטל» — בוחרים אילו שירותים להציע ללקוח ומגדירים מחיר לכל פריט.
+				הלקוח בוחר מתוך ההצעה, רואה סיכום מחיר וחותם.
+			</div>
 			<div class="help-box">
 				<strong>הצעה עם 2 מסלולים</strong><br>
 				תבנית «בחירת מסלול» — שולחים ללקוח הצעה אחת. הלקוח בוחר TakeEat או מיתוג מלא וחותם.
@@ -443,6 +467,51 @@
 
 			function isDualPathTemplate(template) {
 				return Boolean(template && template.dualPath && Array.isArray(template.packages) && template.packages.length);
+			}
+
+			function isSelectableItemsTemplate(template) {
+				return Boolean(template && template.selectableItems && Array.isArray(template.pricing) && template.pricing.some(function (field) { return field.serviceId; }));
+			}
+
+			function getServicePricingFields(template) {
+				return getTemplatePricing(template).filter(function (field) { return field.serviceId; });
+			}
+
+			function getSetupPricingFields(template) {
+				return getTemplatePricing(template).filter(function (field) { return !field.serviceId; });
+			}
+
+			function readOfferedServiceIds(card, template) {
+				const offered = [];
+				getServicePricingFields(template).forEach(function (field) {
+					const checkbox = card.querySelector('.send-offer-service[data-service-id="' + field.serviceId + '"]');
+					if (!checkbox || checkbox.checked) {
+						offered.push(field.serviceId);
+					}
+				});
+				return offered;
+			}
+
+			function renderServiceOfferFields(template) {
+				const serviceFields = getServicePricingFields(template);
+				if (!serviceFields.length) {
+					return "";
+				}
+				return (
+					'<div class="field" style="grid-column: 1 / -1;">' +
+						'<span class="label">שירותים להצעה ללקוח (סמנו מה שרלוונטי)</span>' +
+						'<div class="service-offer-grid">' +
+							serviceFields.map(function (field) {
+								return (
+									'<label class="service-offer-item">' +
+										'<input class="send-offer-service" type="checkbox" data-service-id="' + field.serviceId + '" checked>' +
+										'<span>' + field.label.replace(/ \(₪.*\)/, "") + '</span>' +
+									'</label>'
+								);
+							}).join("") +
+						'</div>' +
+					'</div>'
+				);
 			}
 
 			function getTemplatePricing(template) {
@@ -618,6 +687,9 @@
 						url.searchParams.set("price_" + key, String(formData.prices[key]));
 					});
 				}
+				if (formData.offeredServices && formData.offeredServices.length) {
+					url.searchParams.set("offered", formData.offeredServices.join(","));
+				}
 				if (settings.quoteToken) {
 					url.searchParams.set("quoteToken", settings.quoteToken);
 					sessionStorage.setItem("itay-proposal-quote-token:" + template.id, settings.quoteToken);
@@ -652,20 +724,23 @@
 					const defaultBusiness = template.defaultBusiness || "";
 					const pricingFields = getTemplatePricing(template);
 					const isDual = isDualPathTemplate(template);
+					const isSelectable = isSelectableItemsTemplate(template);
 					const primaryLabel = isDual ? "שלח ללקוח" : "צור ב-Buildix ושלח";
 					return (
-						'<article class="proposal-card" data-template-id="' + template.id + '" data-dual-path="' + (isDual ? "1" : "0") + '">' +
+						'<article class="proposal-card" data-template-id="' + template.id + '" data-dual-path="' + (isDual ? "1" : "0") + '" data-selectable-items="' + (isSelectable ? "1" : "0") + '">' +
 							'<h3 class="proposal-title">' + template.title + '</h3>' +
 							'<p class="proposal-meta">' + (template.description || "תבנית הצעה") + '</p>' +
 							(isDual ? '<p class="proposal-meta" style="margin-top:-6px;color:var(--brand-green);font-weight:700;">הלקוח בוחר מסלול · Buildix נוצר רק לאחר החתימה</p>' : '') +
+							(isSelectable ? '<p class="proposal-meta" style="margin-top:-6px;color:var(--brand-green);font-weight:700;">הלקוח בוחר שירותים מתוך ההצעה · מחיר מתעדכן אוטומטית</p>' : '') +
 							'<div class="send-form">' +
 								'<div class="send-grid">' +
 									'<div class="field"><label class="label">שם הלקוח</label><input class="input send-client-name" type="text" placeholder="שם מלא"></div>' +
 									'<div class="field"><label class="label">טלפון לקוח</label><input class="input send-client-phone" type="tel" placeholder="05X-XXXXXXX"></div>' +
-									'<div class="field" style="grid-column: 1 / -1;"><label class="label">שם העסק</label><input class="input send-business-name" type="text" placeholder="שם העסק" value="' + defaultBusiness.replace(/"/g, "&quot;") + '"></div>' +
+									'<div class="field" style="grid-column: 1 / -1;"><label class="label">שם העסק / מסעדה</label><input class="input send-business-name" type="text" placeholder="שם העסק" value="' + defaultBusiness.replace(/"/g, "&quot;") + '"></div>' +
 									'<div class="field"><label class="label">אימייל לקוח</label><input class="input send-client-email" type="email" placeholder="name@example.com"></div>' +
 									'<div class="field"><label class="label">לוגו עסק (קובץ)</label><input class="input send-logo-file" type="file" accept="image/png,image/jpeg,image/webp"></div>' +
 								'</div>' +
+								renderServiceOfferFields(template) +
 								renderPricingFields(pricingFields) +
 								'<div class="actions">' +
 									'<button class="button button-primary send-prepare-button" type="button">' + primaryLabel + '</button>' +
@@ -692,10 +767,17 @@
 						const priceData = readPriceValues(card, pricingFields);
 						const logoDataUrl = await readLogoDataUrl(logoInput);
 						const isDual = card.getAttribute("data-dual-path") === "1";
+						const isSelectable = card.getAttribute("data-selectable-items") === "1";
+						const offeredServices = isSelectable ? readOfferedServiceIds(card, template) : [];
 
 						statusEl.className = "send-status";
 						if (!clientName || !clientPhone) {
 							statusEl.textContent = "יש להזין שם וטלפון לקוח.";
+							statusEl.classList.add("is-error");
+							return;
+						}
+						if (isSelectable && !offeredServices.length) {
+							statusEl.textContent = "יש לסמן לפחות שירות אחד להצעה ללקוח.";
 							statusEl.classList.add("is-error");
 							return;
 						}
@@ -723,17 +805,20 @@
 							return;
 						}
 
+						const formPayload = {
+							clientName: clientName,
+							clientPhone: clientPhone,
+							clientEmail: clientEmail,
+							businessName: businessName,
+							itemPrices: priceData.itemPrices,
+							businessLogoDataUrl: logoDataUrl || undefined,
+							offeredServices: offeredServices
+						};
+
 						button.disabled = true;
 						statusEl.textContent = "יוצר לקוח והצעה ב-Buildix...";
 						try {
-							const result = await prepareAndOpen(template, {
-								clientName: clientName,
-								clientPhone: clientPhone,
-								clientEmail: clientEmail,
-								businessName: businessName,
-								itemPrices: priceData.itemPrices,
-								businessLogoDataUrl: logoDataUrl || undefined
-							});
+							const result = await prepareAndOpen(template, formPayload);
 							statusEl.textContent = "נוצרה הצעה " + (result.quoteNumber || "") + " — פותח דף שליחה...";
 							statusEl.classList.add("is-success");
 							openPreparedProposal(template, {
@@ -741,7 +826,8 @@
 								clientPhone: clientPhone,
 								clientEmail: clientEmail,
 								businessName: businessName,
-								prices: priceData.values
+								prices: priceData.values,
+								offeredServices: offeredServices
 							}, result);
 						} catch (error) {
 							statusEl.textContent = formatPrepareError(error, template);
@@ -763,8 +849,15 @@
 						const clientEmail = card.querySelector(".send-client-email").value.trim();
 						const pricingFields = getTemplatePricing(template);
 						const priceData = readPriceValues(card, pricingFields);
+						const isSelectable = card.getAttribute("data-selectable-items") === "1";
+						const offeredServices = isSelectable ? readOfferedServiceIds(card, template) : [];
 
 						statusEl.className = "send-status";
+						if (isSelectable && !offeredServices.length) {
+							statusEl.textContent = "יש לסמן לפחות שירות אחד להצעה ללקוח.";
+							statusEl.classList.add("is-error");
+							return;
+						}
 						if (pricingFields.length && Object.values(priceData.values).some(function (value) { return value === null; })) {
 							statusEl.textContent = "יש להזין מחירים תקינים (מספרים חיוביים).";
 							statusEl.classList.add("is-error");
@@ -776,7 +869,8 @@
 							clientPhone: clientPhone,
 							clientEmail: clientEmail,
 							businessName: businessName || template.defaultBusiness || "שם העסק",
-							prices: priceData.values
+							prices: priceData.values,
+							offeredServices: offeredServices
 						});
 						statusEl.textContent = "נפתחה תצוגה מקומית בלשונית חדשה (ללא Buildix).";
 						statusEl.classList.add("is-success");
@@ -833,7 +927,32 @@
 
 		if ("serviceWorker" in navigator) {
 			window.addEventListener("load", function () {
-				navigator.serviceWorker.register("./sw.js").catch(function () {});
+				navigator.serviceWorker.register("./sw.js").then(function (registration) {
+					if (registration.waiting) {
+						registration.waiting.postMessage({ type: "SKIP_WAITING" });
+					}
+
+					registration.addEventListener("updatefound", function () {
+						const worker = registration.installing;
+						if (!worker) {
+							return;
+						}
+						worker.addEventListener("statechange", function () {
+							if (worker.state === "installed" && navigator.serviceWorker.controller) {
+								worker.postMessage({ type: "SKIP_WAITING" });
+							}
+						});
+					});
+				}).catch(function () {});
+
+				let refreshing = false;
+				navigator.serviceWorker.addEventListener("controllerchange", function () {
+					if (refreshing) {
+						return;
+					}
+					refreshing = true;
+					window.location.reload();
+				});
 			});
 		}
 

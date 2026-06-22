@@ -1,0 +1,4430 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex, nofollow">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<title>הצעת מחיר והסכם שירות | Itay Solutions - שם העסק</title>
+	<style>
+		:root {
+			--brand-orange: #ff6a00;
+			--brand-orange-soft: #fff3e8;
+			--brand-green: #146c2e;
+			--brand-navy: #182230;
+			--brand-slate: #4b5563;
+			--brand-line: #e8dccf;
+			--paper: #fffdfb;
+		}
+
+		@page {
+			size: A4;
+			margin: 15mm;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			font-family: "Heebo", "Segoe UI", Arial, sans-serif;
+			background: #f5f1eb;
+			color: var(--brand-navy);
+			line-height: 1.6;
+			font-size: 11pt;
+		}
+
+		.page {
+			width: 210mm;
+			min-height: 297mm;
+			max-width: 100%;
+			margin: 0 auto;
+			padding: 12mm 12mm 16mm;
+			background:
+				radial-gradient(circle at top right, rgba(255, 106, 0, 0.08), transparent 24%),
+				radial-gradient(circle at left 18%, rgba(20, 108, 46, 0.06), transparent 20%),
+				linear-gradient(180deg, #fffefc 0%, var(--paper) 100%);
+			box-shadow: 0 10px 35px rgba(24, 34, 48, 0.10);
+			position: relative;
+			overflow-x: hidden;
+		}
+
+		.page::before,
+		.page::after {
+			content: "";
+			position: absolute;
+			border-radius: 999px;
+			z-index: 0;
+		}
+
+		.page::before {
+			width: 180px;
+			height: 180px;
+			top: -60px;
+			left: -70px;
+			background: radial-gradient(circle, rgba(255, 106, 0, 0.12), transparent 70%);
+		}
+
+		.page::after {
+			width: 220px;
+			height: 220px;
+			bottom: -90px;
+			right: -80px;
+			background: radial-gradient(circle, rgba(20, 108, 46, 0.10), transparent 70%);
+		}
+
+		.content {
+			position: relative;
+			z-index: 1;
+			min-width: 0;
+			max-width: 100%;
+		}
+
+		.screen-only {
+			display: block;
+		}
+		.print-hide {
+			display: block;
+		}
+		.is-hidden {
+			display: none !important;
+		}
+
+		.hero {
+			display: grid;
+			grid-template-columns: 1.2fr 0.8fr;
+			gap: 16px;
+			align-items: center;
+			padding: 6px 0 14px;
+			border-bottom: 2px solid var(--brand-line);
+		}
+
+		.hero-copy {
+			text-align: right;
+		}
+
+		.eyebrow {
+			display: inline-block;
+			padding: 5px 12px;
+			border-radius: 999px;
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			font-size: 9pt;
+			font-weight: 700;
+			letter-spacing: 0.2px;
+			margin-bottom: 10px;
+		}
+
+		h1 {
+			margin: 0;
+			font-size: 27pt;
+			line-height: 1.1;
+			letter-spacing: -0.8px;
+		}
+
+		h1 span {
+			color: var(--brand-orange);
+		}
+
+		.subtitle {
+			margin: 8px 0 0;
+			font-size: 11.3pt;
+			color: var(--brand-slate);
+		}
+
+		.doc-chip-row {
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			margin-top: 10px;
+		}
+
+		.doc-chip {
+			padding: 6px 10px;
+			border-radius: 999px;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			background: rgba(255, 255, 255, 0.86);
+			font-size: 8.6pt;
+			font-weight: 700;
+			color: var(--brand-slate);
+		}
+
+		.meta-card {
+			margin-top: 16px;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+		}
+
+		.meta-item {
+			background: rgba(255, 255, 255, 0.82);
+			border: 1px solid rgba(232, 220, 207, 0.9);
+			border-radius: 14px;
+			padding: 10px 12px;
+		}
+
+		.meta-label {
+			display: block;
+			color: #6b7280;
+			font-size: 8.5pt;
+			margin-bottom: 2px;
+		}
+
+		.meta-value {
+			display: block;
+			color: var(--brand-navy);
+			font-size: 11pt;
+			font-weight: 700;
+		}
+
+		.brand-lockup {
+			background: transparent;
+			border: 1px solid rgba(232, 220, 207, 0.72);
+			border-radius: 24px;
+			padding: 18px 16px;
+			min-height: 160px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+		}
+
+		.brand-lockup img {
+			display: block;
+			width: auto;
+			height: auto;
+		}
+
+		.logo-transparent {
+			background: transparent;
+			mix-blend-mode: multiply;
+		}
+
+		.share-strip {
+			margin-top: 16px;
+			padding: 14px 16px;
+			border: 1px solid rgba(255, 106, 0, 0.18);
+			border-radius: 18px;
+			background: linear-gradient(135deg, rgba(255, 243, 232, 0.94), rgba(255, 255, 255, 0.95));
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 14px;
+			align-items: start;
+			max-width: 100%;
+			overflow: hidden;
+		}
+
+		.share-link-box {
+			min-width: 0;
+			max-width: 100%;
+		}
+
+		.share-link-label {
+			font-size: 8.8pt;
+			color: #6b7280;
+			margin-bottom: 6px;
+		}
+
+		.share-link-value {
+			display: block;
+			width: 100%;
+			max-width: 100%;
+			padding: 10px 12px;
+			border-radius: 12px;
+			background: rgba(255, 255, 255, 0.92);
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			font-size: 8.8pt;
+			font-weight: 600;
+			line-height: 1.5;
+			word-break: break-all;
+			overflow-wrap: anywhere;
+			max-height: 4.5em;
+			overflow-y: auto;
+			overflow-x: hidden;
+			white-space: normal;
+		}
+
+		.owner-panel {
+			margin-bottom: 16px;
+			padding: 16px;
+			border-radius: 18px;
+			border: 1px solid rgba(20, 108, 46, 0.22);
+			background: linear-gradient(135deg, rgba(20, 108, 46, 0.08), rgba(255, 255, 255, 0.96));
+			max-width: 100%;
+			overflow: hidden;
+		}
+
+		.owner-panel-title {
+			margin: 0 0 6px;
+			font-size: 12pt;
+			font-weight: 800;
+			color: var(--brand-green);
+		}
+
+		.owner-panel-note {
+			margin: 0 0 12px;
+			font-size: 9pt;
+			color: var(--brand-slate);
+		}
+
+		.owner-form-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+		}
+
+		.owner-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-top: 12px;
+		}
+
+		.access-gate {
+			position: fixed;
+			inset: 0;
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+			background:
+				radial-gradient(circle at top right, rgba(255, 106, 0, 0.12), transparent 28%),
+				radial-gradient(circle at left 20%, rgba(20, 108, 46, 0.10), transparent 24%),
+				rgba(24, 34, 48, 0.72);
+			backdrop-filter: blur(6px);
+		}
+
+		.access-gate.is-hidden {
+			display: none;
+		}
+
+		.access-gate-card {
+			width: min(100%, 420px);
+			padding: 24px;
+			border-radius: 22px;
+			background: linear-gradient(180deg, #fffefc 0%, var(--paper) 100%);
+			box-shadow: 0 18px 50px rgba(24, 34, 48, 0.22);
+			border: 1px solid rgba(232, 220, 207, 0.95);
+		}
+
+		.access-gate-card h2 {
+			margin: 0 0 8px;
+			font-size: 17pt;
+			color: var(--brand-navy);
+		}
+
+		.access-gate-card p {
+			margin: 0 0 16px;
+			font-size: 10pt;
+			color: var(--brand-slate);
+		}
+
+		.access-gate-error {
+			margin-top: 10px;
+			padding: 10px 12px;
+			border-radius: 12px;
+			font-size: 9pt;
+			display: none;
+			background: rgba(185, 28, 28, 0.08);
+			color: #991b1b;
+			border: 1px solid rgba(185, 28, 28, 0.14);
+		}
+
+		.access-gate-error.is-visible {
+			display: block;
+		}
+
+		.proposal-document.is-locked {
+			display: none;
+		}
+
+		.section-signature {
+			margin-bottom: 8px;
+		}
+
+		.brand-logo {
+			max-width: min(100%, 300px);
+			max-height: 118px;
+			object-fit: contain;
+		}
+
+		.brand-caption {
+			font-size: 8.8pt;
+			color: #6b7280;
+			text-align: center;
+		}
+
+		.itay-logo {
+			max-width: 150px;
+			width: 100%;
+		}
+
+		.section {
+			margin-top: 14px;
+		}
+
+		.section-title {
+			margin: 0 0 8px;
+			font-size: 13pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.section-title::before {
+			content: "";
+			width: 18px;
+			height: 18px;
+			border-radius: 6px;
+			background: linear-gradient(135deg, var(--brand-orange), #ff8f3a);
+			flex: 0 0 18px;
+		}
+
+		.lead-box,
+		.terms-box,
+		.materials-box,
+		.ownership-box,
+		.signature-box {
+			background: rgba(255, 255, 255, 0.86);
+			border: 1px solid rgba(232, 220, 207, 0.95);
+			border-radius: 18px;
+			padding: 14px 16px;
+		}
+
+		.lead-box p,
+		.terms-box p,
+		.ownership-box p {
+			margin: 0;
+			text-align: justify;
+		}
+
+		.services-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 8px;
+		}
+
+		.service-item,
+		.material-item {
+			background: rgba(255, 255, 255, 0.88);
+			border: 1px solid rgba(232, 220, 207, 0.95);
+			border-radius: 14px;
+			padding: 9px 11px;
+			min-height: 50px;
+			position: relative;
+			padding-right: 38px;
+			font-size: 9.3pt;
+		}
+
+		.service-item::before,
+		.material-item::before {
+			content: "✓";
+			position: absolute;
+			right: 13px;
+			top: 11px;
+			width: 18px;
+			height: 18px;
+			border-radius: 50%;
+			background: rgba(255, 106, 0, 0.12);
+			color: var(--brand-orange);
+			text-align: center;
+			line-height: 18px;
+			font-size: 10pt;
+			font-weight: 800;
+		}
+
+		.pricing {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			gap: 10px;
+		}
+
+		.price-card {
+			border-radius: 20px;
+			padding: 12px;
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 243, 232, 0.92));
+			border: 1px solid rgba(255, 106, 0, 0.20);
+			text-align: center;
+		}
+
+		.price-card.emphasis {
+			background: linear-gradient(160deg, var(--brand-orange), #ff8a2b);
+			color: #ffffff;
+			transform: translateY(-4px);
+			box-shadow: 0 12px 24px rgba(255, 106, 0, 0.18);
+		}
+
+		.price-label {
+			font-size: 9pt;
+			font-weight: 700;
+			margin-bottom: 8px;
+		}
+
+		.price-value {
+			font-size: 18pt;
+			font-weight: 800;
+			line-height: 1.1;
+		}
+
+		.price-note {
+			margin-top: 6px;
+			font-size: 8.6pt;
+			color: inherit;
+			opacity: 0.9;
+		}
+
+		.highlight-banner {
+			margin-top: 14px;
+			background: linear-gradient(135deg, rgba(20, 108, 46, 0.10), rgba(255, 106, 0, 0.12));
+			border: 1px solid rgba(20, 108, 46, 0.16);
+			border-right: 6px solid var(--brand-green);
+			border-radius: 18px;
+			padding: 14px 16px;
+		}
+
+		.highlight-banner strong {
+			display: block;
+			color: var(--brand-green);
+			margin-bottom: 4px;
+			font-size: 11pt;
+		}
+
+		.terms-list,
+		.materials-list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			display: grid;
+			gap: 8px;
+		}
+
+		.signatures {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+			margin-top: 12px;
+		}
+
+		.final-signature-card {
+			display: grid;
+			gap: 10px;
+		}
+
+		.final-signature-meta {
+			font-size: 8.8pt;
+			color: #6b7280;
+		}
+
+		.final-signature-preview {
+			min-height: 74px;
+			padding: 10px 12px;
+			border-radius: 16px;
+			border: 1px dashed rgba(24, 34, 48, 0.18);
+			background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,249,242,0.9));
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.final-signature-preview img {
+			max-width: 100%;
+			max-height: 76px;
+			display: none;
+		}
+
+		.final-signature-preview img.is-visible {
+			display: block;
+		}
+
+		.provider-signature-block {
+			margin-top: 10px;
+			padding: 12px 12px 10px;
+			border-radius: 16px;
+			border: 1px solid rgba(20, 108, 46, 0.12);
+			background: transparent;
+		}
+
+		.provider-signature-label {
+			font-size: 8.5pt;
+			font-weight: 700;
+			color: var(--brand-green);
+			margin-bottom: 6px;
+		}
+
+		.provider-signature-mark {
+			width: auto;
+			max-width: 220px;
+			height: auto;
+			max-height: 72px;
+			object-fit: contain;
+			display: block;
+		}
+
+		.provider-contact-line {
+			margin-top: 8px;
+			font-size: 8.8pt;
+			color: var(--brand-slate);
+		}
+
+		.signature-box {
+			min-height: 150px;
+		}
+
+		.signature-title {
+			font-weight: 800;
+			margin-bottom: 16px;
+			color: var(--brand-orange);
+		}
+
+		.line-field {
+			margin-top: 16px;
+			padding-bottom: 7px;
+			border-bottom: 1px dashed #b8b2ab;
+			min-height: 28px;
+		}
+
+		.signature-form-grid {
+			display: grid;
+			grid-template-columns: 1.05fr 0.95fr;
+			gap: 14px;
+			margin-top: 12px;
+		}
+
+		.form-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+		}
+
+		.form-field {
+			display: grid;
+			gap: 6px;
+		}
+
+		.form-field.full {
+			grid-column: 1 / -1;
+		}
+
+		.form-label {
+			font-size: 8.8pt;
+			font-weight: 700;
+			color: #6b7280;
+		}
+
+		.form-input,
+		.form-textarea {
+			width: 100%;
+			border: 1px solid #ded6cb;
+			border-radius: 12px;
+			padding: 11px 12px;
+			font: inherit;
+			color: var(--brand-navy);
+			background: rgba(255, 255, 255, 0.92);
+		}
+
+		.form-input:focus,
+		.form-textarea:focus {
+			outline: 2px solid rgba(255, 106, 0, 0.16);
+			border-color: rgba(255, 106, 0, 0.42);
+		}
+
+		.form-textarea {
+			min-height: 96px;
+			resize: vertical;
+		}
+
+		.check-row {
+			display: flex;
+			gap: 10px;
+			align-items: flex-start;
+			padding: 12px;
+			border-radius: 14px;
+			background: rgba(255, 243, 232, 0.55);
+			border: 1px solid rgba(255, 106, 0, 0.12);
+		}
+
+		.check-row input {
+			margin-top: 3px;
+		}
+
+		.action-row {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			margin-top: 12px;
+		}
+
+		.button {
+			appearance: none;
+			border: none;
+			border-radius: 999px;
+			padding: 11px 18px;
+			font: inherit;
+			font-weight: 700;
+			cursor: pointer;
+			transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+		}
+
+		.button:hover {
+			transform: translateY(-1px);
+		}
+
+		.button-primary {
+			background: linear-gradient(135deg, var(--brand-orange), #ff8a2b);
+			color: #ffffff;
+			box-shadow: 0 10px 18px rgba(255, 106, 0, 0.18);
+		}
+
+		.button-secondary {
+			background: #ffffff;
+			color: var(--brand-navy);
+			border: 1px solid rgba(24, 34, 48, 0.12);
+		}
+
+		.button-ghost {
+			background: rgba(255, 243, 232, 0.7);
+			color: var(--brand-orange);
+		}
+
+		.signature-pad-wrap {
+			display: grid;
+			gap: 10px;
+		}
+
+		.signature-canvas {
+			width: 100%;
+			height: 220px;
+			border: 1px dashed rgba(24, 34, 48, 0.18);
+			border-radius: 18px;
+			background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,249,242,0.9));
+			touch-action: none;
+		}
+
+		.signature-hint {
+			font-size: 8.7pt;
+			color: #6b7280;
+		}
+
+		.status-box {
+			margin-top: 12px;
+			padding: 12px 14px;
+			border-radius: 14px;
+			font-size: 9.2pt;
+			display: none;
+		}
+
+		.status-box.is-visible {
+			display: block;
+		}
+
+		.status-success {
+			background: rgba(20, 108, 46, 0.10);
+			color: var(--brand-green);
+			border: 1px solid rgba(20, 108, 46, 0.18);
+		}
+
+		.status-error {
+			background: rgba(185, 28, 28, 0.08);
+			color: #991b1b;
+			border: 1px solid rgba(185, 28, 28, 0.14);
+		}
+
+		.signature-preview {
+			margin-top: 12px;
+			padding: 12px;
+			border-radius: 16px;
+			background: rgba(255,255,255,0.8);
+			border: 1px solid rgba(232, 220, 207, 0.95);
+		}
+
+		.signature-preview img {
+			max-width: 100%;
+			height: auto;
+			display: none;
+		}
+
+		.signature-preview img.is-visible {
+			display: block;
+		}
+
+		.preview-meta {
+			font-size: 8.8pt;
+			color: #6b7280;
+			margin-top: 8px;
+		}
+
+		.footer {
+			margin-top: 22px;
+			padding: 0;
+			border: 0;
+			border-radius: 20px;
+			overflow: hidden;
+			background:
+				linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 248, 242, 0.88) 100%);
+			box-shadow: 0 -6px 28px rgba(24, 34, 48, 0.06);
+		}
+
+		.footer-top-bar {
+			height: 4px;
+			background: linear-gradient(90deg, var(--brand-green) 0%, var(--brand-orange) 50%, var(--brand-green) 100%);
+		}
+
+		.footer-inner {
+			display: grid;
+			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 0.9fr);
+			gap: 16px 20px;
+			padding: 16px 18px 18px;
+			align-items: center;
+		}
+
+		.footer-brand {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.footer-brand-copy strong {
+			display: block;
+			font-size: 9.8pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			line-height: 1.2;
+		}
+
+		.footer-brand-copy span {
+			display: block;
+			margin-top: 2px;
+			font-size: 8.2pt;
+			color: var(--brand-slate);
+			line-height: 1.4;
+		}
+
+		.footer-logo {
+			width: 74px;
+			height: auto;
+			flex-shrink: 0;
+			object-fit: contain;
+		}
+
+		.footer-message {
+			text-align: center;
+			font-size: 8.5pt;
+			color: var(--brand-slate);
+			line-height: 1.55;
+			padding: 0 6px;
+		}
+
+		.footer-contact {
+			text-align: left;
+			display: flex;
+			flex-direction: column;
+			gap: 3px;
+		}
+
+		.footer-contact-label {
+			font-size: 7.8pt;
+			font-weight: 700;
+			color: #9ca3af;
+			letter-spacing: 0.2px;
+		}
+
+		.footer-contact-value {
+			font-size: 9.6pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+		}
+
+		.footer-contact a {
+			color: var(--brand-orange);
+			text-decoration: none;
+			font-weight: 700;
+			font-size: 8.8pt;
+		}
+
+		.footer-contact a:hover {
+			text-decoration: underline;
+		}
+
+		@media print {
+			@page {
+				size: A4;
+				margin: 12mm 14mm;
+			}
+
+			*,
+			*::before,
+			*::after {
+				-webkit-print-color-adjust: exact;
+				print-color-adjust: exact;
+			}
+
+			body {
+				background: #ffffff;
+			}
+
+			.page {
+				margin: 0;
+				box-shadow: none;
+				width: auto;
+				min-height: 0;
+				height: auto;
+				padding: 0;
+				overflow: visible;
+				background: #fffdfb;
+			}
+
+			.page::before,
+			.page::after {
+				display: none;
+			}
+
+			.hero {
+				break-inside: avoid;
+				page-break-inside: avoid;
+			}
+
+			.print-contract > .section,
+			.section {
+				margin-top: 14px;
+				break-inside: avoid;
+				page-break-inside: avoid;
+			}
+
+			.section-title {
+				break-after: avoid;
+				page-break-after: avoid;
+			}
+
+			.pricing,
+			.services-grid,
+			.materials-list,
+			.signatures,
+			.lead-box,
+			.terms-box,
+			.materials-box,
+			.ownership-box,
+			.highlight-banner,
+			.signature-box,
+			.provider-signature-block,
+			.final-signature-card,
+			.price-card,
+			.footer {
+				break-inside: avoid;
+				page-break-inside: avoid;
+			}
+
+			.lead-box p,
+			.terms-box p,
+			.ownership-box p,
+			.line-field {
+				orphans: 3;
+				widows: 3;
+			}
+
+			.service-item,
+			.material-item {
+				min-height: 44px;
+				padding-top: 8px;
+				padding-bottom: 8px;
+				break-inside: avoid;
+				page-break-inside: avoid;
+			}
+
+			.price-card {
+				padding: 10px;
+				transform: none;
+				box-shadow: none;
+			}
+
+			.signatures {
+				grid-template-columns: 1fr 1fr;
+			}
+
+			.footer {
+				position: static;
+				margin-top: 16px;
+				box-shadow: none;
+				break-inside: avoid;
+				page-break-inside: avoid;
+			}
+
+			.logo-transparent {
+				mix-blend-mode: normal;
+			}
+
+			.footer a {
+				color: inherit;
+				text-decoration: none;
+			}
+
+			.screen-only,
+			.owner-panel,
+			.access-gate,
+			.action-row,
+			.signature-hint,
+			.status-box,
+			.signature-form-grid,
+			.interactive-note,
+			.signature-canvas,
+			.signature-preview,
+			.journey-wizard,
+			.wizard-progress,
+			.wizard-actions {
+				display: none !important;
+			}
+
+			.print-only {
+				display: block !important;
+			}
+
+			.final-signature-preview {
+				min-height: 68px;
+			}
+
+			.final-signature-preview img.is-visible,
+			.provider-signature-mark {
+				display: block !important;
+			}
+
+			img {
+				max-width: 100%;
+			}
+		}
+
+		.print-only {
+			display: none;
+		}
+
+		.journey-wizard {
+			display: block;
+			position: relative;
+		}
+
+		.wizard-transition {
+			display: none;
+			position: absolute;
+			inset: 48px 0 0;
+			z-index: 30;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255, 253, 251, 0.92);
+			backdrop-filter: blur(5px);
+			border-radius: 20px;
+		}
+
+		.wizard-transition.is-visible {
+			display: flex;
+		}
+
+		.wizard-transition-inner {
+			text-align: center;
+			padding: 20px;
+		}
+
+		.wizard-spinner {
+			position: relative;
+			width: 76px;
+			height: 76px;
+			margin: 0 auto 12px;
+		}
+
+		.wizard-spinner-ring {
+			position: absolute;
+			inset: 0;
+			border: 3px solid rgba(255, 106, 0, 0.14);
+			border-top-color: var(--brand-orange);
+			border-left-color: var(--brand-green);
+			border-radius: 50%;
+			animation: wizardSpin 0.85s linear infinite;
+		}
+
+		.wizard-spinner-icon {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 24px;
+			color: var(--brand-orange);
+			animation: wizardSpin 1.15s linear infinite;
+		}
+
+		.wizard-transition-text {
+			font-size: 10pt;
+			font-weight: 700;
+			color: var(--brand-slate);
+		}
+
+		@keyframes wizardSpin {
+			to { transform: rotate(360deg); }
+		}
+
+		@keyframes wizardGearPulse {
+			0%, 100% { transform: scale(1); opacity: 1; }
+			50% { transform: scale(1.08); opacity: 0.85; }
+		}
+
+		.journey-wizard.is-complete .wizard-progress {
+			display: none;
+		}
+
+		.wizard-progress {
+			display: flex;
+			gap: 4px;
+			margin-bottom: 18px;
+			padding: 10px 8px;
+			border-radius: 16px;
+			background: rgba(255, 255, 255, 0.72);
+			border: 1px solid rgba(232, 220, 207, 0.9);
+			overflow-x: auto;
+		}
+
+		.wizard-progress-item {
+			flex: 1 0 72px;
+			min-width: 72px;
+			text-align: center;
+			position: relative;
+			padding: 0 2px 8px;
+			border: 0;
+			background: transparent;
+			cursor: default;
+			font: inherit;
+		}
+
+		.wizard-progress-item.is-clickable {
+			cursor: pointer;
+		}
+
+		.wizard-progress-dot {
+			width: 34px;
+			height: 34px;
+			margin: 0 auto 6px;
+			border-radius: 999px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 8pt;
+			font-weight: 800;
+			background: rgba(24, 34, 48, 0.08);
+			color: var(--brand-slate);
+			border: 2px solid transparent;
+			transition: all 0.2s ease;
+		}
+
+		.wizard-progress-dot i {
+			font-size: 12px;
+		}
+
+		.wizard-progress-item.is-active .wizard-progress-dot,
+		.wizard-progress-item.is-done .wizard-progress-dot {
+			background: linear-gradient(135deg, var(--brand-orange), #ff8533);
+			color: #fff;
+			border-color: rgba(255, 106, 0, 0.25);
+			box-shadow: 0 4px 12px rgba(255, 106, 0, 0.22);
+		}
+
+		.wizard-progress-item.is-done .wizard-progress-dot {
+			background: linear-gradient(135deg, var(--brand-green), #1a8a3f);
+			box-shadow: 0 4px 12px rgba(20, 108, 46, 0.18);
+		}
+
+		.wizard-progress-label {
+			display: block;
+			font-size: 7.2pt;
+			font-weight: 700;
+			color: #9ca3af;
+			line-height: 1.2;
+		}
+
+		.wizard-progress-item.is-active .wizard-progress-label,
+		.wizard-progress-item.is-done .wizard-progress-label {
+			color: var(--brand-navy);
+		}
+
+		.wizard-step {
+			display: none;
+			animation: wizardFadeIn 0.28s ease;
+		}
+
+		.wizard-step.is-active {
+			display: block;
+		}
+
+		@keyframes wizardFadeIn {
+			from { opacity: 0; transform: translateY(8px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.wizard-card {
+			padding: 22px 20px;
+			border-radius: 22px;
+			border: 1px solid rgba(232, 220, 207, 0.95);
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 251, 247, 0.92) 100%);
+			box-shadow: 0 8px 28px rgba(24, 34, 48, 0.06);
+		}
+
+		.w-icon {
+			width: 44px;
+			height: 44px;
+			border-radius: 14px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			font-size: 17px;
+		}
+
+		.w-icon--sm {
+			width: 36px;
+			height: 36px;
+			border-radius: 11px;
+			font-size: 14px;
+		}
+
+		.w-icon--lg {
+			width: 56px;
+			height: 56px;
+			border-radius: 18px;
+			font-size: 22px;
+		}
+
+		.w-icon--orange {
+			background: rgba(255, 106, 0, 0.12);
+			color: var(--brand-orange);
+		}
+
+		.w-icon--green {
+			background: rgba(20, 108, 46, 0.12);
+			color: var(--brand-green);
+		}
+
+		.w-icon--navy {
+			background: rgba(24, 34, 48, 0.08);
+			color: var(--brand-navy);
+		}
+
+		.wizard-step-header {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			gap: 12px;
+			margin-bottom: 18px;
+			padding-bottom: 14px;
+			border-bottom: 1px solid rgba(232, 220, 207, 0.85);
+		}
+
+		.wizard-step-header-text {
+			width: 100%;
+			max-width: 560px;
+			text-align: center;
+		}
+
+		.wizard-step-header .wizard-title {
+			margin: 0 0 4px;
+			font-size: 17pt;
+		}
+
+		.wizard-step-header .wizard-subtitle {
+			margin: 0;
+			font-size: 10pt;
+		}
+
+		.wizard-title {
+			margin: 0 0 6px;
+			font-size: 20pt;
+			line-height: 1.15;
+			color: var(--brand-navy);
+		}
+
+		.wizard-subtitle {
+			margin: 0 0 18px;
+			color: var(--brand-slate);
+			font-size: 10.5pt;
+		}
+
+		.wizard-card--welcome {
+			text-align: center;
+		}
+
+		.wizard-welcome-hero {
+			padding: 8px 0 4px;
+		}
+
+		.wizard-welcome-visual {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 14px;
+			flex-wrap: wrap;
+			margin-bottom: 16px;
+		}
+
+		.wizard-welcome-logo-wrap {
+			padding: 16px 18px;
+			border-radius: 20px;
+			border: 1px solid rgba(232, 220, 207, 0.95);
+			background: rgba(255, 255, 255, 0.82);
+			min-width: 150px;
+		}
+
+		.wizard-welcome-link {
+			width: 40px;
+			height: 40px;
+			border-radius: 999px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			font-size: 14px;
+		}
+
+		.wizard-meta-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			justify-content: center;
+			margin: 14px 0 18px;
+		}
+
+		.wizard-meta-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			padding: 7px 12px;
+			border-radius: 999px;
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			font-size: 8.8pt;
+			font-weight: 700;
+		}
+
+		.wizard-meta-pill--green {
+			background: rgba(20, 108, 46, 0.10);
+			color: var(--brand-green);
+		}
+
+		.wizard-meta-pill i {
+			font-size: 11px;
+		}
+
+		.wizard-welcome-logos {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 18px;
+			flex-wrap: wrap;
+			margin: 18px 0;
+		}
+
+		.wizard-logo-box {
+			padding: 14px 16px;
+			border-radius: 18px;
+			border: 1px dashed rgba(24, 34, 48, 0.12);
+			background: rgba(255, 255, 255, 0.65);
+			min-width: 140px;
+			text-align: center;
+		}
+
+		.wizard-logo-box img {
+			max-width: 130px;
+			max-height: 72px;
+			object-fit: contain;
+		}
+
+		.business-logo-badge {
+			width: 72px;
+			height: 72px;
+			margin: 0 auto 8px;
+			border-radius: 18px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 22pt;
+			font-weight: 800;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-green), #1a8a3f);
+		}
+
+		.business-logo-image {
+			width: 72px;
+			height: 72px;
+			margin: 0 auto 8px;
+			border-radius: 18px;
+			object-fit: contain;
+			display: block;
+			background: #fff;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+		}
+
+		.owner-logo-preview {
+			max-width: 84px;
+			max-height: 84px;
+			border-radius: 12px;
+			object-fit: contain;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			background: #fff;
+		}
+
+		.owner-form-grid .form-field--full {
+			grid-column: 1 / -1;
+		}
+
+		.buildix-status {
+			margin: 0 0 12px;
+			padding: 10px 12px;
+			border-radius: 12px;
+			font-size: 9pt;
+			font-weight: 700;
+		}
+
+		.buildix-status--linked {
+			background: rgba(20, 108, 46, 0.10);
+			color: var(--brand-green);
+			border: 1px solid rgba(20, 108, 46, 0.18);
+		}
+
+		.buildix-status--unlinked {
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			border: 1px solid rgba(255, 106, 0, 0.18);
+		}
+
+		.buildix-status a {
+			color: inherit;
+			word-break: break-all;
+		}
+
+		.wizard-chip {
+			display: inline-block;
+			padding: 6px 12px;
+			border-radius: 999px;
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			font-size: 8.8pt;
+			font-weight: 700;
+			margin-bottom: 12px;
+		}
+
+		.wizard-feature-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 12px;
+			margin: 16px auto 20px;
+			max-width: 640px;
+		}
+
+		.wizard-feature-card {
+			padding: 16px 14px;
+			border-radius: 18px;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			background: rgba(255, 255, 255, 0.88);
+			text-align: center;
+			display: grid;
+			gap: 10px;
+			justify-items: center;
+		}
+
+		.wizard-feature-icon {
+			margin: 0;
+		}
+
+		.wizard-feature-desc {
+			font-size: 8.8pt;
+			color: var(--brand-slate);
+			line-height: 1.45;
+		}
+
+		.wizard-feature-title {
+			font-size: 10.5pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+		}
+
+		.wizard-timeline {
+			display: grid;
+			gap: 10px;
+			margin: 16px auto 20px;
+			max-width: 520px;
+			position: relative;
+		}
+
+		.wizard-timeline-item {
+			display: grid;
+			grid-template-columns: 44px 1fr;
+			gap: 12px;
+			align-items: center;
+			padding: 12px 14px;
+			border-radius: 16px;
+			border: 1px solid rgba(20, 108, 46, 0.12);
+			background: rgba(255, 255, 255, 0.9);
+			position: relative;
+		}
+
+		.wizard-timeline-item:not(:last-child)::after {
+			content: "";
+			position: absolute;
+			right: 35px;
+			top: 52px;
+			width: 2px;
+			height: calc(100% - 8px);
+			background: linear-gradient(180deg, rgba(20, 108, 46, 0.28), rgba(20, 108, 46, 0.08));
+		}
+
+		.wizard-timeline-icon {
+			width: auto;
+			height: auto;
+			border-radius: 0;
+			font-size: inherit;
+			background: transparent;
+		}
+
+		.wizard-timeline-text {
+			font-size: 10.2pt;
+			font-weight: 700;
+			color: var(--brand-navy);
+			padding-top: 0;
+		}
+
+		.wizard-process {
+			display: grid;
+			gap: 0;
+			margin: 16px auto 20px;
+			max-width: 560px;
+			position: relative;
+			padding-right: 6px;
+		}
+
+		.wizard-process::before {
+			content: "";
+			position: absolute;
+			right: 29px;
+			top: 28px;
+			bottom: 28px;
+			width: 2px;
+			background: linear-gradient(180deg, var(--brand-orange), var(--brand-green));
+			border-radius: 999px;
+		}
+
+		.wizard-process-step {
+			display: grid;
+			grid-template-columns: 58px 1fr;
+			gap: 14px;
+			align-items: center;
+			padding: 12px 14px 12px 0;
+			position: relative;
+			z-index: 1;
+		}
+
+		.wizard-process-num {
+			width: 58px;
+			height: 58px;
+			border-radius: 18px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 3px;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-orange), #ff8533);
+			box-shadow: 0 6px 16px rgba(255, 106, 0, 0.22);
+		}
+
+		.wizard-process-num-label {
+			font-size: 8pt;
+			font-weight: 800;
+			opacity: 0.92;
+			line-height: 1;
+		}
+
+		.wizard-process-num i {
+			font-size: 17px;
+			line-height: 1;
+		}
+
+		.wizard-process-copy {
+			padding: 14px 16px;
+			border-radius: 18px;
+			background: linear-gradient(135deg, rgba(255, 243, 232, 0.55), rgba(255, 255, 255, 0.95));
+			border: 1px solid rgba(255, 106, 0, 0.14);
+		}
+
+		.wizard-process-text {
+			font-size: 11pt;
+			font-weight: 700;
+			color: var(--brand-navy);
+		}
+
+		.wizard-pricing-hero {
+			max-width: 420px;
+			margin: 16px auto 20px;
+			padding: 22px 20px;
+			border-radius: 22px;
+			text-align: center;
+			border: 2px solid rgba(255, 106, 0, 0.22);
+			background: linear-gradient(180deg, rgba(255, 243, 232, 0.72), rgba(255, 255, 255, 0.96));
+			box-shadow: 0 10px 30px rgba(255, 106, 0, 0.10);
+		}
+
+		.wizard-price-row {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+			margin: 14px 0;
+		}
+
+		.wizard-price-box {
+			padding: 14px 12px;
+			border-radius: 14px;
+			background: rgba(255, 255, 255, 0.88);
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			display: grid;
+			gap: 8px;
+			justify-items: center;
+		}
+
+		.wizard-price-note {
+			margin-top: 10px;
+			font-size: 9pt;
+			color: var(--brand-slate);
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			justify-content: center;
+		}
+
+		.wizard-price-note i {
+			color: var(--brand-orange);
+		}
+
+		.terms-summary-icon {
+			width: 30px;
+			height: 30px;
+			border-radius: 9px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255, 106, 0, 0.10);
+			color: var(--brand-orange);
+			font-size: 12px;
+			flex-shrink: 0;
+		}
+
+		.wizard-price-label {
+			font-size: 8.5pt;
+			color: var(--brand-slate);
+			margin-bottom: 4px;
+		}
+
+		.wizard-price-value {
+			font-size: 18pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+		}
+
+		.wizard-price-note {
+			margin-top: 10px;
+			font-size: 9pt;
+			color: var(--brand-slate);
+		}
+
+		.terms-accordion {
+			display: grid;
+			gap: 10px;
+			margin: 16px 0;
+		}
+
+		.terms-accordion details {
+			border: 1px solid rgba(24, 34, 48, 0.10);
+			border-radius: 14px;
+			background: rgba(255, 255, 255, 0.92);
+			overflow: hidden;
+		}
+
+		.terms-accordion summary {
+			padding: 14px 16px;
+			font-size: 10.2pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			cursor: pointer;
+			list-style: none;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.terms-accordion summary::-webkit-details-marker {
+			display: none;
+		}
+
+		.terms-accordion summary::after {
+			content: "+";
+			margin-right: auto;
+			font-size: 14pt;
+			color: var(--brand-orange);
+		}
+
+		.terms-accordion details[open] summary::after {
+			content: "−";
+		}
+
+		.terms-accordion-body {
+			padding: 0 16px 14px;
+			font-size: 9.5pt;
+			color: var(--brand-slate);
+			line-height: 1.55;
+		}
+
+		.terms-accordion-body ul {
+			margin: 0;
+			padding-right: 18px;
+		}
+
+		.wizard-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-top: 18px;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.wizard-actions .button-primary {
+			min-width: 180px;
+		}
+
+		.wizard-success {
+			text-align: center;
+		}
+
+		.wizard-success-list,
+		.wizard-next-steps {
+			display: grid;
+			gap: 10px;
+			margin: 18px 0;
+			text-align: right;
+		}
+
+		.wizard-success-item,
+		.wizard-next-step {
+			padding: 12px 14px;
+			border-radius: 14px;
+			background: rgba(20, 108, 46, 0.08);
+			border: 1px solid rgba(20, 108, 46, 0.12);
+			font-size: 10pt;
+			font-weight: 700;
+			color: var(--brand-navy);
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.wizard-success-hero {
+			display: grid;
+			justify-items: center;
+			gap: 10px;
+			margin-bottom: 16px;
+		}
+
+		.wizard-success-ring {
+			width: 72px;
+			height: 72px;
+			border-radius: 999px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 30px;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-green), #1a8a3f);
+			box-shadow: 0 10px 28px rgba(20, 108, 46, 0.22);
+		}
+
+		.button-primary i,
+		.button-secondary i,
+		.button-ghost i {
+			margin-left: 6px;
+		}
+
+		.wizard-next-step {
+			display: grid;
+			grid-template-columns: 36px 1fr;
+			gap: 10px;
+			align-items: center;
+			background: rgba(255, 106, 0, 0.08);
+			border-color: rgba(255, 106, 0, 0.14);
+		}
+
+		.wizard-next-num {
+			width: 36px;
+			height: 36px;
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: var(--brand-orange);
+			color: #fff;
+			font-weight: 800;
+			font-size: 14px;
+		}
+
+		.wizard-signature-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 14px;
+			margin-top: 14px;
+		}
+
+		.wizard-error {
+			margin-top: 10px;
+			padding: 10px 12px;
+			border-radius: 12px;
+			font-size: 9pt;
+			display: none;
+			background: rgba(185, 28, 28, 0.08);
+			color: #991b1b;
+			border: 1px solid rgba(185, 28, 28, 0.14);
+		}
+
+		.wizard-error.is-visible {
+			display: block;
+		}
+
+		@media (max-width: 900px) {
+			.page {
+				width: 100%;
+				min-height: 0;
+				padding: 16px 14px 24px;
+			}
+
+			.hero,
+			.signature-form-grid,
+			.signatures,
+			.share-strip,
+			.owner-form-grid,
+			.pricing,
+			.services-grid,
+			.meta-card,
+			.form-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.footer {
+				grid-template-columns: 1fr;
+			}
+
+			.footer-inner {
+				grid-template-columns: 1fr;
+				text-align: center;
+			}
+
+			.footer-brand {
+				justify-content: center;
+			}
+
+			.footer-contact {
+				text-align: center;
+				align-items: center;
+			}
+
+			.wizard-feature-grid,
+			.wizard-signature-grid,
+			.wizard-price-row {
+				grid-template-columns: 1fr;
+			}
+
+			.wizard-progress-label {
+				font-size: 6.8pt;
+			}
+		}
+
+		.service-choice-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 12px;
+			margin: 16px 0;
+		}
+
+		.service-choice-card {
+			position: relative;
+			padding: 14px 12px;
+			border-radius: 18px;
+			border: 2px solid rgba(24, 34, 48, 0.10);
+			background: rgba(255, 255, 255, 0.92);
+			cursor: pointer;
+			transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+			display: grid;
+			gap: 8px;
+		}
+
+		.service-choice-card:hover {
+			border-color: rgba(255, 106, 0, 0.35);
+			box-shadow: 0 8px 24px rgba(255, 106, 0, 0.10);
+		}
+
+		.service-choice-card.is-selected {
+			border-color: var(--brand-orange);
+			box-shadow: 0 12px 28px rgba(255, 106, 0, 0.16);
+			transform: translateY(-2px);
+			background: linear-gradient(180deg, rgba(255, 243, 232, 0.55), rgba(255, 255, 255, 0.98));
+		}
+
+		.service-choice-card.is-disabled {
+			opacity: 0.45;
+			pointer-events: none;
+		}
+
+		.service-choice-card input {
+			position: absolute;
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		.service-choice-head {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.service-choice-icon {
+			width: 38px;
+			height: 38px;
+			border-radius: 12px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 14pt;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-orange), #ff8f3a);
+			flex-shrink: 0;
+		}
+
+		.service-choice-title {
+			font-size: 10.5pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			line-height: 1.25;
+		}
+
+		.service-choice-desc {
+			font-size: 8.6pt;
+			color: var(--brand-slate);
+			line-height: 1.45;
+			min-height: 2.6em;
+		}
+
+		.service-choice-price {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding-top: 8px;
+			border-top: 1px dashed rgba(24, 34, 48, 0.10);
+			font-size: 9pt;
+		}
+
+		.service-choice-price strong {
+			font-size: 11pt;
+			color: var(--brand-navy);
+		}
+
+		.service-choice-check {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			font-size: 8.5pt;
+			font-weight: 700;
+			color: var(--brand-green);
+		}
+
+		.service-choice-card.is-selected .service-choice-check {
+			color: var(--brand-orange);
+		}
+
+		.pricing-total-box {
+			margin-top: 14px;
+			padding: 14px 16px;
+			border-radius: 16px;
+			border: 1px solid rgba(20, 108, 46, 0.16);
+			background: rgba(20, 108, 46, 0.08);
+			display: grid;
+			gap: 8px;
+		}
+
+		.pricing-total-line {
+			display: flex;
+			justify-content: space-between;
+			gap: 10px;
+			font-size: 9.5pt;
+		}
+
+		.pricing-total-line--grand strong {
+			font-size: 13pt;
+			color: var(--brand-navy);
+		}
+
+		.selected-services-banner {
+			margin-top: 12px;
+			padding: 12px 14px;
+			border-radius: 14px;
+			border: 1px solid rgba(20, 108, 46, 0.16);
+			background: rgba(20, 108, 46, 0.08);
+			font-size: 9.2pt;
+		}
+
+		.print-selected-services {
+			margin: 0;
+			padding: 0 18px 0 0;
+			list-style: none;
+		}
+
+		.print-selected-services li {
+			margin-bottom: 6px;
+			font-size: 9.5pt;
+		}
+
+		@media (max-width: 900px) {
+			.service-choice-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+
+	</style>
+</head>
+<body>
+	<div class="access-gate is-hidden" id="access-gate" aria-hidden="true">
+		<div class="access-gate-card">
+			<h2>גישה להצעת המחיר</h2>
+			<p>ההצעה נשלחה למספר טלפון ספציפי. הזינו את אותו מספר כדי לצפות במסמך, למלא פרטים ולחתום דיגיטלית.</p>
+			<div class="form-field">
+				<label class="form-label" for="access-phone">מספר הטלפון שאליו נשלחה ההצעה</label>
+				<input class="form-input" id="access-phone" name="accessPhone" type="tel" placeholder="05X-XXXXXXX" autocomplete="tel">
+			</div>
+			<div class="action-row">
+				<button class="button button-primary" type="button" id="access-unlock-button">הצגת המסמך</button>
+			</div>
+			<div class="access-gate-error" id="access-gate-error">מספר הטלפון אינו תואם להצעה שנשלחה. בדקו את המספר ונסו שוב.</div>
+		</div>
+	</div>
+
+	<main class="page">
+		<div class="content">
+			<div class="owner-panel screen-only is-hidden" id="owner-panel">
+				<h3 class="owner-panel-title">פאנל בעל האתר — שליחת הצעה ללקוח</h3>
+				<div class="buildix-status buildix-status--unlinked" id="buildix-status-badge">Buildix: לא מקושר — צרו הצעה דרך /proposals/</div>
+				<p class="owner-panel-note">הזינו שם לקוח, טלפון, שם עסק/מסעדה, לוגו (אופציונלי) ואימייל לברכות לאחר אישור. הקישור המאובטח יישלח ב-SMS או WhatsApp.</p>
+				<div class="owner-form-grid">
+					<div class="form-field">
+						<label class="form-label" for="owner-client-phone">טלפון הלקוח לשליחה</label>
+						<input class="form-input" id="owner-client-phone" name="ownerClientPhone" type="tel" placeholder="05X-XXXXXXX" autocomplete="tel">
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="owner-client-name">שם הלקוח</label>
+						<input class="form-input" id="owner-client-name" name="ownerClientName" type="text" placeholder="שם מלא">
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="owner-business-name">שם העסק / מסעדה</label>
+						<input class="form-input" id="owner-business-name" name="ownerBusinessName" type="text" placeholder="שם העסק">
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="owner-client-email">אימייל לקוח (לברכות באישור)</label>
+						<input class="form-input" id="owner-client-email" name="ownerClientEmail" type="email" placeholder="name@example.com">
+					</div>
+					<div class="form-field form-field--full">
+						<label class="form-label" for="owner-logo-url">לוגו — קישור (URL)</label>
+						<input class="form-input" id="owner-logo-url" name="ownerLogoUrl" type="url" placeholder="https://.../logo.png">
+					</div>
+					<div class="form-field form-field--full">
+						<label class="form-label" for="owner-logo-file">לוגו — העלאת קובץ</label>
+						<input class="form-input" id="owner-logo-file" name="ownerLogoFile" type="file" accept="image/png,image/jpeg,image/webp">
+					</div>
+					<div class="form-field form-field--full">
+						<img class="owner-logo-preview is-hidden" id="owner-logo-preview" alt="תצוגת לוגו">
+					</div>
+				</div>
+				<div class="share-strip" style="margin-top: 12px;">
+					<div class="share-link-box">
+						<div class="share-link-label">קישור מאובטח ללקוח (itaysolutions.com)</div>
+						<div class="share-link-value" id="share-link-text">—</div>
+					</div>
+					<div class="share-link-box is-hidden" id="buildix-link-box" style="margin-top: 10px;">
+						<div class="share-link-label">הצעה מקושרת ב-Buildix (itaySolutions)</div>
+						<div class="share-link-value" id="buildix-link-text">—</div>
+						<p class="owner-panel-note" id="buildix-link-hint" style="margin: 8px 0 0;"></p>
+					</div>
+					<div class="owner-actions">
+						<button class="button button-primary" type="button" id="send-sms-button">שליחה ב-SMS</button>
+						<button class="button button-secondary" type="button" id="send-whatsapp-button">שליחה ב-WhatsApp</button>
+						<button class="button button-ghost" type="button" id="copy-link-button">העתקת קישור</button>
+						<button class="button button-ghost" type="button" id="reset-journey-button">איפוס מסע / נתונים שמורים</button>
+					</div>
+				</div>
+				<div class="status-box" id="owner-status-box"></div>
+			</div>
+
+			<div class="proposal-document" id="proposal-document">
+			<div class="journey-wizard screen-only" id="journey-wizard">
+				<div class="wizard-progress" id="wizard-progress" aria-label="התקדמות במסע האישור">
+					<button class="wizard-progress-item" type="button" data-step="1"><span class="wizard-progress-dot"><i class="fa-solid fa-house"></i></span><span class="wizard-progress-label">פתיחה</span></button>
+					<button class="wizard-progress-item" type="button" data-step="2"><span class="wizard-progress-dot"><i class="fa-solid fa-share-nodes"></i></span><span class="wizard-progress-label">שירותים</span></button>
+					<button class="wizard-progress-item" type="button" data-step="3"><span class="wizard-progress-dot"><i class="fa-solid fa-list-check"></i></span><span class="wizard-progress-label">מה כלול</span></button>
+					<button class="wizard-progress-item" type="button" data-step="4"><span class="wizard-progress-dot"><i class="fa-solid fa-route"></i></span><span class="wizard-progress-label">תהליך</span></button>
+					<button class="wizard-progress-item" type="button" data-step="5"><span class="wizard-progress-dot"><i class="fa-solid fa-hand-pointer"></i></span><span class="wizard-progress-label">בחירה</span></button>
+					<button class="wizard-progress-item" type="button" data-step="6"><span class="wizard-progress-dot"><i class="fa-solid fa-file-contract"></i></span><span class="wizard-progress-label">תנאים</span></button>
+					<button class="wizard-progress-item" type="button" data-step="7"><span class="wizard-progress-dot"><i class="fa-solid fa-signature"></i></span><span class="wizard-progress-label">חתימה</span></button>
+				</div>
+
+				<div class="wizard-transition" id="wizard-transition" aria-hidden="true">
+					<div class="wizard-transition-inner">
+						<div class="wizard-spinner" aria-hidden="true">
+							<div class="wizard-spinner-ring"></div>
+							<div class="wizard-spinner-icon"><i class="fa-solid fa-gear"></i></div>
+						</div>
+						<div class="wizard-transition-text">מעבר לשלב הבא...</div>
+					</div>
+				</div>
+
+				<section class="wizard-step is-active" data-step="1" id="wizard-step-1">
+					<div class="wizard-card wizard-card--welcome">
+						<div class="wizard-welcome-hero">
+							<div class="wizard-welcome-visual">
+								<div class="wizard-welcome-logo-wrap">
+									<img class="logo-transparent brand-logo" src="../../assets/images/logoItayS.jpeg" alt="Itay Solutions">
+								</div>
+								<span class="wizard-welcome-link" aria-hidden="true"><i class="fa-solid fa-link"></i></span>
+								<div class="wizard-welcome-logo-wrap">
+									<img class="business-logo-image is-hidden" id="welcome-business-logo" alt="לוגו העסק">
+									<div class="business-logo-badge" id="welcome-business-badge">עסק</div>
+									<div class="brand-caption" id="welcome-business-name">שם העסק</div>
+								</div>
+							</div>
+							<h2 class="wizard-title">ניהול סושיאל ודיגיטל לעסק שלכם</h2>
+							<p class="wizard-subtitle" id="welcome-subtitle">הצעה עבור שם העסק · בחרו שירותים, אשרו מחירים וחתמו דיגיטלית</p>
+							<div class="lead-box" style="margin-top: 14px; text-align: right;">
+								<p>העסק שלכם פעיל ברשת — בלי שתרדפו אחרי תוכן. פייסבוק, אינסטגרם, תוכן, מענה ללקוחות ופרסום ממומן — הכל במקום אחד. בסוף ההצעה תבחרו את השירותים המתאימים לכם ותאשרו בחתימה.</p>
+							</div>
+							<div class="wizard-meta-row">
+								<span class="wizard-meta-pill"><i class="fa-regular fa-clock"></i> זמן קריאה: כ-3 דקות</span>
+								<span class="wizard-meta-pill wizard-meta-pill--green"><i class="fa-solid fa-shoe-prints"></i> 7 שלבים מסודרים</span>
+							</div>
+						</div>
+						<div class="wizard-actions" style="justify-content: center;">
+							<button class="button button-primary" type="button" data-wizard-next="2"><i class="fa-solid fa-arrow-left"></i> המשך להצעה</button>
+						</div>
+					</div>
+				</section>
+
+				<section class="wizard-step" data-step="2" id="wizard-step-2">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-share-nodes"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">מה אנחנו מציעים</h2>
+								<p class="wizard-subtitle">שירותי ניהול דיגיטל מותאמים לעסקים — במיוחד מסעדות ועסקים מקומיים.</p>
+							</div>
+						</div>
+						<div class="wizard-feature-grid">
+							<div class="wizard-feature-card">
+								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-brands fa-facebook"></i></div>
+								<div class="wizard-feature-title">ניהול פייסבוק</div>
+								<div class="wizard-feature-desc">עמוד, פוסטים, מענה וקהילה</div>
+							</div>
+							<div class="wizard-feature-card">
+								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-brands fa-instagram"></i></div>
+								<div class="wizard-feature-title">ניהול אינסטגרם</div>
+								<div class="wizard-feature-desc">פיד, Stories, Reels ועקביות מותג</div>
+							</div>
+							<div class="wizard-feature-card">
+								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-pen-nib"></i></div>
+								<div class="wizard-feature-title">יצירת תוכן</div>
+								<div class="wizard-feature-desc">פוסטים, כיתובים וויזואלים</div>
+							</div>
+							<div class="wizard-feature-card">
+								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-clapperboard"></i></div>
+								<div class="wizard-feature-title">יצירת Stories</div>
+								<div class="wizard-feature-desc">סטוריז, מבצעים ותוכן יומי</div>
+							</div>
+							<div class="wizard-feature-card">
+								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-comments"></i></div>
+								<div class="wizard-feature-title">מענה ללקוחות</div>
+								<div class="wizard-feature-desc">הודעות, לידים ושירות מהיר</div>
+							</div>
+							<div class="wizard-feature-card">
+								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-bullhorn"></i></div>
+								<div class="wizard-feature-title">פרסום ממומן</div>
+								<div class="wizard-feature-desc">קמפיינים, קהלים והמרות (לא כולל תקציב מודעות)</div>
+							</div>
+						</div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="1"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
+							<button class="button button-primary" type="button" data-wizard-next="3">מה כלול בכל שירות? <i class="fa-solid fa-arrow-left"></i></button>
+						</div>
+					</div>
+				</section>
+
+				<section class="wizard-step" data-step="3" id="wizard-step-3">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--green w-icon--lg"><i class="fa-solid fa-list-check"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">פירוט השירותים</h2>
+								<p class="wizard-subtitle">בשלב הבא תבחרו בדיוק מה שמתאים לעסק — ותראו את המחיר המעודכן.</p>
+							</div>
+						</div>
+						<div class="wizard-timeline">
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-brands fa-facebook"></i></span></div><div class="wizard-timeline-text"><strong>ניהול פייסבוק</strong> — עמוד, פוסטים, מענה וקהילה</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-brands fa-instagram"></i></span></div><div class="wizard-timeline-text"><strong>ניהול אינסטגרם</strong> — פיד, Stories, Reels ועקביות מותג</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-pen-nib"></i></span></div><div class="wizard-timeline-text"><strong>יצירת תוכן</strong> — פוסטים, כיתובים וויזואלים</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-clapperboard"></i></span></div><div class="wizard-timeline-text"><strong>יצירת Stories</strong> — סטוריז, מבצעים ותוכן יומי</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-comments"></i></span></div><div class="wizard-timeline-text"><strong>מענה ללקוחות</strong> — הודעות, לידים ושירות מהיר</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-bullhorn"></i></span></div><div class="wizard-timeline-text"><strong>פרסום ממומן</strong> — קמפיינים, קהלים והמרות (לא כולל תקציב מודעות)</div></div>
+							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--orange w-icon--sm"><i class="fa-solid fa-rocket"></i></span></div><div class="wizard-timeline-text"><strong>הקמה ראשונית</strong> — חיבור ערוצים, הגדרת מותג ותוכנית תוכן</div></div>
+						</div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="2"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
+							<button class="button button-primary" type="button" data-wizard-next="4">המשך לתהליך <i class="fa-solid fa-arrow-left"></i></button>
+						</div>
+					</div>
+				</section>
+
+				<section class="wizard-step" data-step="4" id="wizard-step-4">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-route"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">איך זה עובד</h2>
+								<p class="wizard-subtitle">תהליך ברור מהחתימה ועד שהעסק פעיל ברשת.</p>
+							</div>
+						</div>
+						<div class="wizard-process">
+							<div class="wizard-process-step"><div class="wizard-process-num"><span class="wizard-process-num-label">1</span><i class="fa-solid fa-hand-pointer"></i></div><div class="wizard-process-copy"><div class="wizard-process-text">בחירת שירותים וחתימה</div></div></div>
+							<div class="wizard-process-step"><div class="wizard-process-num"><span class="wizard-process-num-label">2</span><i class="fa-solid fa-folder-open"></i></div><div class="wizard-process-copy"><div class="wizard-process-text">שליחת חומרים וגישות</div></div></div>
+							<div class="wizard-process-step"><div class="wizard-process-num"><span class="wizard-process-num-label">3</span><i class="fa-solid fa-palette"></i></div><div class="wizard-process-copy"><div class="wizard-process-text">הקמה ותוכנית תוכן</div></div></div>
+							<div class="wizard-process-step"><div class="wizard-process-num"><span class="wizard-process-num-label">4</span><i class="fa-solid fa-calendar-check"></i></div><div class="wizard-process-copy"><div class="wizard-process-text">פרסום שוטף ומעקב</div></div></div>
+							<div class="wizard-process-step"><div class="wizard-process-num"><span class="wizard-process-num-label">5</span><i class="fa-solid fa-chart-line"></i></div><div class="wizard-process-copy"><div class="wizard-process-text">דוחות ושיפור מתמשך</div></div></div>
+						</div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="3"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
+							<button class="button button-primary" type="button" data-wizard-next="5">המשך לבחירת שירותים <i class="fa-solid fa-arrow-left"></i></button>
+						</div>
+					</div>
+				</section>
+
+				<section class="wizard-step" data-step="5" id="wizard-step-5">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-hand-pointer"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">בחירת שירותים</h2>
+								<p class="wizard-subtitle">סמנו את השירותים שתרצו לכלול. המחיר מתעדכן אוטומטית לפי הבחירה.</p>
+							</div>
+						</div>
+						<div class="service-choice-grid" id="service-choice-grid">
+							<label class="service-choice-card" data-service-id="facebook">
+								<input type="checkbox" name="selected-service" value="facebook">
+								<div class="service-choice-head">
+									<span class="service-choice-icon"><i class="fa-brands fa-facebook"></i></span>
+									<div class="service-choice-title">ניהול פייסבוק</div>
+								</div>
+								<div class="service-choice-desc">עמוד, פוסטים, מענה וקהילה</div>
+								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="facebook">₪900</strong></div>
+								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
+							</label>
+							<label class="service-choice-card" data-service-id="instagram">
+								<input type="checkbox" name="selected-service" value="instagram">
+								<div class="service-choice-head">
+									<span class="service-choice-icon"><i class="fa-brands fa-instagram"></i></span>
+									<div class="service-choice-title">ניהול אינסטגרם</div>
+								</div>
+								<div class="service-choice-desc">פיד, Stories, Reels ועקביות מותג</div>
+								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="instagram">₪900</strong></div>
+								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
+							</label>
+							<label class="service-choice-card" data-service-id="content">
+								<input type="checkbox" name="selected-service" value="content">
+								<div class="service-choice-head">
+									<span class="service-choice-icon"><i class="fa-solid fa-pen-nib"></i></span>
+									<div class="service-choice-title">יצירת תוכן</div>
+								</div>
+								<div class="service-choice-desc">פוסטים, כיתובים וויזואלים</div>
+								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="content">₪700</strong></div>
+								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
+							</label>
+							<label class="service-choice-card" data-service-id="stories">
+								<input type="checkbox" name="selected-service" value="stories">
+								<div class="service-choice-head">
+									<span class="service-choice-icon"><i class="fa-solid fa-clapperboard"></i></span>
+									<div class="service-choice-title">יצירת Stories</div>
+								</div>
+								<div class="service-choice-desc">סטוריז, מבצעים ותוכן יומי</div>
+								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="stories">₪500</strong></div>
+								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
+							</label>
+							<label class="service-choice-card" data-service-id="inbox">
+								<input type="checkbox" name="selected-service" value="inbox">
+								<div class="service-choice-head">
+									<span class="service-choice-icon"><i class="fa-solid fa-comments"></i></span>
+									<div class="service-choice-title">מענה ללקוחות</div>
+								</div>
+								<div class="service-choice-desc">הודעות, לידים ושירות מהיר</div>
+								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="inbox">₪600</strong></div>
+								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
+							</label>
+							<label class="service-choice-card" data-service-id="ads">
+								<input type="checkbox" name="selected-service" value="ads">
+								<div class="service-choice-head">
+									<span class="service-choice-icon"><i class="fa-solid fa-bullhorn"></i></span>
+									<div class="service-choice-title">פרסום ממומן</div>
+								</div>
+								<div class="service-choice-desc">קמפיינים, קהלים והמרות (לא כולל תקציב מודעות)</div>
+								<div class="service-choice-price"><span>מחיר חודשי</span><strong data-price-key="ads">₪800</strong></div>
+								<span class="service-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה בשירות זה</span>
+							</label>
+						</div>
+						<div class="pricing-total-box" id="pricing-total-box">
+							<div class="pricing-total-line"><span>הקמה ראשונית (חד פעמית)</span><strong data-price-key="setup">₪1,500</strong></div>
+							<div class="pricing-total-line"><span>סה״כ שירותים חודשיים</span><strong id="monthly-total-value">₪0</strong></div>
+							<div class="pricing-total-line pricing-total-line--grand"><span>סה״כ חודשי לאחר הקמה</span><strong id="monthly-grand-value">₪0</strong></div>
+						</div>
+						<div class="wizard-error" id="wizard-services-error">יש לבחור לפחות שירות אחד לפני המשך.</div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="4"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
+							<button class="button button-primary" type="button" data-wizard-next="6">אישור הבחירה והמשך <i class="fa-solid fa-arrow-left"></i></button>
+						</div>
+					</div>
+				</section>
+
+				<section class="wizard-step" data-step="6" id="wizard-step-6">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--navy w-icon--lg"><i class="fa-solid fa-file-contract"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">לפני חתימה</h2>
+								<p class="wizard-subtitle">כדאי לעבור על התנאים החשובים — בקצרה ובבהירות.</p>
+							</div>
+						</div>
+						<div class="terms-accordion">
+							<details>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-credit-card"></i></span>תנאי תשלום</summary>
+								<div class="terms-accordion-body">
+									<ul>
+										<li>תשלום ההקמה יבוצע לפני תחילת העבודה בפועל.</li>
+										<li>התשלום החודשי ייגבה בתחילת כל חודש עבור השירותים שנבחרו.</li>
+										<li>תקציב פרסום ממומן (מודעות) אינו כלול במחיר הניהול — משולם ישירות לפלטפורמות.</li>
+									</ul>
+								</div>
+							</details>
+							<details>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-images"></i></span>חומרים באחריות הלקוח</summary>
+								<div class="terms-accordion-body">
+									<ul>
+										<li>לוגו, תמונות, סרטונים וחומרי מותג.</li>
+										<li>גישות לעמודי פייסבוק / אינסטגרם (או הרשאות מנהל).</li>
+										<li>אישור תוכן לפני פרסום, לפי הצורך.</li>
+									</ul>
+								</div>
+							</details>
+							<details>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-shield-halved"></i></span>בעלות וזכויות</summary>
+								<div class="terms-accordion-body">
+									<p>התוכן, התמונות והלוגו של העסק נשארים בבעלות הלקוח. Itay Solutions מספקת שירותי ניהול ותפעול — ללא העברת בעלות על חשבונות הרשתות.</p>
+								</div>
+							</details>
+							<details>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-ban"></i></span>ביטול שירות</summary>
+								<div class="terms-accordion-body">
+									<ul>
+										<li>ניתן להפסיק את השירות בהתראה מוקדמת של 30 יום מראש.</li>
+										<li>תשלום ההקמה אינו מוחזר לאחר תחילת העבודה.</li>
+									</ul>
+								</div>
+							</details>
+						</div>
+						<label class="check-row">
+							<input id="terms-read-checkbox" type="checkbox">
+							<span>קראתי והבנתי את התנאים</span>
+						</label>
+						<div class="wizard-error" id="wizard-terms-error">יש לסמן שקראתם והבנתם את התנאים לפני המשך.</div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="5"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
+							<button class="button button-primary" type="button" data-wizard-next="7">המשך לחתימה <i class="fa-solid fa-arrow-left"></i></button>
+						</div>
+					</div>
+				</section>
+
+				<section class="wizard-step" data-step="7" id="wizard-step-7">
+					<div class="wizard-card">
+						<div class="wizard-step-header">
+							<div class="w-icon w-icon--green w-icon--lg"><i class="fa-solid fa-signature"></i></div>
+							<div class="wizard-step-header-text">
+								<h2 class="wizard-title">אישור השירות</h2>
+								<p class="wizard-subtitle">מלאו את הפרטים, חתמו דיגיטלית — ומתחילים לעבוד.</p>
+							</div>
+						</div>
+						<form id="approval-form" class="form-grid wizard-signature-grid">
+							<div class="form-field">
+								<label class="form-label" for="business-name">שם העסק</label>
+								<input class="form-input" id="business-name" name="businessName" type="text" value="שם העסק">
+							</div>
+							<div class="form-field">
+								<label class="form-label" for="signer-name">שם החותם</label>
+								<input class="form-input" id="signer-name" name="signerName" type="text" placeholder="שם מלא">
+							</div>
+							<div class="form-field">
+								<label class="form-label" for="phone">טלפון</label>
+								<input class="form-input" id="phone" name="phone" type="tel" placeholder="05X-XXXXXXX">
+							</div>
+							<div class="form-field">
+								<label class="form-label" for="email">אימייל</label>
+								<input class="form-input" id="email" name="email" type="email" placeholder="name@example.com">
+							</div>
+							<div class="form-field full">
+								<label class="form-label" for="notes">הערות (אופציונלי)</label>
+								<textarea class="form-textarea" id="notes" name="notes" placeholder="הערות נוספות"></textarea>
+							</div>
+						</form>
+						<div class="signature-box" style="margin-top: 14px;">
+							<div class="signature-title">חתימה דיגיטלית</div>
+							<div class="signature-pad-wrap">
+								<canvas id="signature-canvas" class="signature-canvas"></canvas>
+								<div class="signature-hint">חתמו כאן עם עכבר, אצבע או עט דיגיטלי.</div>
+							</div>
+						</div>
+						<label class="check-row" style="margin-top: 12px;">
+							<input id="approval-checkbox" name="approved" type="checkbox">
+							<span>אני מאשר/ת את הצעת המחיר, השירותים שנבחרו ותנאי השירות.</span>
+						</label>
+						<div class="status-box" id="status-box"></div>
+						<div class="wizard-actions">
+							<button class="button button-ghost" type="button" data-wizard-back="6">חזרה</button>
+							<button class="button button-secondary" type="button" id="clear-signature-button">ניקוי חתימה</button>
+							<button class="button button-primary" type="button" id="approve-button"><i class="fa-solid fa-rocket"></i> אשר והתחל עבודה</button>
+							<button class="button button-ghost" type="button" id="print-button">הדפסה / PDF</button>
+						</div>
+						<div class="signature-preview">
+							<img id="signature-preview-image" alt="תצוגת חתימה דיגיטלית">
+							<div class="preview-meta" id="signature-preview-meta">טרם נוצר אישור חתום.</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="wizard-step wizard-success" data-step="success" id="wizard-step-success">
+					<div class="wizard-card">
+						<div class="wizard-success-hero">
+							<div class="wizard-success-ring"><i class="fa-solid fa-check"></i></div>
+							<h2 class="wizard-title">תודה! ההצעה אושרה בהצלחה</h2>
+							<p class="wizard-subtitle">קיבלנו את האישור והחתימה. מתחילים בהקמה ותוכנית התוכן.</p>
+						</div>
+						<div class="wizard-success-list">
+							<div class="wizard-success-item"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-check"></i></span><span>חתימה התקבלה</span></div>
+							<div class="wizard-success-item"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-check"></i></span><span id="wizard-success-save-note">עותק נשמר</span></div>
+							<div class="wizard-success-item"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-check"></i></span><span>ניצור קשר תוך 24 שעות</span></div>
+						</div>
+						<h3 class="section-title" style="font-size: 12pt; margin-top: 8px;">השלב הבא</h3>
+						<div class="wizard-next-steps">
+							<div class="wizard-next-step"><span class="wizard-next-num"><i class="fa-solid fa-folder-open"></i></span><span>שליחת חומרים</span></div>
+							<div class="wizard-next-step"><span class="wizard-next-num"><i class="fa-solid fa-screwdriver-wrench"></i></span><span>הקמה ותוכנית תוכן</span></div>
+							<div class="wizard-next-step"><span class="wizard-next-num"><i class="fa-solid fa-clipboard-check"></i></span><span>בדיקות</span></div>
+							<div class="wizard-next-step"><span class="wizard-next-num"><i class="fa-solid fa-rocket"></i></span><span>פרסום שוטף</span></div>
+						</div>
+						<div class="wizard-actions" style="justify-content: center;">
+							<button class="button button-secondary" type="button" id="success-print-button"><i class="fa-solid fa-print"></i> הדפסה / PDF</button>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<div class="print-contract print-only">
+				<section class="hero">
+					<div class="hero-copy">
+						<div class="eyebrow">הצעת מחיר והסכם שירות</div>
+						<h1>ניהול סושיאל ודיגיטל <span>לעסק שלכם</span></h1>
+						<p class="subtitle" id="print-business-subtitle">עבור שם העסק | Itay Solutions</p>
+					</div>
+				</section>
+
+				<section class="section">
+					<h2 class="section-title">שירותים זמינים</h2>
+					<div class="lead-box">
+						<p>ניהול דיגיטלי מקצה לקצה — פייסבוק, אינסטגרם, תוכן, מענה ללקוחות ופרסום ממומן.</p>
+					</div>
+					<div class="services-grid" style="margin-top: 10px;">
+						<div class="service-item">ניהול פייסבוק — עמוד, פוסטים, מענה וקהילה</div>
+						<div class="service-item">ניהול אינסטגרם — פיד, Stories, Reels ועקביות מותג</div>
+						<div class="service-item">יצירת תוכן — פוסטים, כיתובים וויזואלים</div>
+						<div class="service-item">יצירת Stories — סטוריז, מבצעים ותוכן יומי</div>
+						<div class="service-item">מענה ללקוחות — הודעות, לידים ושירות מהיר</div>
+						<div class="service-item">פרסום ממומן — קמפיינים, קהלים והמרות (לא כולל תקציב מודעות)</div>
+					</div>
+				</section>
+
+				<section class="section">
+					<h2 class="section-title">שירותים שנבחרו</h2>
+					<ul class="print-selected-services" id="print-selected-services-list">
+						<li>טרם נבחרו שירותים</li>
+					</ul>
+				</section>
+
+				<section class="section">
+					<h2 class="section-title">סיכום עלויות</h2>
+					<div class="pricing">
+						<div class="price-card emphasis"><div class="price-label">הקמה חד פעמית</div><div class="price-value" data-price-key="setup">₪1,500</div></div>
+						<div class="price-card"><div class="price-label">סה״כ חודשי</div><div class="price-value" id="print-monthly-total">₪0</div></div>
+					</div>
+					<p class="price-note" style="margin-top: 10px; text-align: center;">המחיר החודשי מחושב לפי השירותים שנבחרו · תקציב מודעות אינו כלול</p>
+				</section>
+
+				<section class="section">
+					<h2 class="section-title">תנאי שירות</h2>
+					<div class="terms-box" style="margin-bottom: 10px;">
+						<p><strong>תנאי תשלום:</strong> תשלום ההקמה לפני תחילת העבודה. התשלום החודשי בתחילת כל חודש עבור השירותים שנבחרו.</p>
+					</div>
+					<div class="ownership-box" style="margin-bottom: 10px;">
+						<p><strong>בעלות:</strong> התוכן והנכסים הגרפיים של העסק נשארים בבעלות הלקוח. חשבונות הרשתות נשארים בבעלות הלקוח.</p>
+					</div>
+					<div class="terms-box">
+						<p><strong>ביטול שירות:</strong> ניתן להפסיק את השירות בהתראה מוקדמת של 30 יום. תשלום ההקמה אינו מוחזר לאחר תחילת העבודה.</p>
+					</div>
+				</section>
+
+				<section class="section section-signature">
+					<h2 class="section-title">פרטי אישור וחתימה</h2>
+					<div class="signatures">
+						<div class="signature-box">
+							<div class="signature-title">פרטי העסק / הלקוח</div>
+							<div class="line-field">שם העסק: <span id="summary-business-name">שם העסק</span></div>
+							<div class="line-field">שם החותם: <span id="summary-signer-name">__________________________</span></div>
+							<div class="line-field">טלפון: <span id="summary-phone">__________________________</span></div>
+							<div class="line-field">אימייל: <span id="summary-email">__________________________</span></div>
+							<div class="line-field">תאריך: <span id="summary-date">__________________________</span></div>
+							<div class="line-field">הערות: <span id="summary-notes">__________________________</span></div>
+						</div>
+						<div class="signature-box final-signature-card">
+							<div class="signature-title">אישור והתחייבות</div>
+							<div class="final-signature-preview">
+								<img id="final-signature-image" alt="חתימת לקוח דיגיטלית">
+							</div>
+							<div class="final-signature-meta" id="final-signature-meta">טרם נחתם על ידי הלקוח.</div>
+							<div class="line-field">חתימת לקוח: <span id="summary-signature-status">__________________________</span></div>
+							<div class="provider-signature-block">
+								<div class="provider-signature-label">חתימה דיגיטלית מטעם Itay Solutions</div>
+								<img src="../../assets/images/itayhatima.png" alt="itay Solutions חתימה דיגיטלית" class="provider-signature-mark logo-transparent">
+								<div class="provider-contact-line">טלפון ישיר: 054-7466508</div>
+								<div class="provider-contact-line"><a href="https://www.itaysolutions.com">www.itaysolutions.com</a></div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<footer class="footer">
+				<div class="footer-top-bar" aria-hidden="true"></div>
+				<div class="footer-inner">
+					<div class="footer-brand">
+						<img class="footer-logo logo-transparent" src="../../assets/images/logoItayS.jpeg" alt="Itay Solutions">
+						<div class="footer-brand-copy">
+							<strong>Itay Solutions</strong>
+							<span>פתרונות דיגיטליים לעסקים</span>
+						</div>
+					</div>
+					<div class="footer-message">מסמך זה מיועד לאישור הצעת מחיר לניהול סושיאל ודיגיטל — כולל בחירת שירותים.</div>
+					<div class="footer-contact">
+						<span class="footer-contact-label">יצירת קשר</span>
+						<span class="footer-contact-value">054-7466508</span>
+						<a href="https://www.itaysolutions.com" target="_blank" rel="noopener noreferrer">www.itaysolutions.com</a>
+					</div>
+				</div>
+			</footer>
+			</div>
+		</div>
+	</main>
+	<script src="../proposal-backend-config.js"></script>
+	<script>
+		window.ITAY_PROPOSAL_CONFIG = window.ITAY_PROPOSAL_CONFIG || {
+			proposalId: "social-media-management-2026",
+			hostedPath: "https://www.itaysolutions.com/proposals/social-media-management-2026",
+			ownerKey: "7466508",
+			accessSalt: "itay-proposals-2026",
+			submitUrl: window.PROPOSAL_SUBMIT_URL || "",
+			brandingUrl: window.PROPOSAL_BRANDING_URL || "",
+			buildixQuoteToken: ""
+		};
+	</script>
+	<script>
+		(function () {
+			const config = window.ITAY_PROPOSAL_CONFIG || {};
+			const proposalId = config.proposalId || "social-media-management-2026";
+			const hostedPath = config.hostedPath || "https://www.itaysolutions.com/proposals/social-media-management-2026";
+			const accessSalt = config.accessSalt || "itay-proposals-2026";
+			const storageKey = "social-proposal-approval:" + proposalId;
+			const accessStorageKey = "social-proposal-access:" + proposalId;
+			const unlockSessionKey = "social-proposal-unlocked:" + proposalId;
+			const quoteTokenSessionKey = "itay-proposal-quote-token:" + proposalId;
+			const submitUrl = config.submitUrl || window.PROPOSAL_SUBMIT_URL || "";
+			const submitApiKey = config.submitApiKey || window.PROPOSAL_SUBMIT_API_KEY || "";
+			const brandingUrl = config.brandingUrl || window.PROPOSAL_BRANDING_URL || "";
+			let buildixQuoteToken = config.buildixQuoteToken || "";
+			let buildixPublicBase = "https://app.buildix.site";
+			let businessLogoUrl = "";
+			let hasBusinessLogo = false;
+			const SERVICE_CATALOG = [
+				{ id: "facebook", title: "ניהול פייסבוק", monthly: true, itemIndex: 1 },
+				{ id: "instagram", title: "ניהול אינסטגרם", monthly: true, itemIndex: 2 },
+				{ id: "content", title: "יצירת תוכן", monthly: true, itemIndex: 3 },
+				{ id: "stories", title: "יצירת Stories", monthly: true, itemIndex: 4 },
+				{ id: "inbox", title: "מענה ללקוחות", monthly: true, itemIndex: 5 },
+				{ id: "ads", title: "פרסום ממומן", monthly: true, itemIndex: 6 }
+			];
+			const defaultProposalPrices = {
+				setup: 1500,
+				facebook: 900,
+				instagram: 900,
+				content: 700,
+				stories: 500,
+				inbox: 600,
+				ads: 800
+			};
+			let proposalPrices = Object.assign({}, defaultProposalPrices);
+			let offeredServiceIds = SERVICE_CATALOG.map(function (item) { return item.id; });
+			let selectedServiceIds = [];
+			const smsApiUrl = config.smsApiUrl || window.PROPOSAL_SMS_API_URL || "";
+
+			const accessGate = document.getElementById("access-gate");
+			const accessPhoneInput = document.getElementById("access-phone");
+			const accessUnlockButton = document.getElementById("access-unlock-button");
+			const accessGateError = document.getElementById("access-gate-error");
+			const ownerPanel = document.getElementById("owner-panel");
+			const ownerClientPhoneInput = document.getElementById("owner-client-phone");
+			const ownerClientNameInput = document.getElementById("owner-client-name");
+			const ownerBusinessNameInput = document.getElementById("owner-business-name");
+			const ownerClientEmailInput = document.getElementById("owner-client-email");
+			const ownerLogoUrlInput = document.getElementById("owner-logo-url");
+			const ownerLogoFileInput = document.getElementById("owner-logo-file");
+			const ownerLogoPreview = document.getElementById("owner-logo-preview");
+			const ownerStatusBox = document.getElementById("owner-status-box");
+			const sendSmsButton = document.getElementById("send-sms-button");
+			const sendWhatsappButton = document.getElementById("send-whatsapp-button");
+			const resetJourneyButton = document.getElementById("reset-journey-button");
+			const proposalDocument = document.getElementById("proposal-document");
+
+			const form = document.getElementById("approval-form");
+			const businessNameInput = document.getElementById("business-name");
+			const signerNameInput = document.getElementById("signer-name");
+			const phoneInput = document.getElementById("phone");
+			const emailInput = document.getElementById("email");
+			const notesInput = document.getElementById("notes");
+			const approvalCheckbox = document.getElementById("approval-checkbox");
+			const copyLinkButton = document.getElementById("copy-link-button");
+			const approveButton = document.getElementById("approve-button");
+			const printButton = document.getElementById("print-button");
+			const clearSignatureButton = document.getElementById("clear-signature-button");
+			const shareLinkText = document.getElementById("share-link-text");
+			const buildixLinkBox = document.getElementById("buildix-link-box");
+			const buildixLinkText = document.getElementById("buildix-link-text");
+			const buildixLinkHint = document.getElementById("buildix-link-hint");
+			const buildixStatusBadge = document.getElementById("buildix-status-badge");
+			const statusBox = document.getElementById("status-box");
+			const signatureCanvas = document.getElementById("signature-canvas");
+			const signaturePreviewImage = document.getElementById("signature-preview-image");
+			const signaturePreviewMeta = document.getElementById("signature-preview-meta");
+			const finalSignatureImage = document.getElementById("final-signature-image");
+			const finalSignatureMeta = document.getElementById("final-signature-meta");
+
+			const summaryBusinessName = document.getElementById("summary-business-name");
+			const summarySignerName = document.getElementById("summary-signer-name");
+			const summaryDate = document.getElementById("summary-date");
+			const summarySignatureStatus = document.getElementById("summary-signature-status");
+			const summaryPhone = document.getElementById("summary-phone");
+			const summaryEmail = document.getElementById("summary-email");
+			const summaryNotes = document.getElementById("summary-notes");
+
+			const journeyWizard = document.getElementById("journey-wizard");
+			const wizardProgress = document.getElementById("wizard-progress");
+			const wizardTransition = document.getElementById("wizard-transition");
+			const WIZARD_TRANSITION_MS = 520;
+			const wizardSteps = journeyWizard ? journeyWizard.querySelectorAll(".wizard-step") : [];
+			const wizardProgressItems = wizardProgress ? wizardProgress.querySelectorAll(".wizard-progress-item") : [];
+			const termsReadCheckbox = document.getElementById("terms-read-checkbox");
+			const wizardTermsError = document.getElementById("wizard-terms-error");
+			const wizardServicesError = document.getElementById("wizard-services-error");
+			const serviceChoiceGrid = document.getElementById("service-choice-grid");
+			const monthlyTotalValue = document.getElementById("monthly-total-value");
+			const monthlyGrandValue = document.getElementById("monthly-grand-value");
+			const selectedServicesLabel = document.getElementById("selected-services-label");
+			const printSelectedServicesList = document.getElementById("print-selected-services-list");
+			const printMonthlyTotal = document.getElementById("print-monthly-total");
+			const welcomeBusinessName = document.getElementById("welcome-business-name");
+			const welcomeBusinessBadge = document.getElementById("welcome-business-badge");
+			const welcomeBusinessLogo = document.getElementById("welcome-business-logo");
+			const welcomeSubtitle = document.getElementById("welcome-subtitle");
+			const printBusinessSubtitle = document.getElementById("print-business-subtitle");
+			const successPrintButton = document.getElementById("success-print-button");
+			const wizardSuccessSaveNote = document.getElementById("wizard-success-save-note");
+			const wizardStepKey = "social-proposal-wizard-step:" + proposalId;
+			let currentWizardStep = 1;
+			let maxWizardStep = 1;
+
+			const context = signatureCanvas.getContext("2d");
+			let strokes = [];
+			let currentStroke = null;
+			let signedImageDataUrl = "";
+			let signedAtValue = "";
+			let authorizedPhone = "";
+			let isOwnerMode = false;
+			let isUnlocked = false;
+
+			function updateWelcomeBusiness() {
+				const name = businessNameInput.value.trim() || "שם העסק";
+				if (welcomeBusinessName) {
+					welcomeBusinessName.textContent = name;
+				}
+				if (welcomeBusinessBadge) {
+					const parts = name.split(/\s+/).filter(Boolean);
+					const initials = parts.slice(0, 2).map(function (part) {
+						return part.charAt(0);
+					}).join("");
+					welcomeBusinessBadge.textContent = initials || "עסק";
+				}
+				const subtitleText = "הצעה עבור " + name + " · מסע קצר וברור לאישור ההצעה";
+				if (welcomeSubtitle) {
+					welcomeSubtitle.textContent = subtitleText;
+				}
+				if (printBusinessSubtitle) {
+					printBusinessSubtitle.textContent = "עבור " + name + " | Itay Solutions";
+				}
+			}
+
+			function getBuildixLogoApiUrl() {
+				if (!buildixQuoteToken || !brandingUrl) {
+					return "";
+				}
+				return brandingUrl.replace(/\/$/, "") + "/" + encodeURIComponent(buildixQuoteToken) + "/logo";
+			}
+
+			function resolveBusinessLogoDisplayUrl() {
+				if (businessLogoUrl && businessLogoUrl.indexOf("data:image/") === 0) {
+					return businessLogoUrl;
+				}
+				if (hasBusinessLogo && getBuildixLogoApiUrl()) {
+					return getBuildixLogoApiUrl() + "?t=" + Date.now();
+				}
+				return businessLogoUrl || "";
+			}
+
+			function showBusinessLogoFallback() {
+				hasBusinessLogo = false;
+				if (welcomeBusinessLogo) {
+					welcomeBusinessLogo.removeAttribute("src");
+					welcomeBusinessLogo.classList.add("is-hidden");
+				}
+				if (welcomeBusinessBadge) {
+					welcomeBusinessBadge.classList.remove("is-hidden");
+				}
+				if (ownerLogoPreview) {
+					ownerLogoPreview.removeAttribute("src");
+					ownerLogoPreview.classList.add("is-hidden");
+				}
+			}
+
+			function applyBusinessLogo(logoUrl, options) {
+				const opts = options || {};
+				if (typeof logoUrl === "string" && logoUrl.trim() !== "") {
+					businessLogoUrl = logoUrl.trim();
+					if (businessLogoUrl.indexOf("data:image/") === 0 || opts.markUploaded) {
+						hasBusinessLogo = true;
+					}
+				}
+				const displayUrl = resolveBusinessLogoDisplayUrl();
+				if (ownerLogoUrlInput && businessLogoUrl && businessLogoUrl.indexOf("data:image/") !== 0) {
+					ownerLogoUrlInput.value = businessLogoUrl;
+				}
+				if (welcomeBusinessLogo && welcomeBusinessBadge) {
+					if (displayUrl) {
+						welcomeBusinessLogo.onload = function () {
+							welcomeBusinessLogo.classList.remove("is-hidden");
+							welcomeBusinessBadge.classList.add("is-hidden");
+						};
+						welcomeBusinessLogo.onerror = showBusinessLogoFallback;
+						welcomeBusinessLogo.src = displayUrl;
+					} else {
+						showBusinessLogoFallback();
+					}
+				}
+				if (ownerLogoPreview) {
+					if (displayUrl) {
+						ownerLogoPreview.onload = function () {
+							ownerLogoPreview.classList.remove("is-hidden");
+						};
+						ownerLogoPreview.onerror = function () {
+							ownerLogoPreview.classList.add("is-hidden");
+						};
+						ownerLogoPreview.src = displayUrl;
+					} else {
+						ownerLogoPreview.classList.add("is-hidden");
+					}
+				}
+			}
+
+			function syncOwnerPanelFromProposal() {
+				if (ownerBusinessNameInput) {
+					ownerBusinessNameInput.value = businessNameInput.value.trim();
+				}
+				if (ownerClientEmailInput) {
+					ownerClientEmailInput.value = emailInput.value.trim();
+				}
+			}
+
+			function syncOwnerPanelToProposal() {
+				if (ownerBusinessNameInput) {
+					businessNameInput.value = ownerBusinessNameInput.value.trim();
+				}
+				if (ownerClientEmailInput) {
+					emailInput.value = ownerClientEmailInput.value.trim();
+				}
+				updateWelcomeBusiness();
+				updateShareUrlFromForm();
+			}
+
+			function readLogoFileAsDataUrl(fileInput) {
+				return new Promise(function (resolve) {
+					const file = fileInput && fileInput.files && fileInput.files[0];
+					if (!file) {
+						resolve("");
+						return;
+					}
+					if (file.size > 400000) {
+						resolve(null);
+						return;
+					}
+					const reader = new FileReader();
+					reader.onload = function () {
+						resolve(typeof reader.result === "string" ? reader.result : "");
+					};
+					reader.onerror = function () {
+						resolve("");
+					};
+					reader.readAsDataURL(file);
+				});
+			}
+
+			async function saveBrandingToServer(payload) {
+				if (!buildixQuoteToken || !brandingUrl) {
+					return null;
+				}
+
+				const headers = {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				};
+				if (submitApiKey) {
+					headers["X-Proposal-Api-Key"] = submitApiKey;
+				}
+
+				const response = await fetch(brandingUrl, {
+					method: "POST",
+					headers: headers,
+					mode: "cors",
+					credentials: "omit",
+					cache: "no-store",
+					body: JSON.stringify(Object.assign({ quoteToken: buildixQuoteToken }, payload))
+				});
+
+				if (!response.ok) {
+					throw new Error("branding_failed");
+				}
+
+				return response.json();
+			}
+
+			async function loadBrandingFromServer() {
+				if (!buildixQuoteToken || !brandingUrl) {
+					return;
+				}
+
+				try {
+					const response = await fetch(brandingUrl + "/" + encodeURIComponent(buildixQuoteToken), {
+						method: "GET",
+						headers: { "Accept": "application/json" },
+						mode: "cors",
+						credentials: "omit",
+						cache: "no-store"
+					});
+					if (!response.ok) {
+						return;
+					}
+					const data = await response.json();
+					if (data.businessName && !businessNameInput.value.trim()) {
+						businessNameInput.value = data.businessName;
+					}
+					if (data.clientEmail) {
+						if (ownerClientEmailInput) {
+							ownerClientEmailInput.value = data.clientEmail;
+						}
+						if (!emailInput.value.trim()) {
+							emailInput.value = data.clientEmail;
+						}
+					}
+					if (data.hasLogo || data.logoUrl) {
+						hasBusinessLogo = true;
+						applyBusinessLogo(data.logoUrl || "linked");
+					}
+					syncOwnerPanelFromProposal();
+					updateWelcomeBusiness();
+				} catch (error) {
+					/* ignore */
+				}
+			}
+
+			async function persistOwnerBranding(options) {
+				const settings = options || {};
+				syncOwnerPanelToProposal();
+
+				if (!buildixQuoteToken) {
+					if (settings.logoUrl) {
+						applyBusinessLogo(settings.logoUrl, { markUploaded: true });
+					}
+					if (settings.logoDataUrl) {
+						applyBusinessLogo(settings.logoDataUrl, { markUploaded: true });
+					}
+					return;
+				}
+
+				if (settings.logoDataUrl) {
+					applyBusinessLogo(settings.logoDataUrl, { markUploaded: true });
+				} else if (settings.logoUrl) {
+					applyBusinessLogo(settings.logoUrl, { markUploaded: true });
+				}
+
+				try {
+					const result = await saveBrandingToServer({
+						businessName: businessNameInput.value.trim(),
+						clientEmail: emailInput.value.trim(),
+						businessLogoDataUrl: settings.logoDataUrl || undefined,
+						businessLogoUrl: settings.logoUrl || undefined
+					});
+					if (result && (result.hasLogo || result.logoUrl)) {
+						hasBusinessLogo = true;
+						applyBusinessLogo(result.logoUrl || "linked");
+					}
+					if (settings.showStatus !== false) {
+						setOwnerStatus("פרטי העסק עודכנו.", "success");
+					}
+				} catch (error) {
+					if (settings.showStatus !== false) {
+						setOwnerStatus("לא הצליח לשמור ב-Buildix. השינויים נשמרו מקומית בקישור.", "error");
+					}
+					if (settings.logoUrl) {
+						applyBusinessLogo(settings.logoUrl);
+					}
+				}
+			}
+
+			function updateWizardProgress(step) {
+				wizardProgressItems.forEach(function (item) {
+					const itemStep = Number(item.getAttribute("data-step"));
+					const isSuccess = step === "success";
+					const numericStep = isSuccess ? 8 : Number(step);
+					item.classList.toggle("is-active", !isSuccess && itemStep === numericStep);
+					item.classList.toggle("is-done", itemStep < numericStep || isSuccess);
+					const clickable = isOwnerMode || itemStep <= maxWizardStep;
+					item.classList.toggle("is-clickable", clickable);
+					item.disabled = !clickable;
+				});
+			}
+
+			function applyWizardStep(step) {
+				if (!journeyWizard) {
+					return;
+				}
+				currentWizardStep = step;
+				wizardSteps.forEach(function (wizardStep) {
+					const stepName = wizardStep.getAttribute("data-step");
+					const isActive = stepName === String(step) || (step === "success" && stepName === "success");
+					wizardStep.classList.toggle("is-active", isActive);
+				});
+				if (typeof step === "number") {
+					maxWizardStep = Math.max(maxWizardStep, step);
+					sessionStorage.setItem(wizardStepKey, String(step));
+				}
+				updateWizardProgress(step);
+				if (step === 7) {
+					setTimeout(resizeCanvas, 60);
+				}
+				if (step === "success" && journeyWizard) {
+					journeyWizard.classList.add("is-complete");
+				}
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			}
+
+			function goToWizardStep(step, options) {
+				options = options || {};
+				const skipTransition = options.skipTransition === true;
+
+				if (!journeyWizard) {
+					return;
+				}
+
+				if (skipTransition || step === currentWizardStep || !wizardTransition) {
+					applyWizardStep(step);
+					return;
+				}
+
+				wizardTransition.classList.add("is-visible");
+				wizardTransition.setAttribute("aria-hidden", "false");
+
+				window.setTimeout(function () {
+					applyWizardStep(step);
+					wizardTransition.classList.remove("is-visible");
+					wizardTransition.setAttribute("aria-hidden", "true");
+				}, WIZARD_TRANSITION_MS);
+			}
+
+			function showWizardTermsError(message) {
+				if (!wizardTermsError) {
+					return;
+				}
+				wizardTermsError.textContent = message;
+				wizardTermsError.classList.add("is-visible");
+			}
+
+			function hideWizardTermsError() {
+				if (wizardTermsError) {
+					wizardTermsError.classList.remove("is-visible");
+				}
+			}
+
+			function tryWizardNext(targetStep) {
+				if (currentWizardStep === 5 && targetStep === 6 && !hasSelectedServices()) {
+					showWizardServicesError("יש לבחור לפחות שירות אחד לפני המשך.");
+					return;
+				}
+				if (currentWizardStep === 6 && targetStep === 7 && termsReadCheckbox && !termsReadCheckbox.checked) {
+					showWizardTermsError("יש לסמן שקראתם והבנתם את התנאים לפני המשך.");
+					return;
+				}
+				hideWizardServicesError();
+				hideWizardTermsError();
+				goToWizardStep(targetStep);
+			}
+
+			function initWizardNavigation() {
+				if (!journeyWizard) {
+					return;
+				}
+
+				journeyWizard.querySelectorAll("[data-wizard-next]").forEach(function (button) {
+					button.addEventListener("click", function () {
+						tryWizardNext(Number(button.getAttribute("data-wizard-next")));
+					});
+				});
+
+				journeyWizard.querySelectorAll("[data-wizard-back]").forEach(function (button) {
+					button.addEventListener("click", function () {
+						hideWizardTermsError();
+						goToWizardStep(Number(button.getAttribute("data-wizard-back")));
+					});
+				});
+
+				wizardProgressItems.forEach(function (item) {
+					item.addEventListener("click", function () {
+						const step = Number(item.getAttribute("data-step"));
+						if (isOwnerMode || step <= maxWizardStep) {
+							hideWizardTermsError();
+							goToWizardStep(step);
+						}
+					});
+				});
+
+				if (termsReadCheckbox) {
+					termsReadCheckbox.addEventListener("change", hideWizardTermsError);
+				}
+
+				if (successPrintButton) {
+					successPrintButton.addEventListener("click", function () {
+						prepareForPrint();
+						window.print();
+					});
+				}
+			}
+
+			function initWizardState() {
+				if (!journeyWizard) {
+					return;
+				}
+				updateWelcomeBusiness();
+				if (isOwnerMode) {
+					maxWizardStep = 7;
+					goToWizardStep(1, { skipTransition: true });
+					return;
+				}
+				const stored = loadStoredData();
+				if (shouldShowCompletedState(stored)) {
+					goToWizardStep("success", { skipTransition: true });
+					return;
+				}
+				const savedStep = Number(sessionStorage.getItem(wizardStepKey) || "1");
+				goToWizardStep(Math.min(Math.max(savedStep, 1), 7), { skipTransition: true });
+			}
+
+			function showWizardSuccess() {
+				goToWizardStep("success");
+			}
+
+			function isApprovalComplete(data) {
+				if (!data || !data.approved) {
+					return false;
+				}
+				if (!String(data.signerName || "").trim()) {
+					return false;
+				}
+				if (!String(data.signedAt || "").trim()) {
+					return false;
+				}
+				const signature = String(data.signatureDataUrl || "");
+				if (!signature.startsWith("data:image/") || signature.length < 120) {
+					return false;
+				}
+				return true;
+			}
+
+			function shouldShowCompletedState(data) {
+				if (isOwnerMode || !isApprovalComplete(data)) {
+					return false;
+				}
+				const storedPhone = normalizePhone(data.phone);
+				const sessionPhone = normalizePhone(phoneInput.value) || authorizedPhone;
+				if (storedPhone && sessionPhone) {
+					return phonesMatch(storedPhone, sessionPhone);
+				}
+				return Boolean(getAccessTokenFromUrl());
+			}
+
+			function resetProposalJourney() {
+				localStorage.removeItem(storageKey);
+				sessionStorage.removeItem(wizardStepKey);
+				sessionStorage.removeItem(unlockSessionKey);
+				sessionStorage.removeItem(quoteTokenSessionKey);
+				buildixQuoteToken = "";
+				businessLogoUrl = "";
+				hasBusinessLogo = false;
+				signedImageDataUrl = "";
+				signedAtValue = "";
+				maxWizardStep = 1;
+				currentWizardStep = 1;
+				if (journeyWizard) {
+					journeyWizard.classList.remove("is-complete");
+				}
+				window.location.href = window.location.pathname + (isOwnerMode ? "?owner=" + ownerKey : "");
+			}
+
+			function normalizePhone(value) {
+				const digits = String(value || "").replace(/\D/g, "");
+				if (!digits) {
+					return "";
+				}
+				if (digits.startsWith("972")) {
+					return digits.slice(3);
+				}
+				if (digits.startsWith("0")) {
+					return digits.slice(1);
+				}
+				return digits;
+			}
+
+			const ownerKey = normalizePhone(config.ownerKey || config.ownerPhone || "7466508");
+
+			function formatPhoneDisplay(value) {
+				const digits = normalizePhone(value);
+				if (!digits) {
+					return "";
+				}
+				if (digits.length === 9) {
+					return "0" + digits.slice(0, 2) + "-" + digits.slice(2);
+				}
+				return "0" + digits;
+			}
+
+			function hashAccessToken(phone) {
+				const normalized = normalizePhone(phone);
+				if (!normalized) {
+					return "";
+				}
+				const source = proposalId + ":" + normalized + ":" + accessSalt;
+				let hash = 2166136261;
+				for (let index = 0; index < source.length; index += 1) {
+					hash ^= source.charCodeAt(index);
+					hash = Math.imul(hash, 16777619);
+				}
+				return (hash >>> 0).toString(36);
+			}
+
+			function phonesMatch(left, right) {
+				const a = normalizePhone(left);
+				const b = normalizePhone(right);
+				return Boolean(a && b && a === b);
+			}
+
+			function matchesOwnerKey(entered, expected) {
+				const a = normalizePhone(entered);
+				const b = normalizePhone(expected);
+				if (!a || !b) {
+					return false;
+				}
+				if (a === b) {
+					return true;
+				}
+				return a.endsWith(b) || b.endsWith(a);
+			}
+
+			function isOwnerSession() {
+				if (sessionStorage.getItem("itay-proposals-admin") === "1") {
+					return true;
+				}
+				if (sessionStorage.getItem("itay-proposal-owner:" + proposalId) === "1") {
+					return true;
+				}
+				const params = new URLSearchParams(window.location.search);
+				const ownerParam = params.get("owner");
+				if (ownerParam && matchesOwnerKey(ownerParam, ownerKey)) {
+					return true;
+				}
+				return false;
+			}
+
+			function loadAuthorizedPhone() {
+				try {
+					const stored = JSON.parse(localStorage.getItem(accessStorageKey) || "null");
+					return stored && stored.phone ? stored.phone : "";
+				} catch (error) {
+					return "";
+				}
+			}
+
+			function saveAuthorizedPhone(phone, clientName) {
+				const payload = {
+					phone: normalizePhone(phone),
+					clientName: clientName || "",
+					sentAt: new Date().toISOString()
+				};
+				localStorage.setItem(accessStorageKey, JSON.stringify(payload));
+				authorizedPhone = payload.phone;
+			}
+
+			function getAccessTokenFromUrl() {
+				return new URLSearchParams(window.location.search).get("access") || "";
+			}
+
+			function requiresAccessGate() {
+				return !isOwnerMode;
+			}
+
+			function setOwnerStatus(message, type) {
+				if (!ownerStatusBox) {
+					return;
+				}
+				ownerStatusBox.textContent = message;
+				ownerStatusBox.className = "status-box is-visible " + (type === "error" ? "status-error" : "status-success");
+			}
+
+			function setStatus(message, type) {
+				statusBox.textContent = message;
+				statusBox.className = "status-box is-visible " + (type === "error" ? "status-error" : "status-success");
+			}
+
+			function clearStatus() {
+				statusBox.className = "status-box";
+				statusBox.textContent = "";
+			}
+
+			function showAccessError(message) {
+				if (!accessGateError) {
+					return;
+				}
+				accessGateError.textContent = message;
+				accessGateError.classList.add("is-visible");
+			}
+
+			function hideAccessError() {
+				if (!accessGateError) {
+					return;
+				}
+				accessGateError.classList.remove("is-visible");
+			}
+
+			function unlockDocument(rememberPhone) {
+				isUnlocked = true;
+				sessionStorage.setItem(unlockSessionKey, rememberPhone || "1");
+				if (accessGate) {
+					accessGate.classList.add("is-hidden");
+					accessGate.setAttribute("aria-hidden", "true");
+				}
+				if (proposalDocument) {
+					proposalDocument.classList.remove("is-locked");
+				}
+				resizeCanvas();
+			}
+
+			function lockDocument() {
+				if (!requiresAccessGate()) {
+					unlockDocument();
+					return;
+				}
+				if (sessionStorage.getItem(unlockSessionKey)) {
+					unlockDocument();
+					return;
+				}
+				if (!getAccessTokenFromUrl() && accessGate) {
+					const gateText = accessGate.querySelector(".access-gate-card p");
+					if (gateText) {
+						gateText.textContent = "הקישור אינו שלם או שפג תוקפו. פנו אל Itay Solutions (054-7466508) לקבלת קישור מאובטח חדש.";
+					}
+					if (accessPhoneInput) {
+						accessPhoneInput.closest(".form-field").classList.add("is-hidden");
+					}
+					if (accessUnlockButton) {
+						accessUnlockButton.classList.add("is-hidden");
+					}
+				}
+				if (proposalDocument) {
+					proposalDocument.classList.add("is-locked");
+				}
+				if (accessGate) {
+					accessGate.classList.remove("is-hidden");
+					accessGate.setAttribute("aria-hidden", "false");
+				}
+			}
+
+			function verifyAccessPhone(enteredPhone) {
+				const token = getAccessTokenFromUrl();
+				if (token) {
+					return hashAccessToken(enteredPhone) === token;
+				}
+				if (authorizedPhone && phonesMatch(enteredPhone, authorizedPhone)) {
+					return true;
+				}
+				return false;
+			}
+
+
+			function getServiceById(serviceId) {
+				return SERVICE_CATALOG.find(function (item) { return item.id === serviceId; }) || null;
+			}
+
+			function isServiceOffered(serviceId) {
+				return offeredServiceIds.indexOf(serviceId) !== -1;
+			}
+
+			function getSelectedServices() {
+				return selectedServiceIds.map(getServiceById).filter(Boolean);
+			}
+
+			function getMonthlyTotal() {
+				return selectedServiceIds.reduce(function (sum, serviceId) {
+					const price = Number(proposalPrices[serviceId]);
+					return sum + (Number.isFinite(price) ? price : 0);
+				}, 0);
+			}
+
+			function getSelectedServicesLabel() {
+				const services = getSelectedServices();
+				if (!services.length) {
+					return "טרם נבחרו שירותים";
+				}
+				return services.map(function (item) { return item.title; }).join(" · ");
+			}
+
+			function updateServiceCardSelection() {
+				if (!serviceChoiceGrid) {
+					return;
+				}
+				serviceChoiceGrid.querySelectorAll(".service-choice-card").forEach(function (card) {
+					const serviceId = card.getAttribute("data-service-id");
+					const offered = isServiceOffered(serviceId);
+					card.classList.toggle("is-disabled", !offered);
+					card.classList.toggle("is-selected", selectedServiceIds.indexOf(serviceId) !== -1);
+					const checkbox = card.querySelector('input[type="checkbox"]');
+					if (checkbox) {
+						checkbox.disabled = !offered;
+						checkbox.checked = selectedServiceIds.indexOf(serviceId) !== -1;
+					}
+				});
+			}
+
+			function updatePricingTotals() {
+				const monthlyTotal = getMonthlyTotal();
+				const monthlyText = formatShekel(monthlyTotal);
+				if (monthlyTotalValue) {
+					monthlyTotalValue.textContent = monthlyText;
+				}
+				if (monthlyGrandValue) {
+					monthlyGrandValue.textContent = monthlyText;
+				}
+				if (printMonthlyTotal) {
+					printMonthlyTotal.textContent = monthlyText;
+				}
+				if (selectedServicesLabel) {
+					selectedServicesLabel.textContent = getSelectedServicesLabel();
+				}
+				if (printSelectedServicesList) {
+					const services = getSelectedServices();
+					if (!services.length) {
+						printSelectedServicesList.innerHTML = "<li>טרם נבחרו שירותים</li>";
+					} else {
+						printSelectedServicesList.innerHTML = services.map(function (item) {
+							return "<li>" + item.title + " — " + formatShekel(proposalPrices[item.id]) + " / חודש</li>";
+						}).join("");
+					}
+				}
+			}
+
+			function setSelectedServices(nextIds, options) {
+				const settings = options || {};
+				selectedServiceIds = nextIds.filter(function (serviceId) {
+					return isServiceOffered(serviceId);
+				});
+				updateServiceCardSelection();
+				updatePricingTotals();
+				if (!settings.silent) {
+					persistServiceSelection();
+				}
+			}
+
+			function toggleService(serviceId) {
+				if (!isServiceOffered(serviceId)) {
+					return;
+				}
+				const index = selectedServiceIds.indexOf(serviceId);
+				if (index === -1) {
+					selectedServiceIds = selectedServiceIds.concat([serviceId]);
+				} else {
+					selectedServiceIds = selectedServiceIds.filter(function (id) { return id !== serviceId; });
+				}
+				updateServiceCardSelection();
+				updatePricingTotals();
+				persistServiceSelection();
+				hideWizardServicesError();
+			}
+
+			function persistServiceSelection() {
+				const stored = loadStoredData() || {};
+				stored.selectedServiceIds = selectedServiceIds.slice();
+				stored.offeredServiceIds = offeredServiceIds.slice();
+				try {
+					localStorage.setItem(storageKey, JSON.stringify(stored));
+				} catch (error) {
+					/* ignore */
+				}
+			}
+
+			function showWizardServicesError(message) {
+				if (!wizardServicesError) {
+					return;
+				}
+				wizardServicesError.textContent = message;
+				wizardServicesError.classList.add("is-visible");
+			}
+
+			function hideWizardServicesError() {
+				if (wizardServicesError) {
+					wizardServicesError.classList.remove("is-visible");
+				}
+			}
+
+			function hasSelectedServices() {
+				return selectedServiceIds.length > 0;
+			}
+
+			function initServiceSelection() {
+				if (!serviceChoiceGrid) {
+					return;
+				}
+				serviceChoiceGrid.querySelectorAll(".service-choice-card").forEach(function (card) {
+					card.addEventListener("click", function (event) {
+						if (event.target && event.target.closest && event.target.closest('input[type="checkbox"]')) {
+							return;
+						}
+						toggleService(card.getAttribute("data-service-id"));
+					});
+				});
+				serviceChoiceGrid.querySelectorAll('input[name="selected-service"]').forEach(function (checkbox) {
+					checkbox.addEventListener("change", function () {
+						if (checkbox.checked) {
+							if (selectedServiceIds.indexOf(checkbox.value) === -1) {
+								selectedServiceIds = selectedServiceIds.concat([checkbox.value]);
+							}
+						} else {
+							selectedServiceIds = selectedServiceIds.filter(function (id) { return id !== checkbox.value; });
+						}
+						updateServiceCardSelection();
+						updatePricingTotals();
+						persistServiceSelection();
+						hideWizardServicesError();
+					});
+				});
+				updateServiceCardSelection();
+				updatePricingTotals();
+			}
+
+			function readOfferedServicesFromParams(params) {
+				const raw = params.get("offered");
+				if (!raw) {
+					return null;
+				}
+				const ids = raw.split(",").map(function (part) { return part.trim(); }).filter(Boolean);
+				const valid = ids.filter(function (id) { return Boolean(getServiceById(id)); });
+				return valid.length ? valid : null;
+			}
+
+			function readSelectedServicesFromParams(params) {
+				const raw = params.get("selected");
+				if (!raw) {
+					return null;
+				}
+				const ids = raw.split(",").map(function (part) { return part.trim(); }).filter(Boolean);
+				return ids.filter(function (id) { return Boolean(getServiceById(id)); });
+			}
+
+			function buildItemPricesForBuildix() {
+				const prices = [Number(proposalPrices.setup) || 0];
+				SERVICE_CATALOG.forEach(function (item) {
+					if (selectedServiceIds.indexOf(item.id) !== -1) {
+						prices[item.itemIndex] = Number(proposalPrices[item.id]) || 0;
+					}
+				});
+				return prices;
+			}
+
+			function appendServiceParams(url) {
+				if (offeredServiceIds.length) {
+					url.searchParams.set("offered", offeredServiceIds.join(","));
+				}
+				if (selectedServiceIds.length) {
+					url.searchParams.set("selected", selectedServiceIds.join(","));
+				}
+			}
+			function formatShekel(amount) {
+				const value = Number(amount);
+				if (!Number.isFinite(value)) {
+					return "";
+				}
+				return "₪" + value.toLocaleString("he-IL");
+			}
+
+
+			function syncProposalPrices() {
+				applyProposalPrices(proposalPrices);
+				updatePricingTotals();
+			}
+			function applyProposalPrices(prices) {
+				Object.keys(prices).forEach(function (key) {
+					document.querySelectorAll('[data-price-key="' + key + '"]').forEach(function (element) {
+						element.textContent = formatShekel(prices[key]);
+					});
+				});
+			}
+
+			function readProposalPricesFromParams(params) {
+				const nextPrices = Object.assign({}, defaultProposalPrices);
+				let hasOverride = false;
+
+				params.forEach(function (value, key) {
+					if (!key.startsWith("price_")) {
+						return;
+					}
+					const priceKey = key.slice(6);
+					const parsed = Number(value);
+					if (!Number.isFinite(parsed) || parsed < 0) {
+						return;
+					}
+					nextPrices[priceKey] = parsed;
+					hasOverride = true;
+				});
+
+				return hasOverride ? nextPrices : null;
+			}
+
+			function appendPriceParams(url) {
+				Object.keys(proposalPrices).forEach(function (key) {
+					if (typeof proposalPrices[key] === "number") {
+						url.searchParams.set("price_" + key, String(proposalPrices[key]));
+					}
+				});
+			}
+
+			function appendBrandingParams(url) {
+				if (hasBusinessLogo && getBuildixLogoApiUrl()) {
+					url.searchParams.set("logo", "1");
+				} else if (businessLogoUrl && businessLogoUrl.indexOf("data:image/") !== 0) {
+					url.searchParams.set("logoUrl", businessLogoUrl);
+				}
+			}
+
+			function buildShareUrl(options) {
+				const settings = options || {};
+				const base = settings.useCurrentOrigin ? window.location.origin + window.location.pathname : hostedPath;
+				const url = new URL(base, window.location.href);
+				const clientPhone = settings.clientPhone || ownerClientPhoneInput.value.trim() || phoneInput.value.trim();
+				const clientName = settings.clientName || ownerClientNameInput.value.trim() || signerNameInput.value.trim();
+
+				if (businessNameInput.value.trim()) {
+					url.searchParams.set("business", businessNameInput.value.trim());
+				}
+				if (clientName) {
+					url.searchParams.set("signer", clientName);
+				}
+				if (clientPhone) {
+					url.searchParams.set("access", hashAccessToken(clientPhone));
+				}
+				if (buildixQuoteToken) {
+					url.searchParams.set("quoteToken", buildixQuoteToken);
+				}
+				appendPriceParams(url);
+				appendServiceParams(url);
+				appendBrandingParams(url);
+				url.searchParams.delete("owner");
+				return url.toString();
+			}
+
+			function buildShareMessage(shareUrl) {
+				const businessName = businessNameInput.value.trim() || "העסק שלך";
+				return "שלום, מצורפת הצעת מחיר דיגיטלית לחתימה עבור " + businessName + ":\n" + shareUrl;
+			}
+
+			function openSmsShare(phone, shareUrl) {
+				const normalized = normalizePhone(phone);
+				if (!normalized) {
+					return false;
+				}
+				const smsPhone = normalized.startsWith("972") ? normalized : "972" + normalized;
+				const body = encodeURIComponent(buildShareMessage(shareUrl));
+				window.location.href = "sms:+" + smsPhone + "?body=" + body;
+				return true;
+			}
+
+			function openWhatsappShare(phone, shareUrl) {
+				const normalized = normalizePhone(phone);
+				if (!normalized) {
+					return false;
+				}
+				const waPhone = normalized.startsWith("972") ? normalized : "972" + normalized;
+				const body = encodeURIComponent(buildShareMessage(shareUrl));
+				window.open("https://wa.me/" + waPhone + "?text=" + body, "_blank", "noopener,noreferrer");
+				return true;
+			}
+
+			async function sendProposalToClient(channel) {
+				syncOwnerPanelToProposal();
+				const clientPhone = ownerClientPhoneInput.value.trim();
+				const clientName = ownerClientNameInput.value.trim();
+
+				if (!normalizePhone(clientPhone)) {
+					setOwnerStatus("יש להזין מספר טלפון תקין של הלקוח לפני השליחה.", "error");
+					return;
+				}
+
+				saveAuthorizedPhone(clientPhone, clientName);
+				if (clientName) {
+					signerNameInput.value = clientName;
+				}
+				phoneInput.value = formatPhoneDisplay(clientPhone);
+
+				const shareUrl = buildShareUrl({
+					clientPhone: clientPhone,
+					clientName: clientName,
+					useCurrentOrigin: true
+				});
+				updateShareUrl(shareUrl);
+
+				if (smsApiUrl) {
+					try {
+						const response = await fetch(smsApiUrl, {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							body: JSON.stringify({
+								proposalId: proposalId,
+								phone: normalizePhone(clientPhone),
+								clientName: clientName,
+								shareUrl: shareUrl,
+								message: buildShareMessage(shareUrl)
+							})
+						});
+						if (!response.ok) {
+							throw new Error("sms_failed");
+						}
+						setOwnerStatus("ההצעה נשלחה ללקוח בהצלחה. הקישור עודכן למטה.", "success");
+					} catch (error) {
+						setOwnerStatus("שליחת ה-SMS מהשרת נכשלה. אפשר לשלוח ידנית דרך הכפתורים למטה.", "error");
+					}
+				}
+
+				if (channel === "sms") {
+					openSmsShare(clientPhone, shareUrl);
+					setOwnerStatus("נפתחה שליחת SMS עם הקישור המאובטח ללקוח.", "success");
+					return;
+				}
+				if (channel === "whatsapp") {
+					openWhatsappShare(clientPhone, shareUrl);
+					setOwnerStatus("נפתח WhatsApp עם הקישור המאובטח ללקוח.", "success");
+					return;
+				}
+
+				setOwnerStatus("הקישור עודכן. אפשר לשלוח אותו ללקוח ב-SMS או ב-WhatsApp.", "success");
+			}
+
+			function updateShareUrl(explicitUrl) {
+				if (shareLinkText) {
+					shareLinkText.textContent = explicitUrl || buildShareUrl({ useCurrentOrigin: true });
+				}
+			}
+
+			function resizeCanvas() {
+				const ratio = window.devicePixelRatio || 1;
+				const rect = signatureCanvas.getBoundingClientRect();
+				signatureCanvas.width = Math.floor(rect.width * ratio);
+				signatureCanvas.height = Math.floor(rect.height * ratio);
+				context.setTransform(ratio, 0, 0, ratio, 0, 0);
+				context.lineJoin = "round";
+				context.lineCap = "round";
+				context.strokeStyle = "#182230";
+				context.lineWidth = 2.2;
+				renderSignature();
+			}
+
+			function getPoint(event) {
+				const rect = signatureCanvas.getBoundingClientRect();
+				return {
+					x: event.clientX - rect.left,
+					y: event.clientY - rect.top
+				};
+			}
+
+			function renderSignature() {
+				const rect = signatureCanvas.getBoundingClientRect();
+				context.clearRect(0, 0, rect.width, rect.height);
+				strokes.forEach(function (stroke) {
+					if (!stroke.length) {
+						return;
+					}
+					context.beginPath();
+					context.moveTo(stroke[0].x, stroke[0].y);
+					for (let index = 1; index < stroke.length; index += 1) {
+						context.lineTo(stroke[index].x, stroke[index].y);
+					}
+					context.stroke();
+				});
+			}
+
+			function startStroke(event) {
+				event.preventDefault();
+				currentStroke = [getPoint(event)];
+				strokes.push(currentStroke);
+			}
+
+			function moveStroke(event) {
+				if (!currentStroke) {
+					return;
+				}
+				event.preventDefault();
+				currentStroke.push(getPoint(event));
+				renderSignature();
+			}
+
+			function endStroke() {
+				currentStroke = null;
+			}
+
+			function hasSignature() {
+				return strokes.some(function (stroke) {
+					return stroke.length > 1;
+				});
+			}
+
+			function buildShareUrlForApproval() {
+				return buildShareUrl({ useCurrentOrigin: true });
+			}
+
+			function updateShareUrlFromForm() {
+				updateShareUrl(buildShareUrlForApproval());
+			}
+
+			function updateSummary(signedAtText) {
+				if (typeof signedAtText !== "undefined") {
+					signedAtValue = signedAtText || "";
+				}
+				summaryBusinessName.textContent = businessNameInput.value.trim() || "__________________________";
+				summarySignerName.textContent = signerNameInput.value.trim() || "__________________________";
+				if (summaryPhone) {
+					summaryPhone.textContent = phoneInput.value.trim() || "__________________________";
+				}
+				if (summaryEmail) {
+					summaryEmail.textContent = emailInput.value.trim() || "__________________________";
+				}
+				if (summaryNotes) {
+					summaryNotes.textContent = notesInput.value.trim() || "__________________________";
+				}
+				summaryDate.textContent = signedAtValue || "__________________________";
+				summarySignatureStatus.textContent = signedImageDataUrl ? "חתום דיגיטלית" : "__________________________";
+			}
+
+			function updateSignaturePreview(signedAtText) {
+				if (signedImageDataUrl) {
+					signaturePreviewImage.src = signedImageDataUrl;
+					signaturePreviewImage.classList.add("is-visible");
+					finalSignatureImage.src = signedImageDataUrl;
+					finalSignatureImage.classList.add("is-visible");
+					signaturePreviewMeta.textContent = "אושר דיגיטלית בתאריך " + signedAtText;
+					finalSignatureMeta.textContent = "חתום דיגיטלית בתאריך " + signedAtText;
+				} else {
+					signaturePreviewImage.removeAttribute("src");
+					signaturePreviewImage.classList.remove("is-visible");
+					finalSignatureImage.removeAttribute("src");
+					finalSignatureImage.classList.remove("is-visible");
+					signaturePreviewMeta.textContent = "טרם נוצר אישור חתום.";
+					finalSignatureMeta.textContent = "טרם נחתם על ידי הלקוח.";
+				}
+			}
+
+			function persist(data) {
+				localStorage.setItem(storageKey, JSON.stringify(data));
+			}
+
+			function loadStoredData() {
+				try {
+					return JSON.parse(localStorage.getItem(storageKey) || "null");
+				} catch (error) {
+					return null;
+				}
+			}
+
+			function fillFromQuery() {
+				const params = new URLSearchParams(window.location.search);
+				restoreBuildixQuoteToken();
+				const pricesFromParams = readProposalPricesFromParams(params);
+				if (pricesFromParams) {
+					proposalPrices = pricesFromParams;
+				}
+				const offeredFromParams = readOfferedServicesFromParams(params);
+				if (offeredFromParams) {
+					offeredServiceIds = offeredFromParams;
+				}
+				const selectedFromParams = readSelectedServicesFromParams(params);
+				if (selectedFromParams) {
+					selectedServiceIds = selectedFromParams.filter(function (id) { return isServiceOffered(id); });
+				}
+				syncProposalPrices();
+				if (params.get("business")) {
+					businessNameInput.value = params.get("business");
+					if (ownerBusinessNameInput) {
+						ownerBusinessNameInput.value = params.get("business");
+					}
+				}
+				if (params.get("logoUrl")) {
+					applyBusinessLogo(decodeURIComponent(params.get("logoUrl")), { markUploaded: true });
+				} else if (params.get("logo") === "1" && buildixQuoteToken) {
+					hasBusinessLogo = true;
+					applyBusinessLogo("linked");
+				}
+				const pendingEmail = sessionStorage.getItem("itay-proposal-pending-email:" + proposalId);
+				if (pendingEmail) {
+					if (ownerClientEmailInput) {
+						ownerClientEmailInput.value = pendingEmail;
+					}
+					if (!emailInput.value.trim()) {
+						emailInput.value = pendingEmail;
+					}
+				}
+				if (params.get("signer")) {
+					signerNameInput.value = params.get("signer");
+					if (ownerClientNameInput) {
+						ownerClientNameInput.value = params.get("signer");
+					}
+				}
+				if (params.get("phone")) {
+					phoneInput.value = params.get("phone");
+					if (ownerClientPhoneInput) {
+						ownerClientPhoneInput.value = params.get("phone");
+					}
+				}
+				updateServiceCardSelection();
+				updatePricingTotals();
+			}
+
+			function applyStoredData(data) {
+				if (!data) {
+					updateShareUrlFromForm();
+					updateSummary("");
+					return;
+				}
+
+				businessNameInput.value = data.businessName || businessNameInput.value;
+				signerNameInput.value = data.signerName || "";
+				phoneInput.value = data.phone || "";
+				emailInput.value = data.email || "";
+				notesInput.value = data.notes || "";
+				if (Array.isArray(data.offeredServiceIds) && data.offeredServiceIds.length) {
+					offeredServiceIds = data.offeredServiceIds.filter(function (id) { return Boolean(getServiceById(id)); });
+				}
+				if (Array.isArray(data.selectedServiceIds)) {
+					setSelectedServices(data.selectedServiceIds, { silent: true });
+				}
+				approvalCheckbox.checked = Boolean(data.approved);
+				if (isApprovalComplete(data)) {
+					signedImageDataUrl = data.signatureDataUrl || "";
+					signedAtValue = data.signedAt || "";
+				} else {
+					signedImageDataUrl = "";
+					signedAtValue = "";
+				}
+				updateShareUrlFromForm();
+				updateSummary(data.signedAt || "");
+				updateSignaturePreview(data.signedAt || "");
+				if (shouldShowCompletedState(data)) {
+					goToWizardStep("success", { skipTransition: true });
+				}
+			}
+
+			async function loadProposalManifest() {
+				try {
+					const manifestUrl = new URL("../proposals-registry.json", window.location.href).href;
+					const response = await fetch(manifestUrl, { cache: "no-store" });
+					if (!response.ok) {
+						return;
+					}
+					const manifest = await response.json();
+					if (manifest.buildixPublicBase) {
+						buildixPublicBase = manifest.buildixPublicBase;
+					}
+					const entry = (manifest.proposals || []).find(function (item) {
+						return item.id === proposalId;
+					});
+					if (!buildixQuoteToken && entry && entry.buildix && entry.buildix.quoteToken) {
+						buildixQuoteToken = entry.buildix.quoteToken;
+					}
+					updateBuildixOwnerLinks(entry);
+					await loadBrandingFromServer();
+					syncOwnerPanelFromProposal();
+					updateWelcomeBusiness();
+				} catch (error) {
+					updateBuildixOwnerLinks(null);
+				}
+			}
+
+			function updateBuildixOwnerLinks(entry) {
+				if (!buildixLinkBox || !buildixLinkText) {
+					return;
+				}
+				if (buildixQuoteToken) {
+					const buildixUrl = buildixPublicBase.replace(/\/$/, "") + "/q/" + buildixQuoteToken;
+					buildixLinkBox.classList.remove("is-hidden");
+					buildixLinkText.innerHTML = '<a href="' + buildixUrl + '" target="_blank" rel="noopener noreferrer">' + buildixUrl + "</a>";
+					if (buildixLinkHint) {
+						buildixLinkHint.textContent = "בחתימה בדף זה — ההצעה תאושר אוטומטית ב-Buildix תחת itaySolutions.";
+					}
+					if (buildixStatusBadge) {
+						buildixStatusBadge.className = "buildix-status buildix-status--linked";
+						buildixStatusBadge.innerHTML = 'Buildix: מקושר · <a href="' + buildixUrl + '" target="_blank" rel="noopener noreferrer">' + buildixQuoteToken.slice(0, 8) + "…</a>";
+					}
+					return;
+				}
+				buildixLinkBox.classList.remove("is-hidden");
+				buildixLinkText.textContent = "לא מקושר — השתמשו בפאנל /proposals/ → «צור ב-Buildix ושלח»";
+				if (buildixLinkHint && entry && entry.buildix && entry.buildix.clientHint) {
+					buildixLinkHint.textContent = entry.buildix.clientHint;
+				} else if (buildixLinkHint) {
+					buildixLinkHint.textContent = "כל לקוח חדש = הצעה חדשה ב-Buildix. אין token קבוע בקובץ.";
+				}
+				if (buildixStatusBadge) {
+					buildixStatusBadge.className = "buildix-status buildix-status--unlinked";
+					buildixStatusBadge.textContent = "Buildix: לא מקושר — צרו הצעה דרך /proposals/ → «צור ב-Buildix ושלח»";
+				}
+			}
+
+			function persistBuildixQuoteToken(token) {
+				const nextToken = String(token || "").trim();
+				if (!nextToken) {
+					return;
+				}
+				buildixQuoteToken = nextToken;
+				sessionStorage.setItem(quoteTokenSessionKey, nextToken);
+				updateBuildixOwnerLinks(null);
+				const url = new URL(window.location.href);
+				if (url.searchParams.get("quoteToken") !== nextToken) {
+					url.searchParams.set("quoteToken", nextToken);
+					window.history.replaceState({}, "", url.toString());
+				}
+			}
+
+			function restoreBuildixQuoteToken() {
+				const fromUrl = new URLSearchParams(window.location.search).get("quoteToken");
+				if (fromUrl) {
+					persistBuildixQuoteToken(fromUrl);
+					return;
+				}
+				const stored = sessionStorage.getItem(quoteTokenSessionKey);
+				if (stored) {
+					persistBuildixQuoteToken(stored);
+				}
+			}
+
+			async function submitApproval(payload) {
+				if (!submitUrl) {
+					return { sent: false, quoteSynced: false };
+				}
+
+				if (buildixQuoteToken) {
+					payload.quoteToken = buildixQuoteToken;
+				}
+
+				const headers = {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				};
+
+				if (submitApiKey) {
+					headers["X-Proposal-Api-Key"] = submitApiKey;
+				}
+
+				const response = await fetch(submitUrl, {
+					method: "POST",
+					headers: headers,
+					mode: "cors",
+					credentials: "omit",
+					cache: "no-store",
+					body: JSON.stringify(payload)
+				});
+
+				if (!response.ok) {
+					const message = await readApiError(response);
+					throw new Error(message || "submit_failed");
+				}
+
+				let body = null;
+				try {
+					body = await response.json();
+				} catch (error) {
+					body = null;
+				}
+
+				return {
+					sent: true,
+					quoteSynced: Boolean(body && body.quote && body.quote.status === "approved")
+				};
+			}
+
+			async function approveProposal() {
+				clearStatus();
+				if (!signerNameInput.value.trim()) {
+					setStatus("יש להזין את שם החותם לפני אישור המסמך.", "error");
+					return;
+				}
+				if (!approvalCheckbox.checked) {
+					setStatus("יש לסמן אישור לתנאי ההצעה לפני חתימה.", "error");
+					return;
+				}
+				if (!hasSignature()) {
+					setStatus("יש לחתום דיגיטלית בתוך אזור החתימה.", "error");
+					return;
+				}
+				if (!hasSelectedServices()) {
+					setStatus("יש לבחור לפחות שירות אחד לפני אישור ההצעה.", "error");
+					return;
+				}
+
+				signedImageDataUrl = signatureCanvas.toDataURL("image/png");
+				const signedAt = new Date().toLocaleString("he-IL", {
+					dateStyle: "short",
+					timeStyle: "short"
+				});
+				signedAtValue = signedAt;
+
+				const servicesNote = "שירותים שנבחרו: " + getSelectedServicesLabel();
+				const combinedNotes = [notesInput.value.trim(), servicesNote].filter(Boolean).join(" | ");
+
+				persist({
+					proposalId: proposalId,
+					businessName: businessNameInput.value.trim(),
+					signerName: signerNameInput.value.trim(),
+					phone: phoneInput.value.trim(),
+					email: emailInput.value.trim(),
+					notes: combinedNotes,
+					selectedServiceIds: selectedServiceIds.slice(),
+					offeredServiceIds: offeredServiceIds.slice(),
+					approved: approvalCheckbox.checked,
+					signedAt: signedAt,
+					signatureDataUrl: signedImageDataUrl,
+					shareUrl: buildShareUrlForApproval()
+				});
+				updateSummary(signedAt);
+				updateSignaturePreview(signedAt);
+
+				approveButton.disabled = true;
+				setStatus("מכין מסמך מלא לצירוף ל-Buildix...", "success");
+
+				const documentPayload = await buildProposalDocumentPayload();
+				if (!documentPayload || !documentPayload.proposalHtml) {
+					setStatus("לא הצליח להכין את המסמך לצירוף. נסו שוב.", "error");
+					approveButton.disabled = false;
+					return;
+				}
+
+				const payload = {
+					proposalId: proposalId,
+					businessName: businessNameInput.value.trim(),
+					signerName: signerNameInput.value.trim(),
+					phone: phoneInput.value.trim(),
+					email: emailInput.value.trim(),
+					notes: combinedNotes,
+					selectedServiceIds: selectedServiceIds.slice(),
+					approved: approvalCheckbox.checked,
+					signedAt: signedAt,
+					signatureDataUrl: signedImageDataUrl,
+					shareUrl: buildShareUrlForApproval(),
+					proposalHtml: documentPayload.proposalHtml,
+					proposalCss: documentPayload.proposalCss
+				};
+
+				setStatus("שולח אישור ומצרף PDF לסוף ההצעה ב-Buildix...", "success");
+
+				try {
+					const result = await submitApproval(payload);
+					if (wizardSuccessSaveNote) {
+						if (result.quoteSynced) {
+							wizardSuccessSaveNote.textContent = documentPayload
+								? "ההצעה אושרה — מסמך חתום צורף לסוף PDF ב-Buildix"
+								: "ההצעה אושרה ב-Buildix (itaySolutions)";
+						} else if (result.sent) {
+							wizardSuccessSaveNote.textContent = "עותק נשמר בשרת";
+						} else {
+							wizardSuccessSaveNote.textContent = "עותק נשמר בדפדפן שלך";
+						}
+					}
+					if (result.sent) {
+						const emailNote = emailInput.value.trim()
+							? " נשלחה גם הודעת ברכות ל-" + emailInput.value.trim() + "."
+							: "";
+						setStatus(
+							result.quoteSynced
+								? (documentPayload
+									? "האישור נשמר וההצעה אושרה — המסמך החתום צורף לסוף PDF ב-Buildix." + emailNote
+									: "האישור נשמר וההצעה אושרה ב-Buildix." + emailNote)
+								: "האישור נשמר ונשלח לשרת בהצלחה." + emailNote,
+							"success"
+						);
+						showWizardSuccess();
+						return;
+					}
+					setStatus("האישור נשמר בדפדפן. אפשר להדפיס או לשמור כ-PDF.", "success");
+					showWizardSuccess();
+				} catch (error) {
+					const detail = error && error.message && error.message !== "submit_failed"
+						? " (" + error.message + ")"
+						: "";
+					setStatus("האישור נשמר מקומית, אך לא נשלח לשרת" + detail + ".", "error");
+					showWizardSuccess();
+				} finally {
+					approveButton.disabled = false;
+				}
+			}
+
+			function clearSignature() {
+				strokes = [];
+				signedImageDataUrl = "";
+				signedAtValue = "";
+				renderSignature();
+				updateSignaturePreview("");
+				updateSummary("");
+				clearStatus();
+			}
+
+			if (copyLinkButton && shareLinkText) {
+				copyLinkButton.addEventListener("click", async function () {
+					updateShareUrlFromForm();
+					try {
+						await navigator.clipboard.writeText(shareLinkText.textContent);
+						setOwnerStatus("הקישור הועתק. אפשר להדביק אותו ולשלוח ללקוח.", "success");
+					} catch (error) {
+						setOwnerStatus("לא ניתן היה להעתיק אוטומטית. אפשר להעתיק ידנית מהקישור שמופיע למעלה.", "error");
+					}
+				});
+			}
+
+			if (sendSmsButton) {
+				sendSmsButton.addEventListener("click", function () {
+					sendProposalToClient("sms");
+				});
+			}
+
+			if (sendWhatsappButton) {
+				sendWhatsappButton.addEventListener("click", function () {
+					sendProposalToClient("whatsapp");
+				});
+			}
+
+			if (resetJourneyButton) {
+				resetJourneyButton.addEventListener("click", function () {
+					if (window.confirm("לאפס את המסע ולמחוק נתונים שמורים (טיוטה / אישור) בדפדפן הזה?")) {
+						resetProposalJourney();
+					}
+				});
+			}
+
+			if (ownerBusinessNameInput) {
+				ownerBusinessNameInput.addEventListener("change", function () {
+					void persistOwnerBranding({ showStatus: false });
+				});
+			}
+
+			if (ownerClientEmailInput) {
+				ownerClientEmailInput.addEventListener("change", function () {
+					syncOwnerPanelToProposal();
+				});
+			}
+
+			if (ownerLogoUrlInput) {
+				ownerLogoUrlInput.addEventListener("change", function () {
+					const logoUrl = ownerLogoUrlInput.value.trim();
+					if (!logoUrl) {
+						return;
+					}
+					void persistOwnerBranding({ logoUrl: logoUrl });
+				});
+			}
+
+			if (ownerLogoFileInput) {
+				ownerLogoFileInput.addEventListener("change", async function () {
+					const logoDataUrl = await readLogoFileAsDataUrl(ownerLogoFileInput);
+					if (logoDataUrl === null) {
+						setOwnerStatus("קובץ הלוגו גדול מדי (עד 400KB).", "error");
+						return;
+					}
+					if (!logoDataUrl) {
+						return;
+					}
+					void persistOwnerBranding({ logoDataUrl: logoDataUrl });
+				});
+			}
+
+			if (accessUnlockButton) {
+				accessUnlockButton.addEventListener("click", function () {
+					hideAccessError();
+					const enteredPhone = accessPhoneInput.value.trim();
+					if (!normalizePhone(enteredPhone)) {
+						showAccessError("יש להזין מספר טלפון תקין.");
+						return;
+					}
+					if (!verifyAccessPhone(enteredPhone)) {
+						showAccessError("מספר הטלפון אינו תואם להצעה שנשלחה. בדקו את המספר ונסו שוב.");
+						return;
+					}
+					phoneInput.value = formatPhoneDisplay(enteredPhone);
+					unlockDocument(enteredPhone);
+					updateSummary(signedAtValue);
+				});
+			}
+
+			if (accessPhoneInput) {
+				accessPhoneInput.addEventListener("keydown", function (event) {
+					if (event.key === "Enter") {
+						event.preventDefault();
+						accessUnlockButton.click();
+					}
+				});
+			}
+
+			[ownerClientPhoneInput, ownerClientNameInput].forEach(function (element) {
+				if (!element) {
+					return;
+				}
+				element.addEventListener("input", function () {
+					updateShareUrlFromForm();
+				});
+			});
+
+			function prepareForPrint() {
+				updatePricingTotals();
+				updateSummary(signedAtValue);
+				if (hasSignature() && !signedImageDataUrl) {
+					signedImageDataUrl = signatureCanvas.toDataURL("image/png");
+					if (!signedAtValue) {
+						signedAtValue = new Date().toLocaleString("he-IL", {
+							dateStyle: "short",
+							timeStyle: "short"
+						});
+					}
+					updateSummary(signedAtValue);
+					updateSignaturePreview(signedAtValue);
+				}
+			}
+
+			function buildPdfExportRoot() {
+				const printBlock = document.querySelector(".print-contract");
+				if (!printBlock) {
+					return null;
+				}
+
+				const page = printBlock.closest(".page");
+				const footer = page ? page.querySelector(".footer") : document.querySelector(".footer");
+				const wrapper = document.createElement("div");
+				wrapper.className = "proposal-attachment-export";
+				wrapper.setAttribute("dir", "rtl");
+
+				const contractClone = printBlock.cloneNode(true);
+				contractClone.classList.remove("print-only");
+				wrapper.appendChild(contractClone);
+
+				if (footer) {
+					wrapper.appendChild(footer.cloneNode(true));
+				}
+
+				return wrapper;
+			}
+
+			async function embedImagesAsDataUrl(root) {
+				const images = root.querySelectorAll("img");
+				await Promise.all(Array.from(images).map(function (img) {
+					const src = img.getAttribute("src");
+					if (!src || src.indexOf("data:") === 0) {
+						return Promise.resolve();
+					}
+					const absolute = new URL(src, window.location.href).href;
+					return fetch(absolute, { mode: "cors", cache: "force-cache" })
+						.then(function (response) {
+							if (!response.ok) {
+								throw new Error("image_fetch_failed");
+							}
+							return response.blob();
+						})
+						.then(function (blob) {
+							return new Promise(function (resolve) {
+								const reader = new FileReader();
+								reader.onload = function () {
+									if (typeof reader.result === "string") {
+										img.setAttribute("src", reader.result);
+									}
+									resolve();
+								};
+								reader.onerror = resolve;
+								reader.readAsDataURL(blob);
+							});
+						})
+						.catch(function () {
+							img.setAttribute("src", absolute);
+						});
+				}));
+			}
+
+			function absolutizeImages(root) {
+				root.querySelectorAll("img").forEach(function (img) {
+					const src = img.getAttribute("src");
+					if (!src || src.indexOf("data:") === 0 || src.indexOf("http") === 0) {
+						if (src) {
+							img.setAttribute("src", src);
+						}
+						return;
+					}
+					img.setAttribute("src", new URL(src, window.location.href).href);
+				});
+			}
+
+			async function buildProposalDocumentPayload() {
+				prepareForPrint();
+				const wrapper = buildPdfExportRoot();
+				if (!wrapper) {
+					return null;
+				}
+
+				absolutizeImages(wrapper);
+				await embedImagesAsDataUrl(wrapper);
+
+				return {
+					proposalHtml: wrapper.innerHTML,
+					proposalCss: ""
+				};
+			}
+
+			async function readApiError(response) {
+				try {
+					const body = await response.json();
+					if (body && body.message) {
+						return body.message;
+					}
+					if (body && body.code) {
+						return body.code;
+					}
+				} catch (error) {
+					/* ignore */
+				}
+				return "HTTP " + response.status;
+			}
+
+			approveButton.addEventListener("click", approveProposal);
+			printButton.addEventListener("click", function () {
+				prepareForPrint();
+				window.print();
+			});
+			window.addEventListener("beforeprint", prepareForPrint);
+			clearSignatureButton.addEventListener("click", clearSignature);
+
+			[businessNameInput, signerNameInput, phoneInput, emailInput, notesInput].forEach(function (element) {
+				element.addEventListener("input", function () {
+					updateShareUrlFromForm();
+					updateWelcomeBusiness();
+					updateSummary(summaryDate.textContent.trim() === "__________________________" ? "" : summaryDate.textContent.trim());
+				});
+			});
+
+			signatureCanvas.addEventListener("pointerdown", startStroke);
+			signatureCanvas.addEventListener("pointermove", moveStroke);
+			signatureCanvas.addEventListener("pointerup", endStroke);
+			signatureCanvas.addEventListener("pointerleave", endStroke);
+			signatureCanvas.addEventListener("pointercancel", endStroke);
+
+			window.addEventListener("resize", resizeCanvas);
+
+			async function bootstrapProposal() {
+				fillFromQuery();
+				updateWelcomeBusiness();
+				await loadProposalManifest();
+				initWizardNavigation();
+				initServiceSelection();
+				applyStoredData(loadStoredData());
+				updateShareUrlFromForm();
+				updateSummary(signedAtValue);
+				lockDocument();
+				if (!shouldShowCompletedState(loadStoredData())) {
+					initWizardState();
+				}
+				if (isUnlocked) {
+					resizeCanvas();
+				}
+			}
+
+			isOwnerMode = isOwnerSession();
+			authorizedPhone = loadAuthorizedPhone();
+
+			if (isOwnerMode) {
+				sessionStorage.setItem("itay-proposal-owner:" + proposalId, "1");
+				if (ownerPanel) {
+					ownerPanel.classList.remove("is-hidden");
+				}
+				const pendingPhone = sessionStorage.getItem("itay-proposal-pending-phone:" + proposalId);
+				if (pendingPhone && ownerClientPhoneInput) {
+					ownerClientPhoneInput.value = pendingPhone;
+					phoneInput.value = pendingPhone;
+				}
+				syncOwnerPanelFromProposal();
+			}
+
+			void bootstrapProposal();
+		})();
+	</script>
+</body>
+</html>
