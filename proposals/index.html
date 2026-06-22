@@ -485,7 +485,7 @@
 				const offered = [];
 				getServicePricingFields(template).forEach(function (field) {
 					const checkbox = card.querySelector('.send-offer-service[data-service-id="' + field.serviceId + '"]');
-					if (!checkbox || checkbox.checked) {
+					if (checkbox && checkbox.checked) {
 						offered.push(field.serviceId);
 					}
 				});

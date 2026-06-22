@@ -94,6 +94,10 @@
 			display: none !important;
 		}
 
+		.is-not-offered {
+			display: none !important;
+		}
+
 		.hero {
 			display: grid;
 			grid-template-columns: 1.2fr 0.8fr;
@@ -2108,7 +2112,7 @@
 							<h2 class="wizard-title">ניהול סושיאל ודיגיטל לעסק שלכם</h2>
 							<p class="wizard-subtitle" id="welcome-subtitle">הצעה עבור שם העסק · בחרו שירותים, אשרו מחירים וחתמו דיגיטלית</p>
 							<div class="lead-box" style="margin-top: 14px; text-align: right;">
-								<p>העסק שלכם פעיל ברשת — בלי שתרדפו אחרי תוכן. פייסבוק, אינסטגרם, תוכן, מענה ללקוחות ופרסום ממומן — הכל במקום אחד. בסוף ההצעה תבחרו את השירותים המתאימים לכם ותאשרו בחתימה.</p>
+								<p>העסק שלכם פעיל ברשת — בלי שתרדפו אחרי תוכן. <span id="welcome-services-lead">פייסבוק, אינסטגרם, תוכן, מענה ללקוחות ופרסום ממומן</span> — הכל במקום אחד. בסוף ההצעה תבחרו את השירותים המתאימים לכם ותאשרו בחתימה.</p>
 							</div>
 							<div class="wizard-meta-row">
 								<span class="wizard-meta-pill"><i class="fa-regular fa-clock"></i> זמן קריאה: כ-3 דקות</span>
@@ -2131,32 +2135,32 @@
 							</div>
 						</div>
 						<div class="wizard-feature-grid">
-							<div class="wizard-feature-card">
+							<div class="wizard-feature-card" data-service-id="facebook">
 								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-brands fa-facebook"></i></div>
 								<div class="wizard-feature-title">ניהול פייסבוק</div>
 								<div class="wizard-feature-desc">עמוד, פוסטים, מענה וקהילה</div>
 							</div>
-							<div class="wizard-feature-card">
+							<div class="wizard-feature-card" data-service-id="instagram">
 								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-brands fa-instagram"></i></div>
 								<div class="wizard-feature-title">ניהול אינסטגרם</div>
 								<div class="wizard-feature-desc">פיד, Stories, Reels ועקביות מותג</div>
 							</div>
-							<div class="wizard-feature-card">
+							<div class="wizard-feature-card" data-service-id="content">
 								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-pen-nib"></i></div>
 								<div class="wizard-feature-title">יצירת תוכן</div>
 								<div class="wizard-feature-desc">פוסטים, כיתובים וויזואלים</div>
 							</div>
-							<div class="wizard-feature-card">
+							<div class="wizard-feature-card" data-service-id="stories">
 								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-clapperboard"></i></div>
 								<div class="wizard-feature-title">יצירת Stories</div>
 								<div class="wizard-feature-desc">סטוריז, מבצעים ותוכן יומי</div>
 							</div>
-							<div class="wizard-feature-card">
+							<div class="wizard-feature-card" data-service-id="inbox">
 								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-comments"></i></div>
 								<div class="wizard-feature-title">מענה ללקוחות</div>
 								<div class="wizard-feature-desc">הודעות, לידים ושירות מהיר</div>
 							</div>
-							<div class="wizard-feature-card">
+							<div class="wizard-feature-card" data-service-id="ads">
 								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-bullhorn"></i></div>
 								<div class="wizard-feature-title">פרסום ממומן</div>
 								<div class="wizard-feature-desc">קמפיינים, קהלים והמרות (לא כולל תקציב מודעות)</div>
@@ -2179,13 +2183,13 @@
 							</div>
 						</div>
 						<div class="wizard-timeline">
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-brands fa-facebook"></i></span></div><div class="wizard-timeline-text"><strong>ניהול פייסבוק</strong> — עמוד, פוסטים, מענה וקהילה</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-brands fa-instagram"></i></span></div><div class="wizard-timeline-text"><strong>ניהול אינסטגרם</strong> — פיד, Stories, Reels ועקביות מותג</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-pen-nib"></i></span></div><div class="wizard-timeline-text"><strong>יצירת תוכן</strong> — פוסטים, כיתובים וויזואלים</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-clapperboard"></i></span></div><div class="wizard-timeline-text"><strong>יצירת Stories</strong> — סטוריז, מבצעים ותוכן יומי</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-comments"></i></span></div><div class="wizard-timeline-text"><strong>מענה ללקוחות</strong> — הודעות, לידים ושירות מהיר</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-bullhorn"></i></span></div><div class="wizard-timeline-text"><strong>פרסום ממומן</strong> — קמפיינים, קהלים והמרות (לא כולל תקציב מודעות)</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--orange w-icon--sm"><i class="fa-solid fa-rocket"></i></span></div><div class="wizard-timeline-text"><strong>הקמה ראשונית</strong> — חיבור ערוצים, הגדרת מותג ותוכנית תוכן</div></div>
+							<div class="wizard-timeline-item" data-service-id="facebook"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-brands fa-facebook"></i></span></div><div class="wizard-timeline-text"><strong>ניהול פייסבוק</strong> — עמוד, פוסטים, מענה וקהילה</div></div>
+							<div class="wizard-timeline-item" data-service-id="instagram"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-brands fa-instagram"></i></span></div><div class="wizard-timeline-text"><strong>ניהול אינסטגרם</strong> — פיד, Stories, Reels ועקביות מותג</div></div>
+							<div class="wizard-timeline-item" data-service-id="content"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-pen-nib"></i></span></div><div class="wizard-timeline-text"><strong>יצירת תוכן</strong> — פוסטים, כיתובים וויזואלים</div></div>
+							<div class="wizard-timeline-item" data-service-id="stories"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-clapperboard"></i></span></div><div class="wizard-timeline-text"><strong>יצירת Stories</strong> — סטוריז, מבצעים ותוכן יומי</div></div>
+							<div class="wizard-timeline-item" data-service-id="inbox"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-comments"></i></span></div><div class="wizard-timeline-text"><strong>מענה ללקוחות</strong> — הודעות, לידים ושירות מהיר</div></div>
+							<div class="wizard-timeline-item" data-service-id="ads"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-bullhorn"></i></span></div><div class="wizard-timeline-text"><strong>פרסום ממומן</strong> — קמפיינים, קהלים והמרות (לא כולל תקציב מודעות)</div></div>
+							<div class="wizard-timeline-item" data-service-id="setup"><div class="wizard-timeline-icon"><span class="w-icon w-icon--orange w-icon--sm"><i class="fa-solid fa-rocket"></i></span></div><div class="wizard-timeline-text"><strong>הקמה ראשונית</strong> — חיבור ערוצים, הגדרת מותג ותוכנית תוכן</div></div>
 						</div>
 						<div class="wizard-actions">
 							<button class="button button-ghost" type="button" data-wizard-back="2"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
@@ -2317,7 +2321,7 @@
 									<ul>
 										<li>תשלום ההקמה יבוצע לפני תחילת העבודה בפועל.</li>
 										<li>התשלום החודשי ייגבה בתחילת כל חודש עבור השירותים שנבחרו.</li>
-										<li>תקציב פרסום ממומן (מודעות) אינו כלול במחיר הניהול — משולם ישירות לפלטפורמות.</li>
+										<li data-service-id="ads">תקציב פרסום ממומן (מודעות) אינו כלול במחיר הניהול — משולם ישירות לפלטפורמות.</li>
 									</ul>
 								</div>
 							</details>
@@ -2326,7 +2330,7 @@
 								<div class="terms-accordion-body">
 									<ul>
 										<li>לוגו, תמונות, סרטונים וחומרי מותג.</li>
-										<li>גישות לעמודי פייסבוק / אינסטגרם (או הרשאות מנהל).</li>
+										<li id="terms-platform-access">גישות לעמודי פייסבוק / אינסטגרם (או הרשאות מנהל).</li>
 										<li>אישור תוכן לפני פרסום, לפי הצורך.</li>
 									</ul>
 								</div>
@@ -2453,15 +2457,15 @@
 				<section class="section">
 					<h2 class="section-title">שירותים זמינים</h2>
 					<div class="lead-box">
-						<p>ניהול דיגיטלי מקצה לקצה — פייסבוק, אינסטגרם, תוכן, מענה ללקוחות ופרסום ממומן.</p>
+						<p id="print-services-lead">ניהול דיגיטלי מקצה לקצה — פייסבוק, אינסטגרם, תוכן, מענה ללקוחות ופרסום ממומן.</p>
 					</div>
 					<div class="services-grid" style="margin-top: 10px;">
-						<div class="service-item">ניהול פייסבוק — עמוד, פוסטים, מענה וקהילה</div>
-						<div class="service-item">ניהול אינסטגרם — פיד, Stories, Reels ועקביות מותג</div>
-						<div class="service-item">יצירת תוכן — פוסטים, כיתובים וויזואלים</div>
-						<div class="service-item">יצירת Stories — סטוריז, מבצעים ותוכן יומי</div>
-						<div class="service-item">מענה ללקוחות — הודעות, לידים ושירות מהיר</div>
-						<div class="service-item">פרסום ממומן — קמפיינים, קהלים והמרות (לא כולל תקציב מודעות)</div>
+						<div class="service-item" data-service-id="facebook">ניהול פייסבוק — עמוד, פוסטים, מענה וקהילה</div>
+						<div class="service-item" data-service-id="instagram">ניהול אינסטגרם — פיד, Stories, Reels ועקביות מותג</div>
+						<div class="service-item" data-service-id="content">יצירת תוכן — פוסטים, כיתובים וויזואלים</div>
+						<div class="service-item" data-service-id="stories">יצירת Stories — סטוריז, מבצעים ותוכן יומי</div>
+						<div class="service-item" data-service-id="inbox">מענה ללקוחות — הודעות, לידים ושירות מהיר</div>
+						<div class="service-item" data-service-id="ads">פרסום ממומן — קמפיינים, קהלים והמרות (לא כולל תקציב מודעות)</div>
 					</div>
 				</section>
 
@@ -2478,7 +2482,7 @@
 						<div class="price-card emphasis"><div class="price-label">הקמה חד פעמית</div><div class="price-value" data-price-key="setup">₪1,500</div></div>
 						<div class="price-card"><div class="price-label">סה״כ חודשי</div><div class="price-value" id="print-monthly-total">₪0</div></div>
 					</div>
-					<p class="price-note" style="margin-top: 10px; text-align: center;">המחיר החודשי מחושב לפי השירותים שנבחרו · תקציב מודעות אינו כלול</p>
+					<p class="price-note" id="print-ads-note" data-service-id="ads" style="margin-top: 10px; text-align: center;">המחיר החודשי מחושב לפי השירותים שנבחרו · תקציב מודעות אינו כלול</p>
 				</section>
 
 				<section class="section">
@@ -2574,12 +2578,12 @@
 			let businessLogoUrl = "";
 			let hasBusinessLogo = false;
 			const SERVICE_CATALOG = [
-				{ id: "facebook", title: "ניהול פייסבוק", monthly: true, itemIndex: 1 },
-				{ id: "instagram", title: "ניהול אינסטגרם", monthly: true, itemIndex: 2 },
-				{ id: "content", title: "יצירת תוכן", monthly: true, itemIndex: 3 },
-				{ id: "stories", title: "יצירת Stories", monthly: true, itemIndex: 4 },
-				{ id: "inbox", title: "מענה ללקוחות", monthly: true, itemIndex: 5 },
-				{ id: "ads", title: "פרסום ממומן", monthly: true, itemIndex: 6 }
+				{ id: "facebook", title: "ניהול פייסבוק", shortLabel: "פייסבוק", monthly: true, itemIndex: 1 },
+				{ id: "instagram", title: "ניהול אינסטגרם", shortLabel: "אינסטגרם", monthly: true, itemIndex: 2 },
+				{ id: "content", title: "יצירת תוכן", shortLabel: "תוכן", monthly: true, itemIndex: 3 },
+				{ id: "stories", title: "יצירת Stories", shortLabel: "Stories", monthly: true, itemIndex: 4 },
+				{ id: "inbox", title: "מענה ללקוחות", shortLabel: "מענה ללקוחות", monthly: true, itemIndex: 5 },
+				{ id: "ads", title: "פרסום ממומן", shortLabel: "פרסום ממומן", monthly: true, itemIndex: 6 }
 			];
 			const defaultProposalPrices = {
 				setup: 1500,
@@ -2592,6 +2596,7 @@
 			};
 			let proposalPrices = Object.assign({}, defaultProposalPrices);
 			let offeredServiceIds = SERVICE_CATALOG.map(function (item) { return item.id; });
+			let offeredFromUrl = false;
 			let selectedServiceIds = [];
 			const smsApiUrl = config.smsApiUrl || window.PROPOSAL_SMS_API_URL || "";
 
@@ -2657,6 +2662,9 @@
 			const monthlyTotalValue = document.getElementById("monthly-total-value");
 			const monthlyGrandValue = document.getElementById("monthly-grand-value");
 			const selectedServicesLabel = document.getElementById("selected-services-label");
+			const welcomeServicesLead = document.getElementById("welcome-services-lead");
+			const printServicesLead = document.getElementById("print-services-lead");
+			const termsPlatformAccess = document.getElementById("terms-platform-access");
 			const printSelectedServicesList = document.getElementById("print-selected-services-list");
 			const printMonthlyTotal = document.getElementById("print-monthly-total");
 			const welcomeBusinessName = document.getElementById("welcome-business-name");
@@ -3320,6 +3328,66 @@
 				return offeredServiceIds.indexOf(serviceId) !== -1;
 			}
 
+			function getOfferedServices() {
+				return SERVICE_CATALOG.filter(function (item) {
+					return isServiceOffered(item.id);
+				});
+			}
+
+			function sanitizeSelectedServices() {
+				selectedServiceIds = selectedServiceIds.filter(function (serviceId) {
+					return isServiceOffered(serviceId);
+				});
+			}
+
+			function getOfferedServicesLeadText() {
+				const offered = getOfferedServices();
+				if (!offered.length) {
+					return "";
+				}
+				return offered.map(function (item) {
+					return item.shortLabel;
+				}).join(", ");
+			}
+
+			function updateOfferedServicesCopy() {
+				const leadText = getOfferedServicesLeadText();
+				if (welcomeServicesLead && leadText) {
+					welcomeServicesLead.textContent = leadText;
+				}
+				if (printServicesLead && leadText) {
+					printServicesLead.textContent = "ניהול דיגיטלי מקצה לקצה — " + leadText + ".";
+				}
+				if (termsPlatformAccess) {
+					const platforms = [];
+					if (isServiceOffered("facebook")) {
+						platforms.push("פייסבוק");
+					}
+					if (isServiceOffered("instagram")) {
+						platforms.push("אינסטגרם");
+					}
+					const needsAccess = platforms.length > 0;
+					termsPlatformAccess.classList.toggle("is-not-offered", !needsAccess);
+					if (needsAccess) {
+						termsPlatformAccess.textContent = "גישות לעמודי " + platforms.join(" / ") + " (או הרשאות מנהל).";
+					}
+				}
+			}
+
+			function syncOfferedServicesUI() {
+				sanitizeSelectedServices();
+				document.querySelectorAll("[data-service-id]").forEach(function (element) {
+					const serviceId = element.getAttribute("data-service-id");
+					if (serviceId === "setup") {
+						return;
+					}
+					element.classList.toggle("is-not-offered", !isServiceOffered(serviceId));
+				});
+				updateOfferedServicesCopy();
+				updateServiceCardSelection();
+				updatePricingTotals();
+			}
+
 			function getSelectedServices() {
 				return selectedServiceIds.map(getServiceById).filter(Boolean);
 			}
@@ -3346,12 +3414,13 @@
 				serviceChoiceGrid.querySelectorAll(".service-choice-card").forEach(function (card) {
 					const serviceId = card.getAttribute("data-service-id");
 					const offered = isServiceOffered(serviceId);
-					card.classList.toggle("is-disabled", !offered);
-					card.classList.toggle("is-selected", selectedServiceIds.indexOf(serviceId) !== -1);
+					card.classList.toggle("is-not-offered", !offered);
+					const isSelected = offered && selectedServiceIds.indexOf(serviceId) !== -1;
+					card.classList.toggle("is-selected", isSelected);
 					const checkbox = card.querySelector('input[type="checkbox"]');
 					if (checkbox) {
 						checkbox.disabled = !offered;
-						checkbox.checked = selectedServiceIds.indexOf(serviceId) !== -1;
+						checkbox.checked = isSelected;
 					}
 				});
 			}
@@ -3388,8 +3457,7 @@
 				selectedServiceIds = nextIds.filter(function (serviceId) {
 					return isServiceOffered(serviceId);
 				});
-				updateServiceCardSelection();
-				updatePricingTotals();
+				syncOfferedServicesUI();
 				if (!settings.silent) {
 					persistServiceSelection();
 				}
@@ -3437,7 +3505,9 @@
 			}
 
 			function hasSelectedServices() {
-				return selectedServiceIds.length > 0;
+				return selectedServiceIds.some(function (serviceId) {
+					return isServiceOffered(serviceId);
+				});
 			}
 
 			function initServiceSelection() {
@@ -3454,6 +3524,10 @@
 				});
 				serviceChoiceGrid.querySelectorAll('input[name="selected-service"]').forEach(function (checkbox) {
 					checkbox.addEventListener("change", function () {
+						if (!isServiceOffered(checkbox.value)) {
+							checkbox.checked = false;
+							return;
+						}
 						if (checkbox.checked) {
 							if (selectedServiceIds.indexOf(checkbox.value) === -1) {
 								selectedServiceIds = selectedServiceIds.concat([checkbox.value]);
@@ -3814,6 +3888,7 @@
 				const offeredFromParams = readOfferedServicesFromParams(params);
 				if (offeredFromParams) {
 					offeredServiceIds = offeredFromParams;
+					offeredFromUrl = true;
 				}
 				const selectedFromParams = readSelectedServicesFromParams(params);
 				if (selectedFromParams) {
@@ -3853,8 +3928,7 @@
 						ownerClientPhoneInput.value = params.get("phone");
 					}
 				}
-				updateServiceCardSelection();
-				updatePricingTotals();
+				syncOfferedServicesUI();
 			}
 
 			function applyStoredData(data) {
@@ -3869,11 +3943,13 @@
 				phoneInput.value = data.phone || "";
 				emailInput.value = data.email || "";
 				notesInput.value = data.notes || "";
-				if (Array.isArray(data.offeredServiceIds) && data.offeredServiceIds.length) {
+				if (!offeredFromUrl && Array.isArray(data.offeredServiceIds) && data.offeredServiceIds.length) {
 					offeredServiceIds = data.offeredServiceIds.filter(function (id) { return Boolean(getServiceById(id)); });
 				}
 				if (Array.isArray(data.selectedServiceIds)) {
 					setSelectedServices(data.selectedServiceIds, { silent: true });
+				} else {
+					syncOfferedServicesUI();
 				}
 				approvalCheckbox.checked = Boolean(data.approved);
 				if (isApprovalComplete(data)) {
@@ -4396,6 +4472,8 @@
 				initWizardNavigation();
 				initServiceSelection();
 				applyStoredData(loadStoredData());
+				syncOfferedServicesUI();
+				persistServiceSelection();
 				updateShareUrlFromForm();
 				updateSummary(signedAtValue);
 				lockDocument();
