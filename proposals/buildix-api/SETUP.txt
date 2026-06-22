@@ -11,20 +11,14 @@ GET/POST `/api/proposals/branding` — logo + business name sync
 
 Production base: https://app.buildix.site/api/proposals/
 
-## PDF attachment (not a link)
+## PDF attachment (signed only)
 
-The hosted proposal page generates a full print PDF and uploads it to Buildix as
-`attachment_path` on the quote — the same field used by manual "load document" in
-Buildix UI. When Buildix regenerates the quote PDF, the attachment is appended at
-the end of the original quote document.
+The full itaysolutions proposal is attached **only after the client signs and approves**
+(`POST /api/proposals/approve` with `proposalHtml`). It is **not** attached when creating
+the quote or when the owner opens the send page.
 
-Flow:
-1. Owner creates quote via `/proposals/` → prepare
-2. Proposal page auto-uploads draft PDF to `/api/proposals/attachment`
-3. Client signs → signed PDF replaces attachment via `/api/proposals/approve`
-4. Buildix PDF = original quote + full itaysolutions proposal at the end
-
-Do **not** store a document URL in quote notes — use the attachment API only.
+Buildix renders HTML with Dompdf + `DompdfHebrew` (same as quote PDFs), stores it as
+`attachment_path`, then merges it at the end of the quote PDF.
 
 ## Deploy on VPS
 
@@ -37,9 +31,18 @@ php artisan migrate
 
 `.env`:
 ```env
+BUILDIX_EXTERNAL_PROPOSAL_OWNER_EMAIL=itay@itaysolutions.com
 BUILDIX_EXTERNAL_PROPOSAL_NOTIFY_EMAIL=itay@itaysolutions.com
-BUILDIX_EXTERNAL_PROPOSAL_ORIGINS=https://www.itaysolutions.com,https://itaysolutions.com
+BUILDIX_EXTERNAL_PROPOSAL_ORIGINS=https://www.itaysolutions.com,https://itaysolutions.com,http://localhost:8765,http://127.0.0.1:8765
 ```
+
+## Register a new proposal template
+
+Each `buildixTemplateKey` in `proposals-registry.json` must exist in Buildix
+`backend/config/buildix.php` under `external_proposal.templates`
+(e.g. `takeeat-hatzarfatiya-2026`, `private-branded-orders-2026`).
+Until registered, `/api/proposals/prepare` returns `422 Unknown proposal template`.
+Use **צפייה מקומית** in `/proposals/` for local preview without Buildix.
 
 ## Connect PortfolioReact
 

@@ -47,7 +47,6 @@
 
 		.gate-card,
 		.shell {
-			width: min(100%, 760px);
 			padding: 24px;
 			border-radius: 22px;
 			background: linear-gradient(180deg, #fffefc 0%, var(--paper) 100%);
@@ -56,6 +55,11 @@
 		}
 
 		.gate-card { width: min(100%, 420px); }
+
+		.shell {
+			width: min(100%, 1120px);
+			margin: 0 auto;
+		}
 
 		h1, h2 { margin: 0 0 8px; }
 		h1 { font-size: 22pt; }
@@ -149,7 +153,17 @@
 
 		.proposal-list {
 			display: grid;
-			gap: 14px;
+			gap: 16px;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			align-items: stretch;
+		}
+
+		.empty-state {
+			grid-column: 1 / -1;
+			text-align: center;
+			padding: 24px 16px;
+			color: var(--brand-slate);
+			font-size: 10pt;
 		}
 
 		.proposal-card {
@@ -157,6 +171,10 @@
 			border-radius: 16px;
 			border: 1px solid rgba(24, 34, 48, 0.08);
 			background: rgba(255, 255, 255, 0.88);
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			min-width: 0;
 		}
 
 		.proposal-title {
@@ -198,8 +216,14 @@
 			margin-top: 12px;
 			padding-top: 12px;
 			border-top: 1px solid rgba(24, 34, 48, 0.08);
-			display: grid;
+			display: flex;
+			flex-direction: column;
 			gap: 10px;
+			flex: 1;
+		}
+
+		.proposal-card .actions {
+			margin-top: auto;
 		}
 
 		.send-grid {
@@ -217,8 +241,53 @@
 		.send-status.is-success { color: var(--brand-green); }
 		.send-status.is-error { color: #991b1b; }
 
+		@media (max-width: 900px) {
+			.proposal-list {
+				grid-template-columns: 1fr;
+			}
+
+			.shell {
+				width: 100%;
+			}
+		}
+
 		@media (max-width: 640px) {
-			.send-grid { grid-template-columns: 1fr; }
+			.shell-wrap {
+				padding: 16px 12px 32px;
+			}
+
+			.shell {
+				padding: 18px 16px;
+				border-radius: 18px;
+			}
+
+			.topbar {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			h1 {
+				font-size: 18pt;
+			}
+
+			.send-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.actions {
+				flex-direction: column;
+			}
+
+			.actions .button {
+				width: 100%;
+				text-align: center;
+			}
+
+			.help-box code {
+				display: inline-block;
+				margin-top: 4px;
+				word-break: break-all;
+			}
 		}
 	</style>
 </head>
@@ -250,6 +319,17 @@
 				<div class="empty-state">טוען הצעות...</div>
 			</div>
 
+			<div class="help-box">
+				<strong>הצעה עם 2 מסלולים</strong><br>
+				תבנית «בחירת מסלול» — שולחים ללקוח הצעה אחת. הלקוח בוחר TakeEat או מיתוג מלא וחותם.
+				Buildix נוצר <strong>רק לאחר החתימה</strong>, לפי המסלול שנבחר.
+			</div>
+			<div class="help-box">
+				<strong>צפייה מקומית</strong><br>
+				לחצו <strong>תצוגה מקדימה</strong>, או פתחו ישירות:<br>
+				<code id="local-preview-example">proposals/orders-dual-path-2026/?owner=7466508</code><br>
+				הרצת שרת: <code>python3 -m http.server 8765</code> מתיקיית הפרויקט
+			</div>
 			<div class="help-box">
 				<strong>איך שולחים ללקוח חדש?</strong><br>
 				1. בחרו תבנית הצעה<br>
@@ -361,7 +441,20 @@
 				return manifest && manifest.proposals ? manifest.proposals : [];
 			}
 
+			function isDualPathTemplate(template) {
+				return Boolean(template && template.dualPath && Array.isArray(template.packages) && template.packages.length);
+			}
+
 			function getTemplatePricing(template) {
+				if (isDualPathTemplate(template)) {
+					const fields = [];
+					template.packages.forEach(function (pkg) {
+						(pkg.pricing || []).forEach(function (field) {
+							fields.push(field);
+						});
+					});
+					return fields;
+				}
 				return Array.isArray(template.pricing) ? template.pricing : [];
 			}
 
@@ -433,7 +526,9 @@
 			async function prepareAndOpen(template, formData) {
 				const templateKey = template.buildixTemplateKey || template.id;
 				if (!PREPARE_URL) {
-					throw new Error("prepare_url_missing");
+					const error = new Error("prepare_url_missing");
+					error.code = "prepare_url_missing";
+					throw error;
 				}
 
 				const headers = {
@@ -462,42 +557,88 @@
 				});
 
 				if (!response.ok) {
-					throw new Error("prepare_failed");
+					let apiMessage = "";
+					try {
+						const body = await response.json();
+						apiMessage = body && (body.message || body.error) ? String(body.message || body.error) : "";
+					} catch (parseError) {
+						apiMessage = "";
+					}
+					const error = new Error(apiMessage || "prepare_failed");
+					error.code = "prepare_failed";
+					error.status = response.status;
+					error.apiMessage = apiMessage;
+					throw error;
 				}
 
 				return response.json();
+			}
+
+			function formatPrepareError(error, template) {
+				const templateKey = template.buildixTemplateKey || template.id;
+				if (error && error.code === "prepare_url_missing") {
+					return "כתובת prepare חסרה ב-proposal-backend-config.js";
+				}
+				if (error && error.apiMessage && /unknown proposal template/i.test(error.apiMessage)) {
+					return "תבנית «" + templateKey + "» לא רשומה ב-Buildix. לצפייה מקומית — «צפייה מקומית». לשליחה ללקוח — הוסיפו את התבנית ב-Buildix (deploy + BUILDIX_EXTERNAL_PROPOSAL_OWNER_EMAIL).";
+				}
+				if (error && error.status === 0) {
+					return "לא ניתן להתחבר ל-Buildix (רשת/CORS). לצפייה מקומית — «צפייה מקומית».";
+				}
+				return "לא הצליח ליצור ב-Buildix" + (error && error.apiMessage ? ": " + error.apiMessage : ".") + " לצפייה מקומית — «צפייה מקומית».";
 			}
 
 			function buildProposalUrl(proposal) {
 				return new URL(proposal.path, window.location.href).toString();
 			}
 
-			function openPreparedProposal(template, formData, prepareResult) {
+			function buildProposalOpenUrl(template, formData, options) {
+				const settings = options || {};
 				sessionStorage.setItem("itay-proposal-owner:" + template.id, "1");
-				sessionStorage.setItem("itay-proposal-pending-phone:" + template.id, formData.clientPhone);
+				if (formData.clientPhone) {
+					sessionStorage.setItem("itay-proposal-pending-phone:" + template.id, formData.clientPhone);
+				}
 				if (formData.clientEmail) {
 					sessionStorage.setItem("itay-proposal-pending-email:" + template.id, formData.clientEmail);
 				}
 
 				const url = new URL(buildProposalUrl(template), window.location.href);
 				url.searchParams.set("owner", getOwnerAccessCode());
-				url.searchParams.set("quoteToken", prepareResult.quoteToken);
-				url.searchParams.set("signer", formData.clientName);
+				if (formData.clientName) {
+					url.searchParams.set("signer", formData.clientName);
+				}
 				if (formData.businessName) {
 					url.searchParams.set("business", formData.businessName);
+				}
+				if (formData.clientPhone) {
+					url.searchParams.set("phone", formData.clientPhone);
 				}
 				if (formData.prices) {
 					Object.keys(formData.prices).forEach(function (key) {
 						url.searchParams.set("price_" + key, String(formData.prices[key]));
 					});
 				}
-				if (prepareResult.logoUrl) {
-					url.searchParams.set("logoUrl", prepareResult.logoUrl);
+				if (settings.quoteToken) {
+					url.searchParams.set("quoteToken", settings.quoteToken);
+					sessionStorage.setItem("itay-proposal-quote-token:" + template.id, settings.quoteToken);
 				}
-				if (prepareResult.quoteToken) {
-					sessionStorage.setItem("itay-proposal-quote-token:" + template.id, prepareResult.quoteToken);
+				if (settings.logoUrl) {
+					url.searchParams.set("logoUrl", settings.logoUrl);
 				}
+				return url;
+			}
+
+			function openPreparedProposal(template, formData, prepareResult) {
+				const url = buildProposalOpenUrl(template, formData, {
+					quoteToken: prepareResult.quoteToken,
+					logoUrl: prepareResult.logoUrl || ""
+				});
 				window.location.href = url.toString();
+			}
+
+			function openLocalPreview(template, formData) {
+				const url = buildProposalOpenUrl(template, formData, {});
+				window.open(url.toString(), "_blank", "noopener,noreferrer");
 			}
 
 			function renderProposals() {
@@ -510,10 +651,13 @@
 				proposalList.innerHTML = templates.map(function (template) {
 					const defaultBusiness = template.defaultBusiness || "";
 					const pricingFields = getTemplatePricing(template);
+					const isDual = isDualPathTemplate(template);
+					const primaryLabel = isDual ? "שלח ללקוח" : "צור ב-Buildix ושלח";
 					return (
-						'<article class="proposal-card" data-template-id="' + template.id + '">' +
+						'<article class="proposal-card" data-template-id="' + template.id + '" data-dual-path="' + (isDual ? "1" : "0") + '">' +
 							'<h3 class="proposal-title">' + template.title + '</h3>' +
 							'<p class="proposal-meta">' + (template.description || "תבנית הצעה") + '</p>' +
+							(isDual ? '<p class="proposal-meta" style="margin-top:-6px;color:var(--brand-green);font-weight:700;">הלקוח בוחר מסלול · Buildix נוצר רק לאחר החתימה</p>' : '') +
 							'<div class="send-form">' +
 								'<div class="send-grid">' +
 									'<div class="field"><label class="label">שם הלקוח</label><input class="input send-client-name" type="text" placeholder="שם מלא"></div>' +
@@ -524,7 +668,8 @@
 								'</div>' +
 								renderPricingFields(pricingFields) +
 								'<div class="actions">' +
-									'<button class="button button-primary send-prepare-button" type="button">צור ב-Buildix ושלח</button>' +
+									'<button class="button button-primary send-prepare-button" type="button">' + primaryLabel + '</button>' +
+									'<button class="button button-secondary send-preview-button" type="button">' + (isDual ? "תצוגה מקדימה" : "צפייה מקומית") + '</button>' +
 								'</div>' +
 								'<div class="send-status" data-send-status></div>' +
 							'</div>' +
@@ -546,6 +691,7 @@
 						const pricingFields = getTemplatePricing(template);
 						const priceData = readPriceValues(card, pricingFields);
 						const logoDataUrl = await readLogoDataUrl(logoInput);
+						const isDual = card.getAttribute("data-dual-path") === "1";
 
 						statusEl.className = "send-status";
 						if (!clientName || !clientPhone) {
@@ -561,6 +707,19 @@
 						if (pricingFields.length && Object.values(priceData.values).some(function (value) { return value === null; })) {
 							statusEl.textContent = "יש להזין מחירים תקינים (מספרים חיוביים).";
 							statusEl.classList.add("is-error");
+							return;
+						}
+
+						if (isDual) {
+							statusEl.textContent = "פותח הצעה לשליחה ללקוח...";
+							statusEl.classList.add("is-success");
+							window.location.href = buildProposalOpenUrl(template, {
+								clientName: clientName,
+								clientPhone: clientPhone,
+								clientEmail: clientEmail,
+								businessName: businessName,
+								prices: priceData.values
+							}).toString();
 							return;
 						}
 
@@ -585,10 +744,42 @@
 								prices: priceData.values
 							}, result);
 						} catch (error) {
-							statusEl.textContent = "לא הצליח ליצור ב-Buildix. ודאו deploy + BUILDIX_EXTERNAL_PROPOSAL_OWNER_EMAIL.";
+							statusEl.textContent = formatPrepareError(error, template);
 							statusEl.classList.add("is-error");
 							button.disabled = false;
 						}
+					});
+				});
+
+				proposalList.querySelectorAll(".send-preview-button").forEach(function (button) {
+					button.addEventListener("click", async function () {
+						const card = button.closest(".proposal-card");
+						const templateId = card.getAttribute("data-template-id");
+						const template = templates.find(function (item) { return item.id === templateId; });
+						const statusEl = card.querySelector("[data-send-status]");
+						const clientName = card.querySelector(".send-client-name").value.trim();
+						const clientPhone = card.querySelector(".send-client-phone").value.trim();
+						const businessName = card.querySelector(".send-business-name").value.trim();
+						const clientEmail = card.querySelector(".send-client-email").value.trim();
+						const pricingFields = getTemplatePricing(template);
+						const priceData = readPriceValues(card, pricingFields);
+
+						statusEl.className = "send-status";
+						if (pricingFields.length && Object.values(priceData.values).some(function (value) { return value === null; })) {
+							statusEl.textContent = "יש להזין מחירים תקינים (מספרים חיוביים).";
+							statusEl.classList.add("is-error");
+							return;
+						}
+
+						openLocalPreview(template, {
+							clientName: clientName || "לקוח לדוגמה",
+							clientPhone: clientPhone,
+							clientEmail: clientEmail,
+							businessName: businessName || template.defaultBusiness || "שם העסק",
+							prices: priceData.values
+						});
+						statusEl.textContent = "נפתחה תצוגה מקומית בלשונית חדשה (ללא Buildix).";
+						statusEl.classList.add("is-success");
 					});
 				});
 			}

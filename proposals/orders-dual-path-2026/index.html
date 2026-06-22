@@ -8,7 +8,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-	<title>הצעת מחיר והסכם שירות | TakeEat - הצרפתייה הקטנה</title>
+	<title>הצעת מחיר | מערכת הזמנות — בחירת מסלול</title>
 	<style>
 		:root {
 			--brand-orange: #ff6a00;
@@ -1444,6 +1444,454 @@
 			line-height: 1.45;
 		}
 
+		.path-compare {
+			margin: 18px auto 20px;
+			max-width: 720px;
+		}
+
+		.path-compare-hero {
+			display: grid;
+			grid-template-columns: 1fr auto 1fr;
+			align-items: center;
+			gap: 10px;
+			margin-bottom: 16px;
+		}
+
+		.path-compare-side {
+			padding: 16px 12px;
+			border-radius: 20px;
+			border: 2px solid rgba(24, 34, 48, 0.08);
+			background: rgba(255, 255, 255, 0.9);
+			text-align: center;
+			display: grid;
+			gap: 10px;
+			justify-items: center;
+			min-height: 148px;
+		}
+
+		.path-compare-side--takeeat {
+			border-color: rgba(20, 108, 46, 0.22);
+			background: linear-gradient(180deg, rgba(20, 108, 46, 0.06), rgba(255, 255, 255, 0.95));
+		}
+
+		.path-compare-side--branded {
+			border-color: rgba(255, 106, 0, 0.22);
+			background: linear-gradient(180deg, rgba(255, 106, 0, 0.06), rgba(255, 255, 255, 0.95));
+		}
+
+		.path-compare-logo-wrap {
+			min-height: 72px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+		}
+
+		.path-compare-logo-wrap .takeeat-logo {
+			max-width: 120px;
+			max-height: 64px;
+		}
+
+		.path-compare-business-logo {
+			max-width: 88px;
+			max-height: 72px;
+			object-fit: contain;
+			border-radius: 14px;
+			background: #fff;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+		}
+
+		.path-compare-business-badge {
+			width: 64px;
+			height: 64px;
+			border-radius: 16px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 18pt;
+			font-weight: 800;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-orange), #ff8f3a);
+		}
+
+		.path-compare-label {
+			font-size: 10pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			line-height: 1.3;
+		}
+
+		.path-compare-vs {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 6px;
+			padding: 0 4px;
+		}
+
+		.path-compare-vs-badge {
+			width: 44px;
+			height: 44px;
+			border-radius: 999px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 10pt;
+			font-weight: 900;
+			letter-spacing: 0.04em;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-navy), #2d3f56);
+			box-shadow: 0 6px 18px rgba(24, 34, 48, 0.18);
+		}
+
+		.path-compare-arrows {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.path-compare-arrow {
+			width: 30px;
+			height: 30px;
+			border-radius: 999px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 11px;
+			color: var(--brand-orange);
+			background: rgba(255, 106, 0, 0.12);
+		}
+
+		.path-compare-details {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+			margin-bottom: 12px;
+		}
+
+		.path-compare-col {
+			padding: 14px 12px;
+			border-radius: 16px;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+			background: rgba(255, 255, 255, 0.88);
+		}
+
+		.path-compare-col--takeeat {
+			border-top: 3px solid var(--brand-green);
+		}
+
+		.path-compare-col--branded {
+			border-top: 3px solid var(--brand-orange);
+		}
+
+		.path-compare-col-title {
+			font-size: 9.5pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			margin-bottom: 10px;
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.path-compare-col-title i {
+			font-size: 11px;
+		}
+
+		.path-compare-list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			display: grid;
+			gap: 8px;
+		}
+
+		.path-compare-list li {
+			font-size: 8.8pt;
+			color: var(--brand-slate);
+			line-height: 1.45;
+			padding-right: 18px;
+			position: relative;
+		}
+
+		.path-compare-list li::before {
+			content: "✓";
+			position: absolute;
+			right: 0;
+			top: 0;
+			color: var(--brand-green);
+			font-weight: 800;
+			font-size: 9pt;
+		}
+
+		.path-compare-shared {
+			padding: 12px 14px;
+			border-radius: 16px;
+			border: 1px dashed rgba(24, 34, 48, 0.14);
+			background: rgba(24, 34, 48, 0.03);
+			text-align: center;
+			font-size: 8.8pt;
+			color: var(--brand-slate);
+			line-height: 1.5;
+		}
+
+		.path-compare-shared strong {
+			color: var(--brand-navy);
+		}
+
+		.path-includes {
+			margin: 18px auto 20px;
+			max-width: 720px;
+		}
+
+		.path-includes-grid {
+			display: grid;
+			grid-template-columns: 1fr auto 1fr;
+			gap: 12px;
+			align-items: stretch;
+		}
+
+		.path-includes-col {
+			padding: 16px 14px;
+			border-radius: 20px;
+			border: 2px solid rgba(24, 34, 48, 0.08);
+			background: rgba(255, 255, 255, 0.92);
+			display: grid;
+			gap: 12px;
+		}
+
+		.path-includes-col--takeeat {
+			border-color: rgba(20, 108, 46, 0.22);
+			background: linear-gradient(180deg, rgba(20, 108, 46, 0.05), rgba(255, 255, 255, 0.98));
+			box-shadow: inset 0 3px 0 var(--brand-green);
+		}
+
+		.path-includes-col--branded {
+			border-color: rgba(255, 106, 0, 0.22);
+			background: linear-gradient(180deg, rgba(255, 106, 0, 0.05), rgba(255, 255, 255, 0.98));
+			box-shadow: inset 0 3px 0 var(--brand-orange);
+		}
+
+		.path-includes-header {
+			text-align: center;
+			display: grid;
+			gap: 8px;
+			justify-items: center;
+			padding-bottom: 10px;
+			border-bottom: 1px dashed rgba(24, 34, 48, 0.10);
+		}
+
+		.path-includes-header .takeeat-logo {
+			max-width: 110px;
+			max-height: 52px;
+		}
+
+		.path-includes-business-logo {
+			max-width: 72px;
+			max-height: 56px;
+			object-fit: contain;
+			border-radius: 12px;
+			background: #fff;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+		}
+
+		.path-includes-business-badge {
+			width: 56px;
+			height: 56px;
+			border-radius: 14px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 16pt;
+			font-weight: 800;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-orange), #ff8f3a);
+		}
+
+		.path-includes-title {
+			font-size: 10.5pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+		}
+
+		.path-includes-tag {
+			display: inline-block;
+			padding: 3px 10px;
+			border-radius: 999px;
+			font-size: 7.8pt;
+			font-weight: 700;
+		}
+
+		.path-includes-col--takeeat .path-includes-tag {
+			background: rgba(20, 108, 46, 0.10);
+			color: var(--brand-green);
+		}
+
+		.path-includes-col--branded .path-includes-tag {
+			background: rgba(255, 106, 0, 0.12);
+			color: var(--brand-orange);
+		}
+
+		.path-includes-divider {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0 2px;
+		}
+
+		.path-includes-divider-inner {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.path-includes-divider-line {
+			width: 2px;
+			flex: 1;
+			min-height: 40px;
+			border-radius: 999px;
+			background: linear-gradient(180deg, var(--brand-green), var(--brand-orange));
+			opacity: 0.35;
+		}
+
+		.path-includes-divider-badge {
+			width: 32px;
+			height: 32px;
+			border-radius: 999px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 7.5pt;
+			font-weight: 900;
+			color: var(--brand-navy);
+			background: rgba(24, 34, 48, 0.06);
+			border: 1px solid rgba(24, 34, 48, 0.10);
+		}
+
+		.path-includes-section-label {
+			font-size: 8pt;
+			font-weight: 800;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+			color: var(--brand-slate);
+			margin-bottom: 6px;
+		}
+
+		.path-includes-list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			display: grid;
+			gap: 7px;
+		}
+
+		.path-includes-list li {
+			font-size: 8.8pt;
+			color: var(--brand-slate);
+			line-height: 1.45;
+			padding-right: 18px;
+			position: relative;
+		}
+
+		.path-includes-list li::before {
+			content: "✓";
+			position: absolute;
+			right: 0;
+			top: 0;
+			font-weight: 800;
+			font-size: 9pt;
+		}
+
+		.path-includes-col--takeeat .path-includes-list li::before {
+			color: var(--brand-green);
+		}
+
+		.path-includes-col--branded .path-includes-list li::before {
+			color: var(--brand-orange);
+		}
+
+		.path-includes-list li.is-unique {
+			font-weight: 700;
+			color: var(--brand-navy);
+		}
+
+		.path-includes-shared {
+			margin-top: 14px;
+			padding: 12px 14px;
+			border-radius: 16px;
+			border: 1px dashed rgba(24, 34, 48, 0.14);
+			background: rgba(24, 34, 48, 0.03);
+		}
+
+		.path-includes-shared-title {
+			font-size: 9pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			margin-bottom: 8px;
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.path-includes-shared-list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 6px 10px;
+		}
+
+		.path-includes-shared-list li {
+			font-size: 8.5pt;
+			color: var(--brand-slate);
+			padding: 4px 10px 4px 8px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.85);
+			border: 1px solid rgba(24, 34, 48, 0.08);
+		}
+
+		.path-includes-shared-list li i {
+			margin-left: 4px;
+			color: var(--brand-green);
+			font-size: 9px;
+		}
+
+		.package-choice-logo-wrap {
+			min-height: 52px;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+		}
+
+		.package-choice-logo-wrap .takeeat-logo {
+			max-width: 110px;
+			max-height: 48px;
+		}
+
+		.package-choice-business-logo {
+			max-width: 72px;
+			max-height: 52px;
+			object-fit: contain;
+			border-radius: 10px;
+			background: #fff;
+			border: 1px solid rgba(24, 34, 48, 0.08);
+		}
+
+		.package-choice-business-fallback {
+			width: 44px;
+			height: 44px;
+			border-radius: 12px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 16px;
+			color: #fff;
+			background: linear-gradient(135deg, var(--brand-orange), #ff8f3a);
+		}
+
 		.wizard-feature-title {
 			font-size: 10.5pt;
 			font-weight: 800;
@@ -1635,6 +2083,178 @@
 			margin-top: 10px;
 			font-size: 9pt;
 			color: var(--brand-slate);
+		}
+
+		.package-choice-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 14px;
+			margin: 16px auto 20px;
+			max-width: 720px;
+		}
+
+		.package-choice-card {
+			position: relative;
+			padding: 16px 14px 14px;
+			border-radius: 20px;
+			border: 2px solid rgba(24, 34, 48, 0.10);
+			background: rgba(255, 255, 255, 0.92);
+			cursor: pointer;
+			transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+			display: grid;
+			gap: 10px;
+		}
+
+		.package-choice-card:hover {
+			border-color: rgba(255, 106, 0, 0.35);
+			box-shadow: 0 8px 24px rgba(255, 106, 0, 0.10);
+		}
+
+		.package-choice-card.is-selected {
+			border-color: var(--brand-orange);
+			box-shadow: 0 12px 28px rgba(255, 106, 0, 0.16);
+			transform: translateY(-2px);
+			background: linear-gradient(180deg, rgba(255, 243, 232, 0.55), rgba(255, 255, 255, 0.98));
+		}
+
+		.package-choice-card input {
+			position: absolute;
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		.package-choice-badge {
+			display: inline-block;
+			padding: 4px 10px;
+			border-radius: 999px;
+			background: rgba(20, 108, 46, 0.10);
+			color: var(--brand-green);
+			font-size: 8pt;
+			font-weight: 700;
+		}
+
+		.package-choice-badge--premium {
+			background: rgba(255, 106, 0, 0.12);
+			color: var(--brand-orange);
+		}
+
+		.package-choice-title {
+			font-size: 11.5pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			line-height: 1.25;
+		}
+
+		.package-choice-desc {
+			font-size: 8.8pt;
+			color: var(--brand-slate);
+			line-height: 1.45;
+			min-height: 2.8em;
+		}
+
+		.package-choice-prices {
+			display: grid;
+			gap: 6px;
+			padding-top: 8px;
+			border-top: 1px dashed rgba(24, 34, 48, 0.10);
+		}
+
+		.package-choice-price-line {
+			display: flex;
+			justify-content: space-between;
+			gap: 8px;
+			font-size: 9pt;
+		}
+
+		.package-choice-price-line strong {
+			font-size: 11pt;
+			color: var(--brand-navy);
+		}
+
+		.package-choice-check {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			font-size: 8.8pt;
+			font-weight: 700;
+			color: var(--brand-green);
+		}
+
+		.package-choice-card.is-selected .package-choice-check {
+			color: var(--brand-orange);
+		}
+
+		.package-choice-includes {
+			margin: 8px 0 0;
+			padding: 0 16px 0 0;
+			font-size: 8.8pt;
+			color: var(--text-muted);
+			line-height: 1.55;
+		}
+
+		.package-choice-includes li {
+			margin-bottom: 3px;
+		}
+
+		.package-choice-license-note {
+			margin-top: 8px;
+			padding: 8px 10px;
+			border-radius: 10px;
+			background: rgba(232, 93, 4, 0.08);
+			border: 1px solid rgba(232, 93, 4, 0.14);
+			font-size: 8.8pt;
+			font-weight: 700;
+			color: var(--brand-navy);
+			text-align: center;
+		}
+
+		.package-choice-renewal {
+			margin-top: 10px;
+			padding-top: 10px;
+			border-top: 1px dashed rgba(24, 34, 48, 0.10);
+		}
+
+		.package-choice-renewal-title {
+			font-size: 8.8pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			margin-bottom: 4px;
+		}
+
+		.package-choice-renewal-note {
+			font-size: 8.6pt;
+			color: var(--text-muted);
+			margin-bottom: 8px;
+			line-height: 1.45;
+		}
+
+		.package-choice-renewal-options {
+			display: grid;
+			gap: 6px;
+		}
+
+		.package-choice-renewal-option {
+			display: flex;
+			justify-content: space-between;
+			gap: 8px;
+			font-size: 8.8pt;
+		}
+
+		.package-choice-renewal-option strong {
+			color: var(--brand-navy);
+		}
+
+		.selected-package-banner {
+			margin-top: 12px;
+			padding: 12px 14px;
+			border-radius: 14px;
+			border: 1px solid rgba(20, 108, 46, 0.16);
+			background: rgba(20, 108, 46, 0.08);
+			font-size: 9.2pt;
+		}
+
+		.selected-package-banner strong {
+			color: var(--brand-green);
 		}
 
 		.terms-accordion {
@@ -1837,8 +2457,43 @@
 
 			.wizard-feature-grid,
 			.wizard-signature-grid,
-			.wizard-price-row {
+			.wizard-price-row,
+			.package-choice-grid,
+			.path-compare-details,
+			.path-includes-grid {
 				grid-template-columns: 1fr;
+			}
+
+			.path-includes-divider {
+				order: -1;
+				padding: 4px 0;
+			}
+
+			.path-includes-divider-inner {
+				flex-direction: row;
+				width: 100%;
+				justify-content: center;
+			}
+
+			.path-includes-divider-line {
+				width: 60px;
+				height: 2px;
+				min-height: 0;
+				flex: none;
+			}
+
+			.path-compare-hero {
+				grid-template-columns: 1fr;
+				gap: 12px;
+			}
+
+			.path-compare-vs {
+				flex-direction: row;
+				order: -1;
+			}
+
+			.path-compare-arrows {
+				gap: 10px;
 			}
 
 			.wizard-progress-label {
@@ -1867,7 +2522,7 @@
 		<div class="content">
 			<div class="owner-panel screen-only is-hidden" id="owner-panel">
 				<h3 class="owner-panel-title">פאנל בעל האתר — שליחת הצעה ללקוח</h3>
-				<div class="buildix-status buildix-status--unlinked" id="buildix-status-badge">Buildix: לא מקושר — צרו הצעה דרך /proposals/</div>
+				<div class="buildix-status buildix-status--unlinked" id="buildix-status-badge">Buildix: ייווצר לאחר בחירת מסלול וחתימה</div>
 				<p class="owner-panel-note">הזינו פרטי לקוח ועסק, לוגו (אופציונלי) ואימייל לברכות לאחר אישור. הקישור המאובטח יישלח ב-SMS או WhatsApp.</p>
 				<div class="owner-form-grid">
 					<div class="form-field">
@@ -1922,10 +2577,10 @@
 			<div class="journey-wizard screen-only" id="journey-wizard">
 				<div class="wizard-progress" id="wizard-progress" aria-label="התקדמות במסע האישור">
 					<button class="wizard-progress-item" type="button" data-step="1"><span class="wizard-progress-dot"><i class="fa-solid fa-house"></i></span><span class="wizard-progress-label">פתיחה</span></button>
-					<button class="wizard-progress-item" type="button" data-step="2"><span class="wizard-progress-dot"><i class="fa-solid fa-utensils"></i></span><span class="wizard-progress-label">פתרון</span></button>
+					<button class="wizard-progress-item" type="button" data-step="2"><span class="wizard-progress-dot"><i class="fa-solid fa-code-compare"></i></span><span class="wizard-progress-label">השוואה</span></button>
 					<button class="wizard-progress-item" type="button" data-step="3"><span class="wizard-progress-dot"><i class="fa-solid fa-list-check"></i></span><span class="wizard-progress-label">מה כלול</span></button>
 					<button class="wizard-progress-item" type="button" data-step="4"><span class="wizard-progress-dot"><i class="fa-solid fa-route"></i></span><span class="wizard-progress-label">תהליך</span></button>
-					<button class="wizard-progress-item" type="button" data-step="5"><span class="wizard-progress-dot"><i class="fa-solid fa-tags"></i></span><span class="wizard-progress-label">מחיר</span></button>
+					<button class="wizard-progress-item" type="button" data-step="5"><span class="wizard-progress-dot"><i class="fa-solid fa-hand-pointer"></i></span><span class="wizard-progress-label">בחירה</span></button>
 					<button class="wizard-progress-item" type="button" data-step="6"><span class="wizard-progress-dot"><i class="fa-solid fa-file-contract"></i></span><span class="wizard-progress-label">תנאים</span></button>
 					<button class="wizard-progress-item" type="button" data-step="7"><span class="wizard-progress-dot"><i class="fa-solid fa-signature"></i></span><span class="wizard-progress-label">חתימה</span></button>
 				</div>
@@ -1950,14 +2605,17 @@
 								<span class="wizard-welcome-link" aria-hidden="true"><i class="fa-solid fa-link"></i></span>
 								<div class="wizard-welcome-logo-wrap">
 									<img class="business-logo-image is-hidden" id="welcome-business-logo" alt="לוגו העסק">
-									<div class="business-logo-badge" id="welcome-business-badge">הק</div>
-									<div class="brand-caption" id="welcome-business-name">הצרפתייה הקטנה</div>
+									<div class="business-logo-badge" id="welcome-business-badge">עסק</div>
+									<div class="brand-caption" id="welcome-business-name">שם העסק</div>
 								</div>
 							</div>
-							<h2 class="wizard-title">ברוכים הבאים להצעת TakeEat</h2>
-							<p class="wizard-subtitle" id="welcome-subtitle">הצעה עבור הצרפתייה הקטנה · מסע קצר וברור לאישור ההצעה</p>
+							<h2 class="wizard-title">מערכת הזמנות דיגיטלית — 2 מסלולים לבחירה</h2>
+							<p class="wizard-subtitle" id="welcome-subtitle">הצעה עבור שם העסק · בחרו את המסלול המתאים לעסק שלכם</p>
+							<div class="lead-box" style="margin-top: 14px; text-align: right;">
+								<p>מוצעים לכם שני מסלולים להקמת מערכת הזמנות דיגיטלית: <strong>TakeEat</strong> — פתרון מהיר ומשתלם עם מנוי חודשי, או <strong>מסלול פרימיום</strong> — מערכת פרטית במיתוג מלא עם תשלום חד פעמי ורישיון שימוש ל-36 חודשים. בסוף ההצעה תבחרו מסלול אחד ותאשרו בחתימה.</p>
+							</div>
 							<div class="wizard-meta-row">
-								<span class="wizard-meta-pill"><i class="fa-regular fa-clock"></i> זמן קריאה: כ-2 דקות</span>
+								<span class="wizard-meta-pill"><i class="fa-regular fa-clock"></i> זמן קריאה: כ-4 דקות</span>
 								<span class="wizard-meta-pill wizard-meta-pill--green"><i class="fa-solid fa-shoe-prints"></i> 7 שלבים מסודרים</span>
 							</div>
 						</div>
@@ -1970,37 +2628,65 @@
 				<section class="wizard-step" data-step="2" id="wizard-step-2">
 					<div class="wizard-card">
 						<div class="wizard-step-header">
-							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-utensils"></i></div>
+							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-code-compare"></i></div>
 							<div class="wizard-step-header-text">
-								<h2 class="wizard-title">איך המערכת תעזור לעסק</h2>
-								<p class="wizard-subtitle">TakeEat הופכת את ההזמנות לדיגיטליות, מסודרות ונגישות — מהלקוח ועד המטבח.</p>
+								<h2 class="wizard-title">השוואת המסלולים</h2>
+								<p class="wizard-subtitle">שני פתרונות לאותה מטרה — הזמנות דיגיטליות מסודרות לעסק שלכם.</p>
 							</div>
 						</div>
-						<div class="wizard-feature-grid">
-							<div class="wizard-feature-card">
-								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
-								<div class="wizard-feature-title">הזמנות אונליין</div>
-								<div class="wizard-feature-desc">תפריט דיגיטלי והזמנה ישירה מהלקוח</div>
+						<div class="path-compare">
+							<div class="path-compare-hero">
+								<div class="path-compare-side path-compare-side--takeeat">
+									<div class="path-compare-logo-wrap">
+										<img class="logo-transparent takeeat-logo" src="../../assets/images/takeEatLogoNew.png" alt="TakeEat">
+									</div>
+									<div class="path-compare-label">מסלול TakeEat</div>
+									<div class="wizard-feature-desc">מערכת משותפת · הקמה מהירה</div>
+								</div>
+								<div class="path-compare-vs" aria-hidden="true">
+									<div class="path-compare-arrows">
+										<span class="path-compare-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+										<span class="path-compare-vs-badge">VS</span>
+										<span class="path-compare-arrow"><i class="fa-solid fa-arrow-left"></i></span>
+									</div>
+								</div>
+								<div class="path-compare-side path-compare-side--branded">
+									<div class="path-compare-logo-wrap">
+										<img class="path-compare-business-logo is-hidden" id="compare-business-logo" alt="לוגו העסק">
+										<div class="path-compare-business-badge" id="compare-business-badge">עסק</div>
+									</div>
+									<div class="path-compare-label">מסלול פרימיום</div>
+									<div class="wizard-feature-desc">מערכת פרטית · מותג <span id="compare-business-name">העסק</span></div>
+								</div>
 							</div>
-							<div class="wizard-feature-card">
-								<div class="w-icon w-icon--green wizard-feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
-								<div class="wizard-feature-title">משלוחים ואיסוף עצמי</div>
-								<div class="wizard-feature-desc">גמישות מלאה לפי מודל העסק</div>
+							<div class="path-compare-details">
+								<div class="path-compare-col path-compare-col--takeeat">
+									<div class="path-compare-col-title"><i class="fa-solid fa-bolt" style="color: var(--brand-green);"></i> TakeEat</div>
+									<ul class="path-compare-list">
+										<li>הקמה מהירה — עד 7 ימי עבודה</li>
+										<li>מנוי חודשי נמוך ומשתלם</li>
+										<li>מתאים להתחלה מהירה בעלות נמוכה</li>
+										<li>תשתית משותפת ומוכחת</li>
+									</ul>
+								</div>
+								<div class="path-compare-col path-compare-col--branded">
+									<div class="path-compare-col-title"><i class="fa-solid fa-crown" style="color: var(--brand-orange);"></i> מסלול פרימיום</div>
+									<ul class="path-compare-list">
+										<li>מערכת ייעודית במותג העסק — אתר ופאנל ניהול פרטיים</li>
+										<li>תשלום חד פעמי — ללא עמלות על הזמנות</li>
+										<li>36 חודשי שימוש כלולים במחיר ההקמה</li>
+										<li>אפשרות לניהול מספר סניפים</li>
+									</ul>
+								</div>
 							</div>
-							<div class="wizard-feature-card">
-								<div class="w-icon w-icon--navy wizard-feature-icon"><i class="fa-solid fa-chart-line"></i></div>
-								<div class="wizard-feature-title">ניהול הזמנות במקום אחד</div>
-								<div class="wizard-feature-desc">כל ההזמנות מרוכזות במערכת אחת</div>
-							</div>
-							<div class="wizard-feature-card">
-								<div class="w-icon w-icon--orange wizard-feature-icon"><i class="fa-solid fa-piggy-bank"></i></div>
-								<div class="wizard-feature-title">פחות עמלות ותלות</div>
-								<div class="wizard-feature-desc">פחות תלות בפלטפורמות חיצוניות</div>
+							<div class="path-compare-shared">
+								<strong>שני המסלולים</strong> כוללים תפריט דיגיטלי, הזמנות אונליין, ניהול מרוכז וממשק מותאם מובייל.
+								בסוף ההצעה תבחרו מסלול אחד — ונקים לכם בדיוק את מה שבחרתם.
 							</div>
 						</div>
 						<div class="wizard-actions">
 							<button class="button button-ghost" type="button" data-wizard-back="1"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
-							<button class="button button-primary" type="button" data-wizard-next="3">הבנתי, מה מקבלים? <i class="fa-solid fa-arrow-left"></i></button>
+							<button class="button button-primary" type="button" data-wizard-next="3">מה כלול בכל מסלול? <i class="fa-solid fa-arrow-left"></i></button>
 						</div>
 					</div>
 				</section>
@@ -2010,21 +2696,71 @@
 						<div class="wizard-step-header">
 							<div class="w-icon w-icon--green w-icon--lg"><i class="fa-solid fa-box-open"></i></div>
 							<div class="wizard-step-header-text">
-								<h2 class="wizard-title">מה תקבלו</h2>
-								<p class="wizard-subtitle">הכל כלול בהקמה — אתם מספקים חומרים, אנחנו מקימים ומריצים.</p>
+								<h2 class="wizard-title">מה כלול בכל מסלול</h2>
+								<p class="wizard-subtitle">פירוט ברור — כדי שתוכלו לבחור בביטחון.</p>
 							</div>
 						</div>
-						<div class="wizard-timeline">
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-globe"></i></span></div><div class="wizard-timeline-text">הקמת אתר הזמנות</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-clipboard-list"></i></span></div><div class="wizard-timeline-text">העלאת תפריט</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-link"></i></span></div><div class="wizard-timeline-text">חיבור דומיין</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-mobile-screen"></i></span></div><div class="wizard-timeline-text">התאמה למובייל</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-cloud"></i></span></div><div class="wizard-timeline-text">אחסון ותחזוקה</div></div>
-							<div class="wizard-timeline-item"><div class="wizard-timeline-icon"><span class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-rotate"></i></span></div><div class="wizard-timeline-text">עדכוני מערכת</div></div>
+						<div class="path-includes">
+							<div class="path-includes-grid">
+								<div class="path-includes-col path-includes-col--takeeat">
+									<div class="path-includes-header">
+										<img class="logo-transparent takeeat-logo" src="../../assets/images/takeEatLogoNew.png" alt="TakeEat">
+										<div class="path-includes-title">מסלול TakeEat</div>
+										<span class="path-includes-tag">מערכת משותפת · מנוי חודשי</span>
+									</div>
+									<div>
+										<div class="path-includes-section-label">מה כלול</div>
+										<ul class="path-includes-list">
+											<li>הקמת אתר הזמנות דיגיטלי</li>
+											<li>העלאת תפריט ומחירים</li>
+											<li>חיבור דומיין</li>
+											<li>התאמה מלאה למובייל</li>
+											<li class="is-unique">אחסון ותחזוקה שוטפת</li>
+											<li class="is-unique">עדכוני מערכת אוטומטיים</li>
+										</ul>
+									</div>
+								</div>
+								<div class="path-includes-divider" aria-hidden="true">
+									<div class="path-includes-divider-inner">
+										<div class="path-includes-divider-line"></div>
+										<span class="path-includes-divider-badge">VS</span>
+										<div class="path-includes-divider-line"></div>
+									</div>
+								</div>
+								<div class="path-includes-col path-includes-col--branded">
+									<div class="path-includes-header">
+										<img class="path-includes-business-logo is-hidden" id="includes-business-logo" alt="לוגו העסק">
+										<div class="path-includes-business-badge" id="includes-business-badge">עסק</div>
+										<div class="path-includes-title">מסלול פרימיום</div>
+										<span class="path-includes-tag">מערכת פרטית · <span id="includes-business-name">העסק</span></span>
+									</div>
+									<div>
+										<div class="path-includes-section-label">מה כלול</div>
+										<ul class="path-includes-list">
+											<li>הקמה והטמעה + מיתוג מלא</li>
+											<li>אתר הזמנות ופאנל ניהול פרטיים</li>
+											<li>ניהול תפריטים, מוצרים והזמנות</li>
+											<li>חיבור דומיין והדרכה ראשונית</li>
+											<li class="is-unique">רישיון שימוש ל-36 חודשים</li>
+											<li class="is-unique">ניהול מספר סניפים</li>
+											<li class="is-unique">ללא עמלות על הזמנות</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="path-includes-shared">
+								<div class="path-includes-shared-title"><i class="fa-solid fa-check-double"></i> כלול בשני המסלולים</div>
+								<ul class="path-includes-shared-list">
+									<li><i class="fa-solid fa-check"></i> תפריט דיגיטלי</li>
+									<li><i class="fa-solid fa-check"></i> הזמנות אונליין</li>
+									<li><i class="fa-solid fa-check"></i> ממשק מותאם מובייל</li>
+									<li><i class="fa-solid fa-check"></i> ניהול הזמנות</li>
+								</ul>
+							</div>
 						</div>
 						<div class="wizard-actions">
 							<button class="button button-ghost" type="button" data-wizard-back="2"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
-							<button class="button button-primary" type="button" data-wizard-next="4">המשך לתהליך העבודה <i class="fa-solid fa-arrow-left"></i></button>
+							<button class="button button-primary" type="button" data-wizard-next="4">המשך לתהליך <i class="fa-solid fa-arrow-left"></i></button>
 						</div>
 					</div>
 				</section>
@@ -2055,30 +2791,63 @@
 				<section class="wizard-step" data-step="5" id="wizard-step-5">
 					<div class="wizard-card">
 						<div class="wizard-step-header">
-							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-tags"></i></div>
+							<div class="w-icon w-icon--orange w-icon--lg"><i class="fa-solid fa-hand-pointer"></i></div>
 							<div class="wizard-step-header-text">
-								<h2 class="wizard-title">ההשקעה</h2>
-								<p class="wizard-subtitle">שקיפות מלאה — בלי הפתעות.</p>
+								<h2 class="wizard-title">בחירת מסלול</h2>
+								<p class="wizard-subtitle">בחרו מסלול אחד להמשך. לאחר החתימה נקים לכם ב-Buildix את המסלול שבחרתם.</p>
 							</div>
 						</div>
-						<div class="wizard-pricing-hero">
-							<div class="wizard-price-row">
-								<div class="wizard-price-box">
-									<div class="w-icon w-icon--orange w-icon--sm"><i class="fa-solid fa-hammer"></i></div>
-									<div class="wizard-price-label">הקמה חד פעמית</div>
-									<div class="wizard-price-value" data-price-key="setup">₪2,000</div>
+						<div class="package-choice-grid" id="package-choice-grid">
+							<label class="package-choice-card" data-package-id="takeeat" id="package-card-takeeat">
+								<input type="radio" name="selected-package" value="takeeat">
+								<div class="package-choice-logo-wrap">
+									<img class="logo-transparent takeeat-logo" src="../../assets/images/takeEatLogoNew.png" alt="TakeEat">
 								</div>
-								<div class="wizard-price-box">
-									<div class="w-icon w-icon--green w-icon--sm"><i class="fa-solid fa-calendar-check"></i></div>
-									<div class="wizard-price-label">מנוי חודשי</div>
-									<div class="wizard-price-value" data-price-key="monthly">₪350</div>
+								<span class="package-choice-badge">מסלול מהיר</span>
+								<div class="package-choice-title">TakeEat — מערכת משותפת</div>
+								<div class="package-choice-desc">הקמה מהירה, מנוי חודשי, מתאים לעסק שרוצה להתחיל מהר ובעלות נמוכה.</div>
+								<div class="package-choice-prices">
+									<div class="package-choice-price-line"><span>הקמה חד פעמית</span><strong data-price-key="takeeat_setup">₪2,000</strong></div>
+									<div class="package-choice-price-line"><span>מנוי חודשי</span><strong data-price-key="takeeat_monthly">₪350</strong></div>
+									<div class="package-choice-price-line"><span>זמן הקמה</span><span>עד 7 ימי עבודה</span></div>
 								</div>
-							</div>
-							<div class="wizard-price-note"><i class="fa-regular fa-clock"></i> זמן הקמה: עד 7 ימי עבודה מקבלת כל החומרים</div>
+								<span class="package-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה במסלול זה</span>
+							</label>
+							<label class="package-choice-card" data-package-id="branded" id="package-card-branded">
+								<input type="radio" name="selected-package" value="branded">
+								<div class="package-choice-logo-wrap">
+									<img class="package-choice-business-logo is-hidden" id="package-choice-business-logo" alt="לוגו העסק">
+									<span class="package-choice-business-fallback" id="package-choice-business-fallback"><i class="fa-solid fa-crown"></i></span>
+								</div>
+								<span class="package-choice-badge package-choice-badge--premium">מסלול פרימיום</span>
+								<div class="package-choice-title">מערכת פרטית במיתוג מלא</div>
+								<div class="package-choice-desc">מערכת הזמנות ייעודית במותג העסק, עם אתר ופאנל ניהול פרטיים, ללא עמלות על הזמנות ועם אפשרות לניהול מספר סניפים.</div>
+								<div class="package-choice-prices">
+									<div class="package-choice-price-line"><span>תשלום חד פעמי</span><strong data-price-key="branded_total">₪12,000</strong></div>
+								</div>
+								<ul class="package-choice-includes">
+									<li>הקמה והטמעה</li>
+									<li>מיתוג מלא</li>
+									<li>חיבור דומיין</li>
+									<li>הדרכה ראשונית</li>
+									<li>רישיון שימוש ל-36 חודשים</li>
+								</ul>
+								<div class="package-choice-license-note">36 חודשי שימוש כלולים במחיר ההקמה</div>
+								<div class="package-choice-renewal">
+									<div class="package-choice-renewal-title">בתום תקופת הרישיון</div>
+									<div class="package-choice-renewal-note">ניתן להמשיך להשתמש במערכת באמצעות חידוש שירות.</div>
+									<div class="package-choice-renewal-options">
+										<div class="package-choice-renewal-option"><span>חידוש שנתי</span><strong data-price-key="branded_renewal_yearly">₪2,500</strong></div>
+										<div class="package-choice-renewal-option"><span>חידוש חודשי</span><strong data-price-key="branded_renewal_monthly">₪250</strong></div>
+									</div>
+								</div>
+								<span class="package-choice-check"><i class="fa-solid fa-circle-check"></i> בחירה במסלול זה</span>
+							</label>
 						</div>
+						<div class="wizard-error" id="wizard-package-error">יש לבחור מסלול אחד לפני המשך.</div>
 						<div class="wizard-actions">
 							<button class="button button-ghost" type="button" data-wizard-back="4"><i class="fa-solid fa-arrow-right"></i> חזרה</button>
-							<button class="button button-primary" type="button" data-wizard-next="6">אני מעוניין/ת להמשיך <i class="fa-solid fa-arrow-left"></i></button>
+							<button class="button button-primary" type="button" data-wizard-next="6">אישור הבחירה והמשך <i class="fa-solid fa-arrow-left"></i></button>
 						</div>
 					</div>
 				</section>
@@ -2093,12 +2862,39 @@
 							</div>
 						</div>
 						<div class="terms-accordion">
-							<details>
-								<summary><span class="terms-summary-icon"><i class="fa-solid fa-credit-card"></i></span>תנאי תשלום</summary>
+							<details open>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-circle-info"></i></span>תנאים כלליים</summary>
 								<div class="terms-accordion-body">
 									<ul>
-										<li>תשלום ההקמה יבוצע לפני תחילת העבודה בפועל.</li>
-										<li>התשלום החודשי ייגבה בתחילת כל חודש עבור המשך שימוש, אחסון ותחזוקה.</li>
+										<li>ההצעה כוללת שני מסלולים — הלקוח בוחר מסלול אחד בלבד.</li>
+										<li>לאחר החתימה תוקם המערכת לפי המסלול שנבחר.</li>
+										<li>הקוד, התשתיות והפלטפורמה נשארים בבעלות Itay Solutions.</li>
+										<li>התוכן, התמונות והלוגו של העסק נשארים בבעלות הלקוח.</li>
+									</ul>
+								</div>
+							</details>
+							<details>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-bolt"></i></span>מסלול TakeEat</summary>
+								<div class="terms-accordion-body">
+									<ul>
+										<li>תשלום ההקמה לפני תחילת העבודה. מנוי חודשי בתחילת כל חודש.</li>
+										<li>זכות שימוש במערכת כל עוד המנוי פעיל.</li>
+										<li>ניתן להפסיק בהתראה של 30 יום. תשלום ההקמה אינו מוחזר לאחר תחילת העבודה.</li>
+										<li>במקרה של הפסקת התקשרות, תינתן ללקוח גישה מלאה לנתוני המערכת (לקוחות, הזמנות, מוצרים ותפריטים) בפורמט ייצוא מקובל.</li>
+									</ul>
+								</div>
+							</details>
+							<details>
+								<summary><span class="terms-summary-icon"><i class="fa-solid fa-crown"></i></span>מסלול פרימיום</summary>
+								<div class="terms-accordion-body">
+									<ul>
+										<li>תשלום חד פעמי של 12,000 ₪ לפני תחילת העבודה — כולל הקמה, מיתוג מלא ורישיון שימוש ל-36 חודשים.</li>
+										<li><strong>36 חודשי שימוש כלולים במחיר ההקמה.</strong></li>
+										<li>בתום תקופת הרישיון ניתן להמשיך להשתמש במערכת באמצעות חידוש שירות — שנתי (<span data-price-key="branded_renewal_yearly">₪2,500</span>) או חודשי (<span data-price-key="branded_renewal_monthly">₪250</span>).</li>
+										<li><strong>חידוש שירות כולל:</strong> המשך הפעלת המערכת, אחסון ושרתים, גיבויים, תחזוקה שוטפת, עדכוני אבטחה ותמיכה טכנית בסיסית.</li>
+										<li><strong>לא כולל:</strong> מודולים חדשים, פיצ'רים מיוחדים, אינטגרציות (קופות, סליקה, משלוחים), עיצוב מחדש, הזנת תוכן, סניפים עם התאמות מיוחדות.</li>
+										<li>המערכת תפעל על שרת ייעודי של העסק. הדומיין, הסליקה והנכסים הדיגיטליים יהיו בבעלות העסק. התשתית והתוכנה עצמן מתוחזקות על ידי Itay Solutions.</li>
+										<li>במקרה של הפסקת התקשרות, תינתן ללקוח גישה מלאה לנתוני המערכת (לקוחות, הזמנות, מוצרים ותפריטים) בפורמט ייצוא מקובל.</li>
 									</ul>
 								</div>
 							</details>
@@ -2106,23 +2902,8 @@
 								<summary><span class="terms-summary-icon"><i class="fa-solid fa-images"></i></span>חומרים באחריות הלקוח</summary>
 								<div class="terms-accordion-body">
 									<ul>
-										<li>לוגו העסק, תמונות, תפריט מלא ומחירים מעודכנים.</li>
-										<li>פרטי יצירת קשר מלאים ואזורי משלוח / איסוף עצמי.</li>
-									</ul>
-								</div>
-							</details>
-							<details>
-								<summary><span class="terms-summary-icon"><i class="fa-solid fa-shield-halved"></i></span>בעלות וזכויות</summary>
-								<div class="terms-accordion-body">
-									<p>מערכת TakeEat ותשתיותיה נשארות בבעלות Itay Solutions. הלקוח מקבל זכות שימוש במערכת כל עוד המנוי פעיל. התוכן, התמונות והלוגו של העסק נשארים בבעלות הלקוח.</p>
-								</div>
-							</details>
-							<details>
-								<summary><span class="terms-summary-icon"><i class="fa-solid fa-ban"></i></span>ביטול שירות</summary>
-								<div class="terms-accordion-body">
-									<ul>
-										<li>ניתן להפסיק את השירות בהתראה מוקדמת של 30 יום מראש.</li>
-										<li>תשלום ההקמה אינו מוחזר לאחר תחילת העבודה.</li>
+										<li>לוגו, תמונות, תפריט מלא ומחירים מעודכנים.</li>
+										<li>פרטי יצירת קשר ואזורי משלוח / איסוף עצמי.</li>
 									</ul>
 								</div>
 							</details>
@@ -2148,10 +2929,13 @@
 								<p class="wizard-subtitle">מלאו את הפרטים, חתמו דיגיטלית — ומתחילים הקמה.</p>
 							</div>
 						</div>
+						<div class="selected-package-banner" id="selected-package-banner">
+							<strong>מסלול שנבחר:</strong> <span id="selected-package-label">טרם נבחר מסלול</span>
+						</div>
 						<form id="approval-form" class="form-grid wizard-signature-grid">
 							<div class="form-field">
 								<label class="form-label" for="business-name">שם העסק</label>
-								<input class="form-input" id="business-name" name="businessName" type="text" value="הצרפתייה הקטנה">
+								<input class="form-input" id="business-name" name="businessName" type="text" value="שם העסק">
 							</div>
 							<div class="form-field">
 								<label class="form-label" for="signer-name">שם החותם</label>
@@ -2179,7 +2963,7 @@
 						</div>
 						<label class="check-row" style="margin-top: 12px;">
 							<input id="approval-checkbox" name="approved" type="checkbox">
-							<span>אני מאשר/ת את הצעת המחיר ותנאי השירות, לרבות סעיף הבעלות של מערכת TakeEat.</span>
+							<span>אני מאשר/ת את הצעת המחיר, את המסלול שבחרתי ואת תנאי השירות.</span>
 						</label>
 						<div class="status-box" id="status-box"></div>
 						<div class="wizard-actions">
@@ -2332,7 +3116,7 @@
 							<span>פתרונות דיגיטליים לעסקים</span>
 						</div>
 					</div>
-					<div class="footer-message">מסמך זה מיועד לאישור הצעת המחיר והזמנת השירות עבור מערכת TakeEat.</div>
+					<div class="footer-message">מסמך זה מיועד לאישור הצעת מחיר עם בחירת מסלול — TakeEat או מסלול פרימיום.</div>
 					<div class="footer-contact">
 						<span class="footer-contact-label">יצירת קשר</span>
 						<span class="footer-contact-value">054-7466508</span>
@@ -2346,34 +3130,61 @@
 	<script src="../proposal-backend-config.js"></script>
 	<script>
 		window.ITAY_PROPOSAL_CONFIG = window.ITAY_PROPOSAL_CONFIG || {
-			proposalId: "takeeat-hatzarfatiya-2026",
-			hostedPath: "https://www.itaysolutions.com/proposals/takeeat-hatzarfatiya-2026",
+			proposalId: "orders-dual-path-2026",
+			hostedPath: "https://www.itaysolutions.com/proposals/orders-dual-path-2026",
 			ownerKey: "7466508",
 			accessSalt: "itay-proposals-2026",
 			submitUrl: window.PROPOSAL_SUBMIT_URL || "",
 			brandingUrl: window.PROPOSAL_BRANDING_URL || "",
+			prepareUrl: window.PROPOSAL_PREPARE_URL || "https://app.buildix.site/api/proposals/prepare",
 			buildixQuoteToken: ""
 		};
 	</script>
 	<script>
 		(function () {
 			const config = window.ITAY_PROPOSAL_CONFIG || {};
-			const proposalId = config.proposalId || "takeeat-hatzarfatiya-2026";
-			const hostedPath = config.hostedPath || "https://www.itaysolutions.com/proposals/takeeat-hatzarfatiya-2026";
+			const proposalId = config.proposalId || "orders-dual-path-2026";
+			const hostedPath = config.hostedPath || "https://www.itaysolutions.com/proposals/orders-dual-path-2026";
 			const accessSalt = config.accessSalt || "itay-proposals-2026";
-			const storageKey = "takeeat-proposal-approval:" + proposalId;
-			const accessStorageKey = "takeeat-proposal-access:" + proposalId;
-			const unlockSessionKey = "takeeat-proposal-unlocked:" + proposalId;
+			const storageKey = "dual-orders-proposal-approval:" + proposalId;
+			const accessStorageKey = "dual-orders-proposal-access:" + proposalId;
+			const unlockSessionKey = "dual-orders-proposal-unlocked:" + proposalId;
 			const quoteTokenSessionKey = "itay-proposal-quote-token:" + proposalId;
 			const submitUrl = config.submitUrl || window.PROPOSAL_SUBMIT_URL || "";
+			const prepareUrl = config.prepareUrl || window.PROPOSAL_PREPARE_URL || "";
 			const submitApiKey = config.submitApiKey || window.PROPOSAL_SUBMIT_API_KEY || "";
 			const brandingUrl = config.brandingUrl || window.PROPOSAL_BRANDING_URL || "";
 			let buildixQuoteToken = config.buildixQuoteToken || "";
 			let buildixPublicBase = "https://app.buildix.site";
 			let businessLogoUrl = "";
 			let hasBusinessLogo = false;
-			const defaultProposalPrices = { setup: 2000, monthly: 350 };
+			const PACKAGE_OPTIONS = {
+				takeeat: {
+					id: "takeeat",
+					title: "TakeEat — מערכת משותפת",
+					buildixTemplateKey: "takeeat-hatzarfatiya-2026",
+					getItemPrices: function (prices) {
+						return [prices.takeeat_setup, prices.takeeat_monthly];
+					}
+				},
+				branded: {
+					id: "branded",
+					title: "מסלול פרימיום — מערכת פרטית במיתוג מלא",
+					buildixTemplateKey: "private-branded-orders-2026",
+					getItemPrices: function (prices) {
+						return [prices.branded_total];
+					}
+				}
+			};
+			const defaultProposalPrices = {
+				takeeat_setup: 2000,
+				takeeat_monthly: 350,
+				branded_total: 12000,
+				branded_renewal_monthly: 250,
+				branded_renewal_yearly: 2500
+			};
 			let proposalPrices = Object.assign({}, defaultProposalPrices);
+			let selectedPackageId = "";
 			const smsApiUrl = config.smsApiUrl || window.PROPOSAL_SMS_API_URL || "";
 
 			const accessGate = document.getElementById("access-gate");
@@ -2433,14 +3244,26 @@
 			const wizardProgressItems = wizardProgress ? wizardProgress.querySelectorAll(".wizard-progress-item") : [];
 			const termsReadCheckbox = document.getElementById("terms-read-checkbox");
 			const wizardTermsError = document.getElementById("wizard-terms-error");
+			const wizardPackageError = document.getElementById("wizard-package-error");
+			const packageChoiceGrid = document.getElementById("package-choice-grid");
+			const selectedPackageBanner = document.getElementById("selected-package-banner");
+			const selectedPackageLabel = document.getElementById("selected-package-label");
 			const welcomeBusinessName = document.getElementById("welcome-business-name");
 			const welcomeBusinessBadge = document.getElementById("welcome-business-badge");
 			const welcomeBusinessLogo = document.getElementById("welcome-business-logo");
+			const compareBusinessLogo = document.getElementById("compare-business-logo");
+			const compareBusinessBadge = document.getElementById("compare-business-badge");
+			const compareBusinessName = document.getElementById("compare-business-name");
+			const includesBusinessLogo = document.getElementById("includes-business-logo");
+			const includesBusinessBadge = document.getElementById("includes-business-badge");
+			const includesBusinessName = document.getElementById("includes-business-name");
+			const packageChoiceBusinessLogo = document.getElementById("package-choice-business-logo");
+			const packageChoiceBusinessFallback = document.getElementById("package-choice-business-fallback");
 			const welcomeSubtitle = document.getElementById("welcome-subtitle");
 			const printBusinessSubtitle = document.getElementById("print-business-subtitle");
 			const successPrintButton = document.getElementById("success-print-button");
 			const wizardSuccessSaveNote = document.getElementById("wizard-success-save-note");
-			const wizardStepKey = "takeeat-proposal-wizard-step:" + proposalId;
+			const wizardStepKey = "dual-orders-proposal-wizard-step:" + proposalId;
 			let currentWizardStep = 1;
 			let maxWizardStep = 1;
 
@@ -2453,19 +3276,35 @@
 			let isOwnerMode = false;
 			let isUnlocked = false;
 
+			function getBusinessInitials(name) {
+				const parts = name.split(/\s+/).filter(Boolean);
+				return parts.slice(0, 2).map(function (part) {
+					return part.charAt(0);
+				}).join("") || "עסק";
+			}
+
 			function updateWelcomeBusiness() {
-				const name = businessNameInput.value.trim() || "הצרפתייה הקטנה";
+				const name = businessNameInput.value.trim() || "שם העסק";
+				const initials = getBusinessInitials(name);
 				if (welcomeBusinessName) {
 					welcomeBusinessName.textContent = name;
 				}
 				if (welcomeBusinessBadge) {
-					const parts = name.split(/\s+/).filter(Boolean);
-					const initials = parts.slice(0, 2).map(function (part) {
-						return part.charAt(0);
-					}).join("");
-					welcomeBusinessBadge.textContent = initials || "עסק";
+					welcomeBusinessBadge.textContent = initials;
 				}
-				const subtitleText = "הצעה עבור " + name + " · מסע קצר וברור לאישור ההצעה";
+				if (compareBusinessBadge) {
+					compareBusinessBadge.textContent = initials;
+				}
+				if (compareBusinessName) {
+					compareBusinessName.textContent = name;
+				}
+				if (includesBusinessBadge) {
+					includesBusinessBadge.textContent = initials;
+				}
+				if (includesBusinessName) {
+					includesBusinessName.textContent = name;
+				}
+				const subtitleText = "הצעה עבור " + name + " · בחרו מסלול אחד ואשרו בחתימה";
 				if (welcomeSubtitle) {
 					welcomeSubtitle.textContent = subtitleText;
 				}
@@ -2500,9 +3339,52 @@
 				if (welcomeBusinessBadge) {
 					welcomeBusinessBadge.classList.remove("is-hidden");
 				}
+				if (compareBusinessLogo) {
+					compareBusinessLogo.removeAttribute("src");
+					compareBusinessLogo.classList.add("is-hidden");
+				}
+				if (compareBusinessBadge) {
+					compareBusinessBadge.classList.remove("is-hidden");
+				}
+				if (includesBusinessLogo) {
+					includesBusinessLogo.removeAttribute("src");
+					includesBusinessLogo.classList.add("is-hidden");
+				}
+				if (includesBusinessBadge) {
+					includesBusinessBadge.classList.remove("is-hidden");
+				}
+				if (packageChoiceBusinessLogo) {
+					packageChoiceBusinessLogo.removeAttribute("src");
+					packageChoiceBusinessLogo.classList.add("is-hidden");
+				}
+				if (packageChoiceBusinessFallback) {
+					packageChoiceBusinessFallback.classList.remove("is-hidden");
+				}
 				if (ownerLogoPreview) {
 					ownerLogoPreview.removeAttribute("src");
 					ownerLogoPreview.classList.add("is-hidden");
+				}
+			}
+
+			function applyBusinessLogoToElement(logoEl, badgeEl, displayUrl, onError) {
+				if (!logoEl) {
+					return;
+				}
+				if (displayUrl) {
+					logoEl.onload = function () {
+						logoEl.classList.remove("is-hidden");
+						if (badgeEl) {
+							badgeEl.classList.add("is-hidden");
+						}
+					};
+					logoEl.onerror = onError || showBusinessLogoFallback;
+					logoEl.src = displayUrl;
+				} else {
+					logoEl.removeAttribute("src");
+					logoEl.classList.add("is-hidden");
+					if (badgeEl) {
+						badgeEl.classList.remove("is-hidden");
+					}
 				}
 			}
 
@@ -2519,15 +3401,30 @@
 					ownerLogoUrlInput.value = businessLogoUrl;
 				}
 				if (welcomeBusinessLogo && welcomeBusinessBadge) {
+					applyBusinessLogoToElement(welcomeBusinessLogo, welcomeBusinessBadge, displayUrl, showBusinessLogoFallback);
+				}
+				if (compareBusinessLogo && compareBusinessBadge) {
+					applyBusinessLogoToElement(compareBusinessLogo, compareBusinessBadge, displayUrl, showBusinessLogoFallback);
+				}
+				if (includesBusinessLogo && includesBusinessBadge) {
+					applyBusinessLogoToElement(includesBusinessLogo, includesBusinessBadge, displayUrl, showBusinessLogoFallback);
+				}
+				if (packageChoiceBusinessLogo) {
 					if (displayUrl) {
-						welcomeBusinessLogo.onload = function () {
-							welcomeBusinessLogo.classList.remove("is-hidden");
-							welcomeBusinessBadge.classList.add("is-hidden");
+						packageChoiceBusinessLogo.onload = function () {
+							packageChoiceBusinessLogo.classList.remove("is-hidden");
+							if (packageChoiceBusinessFallback) {
+								packageChoiceBusinessFallback.classList.add("is-hidden");
+							}
 						};
-						welcomeBusinessLogo.onerror = showBusinessLogoFallback;
-						welcomeBusinessLogo.src = displayUrl;
+						packageChoiceBusinessLogo.onerror = showBusinessLogoFallback;
+						packageChoiceBusinessLogo.src = displayUrl;
 					} else {
-						showBusinessLogoFallback();
+						packageChoiceBusinessLogo.removeAttribute("src");
+						packageChoiceBusinessLogo.classList.add("is-hidden");
+						if (packageChoiceBusinessFallback) {
+							packageChoiceBusinessFallback.classList.remove("is-hidden");
+						}
 					}
 				}
 				if (ownerLogoPreview) {
@@ -2759,6 +3656,141 @@
 				}, WIZARD_TRANSITION_MS);
 			}
 
+			function getSelectedPackageConfig() {
+				return selectedPackageId ? PACKAGE_OPTIONS[selectedPackageId] : null;
+			}
+
+			function updatePackageCardSelection() {
+				if (!packageChoiceGrid) {
+					return;
+				}
+				packageChoiceGrid.querySelectorAll(".package-choice-card").forEach(function (card) {
+					const packageId = card.getAttribute("data-package-id");
+					card.classList.toggle("is-selected", packageId === selectedPackageId);
+				});
+			}
+
+			function updateSelectedPackageBanner() {
+				const pkg = getSelectedPackageConfig();
+				if (selectedPackageLabel) {
+					selectedPackageLabel.textContent = pkg ? pkg.title : "טרם נבחר מסלול";
+				}
+			}
+
+			function setSelectedPackage(packageId, options) {
+				const settings = options || {};
+				if (!PACKAGE_OPTIONS[packageId]) {
+					return;
+				}
+				selectedPackageId = packageId;
+				const radio = document.querySelector('input[name="selected-package"][value="' + packageId + '"]');
+				if (radio) {
+					radio.checked = true;
+				}
+				updatePackageCardSelection();
+				updateSelectedPackageBanner();
+				if (!settings.silent) {
+					persistSelection();
+				}
+			}
+
+			function persistSelection() {
+				const stored = loadStoredData() || {};
+				stored.selectedPackageId = selectedPackageId;
+				try {
+					localStorage.setItem(storageKey, JSON.stringify(stored));
+				} catch (error) {
+					/* ignore */
+				}
+			}
+
+			function showWizardPackageError(message) {
+				if (!wizardPackageError) {
+					return;
+				}
+				wizardPackageError.textContent = message;
+				wizardPackageError.classList.add("is-visible");
+			}
+
+			function hideWizardPackageError() {
+				if (wizardPackageError) {
+					wizardPackageError.classList.remove("is-visible");
+				}
+			}
+
+			function initPackageSelection() {
+				if (!packageChoiceGrid) {
+					return;
+				}
+				packageChoiceGrid.querySelectorAll(".package-choice-card").forEach(function (card) {
+					card.addEventListener("click", function () {
+						setSelectedPackage(card.getAttribute("data-package-id"));
+						hideWizardPackageError();
+					});
+				});
+				packageChoiceGrid.querySelectorAll('input[name="selected-package"]').forEach(function (radio) {
+					radio.addEventListener("change", function () {
+						if (radio.checked) {
+							setSelectedPackage(radio.value);
+							hideWizardPackageError();
+						}
+					});
+				});
+				updatePackageCardSelection();
+				updateSelectedPackageBanner();
+			}
+
+			async function prepareBuildixForSelectedPackage() {
+				if (buildixQuoteToken) {
+					return buildixQuoteToken;
+				}
+				const pkg = getSelectedPackageConfig();
+				if (!pkg) {
+					throw new Error("missing_package");
+				}
+				if (!prepareUrl) {
+					throw new Error("prepare_url_missing");
+				}
+
+				const headers = {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				};
+				if (submitApiKey) {
+					headers["X-Proposal-Api-Key"] = submitApiKey;
+				}
+
+				const response = await fetch(prepareUrl, {
+					method: "POST",
+					headers: headers,
+					mode: "cors",
+					credentials: "omit",
+					cache: "no-store",
+					body: JSON.stringify({
+						templateKey: pkg.buildixTemplateKey,
+						clientName: signerNameInput.value.trim(),
+						clientPhone: phoneInput.value.trim(),
+						clientEmail: emailInput.value.trim() || "",
+						businessName: businessNameInput.value.trim(),
+						itemPrices: pkg.getItemPrices(proposalPrices),
+						businessLogoDataUrl: hasBusinessLogo && businessLogoUrl && businessLogoUrl.indexOf("data:image/") === 0
+							? businessLogoUrl
+							: undefined
+					})
+				});
+
+				if (!response.ok) {
+					const message = await readApiError(response);
+					throw new Error(message || "prepare_failed");
+				}
+
+				const result = await response.json();
+				if (result.quoteToken) {
+					persistBuildixQuoteToken(result.quoteToken);
+				}
+				return result.quoteToken || "";
+			}
+
 			function showWizardTermsError(message) {
 				if (!wizardTermsError) {
 					return;
@@ -2774,11 +3806,19 @@
 			}
 
 			function tryWizardNext(targetStep) {
+				if (currentWizardStep === 5 && targetStep === 6 && !selectedPackageId) {
+					showWizardPackageError("יש לבחור מסלול אחד לפני המשך.");
+					return;
+				}
 				if (currentWizardStep === 6 && targetStep === 7 && termsReadCheckbox && !termsReadCheckbox.checked) {
 					showWizardTermsError("יש לסמן שקראתם והבנתם את התנאים לפני המשך.");
 					return;
 				}
+				hideWizardPackageError();
 				hideWizardTermsError();
+				if (targetStep === 7) {
+					updateSelectedPackageBanner();
+				}
 				goToWizardStep(targetStep);
 			}
 
@@ -3425,6 +4465,9 @@
 				phoneInput.value = data.phone || "";
 				emailInput.value = data.email || "";
 				notesInput.value = data.notes || "";
+				if (data.selectedPackageId) {
+					setSelectedPackage(data.selectedPackageId, { silent: true });
+				}
 				approvalCheckbox.checked = Boolean(data.approved);
 				if (isApprovalComplete(data)) {
 					signedImageDataUrl = data.signatureDataUrl || "";
@@ -3485,7 +4528,7 @@
 					return;
 				}
 				buildixLinkBox.classList.remove("is-hidden");
-				buildixLinkText.textContent = "לא מקושר — השתמשו בפאנל /proposals/ → «צור ב-Buildix ושלח»";
+					buildixLinkText.textContent = "לא מקושר — Buildix ייווצר אוטומטית לאחר שהלקוח בוחר מסלול וחותם";
 				if (buildixLinkHint && entry && entry.buildix && entry.buildix.clientHint) {
 					buildixLinkHint.textContent = entry.buildix.clientHint;
 				} else if (buildixLinkHint) {
@@ -3493,7 +4536,7 @@
 				}
 				if (buildixStatusBadge) {
 					buildixStatusBadge.className = "buildix-status buildix-status--unlinked";
-					buildixStatusBadge.textContent = "Buildix: לא מקושר — צרו הצעה דרך /proposals/ → «צור ב-Buildix ושלח»";
+					buildixStatusBadge.textContent = "Buildix: ייווצר לאחר בחירת מסלול וחתימה";
 				}
 			}
 
@@ -3583,6 +4626,10 @@
 					setStatus("יש לחתום דיגיטלית בתוך אזור החתימה.", "error");
 					return;
 				}
+				if (!getSelectedPackageConfig()) {
+					setStatus("יש לבחור מסלול לפני אישור ההצעה.", "error");
+					return;
+				}
 
 				signedImageDataUrl = signatureCanvas.toDataURL("image/png");
 				const signedAt = new Date().toLocaleString("he-IL", {
@@ -3591,13 +4638,18 @@
 				});
 				signedAtValue = signedAt;
 
+				const selectedPackage = getSelectedPackageConfig();
+				const packageNote = selectedPackage ? "מסלול נבחר: " + selectedPackage.title : "";
+				const combinedNotes = [notesInput.value.trim(), packageNote].filter(Boolean).join(" | ");
+
 				persist({
 					proposalId: proposalId,
 					businessName: businessNameInput.value.trim(),
 					signerName: signerNameInput.value.trim(),
 					phone: phoneInput.value.trim(),
 					email: emailInput.value.trim(),
-					notes: notesInput.value.trim(),
+					notes: combinedNotes,
+					selectedPackageId: selectedPackageId,
 					approved: approvalCheckbox.checked,
 					signedAt: signedAt,
 					signatureDataUrl: signedImageDataUrl,
@@ -3607,6 +4659,16 @@
 				updateSignaturePreview(signedAt);
 
 				approveButton.disabled = true;
+				setStatus("יוצר הצעה ב-Buildix לפי המסלול שבחרתם...", "success");
+
+				try {
+					await prepareBuildixForSelectedPackage();
+				} catch (error) {
+					setStatus("לא הצליח ליצור הצעה ב-Buildix: " + (error.message || "שגיאה"), "error");
+					approveButton.disabled = false;
+					return;
+				}
+
 				setStatus("מכין מסמך מלא לצירוף ל-Buildix...", "success");
 
 				const documentPayload = await buildProposalDocumentPayload();
@@ -3622,7 +4684,8 @@
 					signerName: signerNameInput.value.trim(),
 					phone: phoneInput.value.trim(),
 					email: emailInput.value.trim(),
-					notes: notesInput.value.trim(),
+					notes: combinedNotes,
+					selectedPackageId: selectedPackageId,
 					approved: approvalCheckbox.checked,
 					signedAt: signedAt,
 					signatureDataUrl: signedImageDataUrl,
@@ -3933,6 +4996,7 @@
 				updateWelcomeBusiness();
 				await loadProposalManifest();
 				initWizardNavigation();
+				initPackageSelection();
 				applyStoredData(loadStoredData());
 				updateShareUrlFromForm();
 				updateSummary(signedAtValue);

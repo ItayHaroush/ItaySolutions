@@ -16,6 +16,35 @@
         { "key": "setup", "label": "הקמה חד פעמית (₪)", "default": 2000, "itemIndex": 0 },
         { "key": "monthly", "label": "מנוי חודשי (₪)", "default": 350, "itemIndex": 1 }
       ]
+    },
+    {
+      "id": "orders-dual-path-2026",
+      "title": "מערכת הזמנות — בחירת מסלול",
+      "description": "TakeEat או מסלול פרימיום (12,000 ₪ + 36 חודשים) · הלקוח בוחר בהצעה אחת",
+      "path": "orders-dual-path-2026/",
+      "dualPath": true,
+      "defaultBusiness": "שם העסק",
+      "packages": [
+        {
+          "id": "takeeat",
+          "title": "TakeEat",
+          "buildixTemplateKey": "takeeat-hatzarfatiya-2026",
+          "pricing": [
+            { "key": "takeeat_setup", "label": "TakeEat — הקמה (₪)", "default": 2000, "itemIndex": 0 },
+            { "key": "takeeat_monthly", "label": "TakeEat — מנוי חודשי (₪)", "default": 350, "itemIndex": 1 }
+          ]
+        },
+        {
+          "id": "branded",
+          "title": "מסלול פרימיום",
+          "buildixTemplateKey": "private-branded-orders-2026",
+          "pricing": [
+            { "key": "branded_total", "label": "פרימיום — הקמה + רישיון 36 חודשים (₪)", "default": 12000, "itemIndex": 0 },
+            { "key": "branded_renewal_monthly", "label": "חידוש חודשי (בתום הרישיון) (₪)", "default": 250 },
+            { "key": "branded_renewal_yearly", "label": "חידוש שנתי (בתום הרישיון) (₪)", "default": 2500 }
+          ]
+        }
+      ]
     }
   ],
   "proposals": [
@@ -28,6 +57,38 @@
       "updated": "2026-06-23",
       "status": "active",
       "buildixTemplateKey": "takeeat-hatzarfatiya-2026",
+      "buildix": {
+        "clientHint": "לכל שליחה — Buildix יוצר לקוח + הצעה חדשים אוטומטית"
+      }
+    },
+    {
+      "id": "orders-dual-path-2026",
+      "title": "מערכת הזמנות — בחירת מסלול",
+      "client": "תבנית — לכל לקוח חדש",
+      "business": "שם העסק",
+      "path": "orders-dual-path-2026/",
+      "updated": "2026-06-22",
+      "status": "active",
+      "dualPath": true,
+      "buildix": {
+        "clientHint": "Buildix נוצר אוטומטית רק לאחר שהלקוח בוחר מסלול וחותם"
+      }
+    },
+    {
+      "id": "private-branded-orders-2026",
+      "title": "מערכת הזמנות פרטית במיתוג מלא",
+      "description": "מסלול פרימיום — הקמה + מיתוג + רישיון 36 חודשים · חידוש ₪250/חודש או ₪2,500/שנה",
+      "client": "תבנית — לכל לקוח חדש",
+      "business": "שם העסק",
+      "path": "private-branded-orders-2026/",
+      "updated": "2026-06-22",
+      "status": "active",
+      "buildixTemplateKey": "private-branded-orders-2026",
+      "pricing": [
+        { "key": "total", "label": "הקמה + רישיון 36 חודשים (₪)", "default": 12000, "itemIndex": 0 },
+        { "key": "renewal_monthly", "label": "חידוש חודשי (בתום הרישיון) (₪)", "default": 250 },
+        { "key": "renewal_yearly", "label": "חידוש שנתי (בתום הרישיון) (₪)", "default": 2500 }
+      ],
       "buildix": {
         "clientHint": "לכל שליחה — Buildix יוצר לקוח + הצעה חדשים אוטומטית"
       }
