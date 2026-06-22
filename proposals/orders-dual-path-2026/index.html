@@ -2257,6 +2257,47 @@
 			color: var(--brand-green);
 		}
 
+		.print-dual-pricing {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+			align-items: start;
+		}
+
+		.print-dual-package {
+			display: grid;
+			gap: 8px;
+			padding: 12px;
+			border-radius: 16px;
+			border: 1px solid rgba(24, 34, 48, 0.10);
+			background: rgba(255, 255, 255, 0.92);
+		}
+
+		.print-dual-package--takeeat {
+			border-color: rgba(20, 108, 46, 0.18);
+			background: rgba(20, 108, 46, 0.05);
+		}
+
+		.print-dual-package--branded {
+			border-color: rgba(255, 106, 0, 0.18);
+			background: rgba(255, 106, 0, 0.05);
+		}
+
+		.print-dual-package-title {
+			font-size: 10pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+			margin-bottom: 2px;
+		}
+
+		.signature-pricing-summary {
+			margin: 12px 0 4px;
+		}
+
+		.signature-pricing-panel.is-hidden {
+			display: none !important;
+		}
+
 		.terms-accordion {
 			display: grid;
 			gap: 10px;
@@ -2460,7 +2501,8 @@
 			.wizard-price-row,
 			.package-choice-grid,
 			.path-compare-details,
-			.path-includes-grid {
+			.path-includes-grid,
+			.print-dual-pricing {
 				grid-template-columns: 1fr;
 			}
 
@@ -2888,7 +2930,7 @@
 								<summary><span class="terms-summary-icon"><i class="fa-solid fa-crown"></i></span>מסלול פרימיום</summary>
 								<div class="terms-accordion-body">
 									<ul>
-										<li>תשלום חד פעמי של 12,000 ₪ לפני תחילת העבודה — כולל הקמה, מיתוג מלא ורישיון שימוש ל-36 חודשים.</li>
+										<li>תשלום חד פעמי של <span data-price-key="branded_total">₪12,000</span> לפני תחילת העבודה — כולל הקמה, מיתוג מלא ורישיון שימוש ל-36 חודשים.</li>
 										<li><strong>36 חודשי שימוש כלולים במחיר ההקמה.</strong></li>
 										<li>בתום תקופת הרישיון ניתן להמשיך להשתמש במערכת באמצעות חידוש שירות — שנתי (<span data-price-key="branded_renewal_yearly">₪2,500</span>) או חודשי (<span data-price-key="branded_renewal_monthly">₪250</span>).</li>
 										<li><strong>חידוש שירות כולל:</strong> המשך הפעלת המערכת, אחסון ושרתים, גיבויים, תחזוקה שוטפת, עדכוני אבטחה ותמיכה טכנית בסיסית.</li>
@@ -2931,6 +2973,36 @@
 						</div>
 						<div class="selected-package-banner" id="selected-package-banner">
 							<strong>מסלול שנבחר:</strong> <span id="selected-package-label">טרם נבחר מסלול</span>
+						</div>
+						<div class="wizard-pricing-hero signature-pricing-summary is-hidden" id="signature-pricing-summary">
+							<div class="signature-pricing-panel is-hidden" id="signature-pricing-takeeat" data-package-panel="takeeat">
+								<div class="wizard-price-row">
+									<div class="wizard-price-box">
+										<div class="wizard-price-label">הקמה חד פעמית</div>
+										<div class="wizard-price-value" data-price-key="takeeat_setup">₪2,000</div>
+									</div>
+									<div class="wizard-price-box">
+										<div class="wizard-price-label">מנוי חודשי</div>
+										<div class="wizard-price-value" data-price-key="takeeat_monthly">₪350</div>
+									</div>
+								</div>
+							</div>
+							<div class="signature-pricing-panel is-hidden" id="signature-pricing-branded" data-package-panel="branded">
+								<div class="wizard-price-row" style="grid-template-columns: 1fr 1fr 1fr;">
+									<div class="wizard-price-box">
+										<div class="wizard-price-label">תשלום חד פעמי</div>
+										<div class="wizard-price-value" data-price-key="branded_total">₪12,000</div>
+									</div>
+									<div class="wizard-price-box">
+										<div class="wizard-price-label">חידוש שנתי</div>
+										<div class="wizard-price-value" data-price-key="branded_renewal_yearly">₪2,500</div>
+									</div>
+									<div class="wizard-price-box">
+										<div class="wizard-price-label">חידוש חודשי</div>
+										<div class="wizard-price-value" data-price-key="branded_renewal_monthly">₪250</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<form id="approval-form" class="form-grid wizard-signature-grid">
 							<div class="form-field">
@@ -3018,6 +3090,25 @@
 					<strong>מסלול שנבחר:</strong> <span id="print-package-label">טרם נבחר מסלול</span>
 				</div>
 
+				<section class="section" id="print-dual-cost-summary">
+					<h2 class="section-title">סיכום עלויות — שני המסלולים</h2>
+					<div class="print-dual-pricing">
+						<div class="print-dual-package print-dual-package--takeeat">
+							<div class="print-dual-package-title">TakeEat — מערכת משותפת</div>
+							<div class="price-card emphasis"><div class="price-label">הקמה חד פעמית</div><div class="price-value" data-price-key="takeeat_setup">₪2,000</div></div>
+							<div class="price-card"><div class="price-label">מנוי חודשי</div><div class="price-value" data-price-key="takeeat_monthly">₪350</div></div>
+							<div class="price-card"><div class="price-label">זמן הקמה</div><div class="price-value">עד 7 ימי עבודה</div></div>
+						</div>
+						<div class="print-dual-package print-dual-package--branded">
+							<div class="print-dual-package-title">מסלול פרימיום — מיתוג מלא</div>
+							<div class="price-card emphasis"><div class="price-label">תשלום חד פעמי</div><div class="price-value" data-price-key="branded_total">₪12,000</div><div class="price-note">כולל רישיון ל-36 חודשים</div></div>
+							<div class="price-card"><div class="price-label">חידוש שנתי</div><div class="price-value" data-price-key="branded_renewal_yearly">₪2,500</div><div class="price-note">בתום תקופת הרישיון</div></div>
+							<div class="price-card"><div class="price-label">חידוש חודשי</div><div class="price-value" data-price-key="branded_renewal_monthly">₪250</div><div class="price-note">בתום תקופת הרישיון</div></div>
+						</div>
+					</div>
+					<p class="price-note" style="margin-top: 10px; text-align: center;">הלקוח בוחר מסלול אחד בלבד · המחירים מעודכנים לפי ההצעה שנשלחה</p>
+				</section>
+
 				<div id="print-body-takeeat" class="print-package-body is-hidden" data-package="takeeat">
 					<section class="section">
 						<h2 class="section-title">איך המערכת תעזור לעסק</h2>
@@ -3057,16 +3148,6 @@
 							<li class="material-item" style="list-style: none;">עליה לאוויר</li>
 							<li class="material-item" style="list-style: none;">קבלת הזמנות</li>
 						</ol>
-					</section>
-
-					<section class="section">
-						<h2 class="section-title">סיכום עלויות</h2>
-						<div class="pricing">
-							<div class="price-card emphasis"><div class="price-label">הקמה</div><div class="price-value" data-price-key="takeeat_setup">₪2,000</div></div>
-							<div class="price-card"><div class="price-label">חודשי</div><div class="price-value" data-price-key="takeeat_monthly">₪350</div></div>
-							<div class="price-card"><div class="price-label">זמן הקמה</div><div class="price-value">עד 7 ימים</div></div>
-						</div>
-						<p class="price-note" style="margin-top: 10px; text-align: center;">זמן הקמה: עד 7 ימי עבודה מקבלת כל החומרים</p>
 					</section>
 
 					<section class="section">
@@ -3129,19 +3210,6 @@
 						<div class="highlight-banner" style="margin-top: 10px;">
 							<strong>זמן הקמה משוער</strong>
 							14–30 ימי עבודה.
-						</div>
-					</section>
-
-					<section class="section">
-						<h2 class="section-title">סיכום ועלות</h2>
-						<div class="pricing" style="grid-template-columns: 1fr 1fr 1fr;">
-							<div class="price-card emphasis"><div class="price-label">תשלום חד פעמי</div><div class="price-value" data-price-key="branded_total">₪12,000</div><div class="price-note">כולל רישיון ל-36 חודשים</div></div>
-							<div class="price-card"><div class="price-label">חידוש שנתי</div><div class="price-value" data-price-key="branded_renewal_yearly">₪2,500</div><div class="price-note">בתום תקופת הרישיון</div></div>
-							<div class="price-card"><div class="price-label">חידוש חודשי</div><div class="price-value" data-price-key="branded_renewal_monthly">₪250</div><div class="price-note">בתום תקופת הרישיון</div></div>
-						</div>
-						<div class="highlight-banner" style="margin-top: 12px;">
-							<strong>כלול ב-12,000 ₪</strong>
-							הקמה והטמעה · מיתוג מלא · חיבור דומיין · הדרכה ראשונית · רישיון שימוש ל-36 חודשים
 						</div>
 					</section>
 
@@ -3345,6 +3413,7 @@
 			const packageChoiceGrid = document.getElementById("package-choice-grid");
 			const selectedPackageBanner = document.getElementById("selected-package-banner");
 			const selectedPackageLabel = document.getElementById("selected-package-label");
+			const signaturePricingSummary = document.getElementById("signature-pricing-summary");
 			const welcomeBusinessName = document.getElementById("welcome-business-name");
 			const welcomeBusinessBadge = document.getElementById("welcome-business-badge");
 			const welcomeBusinessLogo = document.getElementById("welcome-business-logo");
@@ -3364,7 +3433,7 @@
 			let currentWizardStep = 1;
 			let maxWizardStep = 1;
 
-			const context = signatureCanvas.getContext("2d");
+			const context = signatureCanvas ? signatureCanvas.getContext("2d") : null;
 			let strokes = [];
 			let currentStroke = null;
 			let signedImageDataUrl = "";
@@ -3767,11 +3836,24 @@
 				});
 			}
 
+			function updateSignaturePricingSummary() {
+				if (!signaturePricingSummary) {
+					return;
+				}
+				const hasSelection = Boolean(selectedPackageId);
+				signaturePricingSummary.classList.toggle("is-hidden", !hasSelection);
+				signaturePricingSummary.querySelectorAll("[data-package-panel]").forEach(function (panel) {
+					const panelPackage = panel.getAttribute("data-package-panel") || "";
+					panel.classList.toggle("is-hidden", panelPackage !== selectedPackageId);
+				});
+			}
+
 			function updateSelectedPackageBanner() {
 				const pkg = getSelectedPackageConfig();
 				if (selectedPackageLabel) {
 					selectedPackageLabel.textContent = pkg ? pkg.title : "טרם נבחר מסלול";
 				}
+				updateSignaturePricingSummary();
 				updatePrintContract();
 			}
 
@@ -3805,7 +3887,7 @@
 					printBusinessSubtitle.textContent = "עבור " + (name || "שם העסק") + " | Itay Solutions";
 				}
 
-				applyProposalPrices(proposalPrices);
+				syncProposalPrices();
 			}
 
 			function setSelectedPackage(packageId, options) {
@@ -4259,12 +4341,30 @@
 				return "₪" + value.toLocaleString("he-IL");
 			}
 
-			function applyProposalPrices(prices) {
+			function applyProposalPrices(prices, root) {
+				const scope = root || document;
 				Object.keys(prices).forEach(function (key) {
-					document.querySelectorAll('[data-price-key="' + key + '"]').forEach(function (element) {
+					if (typeof prices[key] !== "number") {
+						return;
+					}
+					scope.querySelectorAll('[data-price-key="' + key + '"]').forEach(function (element) {
 						element.textContent = formatShekel(prices[key]);
 					});
 				});
+			}
+
+			function syncProposalPrices() {
+				applyProposalPrices(proposalPrices);
+			}
+
+			function preparePrintContractClone(contractClone) {
+				contractClone.querySelectorAll(".print-package-body.is-hidden").forEach(function (body) {
+					body.remove();
+				});
+				contractClone.querySelectorAll(".print-package-body").forEach(function (body) {
+					body.classList.remove("is-hidden");
+				});
+				applyProposalPrices(proposalPrices, contractClone);
 			}
 
 			function readProposalPricesFromParams(params) {
@@ -4423,6 +4523,9 @@
 			}
 
 			function resizeCanvas() {
+				if (!signatureCanvas || !context) {
+					return;
+				}
 				const ratio = window.devicePixelRatio || 1;
 				const rect = signatureCanvas.getBoundingClientRect();
 				signatureCanvas.width = Math.floor(rect.width * ratio);
@@ -4436,6 +4539,9 @@
 			}
 
 			function getPoint(event) {
+				if (!signatureCanvas) {
+					return { x: 0, y: 0 };
+				}
 				const rect = signatureCanvas.getBoundingClientRect();
 				return {
 					x: event.clientX - rect.left,
@@ -4444,6 +4550,9 @@
 			}
 
 			function renderSignature() {
+				if (!signatureCanvas || !context) {
+					return;
+				}
 				const rect = signatureCanvas.getBoundingClientRect();
 				context.clearRect(0, 0, rect.width, rect.height);
 				strokes.forEach(function (stroke) {
@@ -4547,8 +4656,8 @@
 				const pricesFromParams = readProposalPricesFromParams(params);
 				if (pricesFromParams) {
 					proposalPrices = pricesFromParams;
-					applyProposalPrices(proposalPrices);
 				}
+				syncProposalPrices();
 				if (params.get("business")) {
 					businessNameInput.value = params.get("business");
 					if (ownerBusinessNameInput) {
@@ -4759,6 +4868,11 @@
 				}
 				if (!getSelectedPackageConfig()) {
 					setStatus("יש לבחור מסלול לפני אישור ההצעה.", "error");
+					return;
+				}
+
+				if (!signatureCanvas) {
+					setStatus("אזור החתימה אינו זמין בדפדפן זה.", "error");
 					return;
 				}
 
@@ -4984,8 +5098,9 @@
 
 			function prepareForPrint() {
 				updatePrintContract();
+				applyProposalPrices(proposalPrices);
 				updateSummary(signedAtValue);
-				if (hasSignature() && !signedImageDataUrl) {
+				if (hasSignature() && !signedImageDataUrl && signatureCanvas) {
 					signedImageDataUrl = signatureCanvas.toDataURL("image/png");
 					if (!signedAtValue) {
 						signedAtValue = new Date().toLocaleString("he-IL", {
@@ -5012,6 +5127,7 @@
 
 				const contractClone = printBlock.cloneNode(true);
 				contractClone.classList.remove("print-only");
+				preparePrintContractClone(contractClone);
 				wrapper.appendChild(contractClone);
 
 				if (footer) {
@@ -5099,13 +5215,19 @@
 				return "HTTP " + response.status;
 			}
 
-			approveButton.addEventListener("click", approveProposal);
-			printButton.addEventListener("click", function () {
-				prepareForPrint();
-				window.print();
-			});
+			if (approveButton) {
+				approveButton.addEventListener("click", approveProposal);
+			}
+			if (printButton) {
+				printButton.addEventListener("click", function () {
+					prepareForPrint();
+					window.print();
+				});
+			}
 			window.addEventListener("beforeprint", prepareForPrint);
-			clearSignatureButton.addEventListener("click", clearSignature);
+			if (clearSignatureButton) {
+				clearSignatureButton.addEventListener("click", clearSignature);
+			}
 
 			[businessNameInput, signerNameInput, phoneInput, emailInput, notesInput].forEach(function (element) {
 				element.addEventListener("input", function () {
@@ -5115,11 +5237,13 @@
 				});
 			});
 
-			signatureCanvas.addEventListener("pointerdown", startStroke);
-			signatureCanvas.addEventListener("pointermove", moveStroke);
-			signatureCanvas.addEventListener("pointerup", endStroke);
-			signatureCanvas.addEventListener("pointerleave", endStroke);
-			signatureCanvas.addEventListener("pointercancel", endStroke);
+			if (signatureCanvas) {
+				signatureCanvas.addEventListener("pointerdown", startStroke);
+				signatureCanvas.addEventListener("pointermove", moveStroke);
+				signatureCanvas.addEventListener("pointerup", endStroke);
+				signatureCanvas.addEventListener("pointerleave", endStroke);
+				signatureCanvas.addEventListener("pointercancel", endStroke);
+			}
 
 			window.addEventListener("resize", resizeCanvas);
 
