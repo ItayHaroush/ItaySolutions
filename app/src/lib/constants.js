@@ -3,7 +3,7 @@ export const WHATSAPP_DEFAULT_MSG = 'היי איתי, ראיתי את האתר �
 export const CONTACT_EMAIL = 'itay@itaysolutions.com'
 
 export const getWhatsAppUrl = (msg) =>
-  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg || WHATSAPP_DEFAULT_MSG)}`
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg || WHATSAPP_DEFAULT_MSG)}`
 
 export const getMailtoUrl = (subject) =>
-  `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject || 'פנייה מ-Itay Solutions')}`
+    `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject || 'פנייה מ-Itay Solutions')}`
