@@ -3441,6 +3441,72 @@
 			let authorizedPhone = "";
 			let isOwnerMode = false;
 			let isUnlocked = false;
+			const historyStorageKey = "itay-proposals-history-v1";
+
+			function loadHistoryRecords() {
+				try {
+					const parsed = JSON.parse(localStorage.getItem(historyStorageKey) || "[]");
+					return Array.isArray(parsed) ? parsed : [];
+				} catch (error) {
+					return [];
+				}
+			}
+
+			function saveHistoryRecords(records) {
+				localStorage.setItem(historyStorageKey, JSON.stringify(records.slice(0, 200)));
+			}
+
+			function recordHistoryEvent(eventType, extra) {
+				const token = String(buildixQuoteToken || "").trim();
+				if (!token) {
+					return;
+				}
+
+				const nowIso = new Date().toISOString();
+				const records = loadHistoryRecords();
+				let record = records.find(function (item) { return item.quoteToken === token; });
+				if (!record) {
+					record = { quoteToken: token, templateId: proposalId, templateTitle: document.title, events: [] };
+					records.unshift(record);
+				}
+
+				record.templateId = proposalId;
+				record.templateTitle = document.title;
+				record.clientName = signerNameInput.value.trim() || record.clientName || "";
+				record.clientPhone = phoneInput.value.trim() || record.clientPhone || "";
+				record.businessName = businessNameInput.value.trim() || record.businessName || "";
+				record.events = Array.isArray(record.events) ? record.events : [];
+				record.events.unshift({
+					type: eventType,
+					at: nowIso,
+					note: extra && extra.note ? extra.note : ""
+				});
+				record.events = record.events.slice(0, 20);
+
+				if (eventType === "sent") {
+					record.sentAt = record.sentAt || nowIso;
+					record.status = "sent";
+				}
+				if (eventType === "viewed") {
+					record.viewedAt = nowIso;
+					if (record.status !== "approved") {
+						record.status = "viewed";
+					}
+				}
+				if (eventType === "approved") {
+					record.approvedAt = nowIso;
+					record.status = "approved";
+				}
+				if (eventType === "buildix_work_opened") {
+					record.buildixWorkOpenedAt = nowIso;
+				}
+
+				record.lastEventAt = nowIso;
+				records.sort(function (a, b) {
+					return String(b.lastEventAt || "").localeCompare(String(a.lastEventAt || ""));
+				});
+				saveHistoryRecords(records);
+			}
 
 			function getBusinessInitials(name) {
 				const parts = name.split(/\s+/).filter(Boolean);
@@ -4242,6 +4308,10 @@
 				return new URLSearchParams(window.location.search).get("access") || "";
 			}
 
+			function hasVerifiedQuoteToken() {
+				return Boolean(String(buildixQuoteToken || "").trim());
+			}
+
 			function requiresAccessGate() {
 				return !isOwnerMode;
 			}
@@ -4290,6 +4360,9 @@
 					proposalDocument.classList.remove("is-locked");
 				}
 				resizeCanvas();
+				if (!isOwnerMode) {
+					recordHistoryEvent("viewed", { note: "הלקוח פתח את ההצעה" });
+				}
 			}
 
 			function lockDocument() {
@@ -4301,10 +4374,12 @@
 					unlockDocument();
 					return;
 				}
-				if (!getAccessTokenFromUrl() && accessGate) {
+				if ((!getAccessTokenFromUrl() || !hasVerifiedQuoteToken()) && accessGate) {
 					const gateText = accessGate.querySelector(".access-gate-card p");
 					if (gateText) {
-						gateText.textContent = "הקישור אינו שלם או שפג תוקפו. פנו אל Itay Solutions (054-7466508) לקבלת קישור מאובטח חדש.";
+						gateText.textContent = !hasVerifiedQuoteToken()
+							? "הקישור עדיין לא הופעל לשליחה ללקוח. בקשו קישור חדש שנשלח מהפאנל."
+							: "הקישור אינו שלם או שפג תוקפו. פנו אל Itay Solutions (054-7466508) לקבלת קישור מאובטח חדש.";
 					}
 					if (accessPhoneInput) {
 						accessPhoneInput.closest(".form-field").classList.add("is-hidden");
@@ -4324,13 +4399,10 @@
 
 			function verifyAccessPhone(enteredPhone) {
 				const token = getAccessTokenFromUrl();
-				if (token) {
-					return hashAccessToken(enteredPhone) === token;
+				if (!token || !hasVerifiedQuoteToken()) {
+					return false;
 				}
-				if (authorizedPhone && phonesMatch(enteredPhone, authorizedPhone)) {
-					return true;
-				}
-				return false;
+				return hashAccessToken(enteredPhone) === token;
 			}
 
 			function formatShekel(amount) {
@@ -4465,6 +4537,11 @@
 					return;
 				}
 
+				if (!hasVerifiedQuoteToken()) {
+					setOwnerStatus("לפני שליחה ללקוח צריך ליצור הצעה ב-Buildix כדי להנפיק quoteToken.", "error");
+					return;
+				}
+
 				saveAuthorizedPhone(clientPhone, clientName);
 				if (clientName) {
 					signerNameInput.value = clientName;
@@ -4477,6 +4554,7 @@
 					useCurrentOrigin: true
 				});
 				updateShareUrl(shareUrl);
+				recordHistoryEvent("sent", { note: "נשלח ללקוח" });
 
 				if (smsApiUrl) {
 					try {
@@ -4943,6 +5021,10 @@
 
 				try {
 					const result = await submitApproval(payload);
+					recordHistoryEvent("approved", { note: "אישור דיגיטלי הושלם" });
+					if (result.quoteSynced) {
+						recordHistoryEvent("buildix_work_opened", { note: "הצעה אושרה ונפתחה עבודה ב-Buildix" });
+					}
 					if (wizardSuccessSaveNote) {
 						if (result.quoteSynced) {
 							wizardSuccessSaveNote.textContent = documentPayload

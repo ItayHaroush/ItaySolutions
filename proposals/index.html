@@ -241,6 +241,54 @@
 		.send-status.is-success { color: var(--brand-green); }
 		.send-status.is-error { color: #991b1b; }
 
+		.history-panel {
+			margin-top: 20px;
+			padding: 14px 16px;
+			border-radius: 14px;
+			background: rgba(20, 108, 46, 0.06);
+			border: 1px solid rgba(20, 108, 46, 0.14);
+		}
+
+		.history-title {
+			margin: 0 0 10px;
+			font-size: 10pt;
+			font-weight: 800;
+			color: var(--brand-green);
+		}
+
+		.history-list {
+			display: grid;
+			gap: 8px;
+		}
+
+		.history-item {
+			padding: 9px 10px;
+			border-radius: 10px;
+			background: rgba(255, 255, 255, 0.88);
+			border: 1px solid rgba(24, 34, 48, 0.10);
+			font-size: 9pt;
+		}
+
+		.history-item strong {
+			color: var(--brand-navy);
+		}
+
+		.history-status {
+			display: inline-block;
+			margin-right: 6px;
+			padding: 2px 8px;
+			border-radius: 999px;
+			font-size: 8pt;
+			font-weight: 700;
+			background: rgba(24, 34, 48, 0.08);
+			color: var(--brand-slate);
+		}
+
+		.history-status.status-sent { background: rgba(255, 106, 0, 0.14); color: #9a3412; }
+		.history-status.status-viewed { background: rgba(37, 99, 235, 0.14); color: #1d4ed8; }
+		.history-status.status-approved { background: rgba(20, 108, 46, 0.16); color: #166534; }
+		.history-status.status-pending { background: rgba(185, 28, 28, 0.12); color: #991b1b; }
+
 		.service-offer-grid {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
@@ -338,6 +386,13 @@
 				<div class="empty-state">טוען הצעות...</div>
 			</div>
 
+			<div class="history-panel" id="history-panel">
+				<h2 class="history-title">היסטוריית הצעות שנשלחו</h2>
+				<div class="history-list" id="history-list">
+					<div class="empty-state" style="padding: 8px 0;">עדיין אין היסטוריה.</div>
+				</div>
+			</div>
+
 			<div class="help-box">
 				<strong>הצעת ניהול סושיאל</strong><br>
 				תבנית «ניהול סושיאל ודיגיטל» — בוחרים אילו שירותים להציע ללקוח ומגדירים מחיר לכל פריט.
@@ -381,12 +436,14 @@
 	<script>
 		(function () {
 			const SESSION_KEY = "itay-proposals-admin";
+			const HISTORY_KEY = "itay-proposals-history-v1";
 			const ownerGate = document.getElementById("owner-gate");
 			const adminShell = document.getElementById("admin-shell");
 			const ownerPhoneInput = document.getElementById("owner-phone");
 			const ownerUnlockButton = document.getElementById("owner-unlock-button");
 			const ownerGateError = document.getElementById("owner-gate-error");
 			const proposalList = document.getElementById("proposal-list");
+			const historyList = document.getElementById("history-list");
 
 			let manifest = null;
 			let registryReady = false;
@@ -440,6 +497,7 @@
 				ownerGate.classList.add("is-hidden");
 				adminShell.classList.remove("is-hidden");
 				renderProposals();
+				renderHistoryPanel();
 			}
 
 			function tryUnlockFromQuery() {
@@ -457,6 +515,153 @@
 
 			const PREPARE_URL = (window.ITAY_PROPOSALS_ADMIN && window.ITAY_PROPOSALS_ADMIN.prepareUrl) || window.PROPOSAL_PREPARE_URL || "";
 			const PREPARE_API_KEY = (window.ITAY_PROPOSALS_ADMIN && window.ITAY_PROPOSALS_ADMIN.prepareApiKey) || window.PROPOSAL_SUBMIT_API_KEY || "";
+
+			function loadHistoryRecords() {
+				try {
+					const parsed = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+					if (!Array.isArray(parsed)) {
+						return [];
+					}
+					return parsed;
+				} catch (error) {
+					return [];
+				}
+			}
+
+			function saveHistoryRecords(records) {
+				localStorage.setItem(HISTORY_KEY, JSON.stringify(records.slice(0, 200)));
+			}
+
+			function eventTimeText(value) {
+				if (!value) {
+					return "";
+				}
+				const date = new Date(value);
+				if (Number.isNaN(date.getTime())) {
+					return "";
+				}
+				return date.toLocaleString("he-IL", { dateStyle: "short", timeStyle: "short" });
+			}
+
+			function normalizeToken(value) {
+				return String(value || "").trim();
+			}
+
+			function upsertHistoryRecord(quoteToken, payload) {
+				const token = normalizeToken(quoteToken);
+				if (!token) {
+					return null;
+				}
+
+				const records = loadHistoryRecords();
+				let record = records.find(function (item) { return item.quoteToken === token; });
+				if (!record) {
+					record = { quoteToken: token, events: [] };
+					records.unshift(record);
+				}
+
+				Object.keys(payload || {}).forEach(function (key) {
+					if (payload[key] !== undefined && payload[key] !== null && payload[key] !== "") {
+						record[key] = payload[key];
+					}
+				});
+
+				record.lastEventAt = new Date().toISOString();
+				records.sort(function (a, b) {
+					return String(b.lastEventAt || "").localeCompare(String(a.lastEventAt || ""));
+				});
+				saveHistoryRecords(records);
+				return record;
+			}
+
+			function appendHistoryEvent(quoteToken, eventType, payload) {
+				const nowIso = new Date().toISOString();
+				const record = upsertHistoryRecord(quoteToken, payload);
+				if (!record) {
+					return;
+				}
+
+				record.events = Array.isArray(record.events) ? record.events : [];
+				record.events.unshift({
+					type: eventType,
+					at: nowIso,
+					note: (payload && payload.note) || ""
+				});
+				record.events = record.events.slice(0, 20);
+
+				if (eventType === "sent") {
+					record.sentAt = record.sentAt || nowIso;
+					record.status = "sent";
+				}
+				if (eventType === "viewed") {
+					record.viewedAt = nowIso;
+					if (record.status !== "approved") {
+						record.status = "viewed";
+					}
+				}
+				if (eventType === "approved") {
+					record.approvedAt = nowIso;
+					record.status = "approved";
+				}
+				if (eventType === "buildix_work_opened") {
+					record.buildixWorkOpenedAt = nowIso;
+				}
+
+				upsertHistoryRecord(quoteToken, record);
+				renderHistoryPanel();
+			}
+
+			function getHistoryStatus(record) {
+				if (record.approvedAt) {
+					return { key: "approved", label: "אושרה" };
+				}
+				if (record.viewedAt) {
+					return { key: "viewed", label: "נצפתה" };
+				}
+				if (record.sentAt) {
+					const sentAt = new Date(record.sentAt);
+					const pendingHours = Number.isNaN(sentAt.getTime()) ? 0 : (Date.now() - sentAt.getTime()) / 36e5;
+					if (pendingHours >= 24) {
+						return { key: "pending", label: "לא אושרה עדיין" };
+					}
+					return { key: "sent", label: "נשלחה" };
+				}
+				return { key: "sent", label: "בטיוטה" };
+			}
+
+			function renderHistoryPanel() {
+				if (!historyList) {
+					return;
+				}
+
+				const records = loadHistoryRecords();
+				if (!records.length) {
+					historyList.innerHTML = '<div class="empty-state" style="padding: 8px 0;">עדיין אין היסטוריה.</div>';
+					return;
+				}
+
+				historyList.innerHTML = records.slice(0, 14).map(function (record) {
+					const status = getHistoryStatus(record);
+					const sentText = eventTimeText(record.sentAt);
+					const viewedText = eventTimeText(record.viewedAt);
+					const approvedText = eventTimeText(record.approvedAt);
+					const buildixText = eventTimeText(record.buildixWorkOpenedAt);
+					const clientLine = [record.clientName || "לקוח", record.clientPhone || ""].filter(Boolean).join(" · ");
+					const templateLine = record.templateTitle || record.templateId || "תבנית";
+					return (
+						'<div class="history-item">' +
+							'<div><span class="history-status status-' + status.key + '">' + status.label + '</span><strong>' + templateLine + '</strong></div>' +
+							'<div style="margin-top:4px;">' + clientLine + (record.quoteNumber ? ' · הצעה ' + record.quoteNumber : '') + '</div>' +
+							'<div style="margin-top:4px;color:var(--brand-slate);">' +
+								(sentText ? 'נשלחה: ' + sentText : '') +
+								(viewedText ? ' | נצפתה: ' + viewedText : '') +
+								(approvedText ? ' | אושרה: ' + approvedText : '') +
+								(buildixText ? ' | נפתחה עבודה ב-Buildix: ' + buildixText : '') +
+							'</div>' +
+						'</div>'
+					);
+				}).join("");
+			}
 
 			function getTemplates() {
 				if (manifest && manifest.templates && manifest.templates.length) {
@@ -820,6 +1025,15 @@
 						statusEl.textContent = "יוצר לקוח והצעה ב-Buildix...";
 						try {
 							const result = await prepareAndOpen(template, formPayload);
+							appendHistoryEvent(result.quoteToken || "", "sent", {
+								templateId: template.id,
+								templateTitle: template.title,
+								clientName: clientName,
+								clientPhone: clientPhone,
+								businessName: businessName,
+								quoteNumber: result.quoteNumber || "",
+								note: "נשלחה מהפאנל"
+							});
 							statusEl.textContent = "נוצרה הצעה " + (result.quoteNumber || "") + " — פותח דף שליחה...";
 							statusEl.classList.add("is-success");
 							openPreparedProposal(template, {
