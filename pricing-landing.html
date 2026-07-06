@@ -66,6 +66,15 @@
             box-sizing: border-box;
         }
 
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            overscroll-behavior-x: none;
+            touch-action: pan-y pinch-zoom;
+        }
+
         body {
             font-family: 'Rubik', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-secondary);
