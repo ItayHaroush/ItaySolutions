@@ -162,7 +162,7 @@
       "monthlyPackages": true,
       "buildixTemplateKey": "digital-monthly-bundle-2026",
       "buildix": {
-        "clientHint": "לכל שליחה — Buildix יוצר לקוח + הצעה חדשים אוטומטית"
+        "clientHint": "לפני שליחה — Buildix יוצר לקוח + הצעה ומנפיק quoteToken"
       }
     },
     {

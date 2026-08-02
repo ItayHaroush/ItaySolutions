@@ -512,7 +512,7 @@
 			<div class="help-box">
 				<strong>חבילת דיגיטל + מערכת</strong><br>
 				תבנית «הצעת מחיר חודשית» — בוחרים חבילות (TakeEat BASIC / ניהול דיגיטל / קידום ממומן),
-				מגדירים הנחת חבילה, והלקוח מקבל הצעת מחיר עם סה״כ חודשי ברור לחתימה.
+				מגדירים הנחת חבילה, ואז «צור ב-Buildix ושלח» מנפיק <code>quoteToken</code> לפני שליחה ללקוח.
 			</div>
 			<div class="help-box">
 				<strong>הצעת ניהול סושיאל (שירותים בודדים)</strong><br>
@@ -1234,14 +1234,14 @@
 					const isSelectable = isSelectableItemsTemplate(template);
 					const isMonthly = isMonthlyPackagesTemplate(template);
 					const pricingFields = isMonthly ? [] : getTemplatePricing(template);
-					const primaryLabel = (isDual || isMonthly) ? "שלח ללקוח" : "צור ב-Buildix ושלח";
+					const primaryLabel = isDual ? "שלח ללקוח" : "צור ב-Buildix ושלח";
 					return (
 						'<article class="proposal-card" data-template-id="' + template.id + '" data-dual-path="' + (isDual ? "1" : "0") + '" data-selectable-items="' + (isSelectable ? "1" : "0") + '" data-monthly-packages="' + (isMonthly ? "1" : "0") + '">' +
 							'<h3 class="proposal-title">' + template.title + '</h3>' +
 							'<p class="proposal-meta">' + (template.description || "תבנית הצעה") + '</p>' +
 							(isDual ? '<p class="proposal-meta" style="margin-top:-6px;color:var(--brand-green);font-weight:700;">הלקוח בוחר מסלול · Buildix נוצר רק לאחר החתימה</p>' : '') +
 							(isSelectable ? '<p class="proposal-meta" style="margin-top:-6px;color:var(--brand-green);font-weight:700;">הלקוח בוחר שירותים מתוך ההצעה · מחיר מתעדכן אוטומטית</p>' : '') +
-							(isMonthly ? '<p class="proposal-meta" style="margin-top:-6px;color:var(--brand-green);font-weight:700;">הצעת מחיר חודשית · חבילות + הנחה · לתשלום חודשי ברור</p>' : '') +
+							(isMonthly ? '<p class="proposal-meta" style="margin-top:-6px;color:var(--brand-green);font-weight:700;">הצעת מחיר חודשית · נוצרת ב-Buildix לפני שליחה · quoteToken</p>' : '') +
 							'<div class="send-form">' +
 								'<div class="send-grid">' +
 									'<div class="field"><label class="label">שם הלקוח</label><input class="input send-client-name" type="text" placeholder="שם מלא"></div>' +
@@ -1254,7 +1254,7 @@
 								(isMonthly ? "" : renderPricingFields(pricingFields)) +
 								'<div class="actions">' +
 									'<button class="button button-primary send-prepare-button" type="button">' + primaryLabel + '</button>' +
-									'<button class="button button-secondary send-preview-button" type="button">' + ((isDual || isMonthly) ? "תצוגה מקדימה" : "צפייה מקומית") + '</button>' +
+									'<button class="button button-secondary send-preview-button" type="button">' + (isDual ? "תצוגה מקדימה" : "צפייה מקומית") + '</button>' +
 								'</div>' +
 								'<div class="send-status" data-send-status></div>' +
 							'</div>' +
@@ -1328,7 +1328,7 @@
 							return;
 						}
 
-						if (isDual || isMonthly) {
+						if (isDual) {
 							statusEl.textContent = "פותח הצעה לשליחה ללקוח...";
 							statusEl.classList.add("is-success");
 							window.location.href = buildProposalOpenUrl(template, {
@@ -1336,9 +1336,7 @@
 								clientPhone: clientPhone,
 								clientEmail: clientEmail,
 								businessName: businessName,
-								prices: priceData.values,
-								packages: packages,
-								discountEnabled: isMonthly ? discountEnabled : undefined
+								prices: priceData.values
 							}).toString();
 							return;
 						}
@@ -1350,7 +1348,9 @@
 							businessName: businessName,
 							itemPrices: priceData.itemPrices,
 							businessLogoDataUrl: logoDataUrl || undefined,
-							offeredServices: offeredServices
+							offeredServices: offeredServices,
+							packages: packages,
+							discountEnabled: isMonthly ? discountEnabled : undefined
 						};
 
 						button.disabled = true;
