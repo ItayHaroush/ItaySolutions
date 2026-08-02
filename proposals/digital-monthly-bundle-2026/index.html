@@ -451,6 +451,16 @@
 			object-fit: contain;
 		}
 
+		.wizard-welcome-brand-logo {
+			width: 72px;
+			height: 72px;
+			display: block;
+			margin: 0 auto;
+			border-radius: 18px;
+			object-fit: contain;
+			background: #fff;
+		}
+
 		.brand-caption {
 			font-size: 8.8pt;
 			color: #6b7280;
@@ -1371,6 +1381,11 @@
 			border: 1px solid rgba(232, 220, 207, 0.95);
 			background: rgba(255, 255, 255, 0.82);
 			min-width: 150px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
 		}
 
 		.wizard-welcome-link {
@@ -2041,7 +2056,7 @@
 						<div class="wizard-welcome-hero">
 							<div class="wizard-welcome-visual">
 								<div class="wizard-welcome-logo-wrap">
-									<img class="logo-transparent" src="../../assets/images/logoItayS.jpeg" alt="Itay Solutions">
+									<img class="logo-transparent wizard-welcome-brand-logo" src="../../assets/images/logoItayS.jpeg" alt="Itay Solutions">
 								</div>
 								<span class="wizard-welcome-link" aria-hidden="true"><i class="fa-solid fa-link"></i></span>
 								<div class="wizard-welcome-logo-wrap">
