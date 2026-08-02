@@ -63,6 +63,51 @@
         { "key": "inbox", "label": "מענה ללקוחות (₪/חודש)", "default": 600, "itemIndex": 5, "serviceId": "inbox" },
         { "key": "ads", "label": "פרסום ממומן (₪/חודש)", "default": 800, "itemIndex": 6, "serviceId": "ads" }
       ]
+    },
+    {
+      "id": "digital-monthly-bundle-2026",
+      "title": "חבילת דיגיטל + מערכת",
+      "description": "הצעת מחיר חודשית · TakeEat BASIC + ניהול דיגיטל · הנחת חבילה",
+      "path": "digital-monthly-bundle-2026/",
+      "buildixTemplateKey": "digital-monthly-bundle-2026",
+      "monthlyPackages": true,
+      "defaultBusiness": "שם העסק / מסעדה",
+      "packages": [
+        {
+          "id": "takeeat_basic",
+          "title": "מערכת TakeEat BASIC",
+          "default": 250,
+          "defaultChecked": true,
+          "optional": false,
+          "itemIndex": 0,
+          "includes": ["אתר הזמנות", "תפריט דיגיטלי", "QR Code", "ניהול תפריט", "ניהול שעות פעילות", "תמיכה"]
+        },
+        {
+          "id": "social_digital",
+          "title": "ניהול דיגיטל וסושיאל",
+          "default": 900,
+          "defaultChecked": true,
+          "optional": false,
+          "itemIndex": 1,
+          "includes": ["ניהול Facebook", "ניהול Instagram", "ניהול Google Business", "8 פוסטים מעוצבים בחודש", "כתיבת תוכן", "פרסום מבצעים ועדכונים"]
+        },
+        {
+          "id": "ads",
+          "title": "קידום ממומן (אופציונלי)",
+          "default": 500,
+          "defaultChecked": false,
+          "optional": true,
+          "itemIndex": 2,
+          "note": "תקציב הפרסום אינו כלול.",
+          "includes": ["ניהול קמפיינים ממומנים", "הגדרת קהלים ומעקב ביצועים"]
+        }
+      ],
+      "discount": {
+        "key": "discount",
+        "label": "הנחת חבילה",
+        "default": 150,
+        "defaultEnabled": true
+      }
     }
   ],
   "proposals": [
@@ -102,6 +147,20 @@
       "status": "active",
       "selectableItems": true,
       "buildixTemplateKey": "social-media-management-2026",
+      "buildix": {
+        "clientHint": "לכל שליחה — Buildix יוצר לקוח + הצעה חדשים אוטומטית"
+      }
+    },
+    {
+      "id": "digital-monthly-bundle-2026",
+      "title": "חבילת דיגיטל + מערכת",
+      "client": "תבנית — לכל לקוח חדש",
+      "business": "שם העסק / מסעדה",
+      "path": "digital-monthly-bundle-2026/",
+      "updated": "2026-08-02",
+      "status": "active",
+      "monthlyPackages": true,
+      "buildixTemplateKey": "digital-monthly-bundle-2026",
       "buildix": {
         "clientHint": "לכל שליחה — Buildix יוצר לקוח + הצעה חדשים אוטומטית"
       }

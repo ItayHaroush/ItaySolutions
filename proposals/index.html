@@ -308,6 +308,122 @@
 			flex-shrink: 0;
 		}
 
+		.package-offer-list {
+			display: grid;
+			gap: 10px;
+		}
+
+		.package-offer-card {
+			padding: 12px;
+			border-radius: 14px;
+			border: 1px solid rgba(24, 34, 48, 0.10);
+			background: rgba(255, 255, 255, 0.92);
+		}
+
+		.package-offer-head {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 10px;
+		}
+
+		.package-offer-label {
+			display: flex;
+			align-items: flex-start;
+			gap: 8px;
+			font-size: 10pt;
+			font-weight: 700;
+			color: var(--brand-navy);
+			cursor: pointer;
+		}
+
+		.package-offer-label input {
+			margin-top: 3px;
+			flex-shrink: 0;
+		}
+
+		.package-offer-price {
+			width: 110px;
+			flex-shrink: 0;
+		}
+
+		.package-offer-includes {
+			margin: 8px 0 0;
+			padding: 0 0 0 22px;
+			list-style: none;
+			font-size: 8.5pt;
+			color: var(--brand-slate);
+			display: grid;
+			gap: 3px;
+		}
+
+		.package-offer-includes li::before {
+			content: "• ";
+			color: var(--brand-green);
+			font-weight: 700;
+		}
+
+		.package-offer-note {
+			margin: 6px 0 0 22px;
+			font-size: 8.5pt;
+			color: #9a3412;
+		}
+
+		.package-discount-box {
+			padding: 12px;
+			border-radius: 14px;
+			border: 1px dashed rgba(20, 108, 46, 0.35);
+			background: rgba(20, 108, 46, 0.06);
+		}
+
+		.quote-summary-box {
+			padding: 12px;
+			border-radius: 14px;
+			border: 1px solid rgba(255, 106, 0, 0.22);
+			background: rgba(255, 106, 0, 0.06);
+		}
+
+		.quote-summary-title {
+			margin: 0 0 8px;
+			font-size: 9.5pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+		}
+
+		.quote-summary-table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 9pt;
+		}
+
+		.quote-summary-table td {
+			padding: 5px 0;
+			border-bottom: 1px solid rgba(24, 34, 48, 0.08);
+		}
+
+		.quote-summary-table td:last-child {
+			text-align: left;
+			font-weight: 700;
+			white-space: nowrap;
+		}
+
+		.quote-summary-table tr.is-muted td {
+			color: var(--brand-slate);
+			font-weight: 600;
+		}
+
+		.quote-summary-table tr.is-discount td {
+			color: var(--brand-green);
+		}
+
+		.quote-summary-table tr.is-total td {
+			border-bottom: 0;
+			padding-top: 8px;
+			font-size: 10.5pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+		}
+
 		@media (max-width: 900px) {
 			.proposal-list {
 				grid-template-columns: 1fr;
@@ -394,7 +510,12 @@
 			</div>
 
 			<div class="help-box">
-				<strong>הצעת ניהול סושיאל</strong><br>
+				<strong>חבילת דיגיטל + מערכת</strong><br>
+				תבנית «הצעת מחיר חודשית» — בוחרים חבילות (TakeEat BASIC / ניהול דיגיטל / קידום ממומן),
+				מגדירים הנחת חבילה, והלקוח מקבל הצעת מחיר עם סה״כ חודשי ברור לחתימה.
+			</div>
+			<div class="help-box">
+				<strong>הצעת ניהול סושיאל (שירותים בודדים)</strong><br>
 				תבנית «ניהול סושיאל ודיגיטל» — בוחרים אילו שירותים להציע ללקוח ומגדירים מחיר לכל פריט.
 				הלקוח בוחר מתוך ההצעה, רואה סיכום מחיר וחותם.
 			</div>
@@ -678,6 +799,18 @@
 				return Boolean(template && template.selectableItems && Array.isArray(template.pricing) && template.pricing.some(function (field) { return field.serviceId; }));
 			}
 
+			function isMonthlyPackagesTemplate(template) {
+				return Boolean(template && template.monthlyPackages && Array.isArray(template.packages) && template.packages.length);
+			}
+
+			function formatAdminMoney(value) {
+				const amount = Number(value);
+				if (!Number.isFinite(amount)) {
+					return "₪0";
+				}
+				return "₪" + amount.toLocaleString("he-IL");
+			}
+
 			function getServicePricingFields(template) {
 				return getTemplatePricing(template).filter(function (field) { return field.serviceId; });
 			}
@@ -719,7 +852,170 @@
 				);
 			}
 
+			function renderMonthlyPackagesFields(template) {
+				if (!isMonthlyPackagesTemplate(template)) {
+					return "";
+				}
+
+				const discount = template.discount || { key: "discount", label: "הנחת חבילה", default: 150, defaultEnabled: true };
+				const packagesHtml = template.packages.map(function (pkg) {
+					const checked = pkg.defaultChecked !== false ? " checked" : "";
+					const defaultValue = typeof pkg.default === "number" ? pkg.default : 0;
+					const includes = Array.isArray(pkg.includes) ? pkg.includes : [];
+					const optionalTag = pkg.optional ? ' <span style="font-weight:600;color:var(--brand-slate);">(אופציונלי)</span>' : "";
+					return (
+						'<div class="package-offer-card" data-package-card="' + pkg.id + '">' +
+							'<div class="package-offer-head">' +
+								'<label class="package-offer-label">' +
+									'<input class="send-package-toggle" type="checkbox" data-package-id="' + pkg.id + '"' + checked + '>' +
+									'<span>' + pkg.title + optionalTag + '</span>' +
+								'</label>' +
+								'<input class="input send-price package-offer-price" type="number" min="0" step="1" data-price-key="' + pkg.id + '" value="' + defaultValue + '">' +
+							'</div>' +
+							(pkg.note ? '<div class="package-offer-note">' + pkg.note + '</div>' : '') +
+							(includes.length
+								? '<ul class="package-offer-includes">' + includes.map(function (item) { return '<li>' + item + '</li>'; }).join("") + '</ul>'
+								: '') +
+						'</div>'
+					);
+				}).join("");
+
+				return (
+					'<div class="field" style="grid-column: 1 / -1;">' +
+						'<span class="label">חבילות</span>' +
+						'<div class="package-offer-list">' + packagesHtml + '</div>' +
+					'</div>' +
+					'<div class="field" style="grid-column: 1 / -1;">' +
+						'<div class="package-discount-box">' +
+							'<label class="package-offer-label" style="margin-bottom:8px;">' +
+								'<input class="send-discount-toggle" type="checkbox"' + (discount.defaultEnabled === false ? "" : " checked") + '>' +
+								'<span>הפעל ' + (discount.label || "הנחת חבילה") + '</span>' +
+							'</label>' +
+							'<div class="field" style="margin-bottom:0;">' +
+								'<label class="label">גובה ההנחה (₪)</label>' +
+								'<input class="input send-price" type="number" min="0" step="1" data-price-key="' + (discount.key || "discount") + '" value="' + (typeof discount.default === "number" ? discount.default : 0) + '">' +
+							'</div>' +
+						'</div>' +
+					'</div>' +
+					'<div class="field" style="grid-column: 1 / -1;">' +
+						'<div class="quote-summary-box">' +
+							'<div class="quote-summary-title">סיכום</div>' +
+							'<table class="quote-summary-table" data-quote-summary>' +
+								'<tbody></tbody>' +
+							'</table>' +
+						'</div>' +
+					'</div>'
+				);
+			}
+
+			function readMonthlyPackageForm(card, template) {
+				const packages = [];
+				const values = {};
+				const itemPrices = [];
+
+				(template.packages || []).forEach(function (pkg) {
+					const checkbox = card.querySelector('.send-package-toggle[data-package-id="' + pkg.id + '"]');
+					const input = card.querySelector('.send-price[data-price-key="' + pkg.id + '"]');
+					const raw = input ? input.value.trim() : "";
+					const parsed = raw === "" ? Number(pkg.default) : Number(raw.replace(/,/g, ""));
+					if (!Number.isFinite(parsed) || parsed < 0) {
+						values[pkg.id] = null;
+						return;
+					}
+					values[pkg.id] = parsed;
+					if (checkbox && checkbox.checked) {
+						packages.push(pkg.id);
+						if (typeof pkg.itemIndex === "number") {
+							itemPrices[pkg.itemIndex] = parsed;
+						}
+					}
+				});
+
+				const discountMeta = template.discount || { key: "discount", default: 150 };
+				const discountKey = discountMeta.key || "discount";
+				const discountToggle = card.querySelector(".send-discount-toggle");
+				const discountInput = card.querySelector('.send-price[data-price-key="' + discountKey + '"]');
+				const discountRaw = discountInput ? discountInput.value.trim() : "";
+				const discountParsed = discountRaw === "" ? Number(discountMeta.default) : Number(discountRaw.replace(/,/g, ""));
+				const discountEnabled = Boolean(discountToggle && discountToggle.checked);
+				values[discountKey] = Number.isFinite(discountParsed) && discountParsed >= 0 ? discountParsed : null;
+
+				return {
+					packages: packages,
+					prices: values,
+					itemPrices: itemPrices,
+					discountEnabled: discountEnabled,
+					discountKey: discountKey
+				};
+			}
+
+			function updateMonthlyQuoteSummary(card, template) {
+				const summaryEl = card.querySelector("[data-quote-summary] tbody");
+				if (!summaryEl) {
+					return;
+				}
+				const formData = readMonthlyPackageForm(card, template);
+				let subtotal = 0;
+				const rows = [];
+
+				(template.packages || []).forEach(function (pkg) {
+					if (formData.packages.indexOf(pkg.id) === -1) {
+						return;
+					}
+					const price = formData.prices[pkg.id];
+					if (price === null) {
+						return;
+					}
+					subtotal += price;
+					rows.push('<tr><td>' + pkg.title + '</td><td>' + formatAdminMoney(price) + '</td></tr>');
+				});
+
+				rows.push('<tr class="is-muted"><td>סה״כ רגיל</td><td>' + formatAdminMoney(subtotal) + '</td></tr>');
+
+				const discountAmount = formData.prices[formData.discountKey];
+				const showDiscount = formData.discountEnabled && discountAmount !== null && discountAmount > 0;
+				if (showDiscount) {
+					rows.push('<tr class="is-discount"><td>הנחת חבילה</td><td>-' + formatAdminMoney(discountAmount) + '</td></tr>');
+				}
+
+				const total = Math.max(0, subtotal - (showDiscount ? discountAmount : 0));
+				rows.push('<tr class="is-total"><td>לתשלום חודשי</td><td>' + formatAdminMoney(total) + '</td></tr>');
+				summaryEl.innerHTML = rows.join("");
+			}
+
+			function bindMonthlyPackageCard(card, template) {
+				if (!isMonthlyPackagesTemplate(template)) {
+					return;
+				}
+				const refresh = function () {
+					updateMonthlyQuoteSummary(card, template);
+				};
+				card.querySelectorAll(".send-package-toggle, .send-discount-toggle, .send-price").forEach(function (el) {
+					el.addEventListener("input", refresh);
+					el.addEventListener("change", refresh);
+				});
+				refresh();
+			}
+
 			function getTemplatePricing(template) {
+				if (isMonthlyPackagesTemplate(template)) {
+					const fields = (template.packages || []).map(function (pkg) {
+						return {
+							key: pkg.id,
+							label: pkg.title + " (₪/חודש)",
+							default: pkg.default,
+							itemIndex: pkg.itemIndex
+						};
+					});
+					if (template.discount) {
+						fields.push({
+							key: template.discount.key || "discount",
+							label: (template.discount.label || "הנחת חבילה") + " (₪)",
+							default: template.discount.default
+						});
+					}
+					return fields;
+				}
 				if (isDualPathTemplate(template)) {
 					const fields = [];
 					template.packages.forEach(function (pkg) {
@@ -896,6 +1192,12 @@
 				if (formData.offeredServices && formData.offeredServices.length) {
 					url.searchParams.set("offered", formData.offeredServices.join(","));
 				}
+				if (formData.packages && formData.packages.length) {
+					url.searchParams.set("packages", formData.packages.join(","));
+				}
+				if (typeof formData.discountEnabled === "boolean") {
+					url.searchParams.set("discount_on", formData.discountEnabled ? "1" : "0");
+				}
 				if (settings.quoteToken) {
 					url.searchParams.set("quoteToken", settings.quoteToken);
 					sessionStorage.setItem("itay-proposal-quote-token:" + template.id, settings.quoteToken);
@@ -928,16 +1230,18 @@
 
 				proposalList.innerHTML = templates.map(function (template) {
 					const defaultBusiness = template.defaultBusiness || "";
-					const pricingFields = getTemplatePricing(template);
 					const isDual = isDualPathTemplate(template);
 					const isSelectable = isSelectableItemsTemplate(template);
-					const primaryLabel = isDual ? "שלח ללקוח" : "צור ב-Buildix ושלח";
+					const isMonthly = isMonthlyPackagesTemplate(template);
+					const pricingFields = isMonthly ? [] : getTemplatePricing(template);
+					const primaryLabel = (isDual || isMonthly) ? "שלח ללקוח" : "צור ב-Buildix ושלח";
 					return (
-						'<article class="proposal-card" data-template-id="' + template.id + '" data-dual-path="' + (isDual ? "1" : "0") + '" data-selectable-items="' + (isSelectable ? "1" : "0") + '">' +
+						'<article class="proposal-card" data-template-id="' + template.id + '" data-dual-path="' + (isDual ? "1" : "0") + '" data-selectable-items="' + (isSelectable ? "1" : "0") + '" data-monthly-packages="' + (isMonthly ? "1" : "0") + '">' +
 							'<h3 class="proposal-title">' + template.title + '</h3>' +
 							'<p class="proposal-meta">' + (template.description || "תבנית הצעה") + '</p>' +
 							(isDual ? '<p class="proposal-meta" style="margin-top:-6px;color:var(--brand-green);font-weight:700;">הלקוח בוחר מסלול · Buildix נוצר רק לאחר החתימה</p>' : '') +
 							(isSelectable ? '<p class="proposal-meta" style="margin-top:-6px;color:var(--brand-green);font-weight:700;">הלקוח בוחר שירותים מתוך ההצעה · מחיר מתעדכן אוטומטית</p>' : '') +
+							(isMonthly ? '<p class="proposal-meta" style="margin-top:-6px;color:var(--brand-green);font-weight:700;">הצעת מחיר חודשית · חבילות + הנחה · לתשלום חודשי ברור</p>' : '') +
 							'<div class="send-form">' +
 								'<div class="send-grid">' +
 									'<div class="field"><label class="label">שם הלקוח</label><input class="input send-client-name" type="text" placeholder="שם מלא"></div>' +
@@ -946,17 +1250,24 @@
 									'<div class="field"><label class="label">אימייל לקוח</label><input class="input send-client-email" type="email" placeholder="name@example.com"></div>' +
 									'<div class="field"><label class="label">לוגו עסק (קובץ)</label><input class="input send-logo-file" type="file" accept="image/png,image/jpeg,image/webp"></div>' +
 								'</div>' +
-								renderServiceOfferFields(template) +
-								renderPricingFields(pricingFields) +
+								(isMonthly ? renderMonthlyPackagesFields(template) : renderServiceOfferFields(template)) +
+								(isMonthly ? "" : renderPricingFields(pricingFields)) +
 								'<div class="actions">' +
 									'<button class="button button-primary send-prepare-button" type="button">' + primaryLabel + '</button>' +
-									'<button class="button button-secondary send-preview-button" type="button">' + (isDual ? "תצוגה מקדימה" : "צפייה מקומית") + '</button>' +
+									'<button class="button button-secondary send-preview-button" type="button">' + ((isDual || isMonthly) ? "תצוגה מקדימה" : "צפייה מקומית") + '</button>' +
 								'</div>' +
 								'<div class="send-status" data-send-status></div>' +
 							'</div>' +
 						'</article>'
 					);
 				}).join("");
+
+				templates.forEach(function (template) {
+					const card = proposalList.querySelector('.proposal-card[data-template-id="' + template.id + '"]');
+					if (card) {
+						bindMonthlyPackageCard(card, template);
+					}
+				});
 
 				proposalList.querySelectorAll(".send-prepare-button").forEach(function (button) {
 					button.addEventListener("click", async function () {
@@ -969,12 +1280,26 @@
 						const businessName = card.querySelector(".send-business-name").value.trim();
 						const clientEmail = card.querySelector(".send-client-email").value.trim();
 						const logoInput = card.querySelector(".send-logo-file");
-						const pricingFields = getTemplatePricing(template);
-						const priceData = readPriceValues(card, pricingFields);
-						const logoDataUrl = await readLogoDataUrl(logoInput);
 						const isDual = card.getAttribute("data-dual-path") === "1";
 						const isSelectable = card.getAttribute("data-selectable-items") === "1";
-						const offeredServices = isSelectable ? readOfferedServiceIds(card, template) : [];
+						const isMonthly = card.getAttribute("data-monthly-packages") === "1";
+						const logoDataUrl = await readLogoDataUrl(logoInput);
+
+						let priceData = { values: {}, itemPrices: [] };
+						let offeredServices = [];
+						let packages = [];
+						let discountEnabled = false;
+
+						if (isMonthly) {
+							const monthlyForm = readMonthlyPackageForm(card, template);
+							priceData = { values: monthlyForm.prices, itemPrices: monthlyForm.itemPrices };
+							packages = monthlyForm.packages;
+							discountEnabled = monthlyForm.discountEnabled;
+						} else {
+							const pricingFields = getTemplatePricing(template);
+							priceData = readPriceValues(card, pricingFields);
+							offeredServices = isSelectable ? readOfferedServiceIds(card, template) : [];
+						}
 
 						statusEl.className = "send-status";
 						if (!clientName || !clientPhone) {
@@ -987,18 +1312,23 @@
 							statusEl.classList.add("is-error");
 							return;
 						}
+						if (isMonthly && !packages.length) {
+							statusEl.textContent = "יש לסמן לפחות חבילה אחת להצעה.";
+							statusEl.classList.add("is-error");
+							return;
+						}
 						if (logoDataUrl === null) {
 							statusEl.textContent = "קובץ הלוגו גדול מדי (עד 400KB).";
 							statusEl.classList.add("is-error");
 							return;
 						}
-						if (pricingFields.length && Object.values(priceData.values).some(function (value) { return value === null; })) {
+						if (Object.values(priceData.values).some(function (value) { return value === null; })) {
 							statusEl.textContent = "יש להזין מחירים תקינים (0 ומעלה).";
 							statusEl.classList.add("is-error");
 							return;
 						}
 
-						if (isDual) {
+						if (isDual || isMonthly) {
 							statusEl.textContent = "פותח הצעה לשליחה ללקוח...";
 							statusEl.classList.add("is-success");
 							window.location.href = buildProposalOpenUrl(template, {
@@ -1006,7 +1336,9 @@
 								clientPhone: clientPhone,
 								clientEmail: clientEmail,
 								businessName: businessName,
-								prices: priceData.values
+								prices: priceData.values,
+								packages: packages,
+								discountEnabled: isMonthly ? discountEnabled : undefined
 							}).toString();
 							return;
 						}
@@ -1042,7 +1374,9 @@
 								clientEmail: clientEmail,
 								businessName: businessName,
 								prices: priceData.values,
-								offeredServices: offeredServices
+								offeredServices: offeredServices,
+								packages: packages,
+								discountEnabled: isMonthly ? discountEnabled : undefined
 							}, result);
 						} catch (error) {
 							statusEl.textContent = formatPrepareError(error, template);
@@ -1062,10 +1396,24 @@
 						const clientPhone = card.querySelector(".send-client-phone").value.trim();
 						const businessName = card.querySelector(".send-business-name").value.trim();
 						const clientEmail = card.querySelector(".send-client-email").value.trim();
-						const pricingFields = getTemplatePricing(template);
-						const priceData = readPriceValues(card, pricingFields);
 						const isSelectable = card.getAttribute("data-selectable-items") === "1";
-						const offeredServices = isSelectable ? readOfferedServiceIds(card, template) : [];
+						const isMonthly = card.getAttribute("data-monthly-packages") === "1";
+
+						let priceData = { values: {}, itemPrices: [] };
+						let offeredServices = [];
+						let packages = [];
+						let discountEnabled = false;
+
+						if (isMonthly) {
+							const monthlyForm = readMonthlyPackageForm(card, template);
+							priceData = { values: monthlyForm.prices, itemPrices: monthlyForm.itemPrices };
+							packages = monthlyForm.packages;
+							discountEnabled = monthlyForm.discountEnabled;
+						} else {
+							const pricingFields = getTemplatePricing(template);
+							priceData = readPriceValues(card, pricingFields);
+							offeredServices = isSelectable ? readOfferedServiceIds(card, template) : [];
+						}
 
 						statusEl.className = "send-status";
 						if (isSelectable && !offeredServices.length) {
@@ -1073,7 +1421,12 @@
 							statusEl.classList.add("is-error");
 							return;
 						}
-						if (pricingFields.length && Object.values(priceData.values).some(function (value) { return value === null; })) {
+						if (isMonthly && !packages.length) {
+							statusEl.textContent = "יש לסמן לפחות חבילה אחת להצעה.";
+							statusEl.classList.add("is-error");
+							return;
+						}
+						if (Object.values(priceData.values).some(function (value) { return value === null; })) {
 							statusEl.textContent = "יש להזין מחירים תקינים (0 ומעלה).";
 							statusEl.classList.add("is-error");
 							return;
@@ -1085,7 +1438,9 @@
 							clientEmail: clientEmail,
 							businessName: businessName || template.defaultBusiness || "שם העסק",
 							prices: priceData.values,
-							offeredServices: offeredServices
+							offeredServices: offeredServices,
+							packages: packages,
+							discountEnabled: isMonthly ? discountEnabled : undefined
 						});
 						statusEl.textContent = "נפתחה תצוגה מקומית בלשונית חדשה (ללא Buildix).";
 						statusEl.classList.add("is-success");
