@@ -49,6 +49,9 @@ Use **צפייה מקומית** in `/proposals/` for local preview without Build
 `proposals/proposal-backend-config.js`:
 ```javascript
 window.PROPOSAL_ATTACHMENT_URL = "https://app.buildix.site/api/proposals/attachment";
+window.PROPOSAL_TURNSTILE_CONFIG_URL = "https://app.buildix.site/api/public/turnstile/proposal_prepare";
+window.PROPOSAL_TURNSTILE_SITE_KEY = "0x4AAAAAADyOgFOmlKJsciFD";
 ```
 
-The duplicate PHP snippets in this folder are reference-only; Buildix is the source of truth.
+`POST /api/proposals/prepare` requires Cloudflare Turnstile (`turnstile_token`).
+The proposals admin panel loads the widget and sends the token automatically.

@@ -424,6 +424,31 @@
 			color: var(--brand-navy);
 		}
 
+		.turnstile-panel {
+			margin-bottom: 16px;
+			padding: 12px 14px;
+			border-radius: 14px;
+			border: 1px solid rgba(24, 34, 48, 0.10);
+			background: rgba(255, 255, 255, 0.88);
+		}
+
+		.turnstile-panel-title {
+			margin: 0 0 8px;
+			font-size: 9.5pt;
+			font-weight: 800;
+			color: var(--brand-navy);
+		}
+
+		.turnstile-panel-note {
+			margin: 8px 0 0;
+			font-size: 8.5pt;
+			color: var(--brand-slate);
+		}
+
+		.turnstile-widget-host {
+			min-height: 65px;
+		}
+
 		@media (max-width: 900px) {
 			.proposal-list {
 				grid-template-columns: 1fr;
@@ -496,6 +521,12 @@
 					<p class="note">שליחה מאובטחת ללקוחות — ללא קישור מדף הבית</p>
 				</div>
 				<span class="badge">Itay Solutions</span>
+			</div>
+
+			<div class="turnstile-panel" id="turnstile-panel">
+				<div class="turnstile-panel-title">אימות אבטחה ל-Buildix</div>
+				<div class="turnstile-widget-host" id="turnstile-widget"></div>
+				<p class="turnstile-panel-note" id="turnstile-status">טוען אימות...</p>
 			</div>
 
 			<div class="proposal-list" id="proposal-list">
@@ -619,6 +650,7 @@
 				adminShell.classList.remove("is-hidden");
 				renderProposals();
 				renderHistoryPanel();
+				initTurnstile();
 			}
 
 			function tryUnlockFromQuery() {
@@ -636,6 +668,146 @@
 
 			const PREPARE_URL = (window.ITAY_PROPOSALS_ADMIN && window.ITAY_PROPOSALS_ADMIN.prepareUrl) || window.PROPOSAL_PREPARE_URL || "";
 			const PREPARE_API_KEY = (window.ITAY_PROPOSALS_ADMIN && window.ITAY_PROPOSALS_ADMIN.prepareApiKey) || window.PROPOSAL_SUBMIT_API_KEY || "";
+			const TURNSTILE_CONFIG_URL = window.PROPOSAL_TURNSTILE_CONFIG_URL || "https://app.buildix.site/api/public/turnstile/proposal_prepare";
+			const TURNSTILE_FALLBACK_SITE_KEY = window.PROPOSAL_TURNSTILE_SITE_KEY || "0x4AAAAAADyOgFOmlKJsciFD";
+			const TURNSTILE_SCRIPT_URL = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+
+			const turnstilePanel = document.getElementById("turnstile-panel");
+			const turnstileWidgetHost = document.getElementById("turnstile-widget");
+			const turnstileStatus = document.getElementById("turnstile-status");
+
+			let turnstileWidgetId = null;
+			let turnstileToken = "";
+			let turnstileRequired = true;
+			let turnstileSiteKey = TURNSTILE_FALLBACK_SITE_KEY;
+			let turnstileReady = false;
+
+			function setTurnstileStatus(message) {
+				if (turnstileStatus) {
+					turnstileStatus.textContent = message;
+				}
+			}
+
+			function loadTurnstileScript() {
+				return new Promise(function (resolve, reject) {
+					if (window.turnstile && typeof window.turnstile.render === "function") {
+						resolve();
+						return;
+					}
+					if (window.__itayTurnstileLoader) {
+						window.__itayTurnstileLoader.then(resolve).catch(reject);
+						return;
+					}
+					window.__itayTurnstileLoader = new Promise(function (innerResolve, innerReject) {
+						const existing = document.querySelector('script[data-itay-turnstile="1"]');
+						if (existing) {
+							existing.addEventListener("load", function () { innerResolve(); });
+							existing.addEventListener("error", function () { innerReject(new Error("turnstile_load_failed")); });
+							return;
+						}
+						const script = document.createElement("script");
+						script.src = TURNSTILE_SCRIPT_URL;
+						script.async = true;
+						script.defer = true;
+						script.setAttribute("data-itay-turnstile", "1");
+						script.onload = function () { innerResolve(); };
+						script.onerror = function () { innerReject(new Error("turnstile_load_failed")); };
+						document.head.appendChild(script);
+					});
+					window.__itayTurnstileLoader.then(resolve).catch(reject);
+				});
+			}
+
+			function resetTurnstile() {
+				turnstileToken = "";
+				if (turnstileWidgetId !== null && window.turnstile && typeof window.turnstile.reset === "function") {
+					try {
+						window.turnstile.reset(turnstileWidgetId);
+					} catch (error) {
+						/* ignore */
+					}
+				}
+				if (turnstileRequired) {
+					setTurnstileStatus("אשרו את האימות לפני יצירה ב-Buildix.");
+				}
+			}
+
+			function getTurnstileToken() {
+				if (turnstileToken) {
+					return turnstileToken;
+				}
+				if (turnstileWidgetId !== null && window.turnstile && typeof window.turnstile.getResponse === "function") {
+					return String(window.turnstile.getResponse(turnstileWidgetId) || "").trim();
+				}
+				return "";
+			}
+
+			async function initTurnstile() {
+				if (!turnstileWidgetHost) {
+					return;
+				}
+
+				try {
+					const response = await fetch(TURNSTILE_CONFIG_URL, {
+						method: "GET",
+						headers: { "Accept": "application/json" },
+						mode: "cors",
+						credentials: "omit",
+						cache: "no-store"
+					});
+					if (response.ok) {
+						const payload = await response.json();
+						const data = payload && payload.data ? payload.data : payload;
+						if (data) {
+							turnstileRequired = data.required !== false;
+							if (data.site_key) {
+								turnstileSiteKey = String(data.site_key);
+							}
+						}
+					}
+				} catch (error) {
+					/* keep fallback site key */
+				}
+
+				if (!turnstileRequired) {
+					turnstileReady = true;
+					if (turnstilePanel) {
+						turnstilePanel.classList.add("is-hidden");
+					}
+					setTurnstileStatus("אימות אינו נדרש כרגע.");
+					return;
+				}
+
+				try {
+					await loadTurnstileScript();
+					if (!window.turnstile || typeof window.turnstile.render !== "function") {
+						throw new Error("turnstile_unavailable");
+					}
+					turnstileWidgetHost.innerHTML = "";
+					turnstileWidgetId = window.turnstile.render(turnstileWidgetHost, {
+						sitekey: turnstileSiteKey,
+						language: "he",
+						theme: "light",
+						callback: function (token) {
+							turnstileToken = String(token || "").trim();
+							setTurnstileStatus("האימות הושלם — ניתן ליצור הצעה ב-Buildix.");
+						},
+						"expired-callback": function () {
+							turnstileToken = "";
+							setTurnstileStatus("תוקף האימות פג — אשרו שוב.");
+						},
+						"error-callback": function () {
+							turnstileToken = "";
+							setTurnstileStatus("האימות נכשל — נסו שוב.");
+						}
+					});
+					turnstileReady = true;
+					setTurnstileStatus("אשרו את האימות לפני יצירה ב-Buildix.");
+				} catch (error) {
+					turnstileReady = false;
+					setTurnstileStatus("לא ניתן לטעון אימות Turnstile. רעננו את הדף.");
+				}
+			}
 
 			function loadHistoryRecords() {
 				try {
@@ -1102,6 +1274,13 @@
 					throw error;
 				}
 
+				const token = getTurnstileToken();
+				if (turnstileRequired && !token) {
+					const error = new Error("turnstile_required");
+					error.code = "turnstile_required";
+					throw error;
+				}
+
 				const headers = {
 					"Content-Type": "application/json",
 					"Accept": "application/json"
@@ -1123,25 +1302,31 @@
 						clientEmail: formData.clientEmail || "",
 						businessName: formData.businessName || formData.clientName,
 						itemPrices: formData.itemPrices || undefined,
-						businessLogoDataUrl: formData.businessLogoDataUrl || undefined
+						businessLogoDataUrl: formData.businessLogoDataUrl || undefined,
+						turnstile_token: token || undefined,
+						"cf-turnstile-response": token || undefined
 					})
 				});
 
 				if (!response.ok) {
 					let apiMessage = "";
+					let apiCode = "";
 					try {
 						const body = await response.json();
 						apiMessage = body && (body.message || body.error) ? String(body.message || body.error) : "";
+						apiCode = body && body.code ? String(body.code) : "";
 					} catch (parseError) {
 						apiMessage = "";
 					}
+					resetTurnstile();
 					const error = new Error(apiMessage || "prepare_failed");
-					error.code = "prepare_failed";
+					error.code = apiCode === "turnstile_failed" ? "turnstile_failed" : "prepare_failed";
 					error.status = response.status;
 					error.apiMessage = apiMessage;
 					throw error;
 				}
 
+				resetTurnstile();
 				return response.json();
 			}
 
@@ -1149,6 +1334,15 @@
 				const templateKey = template.buildixTemplateKey || template.id;
 				if (error && error.code === "prepare_url_missing") {
 					return "כתובת prepare חסרה ב-proposal-backend-config.js";
+				}
+				if (error && error.code === "turnstile_required") {
+					return "יש לאשר את אימות האבטחה (Turnstile) בראש הדף לפני יצירה ב-Buildix.";
+				}
+				if (error && error.code === "turnstile_failed") {
+					return "אימות האבטחה נכשל או שפג תוקפו. אשרו שוב את Turnstile בראש הדף ונסו שוב.";
+				}
+				if (error && error.apiMessage && /human verification failed|turnstile/i.test(error.apiMessage)) {
+					return "אימות האבטחה נכשל. אשרו שוב את Turnstile בראש הדף ונסו שוב.";
 				}
 				if (error && error.apiMessage && /unknown proposal template/i.test(error.apiMessage)) {
 					return "תבנית «" + templateKey + "» לא רשומה ב-Buildix. לצפייה מקומית — «צפייה מקומית». לשליחה ללקוח — הוסיפו את התבנית ב-Buildix (deploy + BUILDIX_EXTERNAL_PROPOSAL_OWNER_EMAIL).";
