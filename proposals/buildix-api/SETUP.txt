@@ -40,9 +40,19 @@ BUILDIX_EXTERNAL_PROPOSAL_ORIGINS=https://www.itaysolutions.com,https://itaysolu
 
 Each `buildixTemplateKey` in `proposals-registry.json` must exist in Buildix
 `backend/config/buildix.php` under `external_proposal.templates`
-(e.g. `takeeat-hatzarfatiya-2026`, `private-branded-orders-2026`).
+(e.g. `takeeat-hatzarfatiya-2026`, `private-branded-orders-2026`,
+`social-media-management-2026`, `digital-monthly-bundle-2026`).
 Until registered, `/api/proposals/prepare` returns `422 Unknown proposal template`.
 Use **צפייה מקומית** in `/proposals/` for local preview without Buildix.
+
+After adding a template in Buildix:
+```bash
+cd backend
+git pull   # or deploy the config change
+# no migration needed for config-only templates
+# restart php-fpm / clear config cache if used:
+php artisan config:clear
+```
 
 ## Connect PortfolioReact
 

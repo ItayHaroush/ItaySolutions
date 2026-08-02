@@ -1408,6 +1408,8 @@
 						businessName: formData.businessName || formData.clientName,
 						itemPrices: formData.itemPrices || undefined,
 						businessLogoDataUrl: formData.businessLogoDataUrl || undefined,
+						discountValue: typeof formData.discountValue === "number" ? formData.discountValue : undefined,
+						discountEnabled: typeof formData.discountEnabled === "boolean" ? formData.discountEnabled : undefined,
 						turnstile_token: token || undefined,
 						"cf-turnstile-response": token || undefined
 					})
@@ -1649,7 +1651,10 @@
 							businessLogoDataUrl: logoDataUrl || undefined,
 							offeredServices: offeredServices,
 							packages: packages,
-							discountEnabled: isMonthly ? discountEnabled : undefined
+							discountEnabled: isMonthly ? discountEnabled : undefined,
+							discountValue: isMonthly && discountEnabled && typeof priceData.values.discount === "number"
+								? priceData.values.discount
+								: (isMonthly ? 0 : undefined)
 						};
 
 						button.disabled = true;
