@@ -15,7 +15,10 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Swiper.js for carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     <!-- BoxIcons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -31,19 +34,19 @@
     
     <style>
         :root {
-            --primary-color: #6366f1;
-            --secondary-color: #f59e0b;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-card: #ffffff;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
-            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            --primary-color: #ff7a1a;
+            --secondary-color: #ffb35c;
+            --bg-primary: #07070d;
+            --bg-secondary: #0c0c15;
+            --bg-card: #13131e;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1ad;
+            --border-color: #26262f;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.35);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --shadow-2xl: 0 25px 60px rgba(0, 0, 0, 0.5);
             --spacing-xs: 0.5rem;
             --spacing-sm: 0.75rem;
             --spacing-md: 1rem;
@@ -76,11 +79,18 @@
         }
 
         body {
-            font-family: 'Rubik', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-secondary);
+            font-family: 'Heebo', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            letter-spacing: 0.2px;
         }
 
         .landing-container {
@@ -91,12 +101,13 @@
 
         /* Header */
         .landing-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 122, 26, 0.18), transparent 60%), var(--bg-primary);
+            color: var(--text-primary);
             padding: var(--spacing-3xl) var(--spacing-xl);
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .landing-header::before {
@@ -106,9 +117,10 @@
             right: -10%;
             width: 500px;
             height: 500px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 122, 26, 0.1);
             border-radius: 50%;
             z-index: 0;
+            filter: blur(10px);
         }
 
         .landing-header::after {
@@ -118,9 +130,10 @@
             left: -5%;
             width: 400px;
             height: 400px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(99, 102, 241, 0.08);
             border-radius: 50%;
             z-index: 0;
+            filter: blur(10px);
         }
 
         .header-content {
@@ -142,11 +155,12 @@
         .brand-logo i,
         .brand-logo img {
             font-size: 3rem;
-            background: white;
+            background: var(--bg-card);
             color: var(--primary-color);
             padding: var(--spacing-md);
             border-radius: var(--border-radius-xl);
             box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
         }
 
         .brand-logo img {
@@ -158,19 +172,20 @@
         .brand-logo h1 {
             font-size: 2.5rem;
             font-weight: 800;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: var(--text-primary);
             text-decoration: none;
         }
 
         .header-subtitle {
             font-size: 1.3rem;
-            opacity: 0.95;
+            color: var(--primary-color);
+            font-weight: 600;
             margin-bottom: var(--spacing-lg);
         }
 
         .header-description {
             font-size: 1.1rem;
-            opacity: 0.9;
+            color: var(--text-secondary);
             max-width: 800px;
             margin: 0 auto;
         }
@@ -205,8 +220,9 @@
 
         /* Footer */
         .landing-footer {
-            background: linear-gradient(135deg, #1e293b, #334155);
-            color: white;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-primary);
             padding: var(--spacing-2xl) var(--spacing-xl);
             text-align: center;
         }
@@ -247,8 +263,8 @@
             align-items: center;
             gap: var(--spacing-sm);
             padding: var(--spacing-md) var(--spacing-2xl);
-            background: white;
-            color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
             text-decoration: none;
             border-radius: var(--border-radius-full);
             font-weight: 600;
@@ -261,7 +277,7 @@
             transform: translateY(-2px);
             box-shadow: var(--shadow-xl);
             background: var(--secondary-color);
-            color: white;
+            color: #07070d;
         }
 
         .footer-links {
@@ -273,7 +289,7 @@
         }
 
         .footer-link {
-            color: white;
+            color: var(--text-primary);
             text-decoration: none;
             opacity: 0.8;
             transition: opacity var(--transition-fast);
@@ -316,6 +332,96 @@
             opacity: 0.7;
         }
 
+        /* Carousel & Animation Styles */
+        .swiper-container {
+            width: 100%;
+            overflow: visible;
+        }
+
+        .swiper-wrapper {
+            display: flex;
+            gap: var(--spacing-xl);
+        }
+
+        .swiper-slide {
+            width: 100%;
+            height: auto;
+            transition: all var(--transition-normal);
+        }
+
+        .swiper-slide-active .pricing-card {
+            transform: scale(1.02);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 30px rgba(255, 122, 26, 0.3);
+        }
+
+        .swiper-pagination {
+            position: relative !important;
+            margin-top: var(--spacing-2xl);
+            bottom: auto !important;
+        }
+
+        .swiper-pagination-bullet {
+            background: var(--border-color);
+            opacity: 0.5;
+            width: 10px;
+            height: 10px;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--primary-color);
+            opacity: 1;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--primary-color);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            width: 44px;
+            height: 44px;
+            border-radius: var(--border-radius-full);
+            top: 50%;
+            margin-top: -22px;
+            transition: all var(--transition-normal);
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: var(--primary-color);
+            color: var(--bg-primary);
+            border-color: var(--primary-color);
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 18px;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .pricing-card {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .pricing-card.loading {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
         @media (max-width: 768px) {
             .brand-logo {
                 flex-direction: column;
@@ -332,6 +438,84 @@
             .section-intro h2 {
                 font-size: 2rem;
             }
+        }
+
+        /* Real pricing packages - static grid (no carousel needed for 3 cards) */
+        .pricing-grid-static {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .pricing-grid-static .pricing-card-slide {
+            min-width: 0;
+            padding: 0;
+            margin-bottom: 0;
+            height: 100%;
+        }
+
+        .pricing-grid-static .pricing-card {
+            height: 100%;
+        }
+
+        .dual-price {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .dual-price-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--spacing-sm);
+        }
+
+        .dual-price-item-main .dual-price-value {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .dual-price-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .dual-price-value {
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .dual-price-note {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-align: center;
+            padding-top: var(--spacing-xs);
+        }
+
+        .pricing-card-custom {
+            border-style: dashed !important;
+            background: var(--bg-secondary) !important;
+        }
+
+        .custom-price-label {
+            text-align: center;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .btn-pricing-outline {
+            background: transparent !important;
+            border: 2px solid var(--primary-color) !important;
+            color: var(--primary-color) !important;
+        }
+
+        .btn-pricing-outline:hover {
+            background: var(--primary-color) !important;
+            color: white !important;
         }
     </style>
 </head>
@@ -411,9 +595,79 @@
     <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
+    <!-- Swiper.js for carousel -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <!-- Precompiled scripts (no in-browser Babel) -->
     <script src="assets/js/PricingQuote.compiled.js"></script>
     <script src="assets/js/pricing-landing.compiled.js"></script>
+
+    <script>
+        // Initialize Swiper for pricing carousel
+        let pricingSwiper = null;
+
+        function initPricingSwiper() {
+            const swiperContainer = document.querySelector('.swiper-container');
+            if (swiperContainer && !pricingSwiper) {
+                pricingSwiper = new Swiper('.swiper-container', {
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    centeredSlides: false,
+                    autoplay: false,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                        dynamicBullets: false
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev'
+                    },
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 20
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 24
+                        }
+                    },
+                    keyboard: {
+                        enabled: true,
+                        onlyInViewport: true
+                    },
+                    grabCursor: true,
+                    observer: true,
+                    observeParents: true
+                });
+            }
+        }
+
+        // Initialize AOS for animations
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out-cubic',
+                once: true,
+                offset: 100
+            });
+
+            // Initialize Swiper after a short delay to ensure DOM is ready
+            setTimeout(() => {
+                initPricingSwiper();
+            }, 100);
+        });
+
+        // Re-initialize Swiper if pricing section loads dynamically
+        const observer = new MutationObserver(() => {
+            if (!pricingSwiper && document.querySelector('.swiper-container')) {
+                initPricingSwiper();
+            }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+    </script>
 
     <!-- Floating WhatsApp Button -->
     <a

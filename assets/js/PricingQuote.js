@@ -1,582 +1,214 @@
-// Pricing Quote Component with interactive pricing calculator
+// Pricing Quote Component - real current offering (2026)
 const PricingQuote = () => {
-    const [selectedPackages, setSelectedPackages] = React.useState({});
-    const [selectedAddons, setSelectedAddons] = React.useState({});
-    const [showDealsModal, setShowDealsModal] = React.useState(false);
-    const [showOfferPopup, setShowOfferPopup] = React.useState(true);
-    const [currentSlide, setCurrentSlide] = React.useState(0);
-    const [isTransitioning, setIsTransitioning] = React.useState(false);
-    const [expandedAddons, setExpandedAddons] = React.useState({});
-
-    const pricingData = [
+    const packages = [
         {
-            id: 'business-site',
-            icon: 'bx-building-house',
-            title: '<i class="fas fa-building"></i> אתר תדמית לעסקים',
-            description: 'אתר מקצועי שמייצג את העסק שלך ומביא לקוחות חדשים',
-            basePrice: 3300,
-            originalPrice: 4800,
-            discount: 31,
+            id: 'basic',
+            icon: 'bx-rocket',
+            title: '<i class="fas fa-fire-alt"></i> Basic - התחלה חזקה',
+            description: 'למי שרוצה להתחיל למכור ישירות ללקוחות בלי עמלות - תפריט דיגיטלי, הזמנות בזמן אמת וניהול מלא',
+            priceType: 'monthly',
+            monthlyPrice: 250,
             currency: '₪',
-            timeline: '2-4 שבועות',
+            timeline: '60 ימי ניסיון חינם',
             features: [
-                'עיצוב מותאם למותג העסקי',
-                'עד 7 עמודים תוכן',
-                'SEO מובנה להופעה בגוגל',
-                'מותאם לכל המכשירים (Responsive)',
-                'מערכת ניהול תוכן פשוטה',
-                'טופס יצירת קשר',
-                'אינטגרציה לרשתות חברתיות',
-                'אחסון שנה ראשונה'
+                'אתר הזמנות ממותג במלואו',
+                'ניהול תפריט מלא עם עדכוני זמן אמת',
+                'מסך הזמנות בזמן אמת',
+                'אזורי משלוח ודמי משלוח',
+                'דוחות בסיסיים של מכירות',
+                'תפריט QR דיגיטלי',
+                '0% עמלות על הזמנות ישירות'
             ],
-            addons: [
-                { id: 'extra-pages', name: 'עמודים נוספים (כל עמוד)', price: 300 },
-                { id: 'ecommerce-basic', name: 'חנות אונליין בסיסית (עד 20 מוצרים)', price: 1450 },
-                { id: 'multilingual', name: 'תמיכה רב-לשונית (אנגלית)', price: 850 },
-                { id: 'blog', name: 'בלוג מקצועי', price: 550 },
-                { id: 'custom-forms', name: 'טפסים מותאמים אישית', price: 420 }
+            badge: 'הכי משתלם להתחלה',
+            badgeIcon: 'bxs-bolt-circle',
+            gradient: 'linear-gradient(135deg, #ff7a1a, #f59e0b)'
+        },
+        {
+            id: 'pro',
+            icon: 'bxs-crown',
+            title: '<i class="fas fa-crown"></i> Pro - צמיחה וכלים חכמים',
+            description: 'למי שרוצה להגדיל מכירות ולשמור על לקוחות - כל מה שב-Basic + מבצעים, מועדון נאמנות וכלים ניהול מתקדמים',
+            priceType: 'monthly',
+            monthlyPrice: 450,
+            currency: '₪',
+            timeline: '60 ימי ניסיון חינם',
+            features: [
+                'כל מה שב-Basic',
+                'מבצעים וקופונים חכמים',
+                'מועדון לקוחות ותוכנית נאמנות',
+                'מסך מטבח + מסוף קופה (POS)',
+                'דוחות מתקדמים ותובנות AI',
+                'התראות Push ועדכונים בוואטסאפ',
+                '0% עמלות על כל הזמנה'
             ],
             popular: true,
-            dealBadge: 'מבצע השקה',
-            dealBadgeIcon: 'bxs-hot',
-            gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)'
+            badge: 'המבחר הפופולרי',
+            badgeIcon: 'bxs-star',
+            gradient: 'linear-gradient(135deg, #6366f1, #ff7a1a)'
         },
         {
-            id: 'business-card',
-            icon: 'bx-id-card',
-            title: '<i class="fas fa-credit-card"></i> אתר כרטיס ביקור',
-            description: 'אתר מינימליסטי עם פרטי התקשרות וטופס יצירת קשר',
-            basePrice: 1350,
-            originalPrice: 1900,
-            discount: 29,
+            id: 'enterprise',
+            icon: 'bx-building-house',
+            title: '<i class="fas fa-sitemap"></i> Enterprise - רשתות וחברות גדולות',
+            description: 'לרשתות עסקים, חברות פרנצ׳יזה ומפעלים - כל מה שב-Pro + מספר סניפים, התאמות ייעודיות וליווי אישי',
+            priceType: 'custom',
+            monthlyPrice: null,
             currency: '₪',
-            timeline: '1-2 שבועות',
+            timeline: 'ליווי מלא בהטמעה',
             features: [
-                'עמוד יחיד מעוצב',
-                'פרטי התקשרות ברורים',
-                'קישור מהיר לוואטסאפ',
-                'טופס יצירת קשר פשוט',
-                'מותאם למובייל',
-                'קישורים לרשתות חברתיות',
-                'מפה לעסק (Google Maps)',
-                'אחסון שנה ראשונה'
+                'כל מה שב-Pro',
+                'תמיכה ב-מספר סניפים',
+                'התאמות ייעודיות לצרכי העסק',
+                'ליווי אישי בהטמעה',
+                'SLA ותמיכה מורחבת 24/7',
+                'דוחות מותאמים ואנליטיקה מתקדמת',
+                'שילוב עם מערכות קיימות'
             ],
-            addons: [
-                { id: 'gallery', name: 'גלריית תמונות', price: 300 },
-                { id: 'booking', name: 'אינטגרציית Appointed.cloud לניהול תורים', price: 500 },
-                { id: 'reviews', name: 'מערכת המלצות לקוחות', price: 350 }
-            ],
-            dealBadge: 'מחיר מבצע',
-            dealBadgeIcon: 'bxs-zap',
-            gradient: 'linear-gradient(135deg, #10b981, #14b8a6)'
-        },
-        {
-            id: 'landing-newsletter',
-            icon: 'bx-envelope',
-            title: '<i class="fas fa-envelope"></i> דף נחיתה + ניוזלטר',
-            description: 'פתרון שממיר גולשים ללקוחות עם ניוזלטר אוטומטי',
-            basePrice: 2400,
-            originalPrice: 3400,
-            discount: 29,
-            currency: '₪',
-            timeline: '2-3 שבועות',
-            features: [
-                'דף נחיתה ממוקד המרות',
-                'מערכת ניוזלטר אוטומטית',
-                'טפסי הרשמה חכמים',
-                'אינטגרציה עם כלי שיווק',
-                'אנליטיקס ומעקב המרות',
-                'עיצוב UI/UX ממיר',
-                'אופטימיזציה למובייל',
-                'תמיכה חודש ראשון'
-            ],
-            addons: [
-                { id: 'ab-testing', name: 'מערכת A/B Testing', price: 1050 },
-                { id: 'advanced-analytics', name: 'אנליטיקס מתקדם', price: 550 },
-                { id: 'automation', name: 'אוטומציות שיווק', price: 850 }
-            ],
-            dealBadge: 'חבילה שווה',
-            dealBadgeIcon: 'bxs-diamond',
-            gradient: 'linear-gradient(135deg, #f59e0b, #f97316)'
-        },
-        {
-            id: 'mobile-app',
-            icon: 'bx-mobile',
-            title: '<i class="fas fa-mobile-alt"></i> אפליקציות מובייל',
-            description: 'אפליקציות מותאמות אישית למובייל עם חוויית משתמש מעולה',
-            basePrice: 8800,
-            originalPrice: 13000,
-            discount: 32,
-            currency: '₪',
-            timeline: '4-8 שבועות',
-            features: [
-                'פיתוח Cross-Platform (iOS + Android)',
-                'עיצוב UI/UX מותאם למובייל',
-                'אינטגרציה עם API ושרתים',
-                'התראות Push',
-                'בדיקות איכות מקיפות',
-                'פרסום ל-App Store / Play Store',
-                'תיעוד מפורט',
-                'תמיכה 3 חודשים'
-            ],
-            addons: [
-                { id: 'native-dev', name: 'פיתוח Native (במקום Cross-Platform)', price: 3500 },
-                { id: 'backend', name: 'פיתוח Backend מלא', price: 4200 },
-                { id: 'admin-panel', name: 'פאנל ניהול מתקדם', price: 2500 },
-                { id: 'payment-integration', name: 'אינטגרציית תשלומים', price: 1400 }
-            ],
-            dealBadge: 'מבצע ענק',
-            dealBadgeIcon: 'bxs-rocket',
-            gradient: 'linear-gradient(135deg, #ec4899, #8b5cf6)'
-        },
-        {
-            id: 'maintenance',
-            icon: 'bx-wrench',
-            title: '<i class="fas fa-wrench"></i> תחזוקה שוטפת',
-            description: 'שמירה על האתר מעודכן, מאובטח ומהיר לאורך זמן',
-            basePrice: 300,
-            originalPrice: 450,
-            discount: 33,
-            currency: '₪/חודש',
-            timeline: 'שירות חודשי',
-            features: [
-                'עדכוני אבטחה שוטפים',
-                'גיבויים אוטומטיים יומיים',
-                'תמיכה טכנית מהירה',
-                'תיקוני באגים',
-                'שיפורי ביצועים',
-                'ניטור זמינות 24/7',
-                'עדכוני תוכן (עד 2 שעות/חודש)',
-                'דוחות ביצועים חודשיים'
-            ],
-            addons: [
-                { id: 'extra-hours', name: 'שעות תוכן נוספות (שעה)', price: 110 },
-                { id: 'priority-support', name: 'תמיכה עדיפות 24/7', price: 140 },
-                { id: 'seo-monthly', name: 'אופטימיזציה חודשית SEO', price: 350 }
-            ],
-            dealBadge: 'מחיר מיוחד',
-            dealBadgeIcon: 'bxs-star',
-            gradient: 'linear-gradient(135deg, #3b82f6, #06b6d4)'
+            badge: 'עבור עסקים גדולים',
+            badgeIcon: 'bxs-rocket',
+            gradient: 'linear-gradient(135deg, #3b82f6, #6366f1)'
         }
     ];
 
-    const comboDeals = [
-        {
-            id: 'startup-package',
-            title: 'חבילת STARTUP מושלמת',
-            icon: 'bxs-rocket',
-            items: ['אתר תדמית לעסקים', 'דף נחיתה + ניוזלטר', 'תחזוקה 12 חודשים'],
-            regularPrice: 8500,
-            dealPrice: 6000,
-            savings: 2500,
-            badge: 'מבצע בלעדי',
-            badgeIcon: 'bxs-flame',
-            gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-            color: '#6366f1'
-        },
-        {
-            id: 'digital-pro',
-            title: 'חבילת DIGITAL PRO',
-            icon: 'bxs-briefcase-alt-2',
-            items: ['אתר תדמית מלא', 'אפליקציית מובייל', 'תחזוקה 12 חודשים', 'SEO חודשי'],
-            regularPrice: 16500,
-            dealPrice: 12000,
-            savings: 4500,
-            badge: 'החבילה הכי משתלמת',
-            badgeIcon: 'bxs-crown',
-            gradient: 'linear-gradient(135deg, #f59e0b, #f97316)',
-            color: '#f59e0b'
-        },
-        {
-            id: 'quick-start',
-            title: 'QUICK START',
-            icon: 'bxs-bolt',
-            items: ['אתר כרטיס ביקור', 'תחזוקה 6 חודשים'],
-            regularPrice: 3000,
-            dealPrice: 2100,
-            savings: 900,
-            badge: 'מתנה לעסק חדש',
-            badgeIcon: 'bxs-gift',
-            gradient: 'linear-gradient(135deg, #10b981, #14b8a6)',
-            color: '#10b981'
+    const formatShekel = (value) => value.toLocaleString('he-IL') + '₪';
+
+    const handleSelectPricing = (pkg) => {
+        let priceLines;
+        if (pkg.priceType === 'monthly') {
+            priceLines = `מנוי חודשי: ${formatShekel(pkg.monthlyPrice)}\nניסיון חינם: 60 ימים`;
+        } else if (pkg.priceType === 'custom') {
+            priceLines = 'הצעת מחיר מותאמת - כדי לפרטים בואנו נדברים';
         }
-    ];
 
-    const limitedTimeOffer = {
-        endDate: '2026-03-31',
-        discount: 15,
-        message: 'מבצע לזמן מוגבל! הנחה נוספת של 15% על כל החבילות עד סוף מרץ',
-        icon: 'bx-time-five'
-    };
-
-    const toggleAddon = (packageId, addonId, price) => {
-        setSelectedAddons(prev => {
-            const packageAddons = prev[packageId] || {};
-            const newPackageAddons = {
-                ...packageAddons,
-                [addonId]: packageAddons[addonId] ? undefined : price
-            };
-            return {
-                ...prev,
-                [packageId]: newPackageAddons
-            };
-        });
-    };
-
-    const calculateTotal = (packageId, basePrice) => {
-        const addonsTotal = Object.values(selectedAddons[packageId] || {})
-            .filter(Boolean)
-            .reduce((sum, price) => sum + price, 0);
-        return basePrice + addonsTotal;
-    };
-
-    const handleSelectPricing = (packageId, pricing) => {
-        const total = calculateTotal(packageId, pricing.basePrice);
-        const selectedAddonsList = pricing.addons?.filter(addon =>
-            selectedAddons[packageId]?.[addon.id]
-        ).map(addon => addon.name) || [];
-
-        const message = `*הזמנת חבילה מהאתר!*
+        const message = `*התעניינות בהצעת מחיר מהאתר!*
 
 *חבילה נבחרת:*
-${pricing.title.replace(/<[^>]*>/g, '')}
+${pkg.title.replace(/<[^>]*>/g, '')}
 
 *מחיר:*
-מחיר בסיס: ${pricing.basePrice.toLocaleString()}₪
-${selectedAddonsList.length > 0 ? `\n*תוספות שנבחרו:*\n${selectedAddonsList.map(name => `• ${name}`).join('\n')}` : ''}
-*סה"כ: ${total.toLocaleString()}₪*
+${priceLines}
 
-*זמן ביצוע משוער:* ${pricing.timeline}
+*זמן ביצוע משוער:* ${pkg.timeline}
 
-מעוניין לקבל הצעת מחיר מפורטת!`;
-
-        const phoneNumber = '972547466508';
+אשמח לקבל פרטים נוספים!`;
         const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappURL, '_blank');
     };
 
-    const handleSelectComboDeal = (deal) => {
-        const message = `*התעניינות בחבילת מבצע!*
-
-${deal.badge} - ${deal.title}
-
-*החבילה כוללת:*
-${deal.items.map(item => `✓ ${item}`).join('\n')}
-
-*מחירים:*
-מחיר רגיל: ~~${deal.regularPrice.toLocaleString()}₪~~
-*מחיר מבצע: ${deal.dealPrice.toLocaleString()}₪*
-חוסכים: ${deal.savings.toLocaleString()}₪
-
-אשמח לשמוע פרטים נוספים!`;
-
+    const handleContactCustom = () => {
+        const message = 'היי איתי! מעוניין/ת בפיתוח אתר או מערכת מותאמת אישית לעסק שלי. אשמח לשמוע פרטים ולקבל הצעת מחיר.';
         const phoneNumber = '972547466508';
         const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappURL, '_blank');
-    };
-
-    const nextSlide = () => {
-        if (isTransitioning) return;
-        setIsTransitioning(true);
-        setCurrentSlide((prev) => prev + 1);
-    };
-
-    const prevSlide = () => {
-        if (isTransitioning) return;
-        setIsTransitioning(true);
-        setCurrentSlide((prev) => prev - 1);
-    };
-
-    const goToSlide = (index) => {
-        if (isTransitioning) return;
-        setIsTransitioning(true);
-        setCurrentSlide(index);
-    };
-
-    // Reset to actual position after transition
-    React.useEffect(() => {
-        if (!isTransitioning) return;
-
-        const timer = setTimeout(() => {
-            setIsTransitioning(false);
-
-            if (currentSlide >= pricingData.length) {
-                setCurrentSlide(0);
-            } else if (currentSlide < 0) {
-                setCurrentSlide(pricingData.length - 1);
-            }
-        }, 500); // Match transition duration
-
-        return () => clearTimeout(timer);
-    }, [currentSlide, isTransitioning, pricingData.length]);
-
-    // Create extended array with clones for infinite effect
-    const extendedPricingData = [
-        pricingData[pricingData.length - 1], // Clone last at start
-        ...pricingData,
-        pricingData[0] // Clone first at end
-    ];
-
-    const getTransformValue = () => {
-        return -(currentSlide + 1) * 100; // Negative to move track left, +1 for clone at start
-    };
-
-    const toggleAddonsExpand = (packageId) => {
-        setExpandedAddons(prev => ({ ...prev, [packageId]: !prev[packageId] }));
     };
 
     return (
         <section id="pricing" className="pricing-quote">
             <div className="container">
-                {/* Offer Popup */}
-                {showOfferPopup && (
-                    <div className="offer-popup-overlay" onClick={() => setShowOfferPopup(false)}>
-                        <div className="offer-popup" onClick={(e) => e.stopPropagation()}>
-                            <button className="popup-close" onClick={() => setShowOfferPopup(false)}>
-                                <i className='bx bx-x'></i>
-                            </button>
-                            <div className="popup-icon">
-                                <i className={`bx ${limitedTimeOffer.icon}`}></i>
-                            </div>
-                            <h3 className="popup-title">מבצע לזמן מוגבל!</h3>
-                            <p className="popup-message">{limitedTimeOffer.message}</p>
-                            <button className="popup-cta" onClick={() => setShowOfferPopup(false)}>
-                                <i className='bx bx-check'></i>
-                                הבנתי, בואו נתחיל!
-                            </button>
-                        </div>
-                    </div>
-                )}
-
                 <div className="section-header" data-aos="fade-up">
                     <h2 className="section-title">
-                        <i className='bx bxs-hot'></i>
-                        מבצעים נרחבים - חוסכים אלפי שקלים!
+                        <i className='bx bx-purchase-tag'></i>
+                        חבילות ומחירים
                     </h2>
                     <p className="section-description">
-                        בחרו חבילת בסיס והוסיפו תוספות לפי הצורך - מחירים תחרותיים עם הנחות ענק!
+                        שלוש חבילות מוכנות למערכות הזמנות לעסקים - מחנויות וקפה בר ועד מסעדות ותוכניות אם רוצים לעסקים גדולים. בנוסף, פיתוח תוכנה מותאם אישית לכל צורך דיגיטלי.
                     </p>
                 </div>
 
-                {/* Combo Deals Section */}
-                <div className="combo-deals-section" data-aos="fade-up">
-                    <h3 className="combo-title">
-                        <i className='bx bxs-gift'></i>
-                        חבילות משולבות - החיסכון הכי גדול!
+                <div className="individual-packages" data-aos="fade-up">
+                    <h3 className="packages-title">
+                        <i className='bx bx-store-alt'></i>
+                        תוכניות הזמנות ללעסקים
                     </h3>
-                    <div className="combo-deals-grid">
-                        {comboDeals.map((deal, index) => (
-                            <div
-                                key={deal.id}
-                                className="combo-deal-card"
-                                style={{ borderTop: `4px solid ${deal.color}` }}
-                                data-aos="flip-left"
-                                data-aos-delay={index * 100}
-                            >
-                                <div className="combo-badge" style={{ background: deal.gradient }}>
-                                    <i className={`bx ${deal.badgeIcon}`}></i>
-                                    <span>{deal.badge}</span>
-                                </div>
-                                <div className="combo-icon" style={{ background: deal.gradient }}>
-                                    <i className={`bx ${deal.icon}`}></i>
-                                </div>
-                                <h4>{deal.title}</h4>
+                    <p className="packages-subtitle">בחרו את התוכנית המתאימה לגודל וצרכי העסק שלכם</p>
+                </div>
 
-                                <ul className="combo-items">
-                                    {deal.items.map((item, i) => (
+                <div className="pricing-grid pricing-grid-static swiper swiper-container" data-aos="fade-up" data-aos-delay="100">
+                    <div className="swiper-wrapper">
+                            <div className="pricing-card">
+                                {pkg.popular && <span className="popular-badge">
+                                    <i className='bx bxs-star'></i>
+                                    הכי פופולרי
+                                </span>}
+
+                                {pkg.badge && (
+                                    <div className="deal-badge-top" style={{ background: pkg.gradient }}>
+                                        <i className={`bx ${pkg.badgeIcon}`}></i>
+                                        <span>{pkg.badge}</span>
+                                    </div>
+                                )}
+
+                                <div className="pricing-header">
+                                    <div className="pricing-icon" style={{ background: pkg.gradient }}>
+                                        <i className={`bx ${pkg.icon}`}></i>
+                                    </div>
+                                    <h3 dangerouslySetInnerHTML={{ __html: pkg.title }}></h3>
+                                    <p className="pricing-description">{pkg.description}</p>
+                                </div>
+
+                                <div className="pricing-price">
+                                    {pkg.priceType === 'monthly' ? (
+                                        <div className="dual-price">
+                                            <div className="dual-price-item dual-price-item-main">
+                                                <span className="dual-price-label">מנוי חודשי</span>
+                                                <span className="dual-price-value">{pkg.monthlyPrice.toLocaleString()}{pkg.currency}</span>
+                                            </div>
+                                            <div className="dual-price-note">
+                                                <small>60 ימי ניסיון חינם • 12 חודשים כלולים בהקמה</small>
+                                            </div>
+                                        </div>
+                                    ) : pkg.priceType === 'custom' ? (
+                                        <div className="pricing-card-custom">
+                                            <span className="custom-price-label">התאמה לעסק<br/>שלך בדיוק</span>
+                                            <p style={{ fontSize: '0.9rem', marginTop: '0.5rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                                                צור קשר לפרטים והקמה מלאה
+                                            </p>
+                                            <button onClick={() => handleSelectPricing(pkg)} className="btn-pricing btn-pricing-outline" style={{ marginTop: '1rem', width: '100%' }}>
+                                                <i className='bx bxs-message-dots'></i>
+                                                דברו איתנו
+                                            </button>
+                                        </div>
+                                    ) : null}
+                                </div>
+
+                                <div className="pricing-timeline">
+                                    <i className='bx bx-time-five'></i>
+                                    <span>{pkg.timeline}</span>
+                                </div>
+
+                                <ul className="pricing-features">
+                                    {pkg.features.map((feature, i) => (
                                         <li key={i}>
-                                            <i className='bx bx-check-double'></i>
-                                            {item}
+                                            <i className='bx bx-check-circle'></i>
+                                            <span>{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div className="combo-pricing">
-                                    <div className="price-comparison">
-                                        <span className="regular-price">
-                                            ~~{deal.regularPrice.toLocaleString()}₪~~
-                                        </span>
-                                        <span className="deal-price">
-                                            {deal.dealPrice.toLocaleString()}₪
-                                        </span>
-                                    </div>
-                                    <div className="savings-badge">
-                                        <i className='bx bx-dollar-circle'></i>
-                                        חוסכים {deal.savings.toLocaleString()}₪!
-                                    </div>
-                                </div>
-
-                                <button
-                                    className="btn-combo-deal"
-                                    style={{ background: deal.gradient }}
-                                    onClick={() => handleSelectComboDeal(deal)}
-                                >
-                                    <i className='bx bx-cart'></i>
-                                    אני רוצה את החבילה!
+                                <button className="btn-pricing" onClick={() => handleSelectPricing(pkg)}>
+                                    <i className='bx bxl-whatsapp'></i>
+                                    מעוניין/ת בחבילה זו
                                 </button>
                             </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Individual Packages */}
-                <div className="individual-packages" data-aos="fade-up">
-                    <h3 className="packages-title">
-                        <i className='bx bx-customize'></i>
-                        חבילות בודדות
-                    </h3>
-                    <p className="packages-subtitle">בחרו חבילה והוסיפו תוספות לפי הצורך</p>
-                </div>
-
-                {/* Pricing Carousel */}
-                <div className="pricing-carousel-wrapper" data-aos="fade-up" data-aos-delay="100">
-                    <button className="carousel-nav prev" onClick={prevSlide} aria-label="כרטיס קודם">
-                        <i className="fas fa-chevron-left"></i>
-                    </button>
-
-                    <div className="pricing-carousel">
-                        <div
-                            className="pricing-carousel-track"
-                            style={{
-                                transform: `translateX(${getTransformValue()}%)`,
-                                transition: isTransitioning ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
-                            }}
-                        >
-                            {extendedPricingData.map((pricing, index) => {
-                                const total = calculateTotal(pricing.id, pricing.basePrice);
-                                const hasAddons = Object.values(selectedAddons[pricing.id] || {}).some(Boolean);
-
-                                return (
-                                    <div
-                                        key={`${pricing.id}-${index}`}
-                                        className={`pricing-card-slide ${pricing.popular ? 'popular' : ''}`}
-                                    >
-                                        <div className="pricing-card">
-                                            {pricing.popular && <span className="popular-badge">
-                                                <i className='bx bxs-star'></i>
-                                                הכי פופולרי
-                                            </span>}
-
-                                            {pricing.dealBadge && (
-                                                <div className="deal-badge-top" style={{ background: pricing.gradient }}>
-                                                    <i className={`bx ${pricing.dealBadgeIcon}`}></i>
-                                                    <span>{pricing.dealBadge}</span>
-                                                </div>
-                                            )}
-
-                                            <div className="pricing-header">
-                                                <div className="pricing-icon" style={{ background: pricing.gradient }}>
-                                                    <i className={`bx ${pricing.icon}`}></i>
-                                                </div>
-                                                <h3 dangerouslySetInnerHTML={{ __html: pricing.title }}></h3>
-                                                <p className="pricing-description">{pricing.description}</p>
-                                            </div>
-
-                                            <div className="pricing-price">
-                                                {pricing.discount > 0 && (
-                                                    <div className="original-price">
-                                                        <span className="strikethrough">{pricing.originalPrice.toLocaleString()}{pricing.currency}</span>
-                                                        <span className="discount-badge">-{pricing.discount}%</span>
-                                                    </div>
-                                                )}
-                                                <div className="current-price">
-                                                    <span className="price-amount">{pricing.basePrice.toLocaleString()}</span>
-                                                    <span className="price-currency">{pricing.currency}</span>
-                                                </div>
-                                                {hasAddons && (
-                                                    <div className="total-with-addons">
-                                                        + תוספות: <strong>{total.toLocaleString()}₪</strong>
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            <div className="pricing-timeline">
-                                                <i className='bx bx-time-five'></i>
-                                                <span>{pricing.timeline}</span>
-                                            </div>
-
-                                            <ul className="pricing-features">
-                                                {pricing.features.map((feature, i) => (
-                                                    <li key={i}>
-                                                        <i className='bx bx-check-circle'></i>
-                                                        <span>{feature}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-
-                                            {/* Addons Selection - Collapsible */}
-                                            {pricing.addons && pricing.addons.length > 0 && (
-                                                <div className="addons-section">
-                                                    <h4
-                                                        className="addons-title addons-toggle"
-                                                        onClick={() => toggleAddonsExpand(pricing.id)}
-                                                        role="button"
-                                                        tabIndex={0}
-                                                        onKeyDown={(e) => e.key === 'Enter' && toggleAddonsExpand(pricing.id)}
-                                                        aria-expanded={expandedAddons[pricing.id]}
-                                                    >
-                                                        <i className={`bx ${expandedAddons[pricing.id] ? 'bx-chevron-down' : 'bx-chevron-left'}`}></i>
-                                                        תוספות אופציונליות
-                                                        {Object.values(selectedAddons[pricing.id] || {}).filter(Boolean).length > 0 && (
-                                                            <span className="addons-count">({Object.values(selectedAddons[pricing.id] || {}).filter(Boolean).length})</span>
-                                                        )}
-                                                    </h4>
-                                                    <div className={`addons-list ${expandedAddons[pricing.id] ? 'expanded' : 'collapsed'}`}>
-                                                        {pricing.addons.map((addon) => (
-                                                            <label key={addon.id} className="addon-checkbox">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    checked={!!selectedAddons[pricing.id]?.[addon.id]}
-                                                                    onChange={() => toggleAddon(pricing.id, addon.id, addon.price)}
-                                                                />
-                                                                <span className="addon-name">{addon.name}</span>
-                                                                <span className="addon-price">+{addon.price.toLocaleString()}₪</span>
-                                                            </label>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            <button
-                                                className="btn-pricing"
-                                                onClick={() => handleSelectPricing(pricing.id, pricing)}
-                                            >
-                                                <i className='bx bxl-whatsapp'></i>
-                                                {hasAddons ? `הזמן ב-${total.toLocaleString()}₪` : 'הזמן עכשיו'}
-                                            </button>
-                                        </div>
-                                    </div>
-                                );
-                            })}
                         </div>
+                    ))}
                     </div>
 
-                    <button className="carousel-nav next" onClick={nextSlide} aria-label="כרטיס הבא">
-                        <i className="fas fa-chevron-right"></i>
-                    </button>
-
-                    {/* Carousel Indicators */}
-                    <div className="carousel-indicators">
-                        {pricingData.map((_, index) => (
-                            <button
-                                key={index}
-                                className={`indicator ${currentSlide === index ? 'active' : ''}`}
-                                onClick={() => goToSlide(index)}
-                            >
-                                <span className="sr-only">עבור לחבילה {index + 1}</span>
-                            </button>
-                        ))}
-                    </div>
+                    {/* Swiper pagination and navigation buttons */}
+                    <div className="swiper-pagination"></div>
+                    <div className="swiper-button-prev"></div>
+                    <div className="swiper-button-next"></div>
                 </div>
 
                 <div className="pricing-notes" data-aos="fade-up" data-aos-delay="300">
                     <div className="note-card">
                         <i className='bx bx-info-circle'></i>
                         <div className="note-content">
-                            <h4 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-lightbulb"></i> למה המחירים בטווח?' }}></h4>
+                            <h4 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-lightbulb"></i> איך בוחרים חבילה?' }}></h4>
                             <p>
-                                המחיר הסופי תלוי במורכבות הפרויקט, כמות העמודים, פיצ'רים מיוחדים ואינטגרציות נוספות.
-                                <strong> נספק הצעת מחיר מדויקת לאחר שיחת ייעוץ קצרה.</strong>
+                                <strong>Basic</strong> למי שרוצה להתחיל מהר עם תמיכה בעברית מלאה ואין עמלות על הזמנות.
+                                <strong> Pro</strong> למי שרוצה כלים למרטינג ובניית לקוחות קבוצים. 
+                                <strong>Enterprise</strong> לרשתות ועסקים גדולים שצריכים התאמות ייעודיות.
                             </p>
                         </div>
                     </div>
@@ -586,8 +218,8 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
                         <div className="note-content">
                             <h4 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-gift"></i> מה כלול בכל חבילה?' }}></h4>
                             <p>
-                                כל החבילות כוללות: ייעוץ ותכנון, קוד נקי ומסודר, הדרכה בסיסית,
-                                <strong> אחריות לתקופת האחריות הנקובה ותמיכה טכנית.</strong>
+                                ייעוץ ותכנון, הקמה מקצועית, הדרכה על המערכת,
+                                <strong> ותמיכה טכנית שוטפת לאורך כל תקופת השימוש.</strong>
                             </p>
                         </div>
                     </div>
@@ -595,10 +227,10 @@ ${deal.items.map(item => `✓ ${item}`).join('\n')}
                     <div className="note-card">
                         <i className='bx bx-money'></i>
                         <div className="note-content">
-                            <h4 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-credit-card"></i> תנאי תשלום גמישים' }}></h4>
+                            <h4 dangerouslySetInnerHTML={{ __html: '<i class="fas fa-credit-card"></i> יש לכם צורך שונה?' }}></h4>
                             <p>
-                                50% מקדמה בתחילת הפרויקט,
-                                <strong> 50% יתרה עם מסירת העבודה.</strong> אפשרות לפריסת תשלומים בפרויקטים גדולים.
+                                מעבר לחבילות ההזמנות, אני מפתח אתרים ומערכות מותאמות אישית לכל סוג עסק -
+                                <strong> צרו קשר לשיחת ייעוץ ותמחור לפי הפרויקט שלכם.</strong>
                             </p>
                         </div>
                     </div>

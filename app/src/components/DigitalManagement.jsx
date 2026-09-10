@@ -1,6 +1,7 @@
 import Icon from './Icon'
 import { Reveal, SectionHeader } from './primitives'
 import { getWhatsAppUrl } from '../lib/constants'
+import restaurants from '../data/restaurants.json'
 
 /* Simple brand glyphs for social platforms */
 function ServiceGlyph({ type }) {
@@ -68,6 +69,8 @@ function trackMouse(e) {
 }
 
 export default function DigitalManagement() {
+    const lemlem = restaurants.find((r) => r.slug === 'lemlem')
+
     return (
         <section id="digital" className="relative py-28 md:py-36">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-white/10 to-transparent" />
@@ -78,18 +81,78 @@ export default function DigitalManagement() {
                     description="פייסבוק, אינסטגרם, אתר, תוכן, לידים ופרסום — הכל במקום אחד"
                 />
 
-                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <Reveal delay={0.05} className="mb-14">
+                    <div id="lemlem-case-study" className="card-premium mx-auto grid max-w-4xl scroll-mt-28 items-center gap-8 overflow-hidden p-8 md:grid-cols-[auto_1fr] md:gap-12 md:p-12">
+                        <div className="mx-auto aspect-[480/744] w-full max-w-[220px] overflow-hidden rounded-2xl border border-white/10 bg-black/40 sm:max-w-[250px] md:max-w-[290px]">
+                            <video
+                                src="/videos/lemlem.mp4"
+                                title="פוסט של Lemlem בפייסבוק"
+                                className="h-full w-full object-contain"
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                preload="auto"
+                            />
+                        </div>
+                        <div className="text-center md:text-right">
+                            <span className="inline-flex items-center gap-2 rounded-full bg-[#1877F2]/15 px-3.5 py-1.5 text-xs font-bold tracking-wide text-[#1877F2]">
+                                Case Study · Lemlem
+                            </span>
+                            <h3 className="mt-4 text-2xl font-extrabold text-white">Lemlem — ניהול דיגיטל שוטף</h3>
+                            <p className="mt-2 max-w-md leading-relaxed text-mist md:mr-0 md:mx-0 mx-auto">
+                                מסעדה אמיתית שמקבלת ממני פוסטים ותנועה בדף הפייסבוק שלה, כולל פוסטים אחרונים
+                                שקיבלו תפוצה גבוהה משמעותית — לא רק לוגו על הדף, לקוחות אמיתיים חולקים את החוויה.
+                            </p>
+                            <div className="mt-5 flex flex-wrap justify-center gap-2 md:justify-start">
+                                {services.map((service) => (
+                                    <span
+                                        key={service.title}
+                                        className="rounded-full px-3 py-1.5 text-xs font-semibold"
+                                        style={{ color: service.color, background: `${service.color}16` }}
+                                    >
+                                        {service.title}
+                                    </span>
+                                ))}
+                            </div>
+                            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:justify-start">
+                                <a
+                                    href="https://www.facebook.com/profile.php?id=61573735258450"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-2 transition-colors hover:text-white"
+                                >
+                                    לדף הפייסבוק של Lemlem
+                                    <Icon name="external" size={14} />
+                                </a>
+                                {lemlem && (
+                                    <a
+                                        href={lemlem.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-2 transition-colors hover:text-white"
+                                    >
+                                        לצפייה בתפריט של Lemlem
+                                        <Icon name="external" size={14} />
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </Reveal>
+
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
                     {services.map((service, index) => (
                         <Reveal key={index} delay={index * 0.08} className="h-full">
-                            <div onMouseMove={trackMouse} className="card-premium group h-full p-7">
+                            <div onMouseMove={trackMouse} className="card-premium flex h-full flex-col items-center p-5 text-center">
                                 <span
-                                    className="mb-5 grid h-13 w-13 place-items-center rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3"
-                                    style={{ color: service.color, background: `${service.color}16`, border: `1px solid ${service.color}30` }}
+                                    className="mb-4 grid h-13 w-13 place-items-center rounded-2xl transition-transform duration-500 hover:scale-110"
+                                    style={{ color: service.color, background: `${service.color}16` }}
                                 >
                                     <ServiceGlyph type={service.glyph} />
                                 </span>
-                                <h3 className="text-lg font-bold">{service.title}</h3>
-                                <p className="mt-1.5 text-sm leading-relaxed text-mist">{service.desc}</p>
+                                <h3 className="text-sm font-bold">{service.title}</h3>
+                                <p className="mt-1.5 text-xs leading-relaxed text-mist">{service.desc}</p>
                             </div>
                         </Reveal>
                     ))}

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Icon from './Icon'
 import { Reveal, SectionHeader } from './primitives'
-import { getWhatsAppUrl, getMailtoUrl, CONTACT_EMAIL, WHATSAPP_NUMBER } from '../lib/constants'
+import { getWhatsAppUrl, getMailtoUrl, CONTACT_EMAIL, WHATSAPP_NUMBER, LINKEDIN_URL } from '../lib/constants'
 
 const contactMethods = [
     {
@@ -29,7 +29,7 @@ const contactMethods = [
         icon: 'linkedin',
         title: 'LinkedIn',
         info: 'חיבור מקצועי',
-        link: 'https://www.linkedin.com/in/itay-haroush-94710b229/?originalSubdomain=il',
+        link: LINKEDIN_URL,
         color: '#0A66C2',
     },
 ]
@@ -108,11 +108,11 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
             <div className="relative mx-auto max-w-6xl px-5">
                 <SectionHeader
                     subtitle="צור קשר"
-                    title="יש לכם רעיון? בואו נדבר"
-                    description="שיחה קצרה בוואטסאפ — בלי התחייבות, בלי טפסים ארוכים"
+                    title="יש לכם רעיון למערכת?"
+                    description="ספרו לי מה העסק צריך ואני אראה לכם איך אפשר להפוך את זה למוצר שעובד"
                 />
 
-                <Reveal className="-mt-8 mb-16 text-center md:-mt-12">
+                <Reveal className="-mt-8 mb-16 flex flex-col items-center justify-center gap-4 sm:flex-row md:-mt-12">
                     <a
                         href={getWhatsAppUrl()}
                         target="_blank"
@@ -120,7 +120,13 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                         className="btn-glow inline-flex items-center gap-3 rounded-full bg-gradient-to-l from-[#128C7E] to-[#25D366] px-9 py-4.5 text-lg font-bold text-white shadow-[0_8px_32px_-8px_rgba(37,211,102,0.55)]"
                     >
                         <Icon name="whatsapp" size={23} />
-                        שלחו הודעה בוואטסאפ
+                        דברו איתי בוואטסאפ
+                    </a>
+                    <a
+                        href="#contact-form"
+                        className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-7 py-4 text-base font-semibold text-white/85 transition-all hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/10"
+                    >
+                        השאירו פרטים
                     </a>
                 </Reveal>
 
@@ -132,7 +138,7 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                                     href={method.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="glass group flex items-center gap-4 rounded-2xl p-5 transition-all duration-400 hover:bg-white/7 hover:-translate-y-0.5"
+                                    className="group flex items-center gap-4 border-b border-white/8 p-5 transition-transform duration-400 hover:-translate-y-0.5"
                                 >
                                     <span
                                         className="grid h-13 w-13 shrink-0 place-items-center rounded-2xl text-white transition-transform duration-500 group-hover:scale-110"
@@ -152,8 +158,8 @@ ${formData.phone ? `• טלפון: ${formData.phone}` : ''}
                     </div>
 
                     <Reveal delay={0.15}>
-                        <div className="glass-strong rounded-3xl p-7 md:p-9">
-                            <p className="mb-6 text-center font-semibold text-white/80">או השאירו פרטים ואחזור אליכם</p>
+                        <div id="contact-form" className="scroll-mt-28">
+                            <p className="mb-6 text-center font-semibold text-white/80">השאירו פרטים ואחזור אליכם</p>
                             <form className="space-y-4" onSubmit={handleSubmit}>
                                 <input
                                     type="text"

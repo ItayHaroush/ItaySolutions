@@ -1,25 +1,26 @@
+import { Link } from 'react-router-dom'
 import Icon from './Icon'
 import { Reveal } from './primitives'
+import { getWhatsAppUrl, getMailtoUrl, LINKEDIN_URL } from '../lib/constants'
 
 const footerLinks = [
-    { href: '#home', label: 'בית' },
-    { href: '#portfolio', label: 'פרויקטים' },
-    { href: '#ongoing', label: 'עבודה שוטפת' },
-    { href: '#digital', label: 'ניהול דיגיטל' },
-    { href: '#about', label: 'עלי' },
-    { href: '#contact', label: 'צור קשר' },
-    { href: '/pricing-landing.html', label: 'מחירון' },
+    { to: '/takeeat', label: 'TakeEat' },
+    { to: '/buildix', label: 'Buildix' },
+    { to: '/projects', label: 'פרויקטים' },
+    { to: '/services', label: 'שירותים' },
+    { to: '/about', label: 'עליי' },
+    { to: '/contact', label: 'צור קשר' },
+    { to: '/pricing-landing.html', label: 'מחירון', external: true },
 ]
 
-export default function Footer({ scrollToSection }) {
-    const currentYear = new Date().getFullYear()
+const contactLinks = [
+    { href: getWhatsAppUrl(), label: 'WhatsApp', icon: 'whatsapp' },
+    { href: LINKEDIN_URL, label: 'LinkedIn', icon: 'linkedin' },
+    { href: getMailtoUrl(), label: 'Email', icon: 'mail' },
+]
 
-    const onLinkClick = (e, href) => {
-        if (href.startsWith('#')) {
-            e.preventDefault()
-            scrollToSection(href.slice(1))
-        }
-    }
+export default function Footer() {
+    const currentYear = new Date().getFullYear()
 
     return (
         <footer className="relative border-t border-white/8 pt-16 pb-8">
@@ -28,45 +29,50 @@ export default function Footer({ scrollToSection }) {
                     <div className="grid gap-10 md:grid-cols-3 md:items-start">
                         <div>
                             <h3 className="text-xl font-extrabold">Itay Solutions</h3>
-                            <p className="mt-2 text-mist">פיתוח מערכות, אתרים וניהול דיגיטל לעסקים</p>
+                            <p className="mt-2 text-mist">מערכות · מוצרים · אתרים · דיגיטל</p>
                         </div>
 
-                        <div className="glass flex items-center gap-4 rounded-2xl p-5">
-                            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white text-[#4285F4] shadow-lg">
-                                <Icon name="google" size={24} />
-                            </span>
-                            <div>
-                                <h4 className="font-bold">⭐ אהבתם? תנו כוכב!</h4>
-                                <p className="text-sm text-mist">דרגו אותנו בגוגל בקלי קלות</p>
-                                <a
-                                    href="https://share.google/veRJmLN9PbwB475UZ"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-2 transition-colors hover:text-white"
-                                >
-                                    צפו בביקורות ודירוגים
-                                    <Icon name="external" size={14} />
-                                </a>
-                            </div>
-                        </div>
+                        <nav className="flex flex-wrap gap-x-6 gap-y-3" aria-label="ניווט תחתון">
+                            {footerLinks.map((link) =>
+                                link.external ? (
+                                    <a
+                                        key={link.label}
+                                        href={link.to}
+                                        className="text-sm font-medium text-mist transition-colors hover:text-white"
+                                    >
+                                        {link.label}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        key={link.label}
+                                        to={link.to}
+                                        className="text-sm font-medium text-mist transition-colors hover:text-white"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                )
+                            )}
+                        </nav>
 
-                        <nav className="flex flex-wrap gap-x-6 gap-y-3 md:justify-end" aria-label="ניווט תחתון">
-                            {footerLinks.map((link) => (
+                        <div className="flex flex-wrap gap-x-6 gap-y-3 md:justify-end">
+                            {contactLinks.map((link) => (
                                 <a
                                     key={link.label}
                                     href={link.href}
-                                    onClick={(e) => onLinkClick(e, link.href)}
-                                    className="text-sm font-medium text-mist transition-colors hover:text-white"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 text-sm font-medium text-mist transition-colors hover:text-white"
                                 >
+                                    <Icon name={link.icon} size={15} />
                                     {link.label}
                                 </a>
                             ))}
-                        </nav>
+                        </div>
                     </div>
                 </Reveal>
 
                 <div className="mt-12 flex flex-col items-center gap-4 border-t border-white/6 pt-8 text-center">
-                    <p className="text-sm text-white/55">&copy; {currentYear} איתי הרוש. כל הזכויות שמורות.</p>
+                    <p className="text-sm text-white/55">&copy; {currentYear} Itay Solutions. כל הזכויות שמורות.</p>
                     <p className="max-w-2xl text-xs leading-relaxed text-white/35">
                         האתר משתמש בעוגיות (Cookies) לשיפור החוויה ולניתוח תנועה באמצעות Google Analytics. המשך גלישה באתר מהווה הסכמה לשימוש בעוגיות.
                     </p>

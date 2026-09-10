@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Icon from './Icon'
 import { getWhatsAppUrl } from '../lib/constants'
 
 const menuItems = [
-    { id: 'portfolio', label: 'פרויקטים' },
-    { id: 'ongoing', label: 'עבודה שוטפת' },
-    { id: 'digital', label: 'ניהול דיגיטל' },
-    { id: 'about', label: 'עלי' },
-    { id: 'contact', label: 'צור קשר' },
+    { to: '/takeeat', label: 'TakeEat' },
+    { to: '/buildix', label: 'Buildix' },
+    { to: '/projects', label: 'פרויקטים' },
+    { to: '/services', label: 'שירותים' },
+    { to: '/about', label: 'עליי' },
+    { to: '/contact', label: 'צור קשר' },
 ]
 
-export default function Header({ activeSection, scrollToSection }) {
+export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const onScroll = () => setIsScrolled(window.scrollY > 50)
@@ -21,8 +24,8 @@ export default function Header({ activeSection, scrollToSection }) {
         return () => window.removeEventListener('scroll', onScroll)
     }, [])
 
-    const go = (id) => {
-        scrollToSection(id)
+    const goHome = () => {
+        navigate('/')
         setIsMenuOpen(false)
     }
 
@@ -38,33 +41,37 @@ export default function Header({ activeSection, scrollToSection }) {
                     }`}
             >
                 <button
-                    onClick={() => go('home')}
+                    onClick={goHome}
                     className="flex items-center gap-2.5 text-lg font-bold tracking-tight"
                     aria-label="Itay Solutions - חזרה לראש הדף"
                 >
-                    <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-accent-2 to-accent text-ink shadow-[0_8px_24px_-6px_rgba(255,122,26,0.6)]">
-                        <Icon name="sparkle" size={18} />
-                    </span>
+                    <Icon name="sparkle" size={18} className="text-accent-2" />
                     <span>Itay Solutions</span>
                 </button>
 
                 <div className="hidden items-center gap-1 lg:flex">
                     {menuItems.map((item) => (
-                        <button
-                            key={item.id}
-                            onClick={() => go(item.id)}
-                            className={`relative rounded-full px-4 py-2 text-[15px] font-medium transition-colors duration-300 ${activeSection === item.id ? 'text-white' : 'text-mist hover:text-white'
-                                }`}
+                        <NavLink
+                            key={item.to}
+                            to={item.to}
+                            className={({ isActive }) =>
+                                `relative rounded-full px-4 py-2 text-[15px] font-medium transition-colors duration-300 ${isActive ? 'text-white' : 'text-mist hover:text-white'
+                                }`
+                            }
                         >
-                            {activeSection === item.id && (
-                                <motion.span
-                                    layoutId="nav-pill"
-                                    className="absolute inset-0 rounded-full bg-white/8 border border-white/10"
-                                    transition={{ type: 'spring', bounce: 0.25, duration: 0.6 }}
-                                />
+                            {({ isActive }) => (
+                                <>
+                                    {isActive && (
+                                        <motion.span
+                                            layoutId="nav-pill"
+                                            className="absolute inset-0 rounded-full bg-white/8 border border-white/10"
+                                            transition={{ type: 'spring', bounce: 0.25, duration: 0.6 }}
+                                        />
+                                    )}
+                                    <span className="relative">{item.label}</span>
+                                </>
                             )}
-                            <span className="relative">{item.label}</span>
-                        </button>
+                        </NavLink>
                     ))}
                     <a
                         href={getWhatsAppUrl()}
@@ -73,7 +80,7 @@ export default function Header({ activeSection, scrollToSection }) {
                         className="btn-glow mr-3 flex items-center gap-2 rounded-full bg-gradient-to-l from-accent to-accent-2 px-5 py-2.5 text-[15px] font-semibold text-ink"
                     >
                         <Icon name="whatsapp" size={17} />
-                        דברו בוואטסאפ
+                        דברו איתי בוואטסאפ
                     </a>
                 </div>
 
@@ -100,16 +107,23 @@ export default function Header({ activeSection, scrollToSection }) {
                     >
                         <div className="flex flex-col gap-1">
                             {menuItems.map((item, i) => (
-                                <motion.button
-                                    key={item.id}
+                                <motion.div
+                                    key={item.to}
                                     initial={{ opacity: 0, x: 20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: i * 0.05 }}
-                                    onClick={() => go(item.id)}
-                                    className="rounded-xl px-4 py-3 text-right text-base font-medium text-mist transition-colors hover:bg-white/5 hover:text-white"
                                 >
-                                    {item.label}
-                                </motion.button>
+                                    <NavLink
+                                        to={item.to}
+                                        onClick={() => setIsMenuOpen(false)}
+                                        className={({ isActive }) =>
+                                            `block rounded-xl px-4 py-3 text-right text-base font-medium transition-colors hover:bg-white/5 hover:text-white ${isActive ? 'text-white' : 'text-mist'
+                                            }`
+                                        }
+                                    >
+                                        {item.label}
+                                    </NavLink>
+                                </motion.div>
                             ))}
                             <a
                                 href={getWhatsAppUrl()}
@@ -118,7 +132,7 @@ export default function Header({ activeSection, scrollToSection }) {
                                 className="btn-glow mt-2 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-accent to-accent-2 px-5 py-3 font-semibold text-ink"
                             >
                                 <Icon name="whatsapp" size={18} />
-                                דברו בוואטסאפ
+                                דברו איתי בוואטסאפ
                             </a>
                         </div>
                     </motion.div>

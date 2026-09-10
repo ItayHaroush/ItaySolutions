@@ -85,35 +85,11 @@ body {
 
 .card-premium {
     position: relative;
-    border-radius: 1.5rem;
-    background: linear-gradient(170deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
-    border: 1px solid var(--color-line);
-    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.5s ease;
-}
-
-.card-premium::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 158, 78, 0.5), transparent 45%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card-premium:hover {
     transform: translateY(-6px);
-    border-color: rgba(255, 255, 255, 0.14);
-    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8), 0 0 60px -30px rgba(255, 122, 26, 0.25);
-}
-
-.card-premium:hover::before {
-    opacity: 1;
 }
 
 .btn-glow {
@@ -251,5 +227,67 @@ body {
     .float-slow,
     .skeleton-line {
         animation: none !important;
+    }
+}
+
+/* "כדור בדולח" — הובר על לוגו מסעדה/חנות שהופך לכדור זכוכית ומגלה
+   תוך כדי סבב תמונות פריטים אמיתיות מהתפריט */
+@keyframes crystal-drift {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-3%, 3%) scale(1.06);
+    }
+}
+
+.crystal-ball {
+    border-radius: 1rem;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+    transition: border-radius 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.7s ease;
+}
+
+.crystal-ball.is-active {
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 8px 30px -6px rgba(53, 208, 255, 0.45),
+        0 0 45px -8px rgba(124, 92, 255, 0.4),
+        inset 0 0 24px rgba(255, 255, 255, 0.12);
+}
+
+.crystal-ball .crystal-photo {
+    animation: crystal-drift 6s ease-in-out infinite;
+}
+
+/* רשת המשושים — כל תמונה מרחפת קלות בקצב שונה, עם זוהר עדין שעוקב אחרי הצורה המחותכת */
+.hex-photo {
+    animation: crystal-drift 5s ease-in-out infinite;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.5));
+}
+
+.crystal-sheen {
+    background:
+        radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.65), transparent 42%),
+        radial-gradient(circle at 75% 82%, rgba(255, 255, 255, 0.12), transparent 55%);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.crystal-ball.is-active .crystal-sheen {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .crystal-ball,
+    .crystal-ball .crystal-photo,
+    .hex-photo {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
     }
 }

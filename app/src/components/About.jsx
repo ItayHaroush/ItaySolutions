@@ -3,8 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import Icon from './Icon'
 import { Reveal, TextReveal } from './primitives'
 import { getWhatsAppUrl } from '../lib/constants'
-
-const processSteps = ['רעיון', 'אפיון', 'פיתוח', 'השקה', 'ליווי']
+import { processSteps } from '../lib/aboutData'
 
 export default function About() {
     const ref = useRef(null)
@@ -45,18 +44,20 @@ export default function About() {
                         </Reveal>
                         <TextReveal
                             as="h2"
-                            text="לא בונה אתרים — בונה פתרונות לעסקים"
+                            text="לא בונה אתרים — בונה מערכות ומוצרים אמיתיים"
                             delay={0.1}
                             className="mt-5 block text-3xl font-extrabold leading-[1.15] tracking-tight text-gradient-soft sm:text-4xl md:text-[2.6rem]"
                         />
                         <Reveal delay={0.2}>
                             <p className="mt-6 text-lg leading-relaxed text-mist">
-                                אני איתי הרוש, מייסד Itay Solutions. עובד עם עסקים קטנים ובינוניים בישראל — קבלנים, מסעדות, מורים, אדריכלים ובעלי מקצוע.
+                                אני איתי הרוש, Full Stack Developer ומייסד Itay Solutions. בונה מוצרים דיגיטליים שנמצאים בשימוש אמיתי —
+                                לא רק אתרים לתדמית.
                             </p>
                         </Reveal>
                         <Reveal delay={0.3}>
                             <p className="mt-4 text-lg leading-relaxed text-mist">
-                                לא מוסר קובץ ונעלם. מלווה מהרעיון, דרך הפיתוח והניהול הדיגיטלי, ועד שהמערכת או האתר עובדים בשטח — כולל Buildix, TakeEat ו-Appointix.
+                                לא מוסר קובץ ונעלם. מלווה מהרעיון, דרך אפיון, UX/UI, פיתוח Backend ו-Frontend, API ופרודקשן — ועד שהמערכת
+                                עובדת בשטח. TakeEat ו-Buildix הן ההוכחה לזה.
                             </p>
                         </Reveal>
 

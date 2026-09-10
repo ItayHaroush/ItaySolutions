@@ -35,9 +35,7 @@ export default function OngoingWork() {
                                 transition={{ delay: i * 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                                 className="glass flex items-center gap-3 rounded-2xl px-5 py-4 font-medium text-white/80 transition-colors duration-300 hover:bg-white/8"
                             >
-                                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent/15 text-accent-2">
-                                    <Icon name="check" size={14} strokeWidth={2.6} />
-                                </span>
+                                <Icon name="check" size={16} strokeWidth={2.6} className="shrink-0 text-accent-2" />
                                 {item}
                             </motion.li>
                         ))}

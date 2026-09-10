@@ -1,13 +1,14 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Icon from './Icon'
-import LiveShowcase from './LiveShowcase'
+import TakeEatHeroShowcase from './TakeEatHeroShowcase'
 import { TextReveal } from './primitives'
 import { getWhatsAppUrl } from '../lib/constants'
+import { scrollToId } from '../lib/lenis'
 
 const ease = [0.22, 1, 0.36, 1]
 
-export default function Hero({ scrollToSection }) {
+export default function Hero() {
     const ref = useRef(null)
     const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
     const yText = useTransform(scrollYProgress, [0, 1], [0, 120])
@@ -26,60 +27,25 @@ export default function Hero({ scrollToSection }) {
 
             <div className="relative mx-auto grid w-full max-w-6xl items-center gap-14 px-5 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
                 <motion.div style={{ y: yText, opacity }} className="text-center lg:text-right">
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease }}
-                        className="mb-5 inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-semibold tracking-widest text-accent-2 uppercase"
-                    >
-                        Itay Solutions
-                    </motion.p>
-
                     <h1 className="text-4xl font-black leading-[1.12] tracking-tight sm:text-5xl xl:text-[3.4rem]">
-                        <TextReveal as="span" text="בונה מערכות דיגיטליות, אתרים" className="block" delay={0.15} />
-                        <TextReveal as="span" text="ונוכחות אונליין לעסקים" className="block text-gradient" delay={0.4} />
+                        <TextReveal as="span" text="אני בונה מערכות דיגיטליות" className="block" delay={0.15} />
+                        <TextReveal as="span" text="שעובדות בעולם האמיתי" className="block text-gradient" delay={0.35} />
                     </h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.9, delay: 0.65, ease }}
+                        transition={{ duration: 0.9, delay: 0.75, ease }}
                         className="mx-auto mt-6 max-w-xl text-xl font-medium leading-relaxed text-white/85 lg:mx-0"
                     >
-                        עסקים לא צריכים עוד אתר. הם צריכים מערכת דיגיטלית שעוזרת להם לעבוד טוב יותר ולהביא יותר לקוחות.
-                    </motion.p>
-
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.9, delay: 0.85 }}
-                        className="mt-5 text-sm font-semibold tracking-[0.2em] text-accent-2"
-                    >
-                        אתרים · מערכות עסקיות · ניהול דיגיטל
-                    </motion.p>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.9, delay: 0.95, ease }}
-                        className="mx-auto mt-5 max-w-xl leading-relaxed text-mist lg:mx-0"
-                    >
-                        משלב בניית אתרים, מערכות מותאמות אישית, ניהול דיגיטל ואוטומציות — כדי לעזור לעסקים לעבוד חכם יותר ולהיראות מקצועיים יותר.
-                    </motion.p>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.9, delay: 1.05, ease }}
-                        className="mt-4 font-semibold text-white/75"
-                    >
-                        לא עוד ספק שירות. שותף שמלווה את העסק מהרעיון ועד התוצאה.
+                        מוצרים, מערכות עסקיות, אתרים ואינטגרציות — מאפיון ועד פרודקשן. TakeEat ו-Buildix הם מוצרים
+                        חיים שנמצאים בשימוש אמיתי.
                     </motion.p>
 
                     <motion.div
                         initial={{ opacity: 0, y: 28 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.9, delay: 1.2, ease }}
+                        transition={{ duration: 0.9, delay: 1.15, ease }}
                         className="mt-9 flex flex-col items-center gap-4 sm:flex-row lg:justify-start sm:justify-center"
                     >
                         <a
@@ -88,15 +54,15 @@ export default function Hero({ scrollToSection }) {
                             rel="noopener noreferrer"
                             className="btn-glow flex items-center gap-2.5 rounded-full bg-gradient-to-l from-accent to-accent-2 px-7 py-4 text-base font-bold text-ink"
                         >
-                            <Icon name="whatsapp" size={20} />
-                            בואו נראה איך אפשר לקדם את העסק שלכם
+                            <Icon name="whatsapp" size={19} />
+                            בואו נדבר
                         </a>
                         <button
-                            onClick={() => scrollToSection('portfolio')}
+                            onClick={() => scrollToId('takeeat')}
                             className="glass flex items-center gap-2.5 rounded-full px-7 py-4 text-base font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
                         >
                             <Icon name="folder" size={19} />
-                            צפו בעבודות
+                            צפו במוצרים
                         </button>
                     </motion.div>
                 </motion.div>
@@ -107,13 +73,13 @@ export default function Hero({ scrollToSection }) {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 1.1, delay: 0.5, ease }}
                 >
-                    <LiveShowcase />
+                    <TakeEatHeroShowcase />
                 </motion.div>
             </div>
 
             <motion.button
-                onClick={() => scrollToSection('portfolio')}
-                aria-label="גלילה לפרויקטים"
+                onClick={() => scrollToId('takeeat')}
+                aria-label="גלילה למוצרים"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.8 }}

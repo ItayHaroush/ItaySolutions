@@ -1,0 +1,86 @@
+[
+    {
+        "id": 28,
+        "name": "Lemlem אוכל אתיופי אותנטי",
+        "slug": "lemlem",
+        "tenantId": "lemlemethiopiansoulfood",
+        "logo": "/images/restaurants/lemlem.jpeg",
+        "href": "https://www.takeeat.co.il/r/lemlem",
+        "menuPhotos": [
+            "/images/menu-preview/lemlem-1.jpg",
+            "/images/menu-preview/lemlem-2.jpg",
+            "/images/menu-preview/lemlem-3.jpg",
+            "/images/menu-preview/lemlem-4.jpg"
+        ]
+    },
+    {
+        "id": 26,
+        "name": "Bella mia",
+        "slug": "bella-mia",
+        "tenantId": "bella-mia",
+        "logo": "/images/restaurants/bella-mia.png",
+        "href": "https://www.takeeat.co.il/r/bella-mia",
+        "menuPhotos": [
+            "/images/menu-preview/bella-mia-1.jpg",
+            "/images/menu-preview/bella-mia-2.jpg",
+            "/images/menu-preview/bella-mia-3.jpg",
+            "/images/menu-preview/bella-mia-4.jpg"
+        ]
+    },
+    {
+        "id": 50,
+        "name": "Khao lak - Thai experience",
+        "slug": "khao-lak-thai-experience",
+        "tenantId": "khaolak",
+        "logo": "/images/restaurants/khao-lak-thai-experience.jpg",
+        "href": "https://www.takeeat.co.il/r/khao-lak-thai-experience",
+        "menuPhotos": [
+            "/images/menu-preview/khao-lak-thai-experience-1.jpg",
+            "/images/menu-preview/khao-lak-thai-experience-2.jpg",
+            "/images/menu-preview/khao-lak-thai-experience-3.jpg",
+            "/images/menu-preview/khao-lak-thai-experience-4.jpg"
+        ]
+    },
+    {
+        "id": 27,
+        "name": "Mikey’s פיצה מקומית",
+        "slug": "mikeys",
+        "tenantId": "mikeys",
+        "logo": "/images/restaurants/mikeys.png",
+        "href": "https://www.takeeat.co.il/r/mikeys",
+        "menuPhotos": [
+            "/images/menu-preview/mikeys-1.jpg",
+            "/images/menu-preview/mikeys-2.jpg",
+            "/images/menu-preview/mikeys-3.jpg",
+            "/images/menu-preview/mikeys-4.jpg"
+        ]
+    },
+    {
+        "id": 19,
+        "name": "סילביס-טעים בכל ביס",
+        "slug": "silbis-taim",
+        "tenantId": "silbis-taim",
+        "logo": "/images/restaurants/silbis-taim.jpeg",
+        "href": "https://www.takeeat.co.il/r/silbis-taim",
+        "menuPhotos": [
+            "/images/menu-preview/silbis-taim-1.jpg",
+            "/images/menu-preview/silbis-taim-2.jpg",
+            "/images/menu-preview/silbis-taim-3.jpg",
+            "/images/menu-preview/silbis-taim-4.jpg"
+        ]
+    },
+    {
+        "id": 43,
+        "name": "על הלחם",
+        "slug": "al-halechem-udim",
+        "tenantId": "al-halechem-udim",
+        "logo": "/images/restaurants/al-halechem-udim.jpeg",
+        "href": "https://www.takeeat.co.il/r/al-halechem-udim",
+        "menuPhotos": [
+            "/images/menu-preview/al-halechem-udim-1.jpg",
+            "/images/menu-preview/al-halechem-udim-2.jpg",
+            "/images/menu-preview/al-halechem-udim-3.jpg",
+            "/images/menu-preview/al-halechem-udim-4.jpg"
+        ]
+    }
+]

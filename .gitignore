@@ -1,0 +1,7 @@
+node_modules/
+app/dist/
+*.log
+.DS_Store
+
+# Raw/source video footage - too large for git, convert to mp4 in app/public/videos instead
+assets/images/vidoes/*.mov
