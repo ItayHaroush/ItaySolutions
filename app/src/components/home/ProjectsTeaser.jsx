@@ -3,8 +3,19 @@ import Icon from '../Icon'
 import { Reveal, SectionHeader } from '../primitives'
 import { projects } from '../../lib/projectsData'
 
+const leFranceTeaser = {
+    id: 'le-france',
+    title: 'הצרפתייה הקטנה',
+    typeLabel: 'Case Study · TakeEat',
+    image: '/images/le-france/logo-green.png',
+    accent: '#ff7a1a',
+    desc: 'מסעדה צרפתית־ישראלית בעפולה עם אתר דיגיטלי ומערכת הזמנות מבוססת TakeEat.',
+    link: 'https://la-france-omega.vercel.app/',
+    ctaText: 'צפו באתר',
+}
+
 export default function ProjectsTeaser() {
-    const cards = projects
+    const cards = [leFranceTeaser, ...projects]
 
     return (
         <section className="relative py-24 md:py-32">

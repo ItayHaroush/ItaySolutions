@@ -1,16 +1,6 @@
 // Shared with the homepage "פרויקטים נבחרים" teaser and the full /projects page.
+// La France is deliberately NOT here — it's a TakeEat case study, shown only under /takeeat.
 export const projects = [
-    {
-        id: 'le-france',
-        title: 'הצרפתייה הקטנה',
-        subtitle: 'Case Study · אתר חי + TakeEat',
-        typeLabel: 'Case Study',
-        image: '/images/le-france/logo-green.png',
-        accent: '#34d399',
-        desc: 'מסעדה צרפתית־ישראלית בכשרות מהודרת — אתר דיגיטלי חי ומערכת הזמנות מבוססת TakeEat, רשומה גם כמסעדה במערכת ChefSync.',
-        link: 'https://la-france-omega.vercel.app/',
-        ctaText: 'לצפייה באתר החי',
-    },
     {
         id: 'bina',
         title: 'בינה לבנייה',

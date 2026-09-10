@@ -76,8 +76,11 @@ export default function LeFranceCaseStudy() {
                                 LIVE
                             </span>
                             <p className="mt-6 max-w-2xl text-center leading-relaxed text-mist">
-                                אתר דיגיטלי שנבנה לעסק אמיתי — מסעדה צרפתית־ישראלית בכשרות מהודרת בעפולה. המערכת חיה
-                                ופעילה, והעסק רשום גם כמסעדת TakeEat במערכת ChefSync.
+                                אתר דיגיטלי שנבנה לעסק אמיתי — מסעדה צרפתית־ישראלית בכשרות מהודרת בעפולה.
+
+                                העסק נהנה מנוכחות דיגיטלית עצמאית באתר, ובמקביל רשום ומנוהל גם כמסעדת TakeEat במערכת.
+
+                                המערכת חיה, פעילה ועובדת בשטח.
                             </p>
                             <div className="mt-7 flex justify-center">
                                 <a

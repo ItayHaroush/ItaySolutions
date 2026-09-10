@@ -17,6 +17,20 @@ const CASE_STUDY_STATS = {
     ],
 }
 
+/* הצרפתייה הקטנה: מערכת הזמנות פרטית במיתוג מלא (לא תפריט משותף ב-takeeat.co.il),
+   ולכן ה-API הפומבי של landing-partners לא מחזיר אותה — נשארת סטטית כאן
+   כדי לא להימחק בכל הרצה של npm run sync:restaurants. */
+const EXTRA_RESTAURANTS = [
+    {
+        id: 'le-france',
+        name: 'הצרפתייה הקטנה',
+        slug: 'le-france',
+        logo: '/images/le-france/logo-green.png',
+        href: 'https://la-france-omega.vercel.app/',
+        menuPhotos: [],
+    },
+]
+
 function trackMouse(e) {
     const r = e.currentTarget.getBoundingClientRect()
     e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
@@ -55,8 +69,10 @@ function RestaurantCard({ restaurant, index }) {
     )
 }
 
+const allRestaurants = [...EXTRA_RESTAURANTS, ...restaurants]
+
 export default function RestaurantPartners() {
-    if (restaurants.length === 0) return null
+    if (allRestaurants.length === 0) return null
 
     return (
         <section id="restaurants" className="relative py-28 md:py-32">
@@ -69,7 +85,7 @@ export default function RestaurantPartners() {
                 />
 
                 <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
-                    {restaurants.map((restaurant, index) => (
+                    {allRestaurants.map((restaurant, index) => (
                         <RestaurantCard key={restaurant.id} restaurant={restaurant} index={index} />
                     ))}
                 </div>
