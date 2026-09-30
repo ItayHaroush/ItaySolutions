@@ -7,15 +7,16 @@ const leFranceTeaser = {
     id: 'le-france',
     title: 'הצרפתייה הקטנה',
     typeLabel: 'Case Study · TakeEat',
-    image: '/images/le-france/logo-green.png',
-    accent: '#ff7a1a',
+    image: '/images/le-france/logo-dark.jpg',
+    imageClass: 'h-14 w-full max-w-[220px] object-contain',
+    accent: '#d4c7a8',
     desc: 'מסעדה צרפתית־ישראלית בעפולה עם אתר דיגיטלי ומערכת הזמנות מבוססת TakeEat.',
-    link: 'https://la-france-omega.vercel.app/',
+    link: 'https://hamitbah.hazarfatia.co.il',
     ctaText: 'צפו באתר',
 }
 
 export default function ProjectsTeaser() {
-    const cards = [leFranceTeaser, ...projects]
+    const cards = [leFranceTeaser, ...projects.filter((project) => project.id !== 'culinary-north')]
 
     return (
         <section className="relative py-24 md:py-32">
@@ -30,7 +31,7 @@ export default function ProjectsTeaser() {
                                     src={project.image}
                                     alt={project.title}
                                     loading="lazy"
-                                    className="max-h-16 max-w-[50%] rounded-xl object-contain"
+                                    className={project.imageClass || 'max-h-16 max-w-[55%] rounded-xl object-contain'}
                                 />
                                 <div className="flex flex-1 flex-col items-center pt-5">
                                     <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: project.accent }}>

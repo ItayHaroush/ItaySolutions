@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import Icon from './Icon'
-import CrystalBallLogo from './CrystalBallLogo'
 import IPhoneMockup from './IPhoneMockup'
 import { Reveal, SectionHeader } from './primitives'
 
@@ -43,15 +42,7 @@ function ClipMockup({ src, label, index }) {
     )
 }
 
-/*
- * Confirmed by the client (2026-09-09): the TakeEat proposal was approved and the site
- * is live at https://la-france-omega.vercel.app/ — fetched and verified directly
- * (HTTP 200, title "הצרפתייה הקטנה · כשר מהדרין", og:description "מסעדה
- * צרפתית־ישראלית בכשרות מהודרת"). The business is now also listed as a restaurant
- * tenant inside ChefSync/TakeEat per the client. No exact takeeat.co.il/<slug> menu URL
- * was confirmed yet, so that specific link is left out rather than guessed — swap it in
- * once known.
- */
+const LIVE_URL = 'https://hamitbah.hazarfatia.co.il'
 export default function LeFranceCaseStudy() {
     return (
         <section id="le-france" className="relative py-28 md:py-32">
@@ -66,10 +57,10 @@ export default function LeFranceCaseStudy() {
                 <Reveal>
                     <div className="card-premium mx-auto max-w-3xl overflow-hidden p-8 md:p-10">
                         <div className="flex flex-col items-center">
-                            <CrystalBallLogo
-                                logo="/images/le-france/logo-green.png"
-                                name="הצרפתייה הקטנה"
-                                size="h-20 w-20"
+                            <img
+                                src="/images/le-france/logo-dark.jpg"
+                                alt="הצרפתייה הקטנה"
+                                className="w-full max-w-lg"
                             />
                             <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-500/15 px-3.5 py-1.5 text-xs font-bold tracking-wide text-emerald-400">
                                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 live-dot" />
@@ -84,7 +75,7 @@ export default function LeFranceCaseStudy() {
                             </p>
                             <div className="mt-7 flex justify-center">
                                 <a
-                                    href="https://la-france-omega.vercel.app/"
+                                    href={LIVE_URL}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="btn-glow inline-flex items-center gap-2 rounded-full bg-gradient-to-l from-accent to-accent-2 px-6 py-3 text-sm font-bold text-ink"

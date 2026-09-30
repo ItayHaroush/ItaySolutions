@@ -11,11 +11,12 @@ import retail from '../data/retail.json'
 const takeEatClients = restaurants.map((r) => ({ name: r.name, image: r.logo, photos: r.menuPhotos }))
 const retailClients = retail.map((r) => ({ name: r.name, image: r.logo, photos: r.menuPhotos }))
 /* La France is a TakeEat case study client, not part of restaurants.json — added manually so its logo isn't missing here. */
-const leFranceClient = { name: 'הצרפתייה הקטנה', image: '/images/le-france/logo-green.png', fit: 'contain' }
+const leFranceClient = { name: 'הצרפתייה הקטנה', image: '/images/le-france/logo-dark.jpg', wide: true }
 const takeEatGroup = [...takeEatClients, ...retailClients, leFranceClient]
 
 /* Real, but not in the landing-partners feed — no real menu/item photos to show, so plain logo only. */
 const itaySolutionsGroup = [
+    { name: 'קולינריה צפון', image: '/images/culinary-north/logo.webp', fit: 'cover' },
     { name: 'Buildix', image: '/images/buildixLogo.png', fit: 'contain' },
     { name: 'NA Construction', image: '/images/naConstructionLogo.png', fit: 'contain' },
     { name: 'בינה לבנייה', image: '/images/fulllogo_nobuffer.jpeg', fit: 'contain' },
@@ -27,13 +28,17 @@ function LogoRow({ logos }) {
         <div className="flex flex-wrap justify-center gap-6">
             {logos.map((logo) => (
                 <div key={logo.name} className="flex w-28 flex-col items-center gap-2.5">
-                    <CrystalBallLogo
-                        logo={logo.image}
-                        name={logo.name}
-                        photos={logo.photos || []}
-                        fit={logo.fit || 'cover'}
-                        size="h-14 w-14"
-                    />
+                    {logo.wide ? (
+                        <img src={logo.image} alt={logo.name} className="h-14 w-full object-contain" />
+                    ) : (
+                        <CrystalBallLogo
+                            logo={logo.image}
+                            name={logo.name}
+                            photos={logo.photos || []}
+                            fit={logo.fit || 'cover'}
+                            size="h-14 w-14"
+                        />
+                    )}
                     <span className="text-center text-xs font-semibold text-white/60">{logo.name}</span>
                 </div>
             ))}

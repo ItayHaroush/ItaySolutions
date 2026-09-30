@@ -13,6 +13,7 @@ import HomePage from './pages/HomePage'
 import TakeEatPage from './pages/TakeEatPage'
 import BuildixPage from './pages/BuildixPage'
 import ProjectsPage from './pages/ProjectsPage'
+import CulinaryNorthPage from './pages/CulinaryNorthPage'
 import ServicesPage from './pages/ServicesPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
@@ -59,6 +60,7 @@ export default function App() {
                     <Route path="/takeeat" element={<TakeEatPage />} />
                     <Route path="/buildix" element={<BuildixPage />} />
                     <Route path="/projects" element={<ProjectsPage />} />
+                    <Route path="/culinary-north" element={<CulinaryNorthPage />} />
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />

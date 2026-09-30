@@ -2,6 +2,19 @@
 // La France is deliberately NOT here — it's a TakeEat case study, shown only under /takeeat.
 export const projects = [
     {
+        id: 'culinary-north',
+        title: 'קולינריה צפון',
+        subtitle: 'פלטפורמה לעולם הקולינריה בצפון',
+        typeLabel: 'פרויקט חי',
+        image: '/images/culinary-north/logo.webp',
+        accent: '#d4b483',
+        desc: 'יש משהו מעניין כשמפתח בונה מוצר לעולם שהוא מכיר מהצד השני. מקצב המטבח — לפלטפורמה חיה של משרות, קהילה ואנשי מקצוע.',
+        link: 'https://culinary-north.co.il',
+        ctaText: 'צפו באתר',
+        story: '/culinary-north',
+        storyCta: 'הסיפור',
+    },
+    {
         id: 'bina',
         title: 'בינה לבנייה',
         subtitle: 'אתר עסקי שנבנה מאפס',
