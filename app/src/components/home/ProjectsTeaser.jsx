@@ -19,7 +19,7 @@ export default function ProjectsTeaser() {
                                     src={project.image}
                                     alt={project.title}
                                     loading="lazy"
-                                    className={project.imageWide ? 'h-14 w-full max-w-[220px] object-contain' : 'max-h-16 max-w-[55%] rounded-xl object-contain'}
+                                    className={project.imageWide ? 'h-16 w-full max-w-[240px] object-contain' : 'max-h-16 max-w-[55%] rounded-xl object-contain'}
                                 />
                                 <div className="flex flex-1 flex-col items-center pt-5">
                                     <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: project.accent }}>
@@ -31,7 +31,7 @@ export default function ProjectsTeaser() {
                                         {project.story && (
                                             <Link
                                                 to={project.story}
-                                                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#d4c7a8] transition-colors hover:text-white"
+                                                className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-2 transition-colors hover:text-white"
                                             >
                                                 {project.storyCta}
                                                 <Icon name="arrowLeft" size={15} />

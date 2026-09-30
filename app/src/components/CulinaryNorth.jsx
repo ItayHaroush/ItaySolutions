@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Icon from './Icon'
 import IPhoneMockup from './IPhoneMockup'
-import { Reveal } from './primitives'
+import { Reveal, SectionHeader } from './primitives'
 
 const LIVE_URL = 'https://culinary-north.co.il'
 
@@ -37,13 +37,12 @@ const screens = [
 function MacBook({ src, alt }) {
     return (
         <div className="w-full">
-            <div className="rounded-t-2xl border border-white/15 bg-gradient-to-b from-[#ececee] to-[#b7b9be] p-2 pb-3 shadow-[0_28px_60px_-24px_rgba(0,0,0,0.75)] sm:p-2.5 sm:pb-3.5">
-                <div className="overflow-hidden rounded-lg bg-black">
+            <div className="rounded-t-[1.35rem] border border-white/10 bg-[#12121c] p-2 pb-0 shadow-[0_40px_100px_-24px_rgba(0,0,0,0.75)] sm:p-2.5">
+                <div className="overflow-hidden rounded-t-xl bg-black">
                     <img src={src} alt={alt} className="aspect-[3024/1964] w-full object-cover object-top" />
                 </div>
             </div>
-            <div className="h-2.5 rounded-b-xl bg-gradient-to-b from-[#4a4a52] to-[#1c1c22]" />
-            <div className="mx-auto h-1.5 w-[16%] rounded-b-md bg-[#2c2c34]" />
+            <div className="mx-auto h-3 w-[18%] rounded-b-md bg-[#1c1c28]" />
         </div>
     )
 }
@@ -64,7 +63,7 @@ function ScreenStage() {
                             role="tab"
                             aria-selected={selected}
                             onClick={() => setActiveId(screen.id)}
-                            className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${selected ? 'bg-white text-ink' : 'text-white/60 hover:text-white'}`}
+                            className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${selected ? 'bg-white text-ink' : 'text-white/55 hover:bg-white/5 hover:text-white'}`}
                         >
                             {screen.label}
                         </button>
@@ -102,7 +101,6 @@ function ScreenStage() {
 
 const chapters = [
     {
-        index: '01',
         title: 'לפני הקוד',
         paragraphs: [
             'הכרתי את עולם המטבחים מקרוב.',
@@ -110,7 +108,6 @@ const chapters = [
         ],
     },
     {
-        index: '02',
         title: 'החיבור',
         paragraphs: [
             'כשנפגשתי עם קולינריה צפון, החיבור היה טבעי.',
@@ -119,7 +116,6 @@ const chapters = [
         ],
     },
     {
-        index: '03',
         title: 'העבודה',
         paragraphs: [
             'לא לקחנו תבנית והלבשנו עליה לוגו.',
@@ -127,7 +123,6 @@ const chapters = [
         ],
     },
     {
-        index: '04',
         title: 'באוויר',
         paragraphs: [
             'והיום קולינריה צפון באוויר.',
@@ -140,51 +135,36 @@ const pillars = ['פרסום משרות', 'קהילת טבחים', 'נטוורק
 
 export default function CulinaryNorth({ standalone = false }) {
     return (
-        <section id="culinary-north" className={`relative ${standalone ? 'pt-36 pb-28 md:pt-44 md:pb-36' : 'py-28 md:py-36'}`}>
+        <section id="culinary-north" className={`relative ${standalone ? 'pt-36 pb-28 md:pt-44 md:pb-32' : 'py-28 md:py-32'}`}>
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-white/10 to-transparent" />
-            <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-                <div className="absolute left-1/2 top-24 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,180,131,0.12),transparent_68%)]" />
-            </div>
 
             <div className="relative mx-auto max-w-6xl px-5">
                 <Reveal>
-                    <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-                        <img
-                            src="/images/culinary-north/logo.webp"
-                            alt="פורום קולינריה בצפון"
-                            className="h-28 w-28 rounded-full object-cover shadow-[0_24px_60px_-20px_rgba(212,180,131,0.45)] ring-1 ring-[#d4b483]/40"
-                        />
-                        <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-500/15 px-3.5 py-1.5 text-xs font-bold tracking-wide text-emerald-400">
-                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 live-dot" />
-                            פרויקט חי
-                        </span>
-                        <p className="mt-4 text-sm font-semibold tracking-wide text-[#d4b483]">קולינריה צפון</p>
-                    </div>
+                    <img
+                        src="/images/culinary-north/logo.webp"
+                        alt=""
+                        className="mx-auto mb-8 h-24 w-24 rounded-full object-cover shadow-[0_24px_60px_-16px_rgba(0,0,0,0.7)]"
+                    />
                 </Reveal>
 
-                <Reveal delay={0.08}>
-                    <h2 className="mx-auto mt-6 max-w-3xl text-center text-3xl font-extrabold leading-[1.25] tracking-tight text-white sm:text-4xl md:text-[2.7rem]">
-                        יש משהו מעניין כשמפתח בונה מוצר לעולם שהוא מכיר מהצד השני.
-                    </h2>
+                <SectionHeader
+                    subtitle="פרויקט חי"
+                    title="קולינריה צפון"
+                    description="יש משהו מעניין כשמפתח בונה מוצר לעולם שהוא מכיר מהצד השני."
+                />
+
+                <Reveal>
+                    <ScreenStage />
                 </Reveal>
 
-                <Reveal delay={0.12}>
-                    <div className="mt-12">
-                        <ScreenStage />
-                    </div>
-                </Reveal>
-
-                <div className="mx-auto mt-16 max-w-3xl space-y-10">
+                <div className="mx-auto mt-16 grid max-w-5xl gap-10 sm:grid-cols-2">
                     {chapters.map((chapter, i) => (
-                        <Reveal key={chapter.index} delay={i * 0.06}>
-                            <article className="border-s border-[#d4b483]/25 ps-6">
-                                <div className="flex items-baseline gap-3">
-                                    <span className="font-mono text-xs font-semibold tracking-widest text-[#d4b483]">{chapter.index}</span>
-                                    <h3 className="text-lg font-bold text-white">{chapter.title}</h3>
-                                </div>
+                        <Reveal key={chapter.title} delay={i * 0.06}>
+                            <article>
+                                <h3 className="text-lg font-bold text-white">{chapter.title}</h3>
                                 <div className="mt-3 space-y-2">
                                     {chapter.paragraphs.map((paragraph) => (
-                                        <p key={paragraph} className="text-lg leading-relaxed text-mist">
+                                        <p key={paragraph} className="leading-relaxed text-mist">
                                             {paragraph}
                                         </p>
                                     ))}
@@ -194,42 +174,37 @@ export default function CulinaryNorth({ standalone = false }) {
                     ))}
                 </div>
 
-                <Reveal delay={0.15}>
-                    <div className="mx-auto mt-14 max-w-3xl rounded-[2rem] border border-[#d4b483]/20 bg-white/[0.03] p-7 text-center md:p-10">
-                        <p className="text-sm font-semibold text-[#d4b483]">המערכת שעלתה</p>
-                        <p className="mt-3 text-xl font-bold leading-snug text-white">הבית של הטבחים בצפון</p>
-                        <div className="mt-5 flex flex-wrap justify-center gap-2.5">
-                            {pillars.map((pillar) => (
-                                <span key={pillar} className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/80">
-                                    {pillar}
-                                </span>
-                            ))}
-                        </div>
-                        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                            <a
-                                href={LIVE_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-l from-[#c4a574] to-[#e8d5b0] px-7 py-3.5 text-sm font-bold text-ink shadow-[0_8px_32px_-8px_rgba(212,180,131,0.55)] transition-transform duration-300 hover:-translate-y-0.5"
-                            >
-                                לצפייה באתר החי
-                                <Icon name="external" size={16} />
-                            </a>
-                            {standalone && (
-                                <Link
-                                    to="/projects"
-                                    className="inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-sm font-semibold text-white/70 transition-colors hover:text-white"
-                                >
-                                    לשאר הפרויקטים
-                                    <Icon name="arrowLeft" size={16} />
-                                </Link>
-                            )}
-                        </div>
-                    </div>
+                <Reveal delay={0.12} className="mt-12 flex flex-wrap justify-center gap-2.5">
+                    {pillars.map((pillar) => (
+                        <span key={pillar} className="glass rounded-full px-4 py-2 text-sm font-semibold text-white/80">
+                            {pillar}
+                        </span>
+                    ))}
+                </Reveal>
+
+                <Reveal delay={0.16} className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                    <a
+                        href={LIVE_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-glow inline-flex items-center gap-2 rounded-full bg-gradient-to-l from-accent to-accent-2 px-7 py-3.5 text-sm font-bold text-ink"
+                    >
+                        לצפייה באתר החי
+                        <Icon name="external" size={16} />
+                    </a>
+                    {standalone && (
+                        <Link
+                            to="/projects"
+                            className="inline-flex items-center gap-2 rounded-full glass px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                        >
+                            לשאר הפרויקטים
+                            <Icon name="arrowLeft" size={16} />
+                        </Link>
+                    )}
                 </Reveal>
 
                 <Reveal delay={0.2}>
-                    <p className="mx-auto mt-14 max-w-xl text-center text-xl font-semibold leading-relaxed text-white/90">
+                    <p className="mx-auto mt-14 max-w-xl text-center text-lg font-semibold leading-relaxed text-white/90">
                         זה בדיוק סוג הפרויקטים שאני אוהב: לקחת עולם אמיתי שאני מכיר, ולהפוך רעיון למוצר שעובד.
                     </p>
                 </Reveal>
