@@ -25,7 +25,7 @@ const EXTRA_RESTAURANTS = [
         id: 'le-france',
         name: 'הצרפתייה הקטנה',
         slug: 'le-france',
-        logo: '/images/le-france/logo-dark.jpg',
+        logo: '/images/le-france/logo-wordmark.png',
         logoWide: true,
         href: 'https://hamitbah.hazarfatia.co.il',
         menuPhotos: [],
@@ -51,7 +51,7 @@ function RestaurantCard({ restaurant, index }) {
                 className="card-premium group flex h-full flex-col items-center gap-4 p-6 text-center transition-transform duration-500 hover:-translate-y-1.5"
             >
                 {restaurant.logoWide ? (
-                    <img src={restaurant.logo} alt={restaurant.name} className="h-16 w-full object-contain" />
+                    <img src={restaurant.logo} alt={restaurant.name} className="h-20 w-full object-contain" />
                 ) : (
                     <CrystalBallLogo logo={restaurant.logo} name={restaurant.name} photos={restaurant.menuPhotos || []} stats={stats || []} />
                 )}

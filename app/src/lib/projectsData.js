@@ -1,5 +1,4 @@
 // Shared with the homepage "פרויקטים נבחרים" teaser and the full /projects page.
-// La France is deliberately NOT here — it's a TakeEat case study, shown only under /takeeat.
 export const projects = [
     {
         id: 'culinary-north',
@@ -12,6 +11,20 @@ export const projects = [
         link: 'https://culinary-north.co.il',
         ctaText: 'צפו באתר',
         story: '/culinary-north',
+        storyCta: 'הסיפור',
+    },
+    {
+        id: 'le-france',
+        title: 'הצרפתייה הקטנה',
+        subtitle: 'המטבח · אתר הזמנות חי',
+        typeLabel: 'פרויקט חי',
+        image: '/images/le-france/logo-wordmark.png',
+        imageWide: true,
+        accent: '#d4c7a8',
+        desc: 'אתר לצרפתייה הקטנה – המטבח, עם מסלולי הזמנה נפרדים. מאחורי הקלעים ההזמנות ממשיכות דרך TakeEat.',
+        link: 'https://hamitbah.hazarfatia.co.il',
+        ctaText: 'צפו באתר',
+        story: '/le-france',
         storyCta: 'הסיפור',
     },
     {

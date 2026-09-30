@@ -11,7 +11,7 @@ import retail from '../data/retail.json'
 const takeEatClients = restaurants.map((r) => ({ name: r.name, image: r.logo, photos: r.menuPhotos }))
 const retailClients = retail.map((r) => ({ name: r.name, image: r.logo, photos: r.menuPhotos }))
 /* La France is a TakeEat case study client, not part of restaurants.json — added manually so its logo isn't missing here. */
-const leFranceClient = { name: 'הצרפתייה הקטנה', image: '/images/le-france/logo-dark.jpg', wide: true }
+const leFranceClient = { name: 'הצרפתייה הקטנה', image: '/images/le-france/logo-wordmark.png', wide: true }
 const takeEatGroup = [...takeEatClients, ...retailClients, leFranceClient]
 
 /* Real, but not in the landing-partners feed — no real menu/item photos to show, so plain logo only. */
@@ -27,9 +27,9 @@ function LogoRow({ logos }) {
     return (
         <div className="flex flex-wrap justify-center gap-6">
             {logos.map((logo) => (
-                <div key={logo.name} className="flex w-28 flex-col items-center gap-2.5">
+                <div key={logo.name} className={`flex flex-col items-center gap-2.5 ${logo.wide ? 'w-44' : 'w-28'}`}>
                     {logo.wide ? (
-                        <img src={logo.image} alt={logo.name} className="h-14 w-full object-contain" />
+                        <img src={logo.image} alt={logo.name} className="h-12 w-full object-contain" />
                     ) : (
                         <CrystalBallLogo
                             logo={logo.image}

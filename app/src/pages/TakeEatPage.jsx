@@ -5,7 +5,6 @@ import RestaurantPartners from '../components/RestaurantPartners'
 import TakeEatApps from '../components/TakeEatApps'
 import FoodAndCommerce from '../components/FoodAndCommerce'
 import DeliveryPartners from '../components/DeliveryPartners'
-import LeFranceCaseStudy from '../components/LeFranceCaseStudy'
 
 export default function TakeEatPage() {
     useEffect(() => {
@@ -20,7 +19,6 @@ export default function TakeEatPage() {
             <TakeEatApps />
             <FoodAndCommerce />
             <DeliveryPartners />
-            <LeFranceCaseStudy />
         </>
     )
 }

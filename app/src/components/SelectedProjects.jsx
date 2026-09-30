@@ -46,13 +46,15 @@ function ProjectCard({ project, index }) {
 function FeaturedStory({ project }) {
     return (
         <Reveal>
-            <article className="mb-6 grid items-center gap-8 overflow-hidden rounded-[2rem] border border-[#d4b483]/20 bg-white/[0.03] p-8 md:grid-cols-[auto_1fr] md:p-10">
+            <article className="card-premium mb-6 flex flex-col items-center gap-6 p-8 text-center md:flex-row md:p-10 md:text-right">
                 <img
                     src={project.image}
                     alt={project.title}
-                    className="mx-auto h-28 w-28 rounded-full object-cover ring-1 ring-[#d4b483]/40"
+                    className={project.imageWide
+                        ? 'h-16 w-full max-w-xs object-contain'
+                        : 'h-24 w-24 shrink-0 rounded-full object-cover shadow-[0_24px_60px_-16px_rgba(0,0,0,0.7)]'}
                 />
-                <div className="text-center md:text-right">
+                <div className="min-w-0 flex-1">
                     <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: project.accent }}>
                         {project.typeLabel}
                     </span>
@@ -62,7 +64,7 @@ function FeaturedStory({ project }) {
                     <div className="mt-6 flex flex-wrap items-center justify-center gap-4 md:justify-start">
                         <Link
                             to={project.story}
-                            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-l from-[#c4a574] to-[#e8d5b0] px-6 py-3 text-sm font-bold text-ink shadow-[0_8px_32px_-8px_rgba(212,180,131,0.55)] transition-transform duration-300 hover:-translate-y-0.5"
+                            className="btn-glow inline-flex items-center gap-2 rounded-full bg-gradient-to-l from-accent to-accent-2 px-6 py-3 text-sm font-bold text-ink"
                         >
                             {project.storyCta}
                             <Icon name="arrowLeft" size={15} />
@@ -71,7 +73,7 @@ function FeaturedStory({ project }) {
                             href={project.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#d4b483] transition-colors hover:text-white"
+                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-2 transition-colors hover:text-white"
                         >
                             {project.ctaText}
                             <Icon name="external" size={15} />
@@ -84,7 +86,7 @@ function FeaturedStory({ project }) {
 }
 
 export default function SelectedProjects() {
-    const featured = projects.find((project) => project.story)
+    const featured = projects.filter((project) => project.story)
     const rest = projects.filter((project) => !project.story)
 
     return (
@@ -94,9 +96,11 @@ export default function SelectedProjects() {
                 <SectionHeader
                     subtitle="פרויקטים נבחרים"
                     title="עוד עבודות ומוצרים"
-                    description="פלטפורמה חיה שנבנתה מתוך היכרות עם השטח — ולצדה אתרים עסקיים ופרויקטים נוספים"
+                    description="אתרים חיים עם סיפור התהליך — ולצדם אתרים עסקיים ופרויקטים נוספים"
                 />
-                {featured && <FeaturedStory project={featured} />}
+                {featured.map((project) => (
+                    <FeaturedStory key={project.id} project={project} />
+                ))}
                 <div className="grid gap-6 md:grid-cols-3">
                     {rest.map((project, index) => (
                         <ProjectCard key={project.id} project={project} index={index} />

@@ -3,20 +3,8 @@ import Icon from '../Icon'
 import { Reveal, SectionHeader } from '../primitives'
 import { projects } from '../../lib/projectsData'
 
-const leFranceTeaser = {
-    id: 'le-france',
-    title: 'הצרפתייה הקטנה',
-    typeLabel: 'Case Study · TakeEat',
-    image: '/images/le-france/logo-dark.jpg',
-    imageClass: 'h-14 w-full max-w-[220px] object-contain',
-    accent: '#d4c7a8',
-    desc: 'מסעדה צרפתית־ישראלית בעפולה עם אתר דיגיטלי ומערכת הזמנות מבוססת TakeEat.',
-    link: 'https://hamitbah.hazarfatia.co.il',
-    ctaText: 'צפו באתר',
-}
-
 export default function ProjectsTeaser() {
-    const cards = [leFranceTeaser, ...projects.filter((project) => project.id !== 'culinary-north')]
+    const cards = projects.filter((project) => project.id !== 'culinary-north')
 
     return (
         <section className="relative py-24 md:py-32">
@@ -31,7 +19,7 @@ export default function ProjectsTeaser() {
                                     src={project.image}
                                     alt={project.title}
                                     loading="lazy"
-                                    className={project.imageClass || 'max-h-16 max-w-[55%] rounded-xl object-contain'}
+                                    className={project.imageWide ? 'h-14 w-full max-w-[220px] object-contain' : 'max-h-16 max-w-[55%] rounded-xl object-contain'}
                                 />
                                 <div className="flex flex-1 flex-col items-center pt-5">
                                     <span className="text-xs font-semibold tracking-wider uppercase" style={{ color: project.accent }}>
@@ -39,7 +27,16 @@ export default function ProjectsTeaser() {
                                     </span>
                                     <h3 className="mt-2 text-base font-bold">{project.title}</h3>
                                     <p className="mt-2 text-sm leading-relaxed text-white/55">{project.desc}</p>
-                                    <div className="mt-auto pt-4">
+                                    <div className="mt-auto flex flex-col items-center gap-3 pt-4">
+                                        {project.story && (
+                                            <Link
+                                                to={project.story}
+                                                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#d4c7a8] transition-colors hover:text-white"
+                                            >
+                                                {project.storyCta}
+                                                <Icon name="arrowLeft" size={15} />
+                                            </Link>
+                                        )}
                                         <a
                                             href={project.link}
                                             target="_blank"

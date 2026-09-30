@@ -21,7 +21,7 @@ const chips = ['תפריט / קטלוג', 'סל', 'תשלום', 'ניהול הז
 const clientLogos = [
     ...restaurants.map((c) => ({ name: c.name, logo: c.logo })),
     ...retail.map((c) => ({ name: c.name, logo: c.logo })),
-    { name: 'הצרפתייה הקטנה', logo: '/images/le-france/logo-dark.jpg', wide: true },
+    { name: 'הצרפתייה הקטנה', logo: '/images/le-france/logo-wordmark.png', wide: true },
 ]
 
 function FlowNode({ icon, label, index }) {
@@ -92,7 +92,7 @@ export default function TakeEatShowcase() {
                             loading="lazy"
                             className={
                                 client.wide
-                                    ? 'h-10 w-auto max-w-[9rem] object-contain opacity-80 transition-opacity duration-300 hover:opacity-100'
+                                    ? 'h-12 w-auto max-w-[11rem] object-contain opacity-90 transition-opacity duration-300 hover:opacity-100'
                                     : 'h-10 w-10 rounded-xl object-cover opacity-80 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
                             }
                         />
